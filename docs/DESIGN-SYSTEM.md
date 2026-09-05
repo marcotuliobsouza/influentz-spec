@@ -2,13 +2,20 @@
 
 > Base: identidade visual desenvolvida por agência em 2020 (Google Drive, pasta BRANDING).
 > Este documento traduz aquele guia em regras técnicas prontas para implementação em shadcn/ui.
+>
+> **Versão:** v0.2
+> **O que mudou da v0.1:** tudo que veio da agência está intacto. Foram acrescentadas as peças que faltavam para a etapa 3 (telas) não travar: neutros, cores de estado, escala tipográfica, espaçamento/raio/elevação, decisão de modo escuro, mapa de tokens do shadcn/ui e regra de fronteira entre as duas vozes. Três correções técnicas estão marcadas com ⚠️.
+>
+> **Legenda:** 🟢 definido · 🟡 em aberto · 🔵 proposta de Claude além do pedido · ⚠️ correção ou risco
 
 ---
 
-## 1. Conceito (herdado do guia original)
+## 1. Conceito (herdado do guia original) 🟢
 
 Símbolo = "play" de vídeo, representando o ambiente de trabalho do criador de conteúdo.
 Tipografia com letras minúsculas remete à linguagem das redes sociais.
+
+---
 
 ## 2. Duas vozes, uma identidade 🟢
 
@@ -19,7 +26,38 @@ Tipografia com letras minúsculas remete à linguagem das redes sociais.
 
 *Por quê:* a mesma marca pode ter duas vozes — o visual (cor, logo, forma) não muda; só o registro do texto muda conforme quem está lendo.
 
-## 3. Cores — regras de uso seguras (checado por contraste, padrão WCAG)
+### 2.1 Onde uma voz vira a outra 🔵
+
+A regra da tabela acima separa por *contexto*, mas telas reais misturam os dois. A tela de proposta (SPEC §3.1) é "produto" — e ao mesmo tempo é juridicamente vinculante, com campos de direito de imagem e exclusividade. Voz informal ali é risco.
+
+**Regra prática, decidida por texto e não por tela:**
+
+> Se este texto pudesse ser impresso e mostrado a um juiz ou a um contador, é **voz institucional**.
+
+| Voz de marca (minúsculo, informal) | Voz institucional (gramática padrão) |
+|---|---|
+| Navegação, menus, botões de descoberta | Termos comerciais da proposta (prazo, exclusividade, mídias) |
+| Estados vazios ("você ainda não tem propostas") | Qualquer valor em dinheiro, data de repasse, prazo contratual |
+| Onboarding, vitrine, perfil, busca | Contrato, nota fiscal, recibo, extrato |
+| Notificações de atividade | Aprovação de marco, abertura de disputa, cancelamento |
+| Marketing e páginas públicas | Termos de Uso, Política de Privacidade, LGPD |
+| — | **Toda confirmação de ação irreversível**, sem exceção |
+
+*Por que a última linha:* "tem certeza que quer cancelar?" em tom informal reduz a percepção de gravidade de um ato que move dinheiro. Confirmação de ação irreversível é o único lugar onde queremos que a pessoa desacelere.
+
+### 2.2 ⚠️ O minúsculo é escrito, nunca aplicado por efeito visual
+
+O minúsculo tem que estar **escrito no texto**, não aplicado por CSS (`text-transform: lowercase`, o comando que rebaixa letras automaticamente na tela).
+
+*Por quê, concretamente neste produto:* o efeito automático não sabe distinguir palavra comum de sigla. Ele transformaria **CNPJ → cnpj, CPF → cpf, MEI → mei, Pix → pix, LGPD → lgpd, R$ → r$** — termos que aparecem o tempo todo aqui. Além disso, o texto que a pessoa copia da tela sai diferente do que ela vê, e a busca no navegador deixa de bater.
+
+Consequência prática: siglas, nomes próprios e valores em dinheiro **mantêm a grafia correta mesmo na voz de marca**. Escreve-se "conecte seu CNPJ" e não "conecte seu cnpj".
+
+---
+
+## 3. Cores
+
+### 3.1 Cores de marca (herdadas do guia original) 🟢
 
 | Cor | Hex | Uso |
 |---|---|---|
@@ -30,12 +68,251 @@ Tipografia com letras minúsculas remete à linguagem das redes sociais.
 
 **Nunca fazer:** texto roxo em cima do vinho (quase ilegível). Texto branco em cima do rosa vibrante em tamanho pequeno (falha de leitura).
 
+### 3.2 Contrastes medidos 🟢
+
+Calculados pela fórmula oficial da norma WCAG 2.1 (norma internacional de acessibilidade). **AA** = mínimo exigido para texto normal (4,5:1) e é o piso adotado neste projeto. **AAA** = nível mais rigoroso (7:1).
+
+| Combinação | Medido | Veredito |
+|---|---|---|
+| Rosa + texto preto | 5,54:1 | AA — confirma a regra da agência |
+| Rosa + texto branco | 3,79:1 | **Reprova** em texto normal — confirma o "nunca branco" |
+| Roxo + texto branco | 11,89:1 | AAA |
+| Vinho + texto branco | 11,74:1 | AAA |
+| Roxo sobre vinho | 1,01:1 | **Reprova** — confirma o "nunca fazer" |
+| Rosa sobre roxo | 3,13:1 | **Reprova** em texto normal — ver §6 (modo escuro) |
+| Preto sobre rosas suaves | 14,3:1 a 16,1:1 | AAA |
+
+⚠️ **Limite do rosa:** passa em AA, não em AAA. Serve para botão, rótulo curto e destaque — **não** para blocos longos de texto pequeno.
+
+### 3.3 Neutros 🔵
+
+O guia da agência não define fundo de página, texto comum, borda nem texto secundário. Sem isso não existe tela. Estes neutros não são cinzas puros: têm uma dose mínima da matiz do rosa da marca (4,03° no espaço de cor OKLCH), o que faz o produto parecer coeso em vez de "marca colorida colada em cima de cinza de banco".
+
+| Token | Hex | Uso | Contraste sobre branco |
+|---|---|---|---|
+| `n-50` | `#fdf9fa` | Fundo de página alternativo | — |
+| `n-100` | `#f8f3f4` | Superfície suave, linha alternada de tabela | — |
+| `n-200` | `#ece5e6` | Borda decorativa, divisória | — |
+| `n-300` | `#dbd2d4` | Borda de cartão | — |
+| `n-400` | `#aba0a2` | Ícone desabilitado, placeholder | 2,54:1 |
+| `n-500` | `#85787b` | **Borda de campo de formulário** (ver ⚠️ abaixo) | 4,23:1 |
+| `n-600` | `#685c5e` | **Texto secundário** — piso permitido | 6,40:1 — AA |
+| `n-700` | `#4e4446` | Texto de apoio forte | 9,38:1 — AAA |
+| `n-800` | `#2e2628` | — | 14,75:1 |
+| `n-900` | `#1b1516` | **Texto principal** | 18,02:1 — AAA |
+| `n-950` | `#0e080a` | Preto do produto (não usar `#000` puro) | 19,85:1 |
+
+⚠️ **Duas armadilhas que só apareceriam depois, com o produto pronto:**
+
+1. **Texto secundário não pode ser `n-500`.** É a escolha instintiva de todo sistema de design e mede 4,23:1 — reprova. Todo texto secundário (datas, metadados, legendas) usa **no mínimo `n-600`**.
+2. **Borda de campo de formulário não pode ser `n-200` nem `n-300`.** A norma exige 3:1 para a borda que identifica um componente (WCAG 2.1, critério 1.4.11); `n-200` mede 1,24:1 e `n-300` mede 1,48:1. Campo de formulário usa **`n-500`** (4,23:1). Borda decorativa de cartão pode continuar clara.
+
+### 3.4 Cores de estado 🔵
+
+Este produto é uma máquina de estados de dinheiro (SPEC §4.6 e §5). Sem cor definida por estado, cada tela inventa a sua.
+
+Decisão: **6 classes de cor, não uma cor por estado.** A cor comunica a *classe de urgência*; o rótulo escrito carrega a precisão. Sete cores quase iguais seriam indistinguíveis e não ajudariam ninguém.
+
+| Classe | Texto | Fundo do selo | Contraste | Estados que ela cobre |
+|---|---|---|---|---|
+| **Neutro** | `#4e4446` | `#f8f3f4` | 8,54:1 | Rascunho, cancelado, reembolsado, expirado |
+| **Info** | `#1d4ed8` | `#dbeafe` | 5,49:1 | Em execução, marco em andamento |
+| **Atenção** | `#92400e` | `#fef3c7` | 6,37:1 | Aguardando pagamento, aguardando aprovação, prazo vencendo |
+| **Sucesso** | `#15803d` | `#dcfce7` | 4,57:1 | Aprovado, liberado, pago |
+| **Crítico** | `#b91c1c` | `#fee2e2` | 5,30:1 | Disputa, contestação de compra, pagamento recusado |
+| **Protegido** | `#620073` | `#f3e3f7` | 9,70:1 | **Retido em escrow** |
+
+🔵 **Por que "Protegido" ganha cor própria — e a cor da marca:** o escrow (dinheiro retido pela plataforma até a entrega ser aprovada) é o mecanismo que sustenta a confiança dos dois lados, segundo a SPEC §4.6. Ele não é "aguardando" nem "sucesso": é um estado positivo e único do produto. Usar o roxo institucional faz o momento de maior confiança do fluxo carregar visualmente a marca.
+
+⚠️ **Rosa de ação × vermelho crítico.** Medidos, os dois estão a apenas 23,5° de matiz um do outro — perto o suficiente para confundir num relance. A separação **não** é feita por cor, e sim por forma:
+
+| | Preenchimento | Texto | Onde aparece |
+|---|---|---|---|
+| Botão primário | Rosa `#ff007b` | **Preto** (5,54:1) | Livre |
+| Botão destrutivo | Vermelho `#b91c1c` | **Branco** (6,47:1) | Só dentro de confirmação de ação irreversível |
+
+O contraste de texto preto contra texto branco torna os dois inconfundíveis mesmo para quem não distingue as matizes. Botão destrutivo nunca fica lado a lado com o primário fora de um diálogo de confirmação.
+
+### 3.5 ⚠️ Cor nunca sozinha
+
+Cerca de 8% dos homens têm alguma deficiência de visão de cores, e a confusão mais comum é justamente verde × vermelho — exatamente o par "aprovado" × "disputa". A norma WCAG 2.1 (critério 1.4.1) proíbe usar cor como único meio de transmitir informação.
+
+**Regra:** todo selo de estado tem sempre **ícone + texto escrito**, nunca só a cor. Vale também para gráfico: toda série precisa de rótulo, não só de legenda colorida.
+
+### 3.6 Paleta de gráfico 🔵
+
+Para os painéis (SPEC §7) e as métricas de audiência (SPEC §9). Todas passam do mínimo de 3:1 sobre branco exigido para elemento gráfico.
+
+| Token | Hex | Contraste |
+|---|---|---|
+| `chart-1` | `#ff007b` rosa | 3,79:1 |
+| `chart-2` | `#620073` roxo | 11,89:1 |
+| `chart-3` | `#0e7490` teal | 5,36:1 |
+| `chart-4` | `#a16207` âmbar | 4,92:1 |
+| `chart-5` | `#685c5e` cinza | 6,40:1 |
+
+Escolhidas com matizes bem distantes entre si porque várias têm luminosidade parecida — por isso a regra do §3.5 (rótulo sempre) vale em dobro aqui.
+
+---
+
 ## 4. Tipografia
+
+### 4.1 Famílias (herdadas do guia original) 🟢
 
 - **Raleway Bold** — títulos e voz de marca
 - **Raleway Regular** — corpo de texto, voz de marca
 - **Roboto Slab Bold** — voz institucional (contratos, painel corporativo) — mais neutra, mais "documento sério"
 
-## 5. Próximo passo
+**Licença e custo** (checklist do `CLAUDE.md` §3): ambas são Google Fonts sob licença SIL Open Font License — uso comercial livre, custo zero, sem exigência de CNPJ. Podem ser hospedadas junto com o produto, sem depender do servidor do Google (o que também evita uma questão de LGPD sobre envio de IP de visitante a terceiros).
+
+### 4.2 ⚠️ Correção: bold não serve para corpo institucional
+
+O guia especifica *Roboto Slab **Bold*** para a voz institucional. Aplicado a um contrato inteiro, texto em negrito ao longo de parágrafos reduz a velocidade de leitura e passa impressão de texto gritado — o oposto do que se quer num documento que precisa ser levado a sério.
+
+**Decisão:** a intenção da agência (institucional = slab serif) é mantida; só o peso muda conforme a função.
+
+| Uso | Fonte |
+|---|---|
+| Título de documento institucional, cabeçalho de contrato, rótulo de campo legal | Roboto Slab **Bold** (700) |
+| Corpo de contrato, termos, cláusulas, texto longo institucional | Roboto Slab **Regular** (400) |
+
+⚠️ **Roboto Slab não tem itálico verdadeiro.** Se um texto pedir itálico, o navegador inventa uma inclinação artificial, que fica visivelmente torta. Em documento institucional, ênfase se faz com **negrito** ou com aspas — nunca com itálico.
+
+### 4.3 Escala tipográfica 🔵
+
+Base 16px. Formato: tamanho / entrelinha.
+
+| Nome | Tamanho | Uso |
+|---|---|---|
+| `xs` | 12 / 16px | Metadado, legenda de gráfico. Nunca para texto que precise ser lido com atenção |
+| `sm` | 14 / 20px | Texto de apoio, tabela densa |
+| `base` | 16 / 24px | **Corpo padrão** |
+| `lg` | 18 / 28px | Corpo destacado, introdução |
+| `xl` | 20 / 28px | Título de cartão |
+| `2xl` | 24 / 32px | Título de seção |
+| `3xl` | 30 / 36px | Título de página |
+| `4xl` | 36 / 40px | Marketing |
+| `5xl` | 48 / 52px | Topo de página pública |
+
+Pesos: Raleway 400 (corpo), 600 (subtítulo), 700 (título). Roboto Slab 400 e 700.
+
+⚠️ **Campo de formulário nunca abaixo de 16px.** O Safari no iPhone dá zoom automático ao tocar num campo com texto menor que 16px, e a tela "pula". É a causa mais comum de formulário que parece quebrado no celular. Vale para todo campo de digitação, inclusive os de valor em dinheiro.
+
+### 4.4 ⚠️ Números: a Raleway precisa de ajuste para valores em dinheiro
+
+**Descoberta que afeta todas as telas de dinheiro.** A Raleway traz dois conjuntos de números e usa por padrão o *old-style*: dígitos de alturas diferentes, alguns descendo abaixo da linha de base (como o 3, o 4, o 7 e o 9). Além disso, os dígitos têm larguras diferentes entre si.
+
+Resultado sem ajuste: em qualquer coluna de valores — extrato do criador, tabela de repasses, painel financeiro — os números saem desalinhados e "dançando", com aparência amadora justamente na tela em que a plataforma precisa parecer confiável.
+
+**Regra obrigatória:** todo número em contexto financeiro, de data ou de tabela usa a propriedade CSS `font-variant-numeric: lining-nums tabular-nums`.
+
+- `lining-nums` → todos os dígitos com a mesma altura, alinhados no topo
+- `tabular-nums` → todos os dígitos com a mesma largura, para as colunas alinharem verticalmente
+
+Onde aplicar: valores em reais, percentual de comissão, datas de liberação, contadores, métricas de audiência, identificadores de transação, CPF/CNPJ.
+
+Fontes: [The League of Moveable Type — Raleway](https://www.theleagueofmoveabletype.com/raleway) (a família traz numerais old-style e lining), [Codesmite — Fixing Raleway's numerals](https://www.codesmite.com/article/fixing-raleway-and-similar-fonts-numerals) (o padrão da fonte é o não-alinhado).
+
+---
+
+## 5. Espaçamento, raio e elevação 🔵
+
+### 5.1 Espaçamento
+
+Escala de base 4px (padrão do Tailwind, adotado sem alteração para não inventar problema onde não há).
+
+Ritmo de página: 8px (dentro de um componente) · 16px (entre componentes relacionados) · 24px (entre blocos) · 32px e 48px (entre seções) · 64px (respiro de página pública).
+
+Regra única: **só múltiplos de 4.** Valor fora da escala é bug, não escolha.
+
+### 5.2 Raio de canto
+
+`--radius: 0.75rem` (12px) como base; o shadcn/ui deriva os tamanhos menores e maiores a partir dela.
+
+*Por quê 12px e não o padrão 10px do shadcn:* canto mais arredondado lê como mais amigável, coerente com a "linguagem de redes sociais" do §1. As telas institucionais ganham a sobriedade necessária pela tipografia (slab serif) e pela cor (roxo/vinho), não por cantos retos — assim o produto não se parte visualmente em dois produtos.
+
+### 5.3 Elevação (sombra)
+
+⚠️ Sombra praticamente não aparece sobre as superfícies escuras da marca (roxo e vinho). Por isso a regra depende do fundo:
+
+| Fundo | Como separar as camadas |
+|---|---|
+| Claro (branco, `n-50`, `n-100`) | Sombra suave |
+| Escuro (roxo, vinho, `n-900`) | **Sem sombra** — usar fundo um passo mais claro + borda de 1px |
+
+As sombras são pretas tingidas com a matiz da marca (nunca preto puro), o que as faz parecer parte do produto e não uma caixa flutuando.
+
+---
+
+## 6. Modo escuro — decisão 🟢
+
+**O v1 sai só em modo claro.** As telas escuras da marca (roxo, vinho) continuam existindo como *superfícies de destaque* — topo de página pública, painel institucional, faixas — e não como um tema escuro do produto inteiro.
+
+**Duas razões, uma técnica e uma de escopo:**
+
+1. ⚠️ **Técnica, e medida:** um modo escuro ingênuo usaria o roxo `#620073` como fundo de página com o rosa `#ff007b` nas ações. Essa combinação mede **3,13:1 — reprova** para texto normal. Ou seja: um tema escuro aqui não é "usar as cores escuras da marca", exige construir uma escala neutra escura própria e reposicionar o rosa. É trabalho de verdade, não um interruptor.
+2. **De escopo:** modo escuro dobra o desenho e a conferência de *cada* tela. A meta de lançamento da SPEC §14 é provar o ciclo completo com dinheiro real em escala pequena (50 criadores, 10 marcas, 20 contratos) — não maximizar acabamento.
+
+**Custo de adiar: zero.** Os tokens já nascem escritos no formato que o shadcn/ui usa para tema (`:root` para claro, bloco `.dark` para escuro). O bloco `.dark` fica declarado e vazio; quando o modo escuro entrar, preenche-se um arquivo, sem tocar em componente nenhum.
+
+---
+
+## 7. Mapa de tokens do shadcn/ui 🔵
+
+*Token = nome fixo para um valor (ex.: "cor de ação" = `#ff007b`). Trocar o valor em um lugar só muda o produto inteiro.*
+
+O shadcn/ui espera esta lista exata de nomes. Preenchê-la é o que torna o sistema implementável. Valores em hexadecimal porque é o formato que o Claude Design usa na etapa 3; na etapa 6 eles são convertidos para OKLCH, que é o formato que o shadcn/ui usa hoje. Fonte: [shadcn/ui — Theming](https://ui.shadcn.com/docs/theming).
+
+| Token shadcn | Valor | Papel |
+|---|---|---|
+| `background` | `#ffffff` | Fundo de página |
+| `foreground` | `#1b1516` (n-900) | Texto principal |
+| `card` | `#ffffff` | Fundo de cartão |
+| `card-foreground` | `#1b1516` | Texto no cartão |
+| `popover` | `#ffffff` | Menu e balão flutuante |
+| `popover-foreground` | `#1b1516` | Texto neles |
+| `primary` | `#ff007b` | **Cor de ação** |
+| `primary-foreground` | `#0e080a` | **Texto sobre a ação — preto** |
+| `secondary` | `#f8f3f4` (n-100) | Botão secundário |
+| `secondary-foreground` | `#2e2628` (n-800) | Texto dele |
+| `muted` | `#f8f3f4` (n-100) | Superfície apagada |
+| `muted-foreground` | `#685c5e` (n-600) | **Texto secundário — piso de acessibilidade** |
+| `accent` | `#fcd8e3` | Superfície de passagem do mouse / item selecionado |
+| `accent-foreground` | `#620073` | Texto sobre ela (9,10:1) |
+| `destructive` | `#b91c1c` | **Ação destrutiva — nunca o rosa** |
+| `border` | `#ece5e6` (n-200) | Divisória e borda decorativa |
+| `input` | `#85787b` (n-500) | **Borda de campo — exige 3:1** |
+| `ring` | `#ff007b` | Anel de foco do teclado (3,79:1 — passa) |
+| `chart-1` … `chart-5` | ver §3.6 | Gráficos |
+| `radius` | `0.75rem` | Raio base |
+
+⚠️ **`accent` é rosa claro e `primary` é rosa.** Botão primário não vai em cima de superfície `accent` — o botão perde destaque. Superfície `accent` serve para item de menu sob o mouse e linha selecionada, não para hospedar a ação principal.
+
+Os tokens de `sidebar-*` que o shadcn/ui também define ficam iguais aos equivalentes principais até existirem telas com barra lateral (etapa 3).
+
+---
+
+## 8. Ícones 🔵
+
+Conjunto: **Lucide** — o padrão que já vem com o shadcn/ui, sem biblioteca extra. Traço de 1,5px a 2px, tamanho acompanhando o texto ao lado (16px junto de `sm`, 20px junto de `base`).
+
+Todo selo de estado (§3.4) leva ícone, por causa da regra do §3.5.
+
+---
+
+## 9. Pendências 🟡
+
+| Item | Por que ainda não decidido |
+|---|---|
+| Grade e pontos de quebra (celular/tablet/computador) | Depende das telas da etapa 3 |
+| Tokens de `sidebar-*` | Idem |
+| Animação e transição | Sem impacto na etapa 3; decidir na etapa 6 |
+| Aplicação do logo (tamanho mínimo, área de respiro, versão monocromática) | Está no guia original da agência no Drive, ainda não transcrito para cá |
+
+---
+
+## 10. Próximo passo
 
 Estes tokens entram no `tailwind.config` do projeto assim que o código começar (etapa 6). Antes disso, usados diretamente no Claude Design para gerar as telas (etapa 3), aplicando as regras de contraste acima.
+
+Todos os contrastes citados neste documento foram calculados pela fórmula da WCAG 2.1, não estimados a olho. O piso do projeto é o nível AA.
