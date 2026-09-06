@@ -1,10 +1,10 @@
 # Sistema de Design — INFLUENTZ
 
-> Base: identidade visual desenvolvida por agência em 2020 (Google Drive, pasta BRANDING).
+> Base: identidade visual desenvolvida por agência em 2020. **O guia original agora vive neste repositório**, em `docs/marca/Guia da Marca - Influentz (2020).pdf` (33 páginas), e não só no Google Drive.
 > Este documento traduz aquele guia em regras técnicas prontas para implementação em shadcn/ui.
 >
-> **Versão:** v0.2
-> **O que mudou da v0.1:** tudo que veio da agência está intacto. Foram acrescentadas as peças que faltavam para a etapa 3 (telas) não travar: neutros, cores de estado, escala tipográfica, espaçamento/raio/elevação, decisão de modo escuro, mapa de tokens do shadcn/ui e regra de fronteira entre as duas vozes. Três correções técnicas estão marcadas com ⚠️.
+> **Versão:** v0.3
+> **O que mudou da v0.2:** o guia original foi lido inteiro pela primeira vez e trazido para o repositório. Isso fechou boa parte das pendências do §11 e revelou **três divergências** entre o guia e o que a v0.2 tinha assumido — registradas em §3.0 (cor de fundo), §4.0 (peso da Raleway no corpo do texto) e §10.1 (terminologia). Foram acrescentadas as seções 9 (aplicação do logotipo, com medidas extraídas do vetor) e 10 (terminologia).
 >
 > **Legenda:** 🟢 definido · 🟡 em aberto · 🔵 proposta de Claude além do pedido · ⚠️ correção ou risco
 
@@ -56,6 +56,31 @@ Consequência prática: siglas, nomes próprios e valores em dinheiro **mantêm 
 ---
 
 ## 3. Cores
+
+### 3.0 ⚠️ Divergência 1: o guia define `#fcd8e3` como cor de fundo, e a v0.2 tinha assumido branco
+
+Na página 8 do guia original, uma chamada aponta explicitamente para o rosa mais claro da paleta com o rótulo **"cor do background"**:
+
+| | `#4f2e3c` | `#620073` | `#ff007b` | `#fbc9c9` | `#e1b8b4` | **`#fcd8e3`** |
+|---|---|---|---|---|---|---|
+| | vinho | roxo | rosa | rosa suave | rosa suave | ← **"cor do background"** |
+
+A v0.2 deste documento colocou `background: #ffffff` no mapa de tokens (§7) sem registrar que estava contrariando o guia. **Isso foi uma falha de transcrição, não uma decisão.** Corrigida agora.
+
+**Acessibilidade não é o problema:** texto `n-900` sobre `#fcd8e3` mede entre 14,3:1 e 16,1:1 (§3.2) — AAA folgado. O fundo rosa é viável.
+
+🔵 **Decisão proposta: os dois, separados pela mesma fronteira do §2.1.**
+
+| Superfície | Fundo | Por quê |
+|---|---|---|
+| Marketing, página pública, onboarding, vitrine, busca, perfil | **`#fcd8e3`** (o do guia), com cartões brancos por cima | É onde a marca precisa ser reconhecida |
+| Contrato, proposta, extrato, painel financeiro, tabela densa | **`#ffffff`** ou `n-50` `#fdf9fa` | Leitura longa e documento sério |
+
+*Por que não escolher só um:* fundo rosa em toda tela de contrato e extrato reduz a percepção de seriedade justamente onde a plataforma precisa ser levada a sério pelo financeiro de quem recebe (§2). Fundo branco em tudo joga fora a identidade que a agência construiu. A fronteira já existe no §2.1 e é a mesma — não estamos inventando uma segunda regra para o Marco decorar.
+
+*Por que o produto não se parte em dois:* `n-50` (`#fdf9fa`) é o mesmo rosa, quase apagado. Os fundos são a mesma família em intensidades diferentes, não duas paletas.
+
+⚠️ **Isto continua sendo decisão de dono.** Se o Marco preferir rosa em tudo ou branco em tudo, muda-se um token e o produto inteiro acompanha. A recomendação técnica está acima.
 
 ### 3.1 Cores de marca (herdadas do guia original) 🟢
 
@@ -157,6 +182,29 @@ Escolhidas com matizes bem distantes entre si porque várias têm luminosidade p
 
 ## 4. Tipografia
 
+### 4.0 ⚠️ Divergência 2: o guia pede Raleway **Bold** para o corpo do texto
+
+Página 6 do guia original, na íntegra:
+
+> "Os textos do site e da comunicação visual devem usar majoritariamente a fonte **Raleway Bold**, sempre com todas as palavras em letra minúscula e sem ponto final, sempre que possível, **exceto em textos de contratos legais, termos normativos e ou de cunho jurídico**."
+
+Duas coisas saem daí.
+
+**Primeira, a boa notícia:** a frase depois do "exceto" é a regra das duas vozes do §2 deste documento, escrita pela própria agência em 2020. A separação entre voz de marca e voz institucional **não é invenção de Claude** — ela estava na fonte o tempo todo. O §2 agora tem origem documental.
+
+**Segunda, a divergência:** o guia manda usar Bold no corpo do texto, e a v0.2 escreveu "Raleway Regular — corpo de texto" sem registrar que estava divergindo. Falha de transcrição, corrigida agora.
+
+**A divergência se mantém, pelo mesmo motivo já aceito no §4.2.** A v0.2 já corrigiu *Roboto Slab Bold* para Regular no corpo institucional, com a justificativa de que negrito ao longo de parágrafos reduz a velocidade de leitura e passa impressão de texto gritado. O argumento vale igual para a Raleway — e vale mais ainda aqui, porque um guia de 2020 pensava em peça publicitária e site de apresentação, não em painel financeiro com tabela de repasses e extrato de saldo.
+
+**Regra final:**
+
+| Uso | Fonte |
+|---|---|
+| Título, botão, rótulo curto, chamada de marketing | Raleway **Bold** (700) — como o guia pede |
+| Parágrafo, descrição, texto corrido de produto | Raleway **Regular** (400) — divergência consciente |
+
+⚠️ **O que NÃO diverge:** "todas as palavras em letra minúscula e sem ponto final" continua valendo integralmente na voz de marca, com a ressalva técnica do §2.2 (o minúsculo é escrito, nunca aplicado por efeito visual — senão CNPJ vira cnpj).
+
 ### 4.1 Famílias (herdadas do guia original) 🟢
 
 - **Raleway Bold** — títulos e voz de marca
@@ -213,6 +261,14 @@ Onde aplicar: valores em reais, percentual de comissão, datas de liberação, c
 
 Fontes: [The League of Moveable Type — Raleway](https://www.theleagueofmoveabletype.com/raleway) (a família traz numerais old-style e lining), [Codesmite — Fixing Raleway's numerals](https://www.codesmite.com/article/fixing-raleway-and-similar-fonts-numerals) (o padrão da fonte é o não-alinhado).
 
+### 4.5 Alinhamento de texto (herdado do guia original) 🟢
+
+Página 22 do guia marca **texto justificado como uso incorreto**. Correto é alinhado à esquerda ou centralizado, sempre respeitando as margens laterais.
+
+A regra é tecnicamente sólida e vale a pena manter: justificar texto na web abre "rios" de espaço branco entre palavras, porque o navegador não hifeniza bem em português. Fica pior ainda em tela de celular, onde a linha é curta.
+
+**Regra:** `text-align: left` como padrão em todo o produto. Centralizado só em chamada curta de marketing. **Justificado em lugar nenhum**, nem em contrato — a legibilidade de um contrato é mais importante que a aparência de bloco.
+
 ---
 
 ## 5. Espaçamento, raio e elevação 🔵
@@ -265,7 +321,7 @@ O shadcn/ui espera esta lista exata de nomes. Preenchê-la é o que torna o sist
 
 | Token shadcn | Valor | Papel |
 |---|---|---|
-| `background` | `#ffffff` | Fundo de página |
+| `background` | `#ffffff` (produto) · `#fcd8e3` (marca) | Fundo de página — **ver §3.0, decisão pendente** |
 | `foreground` | `#1b1516` (n-900) | Texto principal |
 | `card` | `#ffffff` | Fundo de cartão |
 | `card-foreground` | `#1b1516` | Texto no cartão |
@@ -300,18 +356,109 @@ Todo selo de estado (§3.4) leva ícone, por causa da regra do §3.5.
 
 ---
 
-## 9. Pendências 🟡
+## 9. Aplicação do logotipo 🟢
+
+Transcrito da página 17 do guia original. **As medidas abaixo não foram estimadas a olho:** foram extraídas das coordenadas vetoriais do PDF.
+
+### 9.1 Área de não interferência (respiro)
+
+O guia desenha em amarelo, em volta do logotipo, uma faixa que nenhum outro elemento pode invadir. Medida do vetor:
+
+| Medida | Valor no arquivo |
+|---|---|
+| Faixa de respiro | **31,4 pt, igual nos quatro lados** |
+| Altura total do logotipo (símbolo "play" + palavra) | 59,8 pt |
+| Proporção | 0,53 × a altura do logotipo |
+
+🔵 **Regra prática adotada: o respiro é metade da altura do logotipo, nos quatro lados.** Isso arredonda o valor medido em 5% para um número que uma pessoa consegue aplicar sem calculadora e que continua valendo em qualquer tamanho.
+
+Exemplo: logotipo com 40px de altura na tela → **20px livres** em cima, embaixo, à esquerda e à direita.
+
+### 9.2 Uso dentro do aplicativo 🟢
+
+O guia mostra lado a lado o uso incorreto (logotipo ocupando quase toda a largura, colado no texto) e o correto (logotipo pequeno, centralizado, com respiro). A regra escrita é:
+
+> "nas peças publicitárias e redes sociais haverá liberdade criativa no seu uso e aplicações"
+
+Ou seja: **dentro do produto a regra é rígida; fora dele, é livre.** Faz sentido — dentro do app o logotipo é elemento de interface e concorre com botões; fora, é peça de comunicação.
+
+### 9.3 ⚠️ O logotipo não pode ser reproduzido com a Raleway
+
+Página 5 do guia: *"Desenvolvemos uma tipografia exclusiva para a influentz. (...) Os caracteres invadem o espaço uns dos outros como se gerassem influência a partir de onde estão."*
+
+**O logotipo é letra desenhada à mão, não texto digitado.** As letras se sobrepõem de propósito, e nenhuma fonte instalada reproduz isso.
+
+Consequência prática: o logotipo **é sempre um arquivo de imagem vetorial (SVG)**, nunca texto escrito com a fonte. Escrever "influentz" com Raleway em cima de um fundo e chamar de logo produz algo parecido e errado.
+
+🟡 **Pendência que continua aberta:** o arquivo vetorial (`.ai` / `.svg`) está no Drive, em `INFLUENTZ / MARKETING / BRANDING / Arquivos de Marca - Influentz / Logotipo`. Entra na etapa 6 (código), por decisão do Marco. Até lá, as telas da etapa 3 usam um retângulo marcador com as proporções corretas.
+
+### 9.4 Tamanho mínimo 🟡
+
+O guia **não define** tamanho mínimo de aplicação — foi procurado nas 33 páginas e não existe.
+
+🔵 **Proposta, a ser confirmada quando o vetor chegar:** 24px de altura na tela para a versão completa (símbolo + palavra). Abaixo disso, as letras sobrepostas viram borrão e o "play" some. Menor que isso, usa-se só o símbolo "play", que é o que o guia já trata como ícone de aplicativo (página 11).
+
+---
+
+## 10. Terminologia na interface ⚠️
+
+Página 26 do guia é a única do documento que marca palavras como **certas e erradas**:
+
+| ❌ Terminologia incorreta | ✅ Terminologia correta |
+|---|---|
+| cliente | **sou cliente** |
+| blogueiro | **sou influencer** |
+
+E a página 12 mostra os dois caminhos de entrada da marca: **"seja um influentz"** e **"busque um influentz"**.
+
+### 10.1 ⚠️ Divergência 3: a SPEC e o guia usam palavras diferentes para as mesmas pessoas
+
+| Papel | Guia da marca (2020) | SPEC v0.4 (2026) |
+|---|---|---|
+| Quem contrata | cliente | **marca** |
+| Quem executa | influencer / influentz | **criador** |
+
+Isto não é detalhe de texto: é a palavra que aparece em botão, menu, contrato e notificação. Precisa ser decidido antes da etapa 3, senão cada tela escolhe a sua.
+
+**Recomendação técnica: manter a SPEC (marca / criador) nos rótulos funcionais, e o vocabulário do guia nas chamadas de marca.**
+
+Três razões concretas:
+
+1. **"Influencer" ficou pequeno para o produto.** A SPEC §1 inclui palestrante, médico-influenciador e especialista, com entrega remota, presencial ou híbrida. Um médico contratado para uma palestra não se reconhece como "influencer" — e essa é justamente a ponta de ticket alto.
+2. **"Cliente" é ambíguo dentro da plataforma.** Marca e criador são os dois clientes da INFLUENTZ. Num painel de suporte ou financeiro, "cliente" não identifica ninguém.
+3. **O guia está certo naquilo que ele realmente decidiu:** proibir "blogueiro". A palavra envelheceu mal e soa depreciativa. Isso se mantém — "blogueiro" não aparece em lugar nenhum.
+
+**Como fica na prática:**
+
+| Contexto | Palavra |
+|---|---|
+| Menu, rótulo de campo, contrato, painel, e-mail financeiro | marca · criador |
+| Onboarding, marketing, página pública | **"seja um influentz"** · **"busque um influentz"** — herdado do guia, e é o melhor ativo verbal da marca |
+
+*Por que "influentz" como substantivo é bom e vale preservar:* a marca vira o nome da coisa, que é o que toda plataforma persegue e quase nenhuma consegue. Mas funciona como chamada, não como rótulo de campo de formulário.
+
+🟡 **Decisão de dono.** A recomendação está acima; a palavra na tela é do Marco.
+
+---
+
+## 11. Pendências 🟡
 
 | Item | Por que ainda não decidido |
 |---|---|
 | Grade e pontos de quebra (celular/tablet/computador) | Depende das telas da etapa 3 |
 | Tokens de `sidebar-*` | Idem |
-| Animação e transição | Sem impacto na etapa 3; decidir na etapa 6 |
-| Aplicação do logo (tamanho mínimo, área de respiro, versão monocromática) | Está no guia original da agência no Drive, ainda não transcrito para cá |
+| Arquivo vetorial do logotipo (SVG) | No Drive; entra na etapa 6 por decisão do Marco (§9.3) |
+| Tamanho mínimo do logotipo | Proposta em §9.4, a confirmar com o vetor em mãos |
+| Fundo de página: rosa, branco ou os dois | Recomendação em §3.0; **decisão de dono** |
+| Terminologia na interface | Recomendação em §10.1; **decisão de dono** |
+
+**Fechadas na v0.3 pela leitura do guia original:** aplicação do logotipo e área de respiro (§9), alinhamento de texto (§4.5), origem documental da regra das duas vozes (§4.0), inventário de ícones do produto (página 14 do guia).
+
+**Sobre animação e transição:** o guia traz duas animações prontas de tela de carregamento, em vídeo — [abertura](https://vimeo.com/459339279) e [carregando](https://vimeo.com/459339659). Não muda a etapa 3; entra na etapa 6.
 
 ---
 
-## 10. Próximo passo
+## 12. Próximo passo
 
 Estes tokens entram no `tailwind.config` do projeto assim que o código começar (etapa 6). Antes disso, usados diretamente no Claude Design para gerar as telas (etapa 3), aplicando as regras de contraste acima.
 

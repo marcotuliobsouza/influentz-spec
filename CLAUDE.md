@@ -80,6 +80,24 @@ Práticas de economia (fonte: https://support.claude.com/pt/articles/9797557-mel
 
 ## 7. Estado atual
 
-- SPEC em `/docs/SPEC-INFLUENTZ.md` (v0.4)
-- Próxima etapa: sistema de design
-- Pendências que exigem profissional humano: contador (regime tributário, retenção) e advogado (Termos de Uso, direito de imagem, LGPD)
+| Etapa | Documento | Estado |
+|---|---|---|
+| 1 — SPEC | `/docs/SPEC-INFLUENTZ.md` | v0.4 ✅ |
+| 2 — Sistema de design | `/docs/DESIGN-SYSTEM.md` | v0.3 ✅ |
+| — Máquina de estados | `/docs/MAQUINA-DE-ESTADOS.md` | v0.1 ✅ (ponte entre a SPEC e as telas) |
+| 3 — Telas / wireframes | — | **próxima** |
+| 4 — Modelo de dados | — | não iniciada |
+| 5 — Conexões | — | não iniciada |
+| 6 — Código | — | não iniciada |
+
+**Fonte de marca:** o guia original da agência (2020) está em `/docs/marca/`, não só no Drive.
+
+**Decisões de dono em aberto** (só o Marco decide):
+1. Lista de cold start — SPEC §14.1
+2. Pedido aberto contrata vários criadores? — MAQUINA-DE-ESTADOS §13.1
+3. Escala de cancelamento de trabalho presencial — MAQUINA-DE-ESTADOS §13.2
+4. Criador menor de idade entra no v1? — MAQUINA-DE-ESTADOS §13.3
+5. Fundo de página rosa, branco ou os dois — DESIGN-SYSTEM §3.0
+6. Terminologia na interface (marca/criador vs cliente/influencer) — DESIGN-SYSTEM §10.1
+
+**Pendências que exigem profissional humano:** contador (regime tributário, retenção) e advogado (Termos de Uso, direito de imagem, LGPD, aprovação automática por silêncio, assinatura de responsável legal).

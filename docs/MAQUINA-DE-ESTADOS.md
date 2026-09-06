@@ -1,0 +1,470 @@
+# Máquina de Estados — INFLUENTZ
+
+> **O que é este documento.** A tradução da SPEC em regras de funcionamento: cada coisa que existe no produto (um contrato, um pagamento, uma disputa) só pode estar em uma situação por vez, e só pode ir de uma situação para outra por caminhos permitidos. É o documento que a etapa 3 (telas) e a etapa 4 (modelo de dados) leem para não inventar.
+>
+> **Versão:** v0.1
+> **Base:** `SPEC-INFLUENTZ.md` v0.4 e `DESIGN-SYSTEM.md` v0.2.
+>
+> **Legenda:** 🟢 definido · 🟡 em aberto · 🔵 proposta de Claude além do pedido · 🔴 lacuna encontrada na SPEC · ⚠️ risco ou correção
+
+---
+
+## 0. O que é "máquina de estados", em português simples
+
+Uma máquina de estados é uma lista de **situações possíveis** e das **portas entre elas**.
+
+Exemplo do dia a dia: um pedido de comida está *aguardando confirmação*, depois *em preparo*, depois *saiu para entrega*, depois *entregue*. Ele nunca pula de *aguardando confirmação* direto para *entregue*, e nunca volta de *entregue* para *em preparo*.
+
+Por que isso vem **antes** das telas: cada situação vira uma tela (ou um trecho de tela) e cada porta vira um botão. Se a lista de situações estiver errada, as telas nascem erradas, e o banco de dados nasce errado depois delas. Desenhar tela sem esta lista é desenhar chute bonito.
+
+---
+
+## 1. A decisão de arquitetura mais importante deste documento 🟢
+
+**Não existe uma máquina de estados. Existem oito, e elas são separadas de propósito.**
+
+A tentação natural é fazer uma coisa só: "o contrato". Isso quebra em três lugares concretos deste produto:
+
+1. **O contrato termina antes do dinheiro.** Um contrato pago com cartão fica *concluído* — entrega aprovada, tudo certo — enquanto o dinheiro ainda leva **D+30** para existir (SPEC §4.2). Se fossem a mesma máquina, o sistema precisaria de um estado "concluído mas o dinheiro ainda não chegou", e daí de "concluído, dinheiro chegou, mas o criador ainda não sacou", e assim por diante. Vira um emaranhado.
+2. **A contestação de compra chega depois do fim.** A SPEC §4.3 item 4 prevê contestação **após** a liberação. Numa máquina única, um contrato já *concluído* teria que voltar atrás — e voltar atrás é exatamente o que uma máquina de estados existe para proibir.
+3. **A regra de ouro contra falência depende dessa separação.** A SPEC §4.2 proíbe adiantar dinheiro que a plataforma ainda não recebeu. A única forma de garantir isso no código é o dinheiro ter estados próprios, ditados pelo Pagar.me, que o contrato não pode alterar.
+
+As oito máquinas:
+
+| # | Máquina | Existe porque |
+|---|---|---|
+| 0 | **Conta** | Define quem pode fazer o quê (SPEC §9.1, §4.7, §13) |
+| 1 | **Anúncio de vitrine** | O "cardápio" do criador (SPEC §3) |
+| 2 | **Pedido aberto** | O briefing da marca (SPEC §3) |
+| 3 | **Proposta** | A negociação, com campos estruturados (SPEC §3.1) |
+| 4 | **Contrato** | O acordo fechado (SPEC §5) |
+| 5 | **Marco** | Cada etapa de entrega (SPEC §4.6) |
+| 6 | **Dinheiro** (cobrança + repasse) | O relógio é do Pagar.me, não nosso (SPEC §4.2) |
+| 7 | **Disputa** | Caminho alternativo mediado (SPEC §12) |
+| 8 | **Avaliação** | Double-blind (SPEC §13.1) |
+
+⚠️ **Regra que evita a maior fonte de bug de marketplace:** o **marco** é a fonte da verdade; o **contrato** é um resumo calculado a partir dos marcos dele. Nunca os dois guardando a mesma informação por conta própria — quando duas fontes discordam, alguém recebe errado.
+
+---
+
+## 2. Os tipos de contrato 🟢
+
+A SPEC §3 define dois caminhos de entrada. Cruzando com a estrutura de entrega (§4.6) e a modalidade (§1: remoto, presencial ou híbrido), os tipos reais são:
+
+| Tipo | Entrada | Entrega | Onde muda |
+|---|---|---|---|
+| **A** | Vitrine (preço fixo) | Única, remota | O caminho mais simples. É o do lançamento. |
+| **B** | Pedido aberto | Única, remota | Igual ao A, com proposta antes |
+| **C** | Pedido aberto | Em marcos, remota | Cada marco tem vida própria |
+| **D** | Vitrine ou pedido aberto | **Presencial ou híbrida** | Estados extras de agendamento e falta |
+| **E** | Qualquer um, **intermediado por agência** | Qualquer | Mesmos estados, com autoria registrada |
+| **F** | Qualquer um, **criador menor de idade** | Qualquer | Estado extra de assinatura do responsável |
+
+🔵 **Decisão: vitrine é sempre entrega única.** Um item de cardápio ("3 Stories — R$ 300") não comporta etapas. Se a contratação precisa de marcos, ela pertence ao caminho de pedido aberto. Isso mantém o caminho de menor atrito realmente sem atrito, e evita construir duas variações da mesma coisa.
+
+⚠️ **Isto é um tipo, não seis tabelas.** No banco de dados (etapa 4) existe **um** contrato, com um campo `tipo` e um campo `modalidade`. Noventa por cento dos estados são compartilhados. Separar em tabelas diferentes triplicaria o trabalho e os erros.
+
+---
+
+## 3. Máquina 0 — Conta 🟢
+
+Ela existe porque três regras da SPEC dependem de "o que esta pessoa já pode fazer": rede social conectada (§9.1), cadastro fiscal (§4.7) e identidade verificada (§13).
+
+| Estado | O que a pessoa pode fazer |
+|---|---|
+| `criada` | E-mail confirmado. Navegar, nada mais |
+| `perfil_incompleto` | Falta rede social conectada (§9.1) ou dados básicos. **Não aparece na busca, não publica, não propõe** |
+| `aguardando_verificacao` | Documentos enviados ao Pagar.me. Pode montar perfil, não pode transacionar |
+| `verificada` | Tudo liberado |
+| `restrita` | Pode ver e concluir o que já está em andamento. **Não inicia contrato novo** |
+| `suspensa` | Suspensão temporária (SPEC §13.2 item 4) |
+| `banida` | Acesso encerrado |
+| `encerrada` | Exclusão pedida pelo titular (LGPD, SPEC §8) |
+
+⚠️ **Borda que só apareceria com o produto no ar:** banir, suspender ou encerrar uma conta **não** encerra os contratos em andamento dela. Existe dinheiro em escrow que precisa ir para algum lugar, e a outra ponta não fez nada de errado. Regra: a conta perde o direito de **iniciar** coisa nova; o que já existe segue até o fim ou até a disputa decidir. Encerramento por LGPD fica pendente até o último contrato fechar — a lei permite reter o mínimo necessário para cumprir obrigação legal e contratual.
+
+⚠️ **Rede social desconectada no meio do contrato** (a pessoa revoga o acesso no Instagram): o contrato **não** para. O que acontece é o anúncio de vitrine sair do ar. Misturar as duas coisas puniria a ponta errada.
+
+---
+
+## 4. Máquina 1 — Anúncio de vitrine 🟢
+
+```mermaid
+stateDiagram-v2
+    [*] --> rascunho
+    rascunho --> publicado
+    publicado --> pausado
+    pausado --> publicado
+    publicado --> bloqueado
+    bloqueado --> publicado
+    publicado --> arquivado
+    pausado --> arquivado
+```
+
+| Estado | Significado |
+|---|---|
+| `rascunho` | Sendo montado |
+| `publicado` | Visível na busca, contratável |
+| `pausado` | Criador sem agenda. Some da busca, não é excluído |
+| `bloqueado` | Trust & Safety ou categoria proibida (SPEC §8.3) |
+| `arquivado` | Aposentado. Some da vitrine, **contratos passados continuam existindo** |
+
+⚠️ **Regra que evita disputa:** o anúncio é um **modelo**, não o contrato. No momento da contratação, preço, prazo e todos os termos são **congelados** dentro do contrato. Se o criador subir o preço amanhã, os contratos em andamento não mudam. Sem essa regra, o preço combinado muda sozinho — e isso é indefensável numa contestação.
+
+---
+
+## 5. Máquina 2 — Pedido aberto 🟢
+
+| Estado | Significado |
+|---|---|
+| `rascunho` | Briefing sendo escrito |
+| `aberto` | Recebendo propostas |
+| `em_selecao` | Prazo de propostas fechado, marca avaliando |
+| `encerrado_com_contrato` | Gerou pelo menos um contrato |
+| `encerrado_sem_contrato` | Marca não escolheu ninguém |
+| `expirado` | Prazo venceu sem seleção |
+| `cancelado` | Marca desistiu |
+| `bloqueado` | Categoria proibida (SPEC §8.3) |
+
+🟡 **Um pedido pode gerar mais de um contrato?** Na prática, uma campanha real contrata 3, 5, 10 criadores do mesmo briefing. Tecnicamente é simples (um pedido, vários contratos). O custo está nas telas: a marca precisa de uma visão de campanha, não de uma lista solta de contratos. **Ver seção 13, decisão 1.**
+
+---
+
+## 6. Máquina 3 — Proposta 🟢
+
+É onde a negociação acontece. A SPEC §10 fecha o chat antes do contrato pago — então **é aqui, em campos estruturados, que as duas partes conversam.**
+
+```mermaid
+stateDiagram-v2
+    [*] --> rascunho
+    rascunho --> enviada
+    enviada --> ajuste_solicitado
+    ajuste_solicitado --> revisada
+    revisada --> ajuste_solicitado
+    revisada --> aceita
+    enviada --> aceita
+    enviada --> recusada
+    enviada --> retirada
+    enviada --> expirada
+    aceita --> [*]
+```
+
+| Estado | Significado |
+|---|---|
+| `rascunho` | Sendo montada |
+| `enviada` | Aguardando a outra ponta |
+| `ajuste_solicitado` | A outra ponta pediu mudança em campo específico |
+| `revisada` | Reenviada com a mudança |
+| `aceita` | **Aceite bilateral. Congela os termos e cria o contrato** |
+| `recusada` / `retirada` / `expirada` | Fim do caminho |
+
+### 6.1 🔴 Lacuna encontrada: o criador precisa poder recusar uma contratação de vitrine
+
+A SPEC §3 diz que na vitrine "a marca contrata direto, sem negociar". Lido ao pé da letra, isso obriga o criador a aceitar qualquer contratação automaticamente. Isso não funciona:
+
+- O criador pode estar sem agenda naquela data.
+- O criador pode não querer divulgar aquela marca — inclusive porque ela concorre com um cliente atual dele. Obrigá-lo cria um problema contratual do criador com terceiros.
+- Um criador forçado entrega mal, e a disputa cai no colo da INFLUENTZ.
+
+🔵 **Correção proposta:** mesmo na vitrine existe um **aceite do criador**, com janela curta (proposta: **48 horas**). Sem resposta, a contratação expira sozinha e a marca não perde nada. A vitrine continua sendo "sem negociar" — o que não existe ali é discussão de preço e escopo, não o direito de recusa. Quarenta e oito horas é a janela que o Fiverr usa para a outra ponta responder a um pedido de cancelamento antes de decidir sozinho.
+
+### 6.2 🔵 O aceite vem antes do pagamento — e por quê
+
+A SPEC §5 já coloca o aceite (passo 3) antes do pagamento (passo 4). Está certo, e agora tem uma razão técnica registrada:
+
+**Pix e boleto não têm o "cancela a reserva" do cartão.** No cartão existe autorização e captura em dois tempos: reserva-se o valor e cobra-se depois; se der errado, a reserva cai e, na prática, nada aconteceu para o portador. Pix não funciona assim — ele é liquidação **imediata** entre contas, então o dinheiro já entrou de fato e desfazer significa **fazer uma transferência de volta**. Boleto é ainda mais rígido: devolver exige transferência nova e dados bancários do pagador.
+
+Ou seja: dois dos três meios aceitos (§4.2) não suportam "cobra agora, devolve se der errado" sem gerar uma operação de estorno de verdade, com custo, prazo e atrito.
+
+Consequência: cobrar antes do aceite do criador produziria estorno de Pix e boleto como rotina na vitrine — justamente no caminho que deveria ser o de menor atrito. **Cobra-se depois do aceite.**
+
+---
+
+## 7. Máquina 4 — Contrato 🟢
+
+```mermaid
+stateDiagram-v2
+    [*] --> aguardando_assinatura_responsavel
+    [*] --> aguardando_revisao_manual
+    [*] --> aguardando_pagamento
+    aguardando_assinatura_responsavel --> aguardando_pagamento
+    aguardando_revisao_manual --> aguardando_pagamento
+    aguardando_pagamento --> pagamento_em_processamento
+    aguardando_pagamento --> expirado_sem_pagamento
+    pagamento_em_processamento --> em_execucao
+    pagamento_em_processamento --> expirado_sem_pagamento
+    em_execucao --> em_revisao
+    em_revisao --> em_execucao
+    em_execucao --> cancelado_na_janela
+    em_revisao --> em_disputa
+    em_execucao --> em_disputa
+    em_disputa --> encerrado_por_disputa
+    em_disputa --> em_execucao
+    em_execucao --> concluido
+```
+
+| Estado | Significado | Cor (DESIGN-SYSTEM §3.4) |
+|---|---|---|
+| `aguardando_revisao_manual` | Mesmo CPF/CNPJ nas duas pontas (SPEC §2) ou valor acima do limite (§13) | Atenção |
+| `aguardando_assinatura_responsavel` | Criador menor de idade (SPEC §8.3) | Atenção |
+| `aguardando_pagamento` | Aceito, cobrança emitida, prazo correndo | Atenção |
+| `pagamento_em_processamento` | Boleto emitido ou Pix pendente (§4.2: boleto leva 1 a 2 dias) | Atenção |
+| `em_execucao` | Dinheiro em escrow, trabalho acontecendo | Info |
+| `em_revisao` | Entrega submetida, marca avaliando (§12.1) | Atenção |
+| `em_disputa` | Mediação aberta (§12.2) | Crítico |
+| `concluido` | Todos os marcos aprovados | Sucesso |
+| `cancelado_na_janela` | Cancelamento com reembolso total (§8.1) | Neutro |
+| `encerrado_por_disputa` | Trust & Safety decidiu | Neutro |
+| `expirado_sem_pagamento` | Marca não pagou no prazo | Neutro |
+
+### 7.1 🔴 Lacuna: a janela de 24 horas da SPEC §8.1 conta a partir de quando?
+
+A SPEC §8.1 dá reembolso total "até 24h após o aceite". Com boleto, a confirmação do pagamento leva **1 a 2 dias** (§4.2). A janela de arrependimento venceria **antes de o dinheiro chegar** — a marca perderia um direito por causa do meio de pagamento que escolheu.
+
+🔵 **Correção proposta:** a janela de 24 horas conta a partir da **confirmação do pagamento** (entrada em `em_execucao`), não do aceite. Assim ela vale igual para Pix, boleto e cartão.
+
+### 7.2 🔴 Lacuna: a comissão precisa ser congelada no contrato
+
+A SPEC §4.4 tem três faixas de comissão (15%, 8% na recontratação, 7,5% no lançamento). Duas armadilhas:
+
+1. **Se a comissão for calculada na hora do repasse**, um contrato assinado durante os 90 dias de lançamento a 7,5% viraria 15% se o repasse acontecesse depois — em cartão, o repasse é D+30, então isso aconteceria de verdade. A marca e o criador combinaram um número e receberiam outro.
+2. **O contador de recontratação precisa contar contratos concluídos, não iniciados.** Se contar iniciados, qualquer um cria dois contratos de R$ 1, cancela, e destrava o desconto de 8% para sempre. É uma porta de fraude aberta.
+
+🔵 **Regras propostas:**
+- A alíquota é **congelada no contrato no momento da criação** e nunca recalculada.
+- O contador de recontratação conta contratos com estado `concluido` entre aquele par marca–criador.
+- Quando lançamento (7,5%) e recontratação (8%) se sobrepõem, **vale a menor**.
+- A unidade de contagem das "50 primeiras transações" é o **contrato**, não a cobrança. Um contrato de 5 marcos consome 1 das 50, não 5.
+
+---
+
+## 8. Máquina 5 — Marco 🟢
+
+É a máquina onde o trabalho realmente acontece. Contrato de entrega única tem **um** marco — a estrutura é a mesma, o que muda é a quantidade.
+
+```mermaid
+stateDiagram-v2
+    [*] --> planejado
+    planejado --> aguardando_pagamento
+    aguardando_pagamento --> financiado
+    financiado --> agendado
+    agendado --> em_execucao
+    financiado --> em_execucao
+    em_execucao --> entregue
+    entregue --> ajuste_solicitado
+    ajuste_solicitado --> reenviado
+    reenviado --> ajuste_solicitado
+    reenviado --> aprovado
+    entregue --> aprovado
+    entregue --> em_disputa
+    ajuste_solicitado --> em_disputa
+    em_disputa --> aprovado
+    em_disputa --> cancelado
+    em_execucao --> cancelado
+    aprovado --> [*]
+```
+
+| Estado | Significado | Cor |
+|---|---|---|
+| `planejado` | Definido no contrato, ainda não financiado | Neutro |
+| `aguardando_pagamento` | Cobrança emitida para este marco | Atenção |
+| `financiado` | **Dinheiro em escrow.** O criador pode começar | Protegido |
+| `agendado` | Só tipo D (presencial): data confirmada pelos dois | Info |
+| `em_execucao` | Trabalho em andamento | Info |
+| `entregue` | Criador submeteu. **Começa o relógio da aprovação** | Atenção |
+| `ajuste_solicitado` | Marca pediu revisão referenciada ao briefing (§12.1) | Atenção |
+| `reenviado` | Criador reenviou. Relógio recomeça | Atenção |
+| `aprovado` | Aprovado pela marca **ou por prazo vencido** | Sucesso |
+| `em_disputa` | Congela tudo | Crítico |
+| `cancelado` | Não será entregue | Neutro |
+
+### 8.1 Financiamento marco a marco 🟢
+
+**Cada marco é financiado antes de o criador começar a trabalhar nele.** Não se cobra o contrato inteiro de uma vez.
+
+Por quê: é o modelo do Upwork, e é exatamente o que a SPEC §4.3 item 1 já exige como prova documental — "o marco ter sido financiado antes do início" é a condição da proteção de pagamento do Upwork. Financiar tudo na frente trava caixa demais da marca; financiar depois da entrega deixa o criador sem garantia nenhuma.
+
+### 8.2 🔴 Lacuna crítica: não existe aprovação automática na SPEC
+
+**O que acontece hoje, pela SPEC, se a marca simplesmente nunca clicar em "aprovar"?** O dinheiro fica preso em escrow para sempre e o criador vira refém de silêncio. Isso não é hipótese remota — é o caso mais comum de suporte em marketplace de serviço.
+
+Toda plataforma consolidada resolve com relógio:
+- **Fiverr:** o pedido é concluído automaticamente **3 dias** após a entrega, se o comprador não agir.
+- **Upwork:** se o cliente não responde à submissão do marco em **14 dias**, o valor é liberado ao freelancer no 15º dia.
+
+🔵 **Proposta para a INFLUENTZ: 7 dias corridos**, com aviso no 3º e no 6º. Fica no meio dos dois: o trabalho aqui é conteúdo de marca, mais rápido de avaliar que um projeto de software (Upwork) e mais caro que um serviço de R$ 30 (Fiverr).
+
+Regras do relógio:
+- Pedir ajuste **pausa** o relógio; ele reinicia do zero quando o criador reenvia.
+- Abrir disputa **congela** o relógio até a decisão.
+- O prazo é **configurável no painel administrativo**, nunca fixo no código — mesma regra da comissão (SPEC §4.4).
+
+### 8.3 🔴 Lacuna: e se o criador nunca entregar?
+
+O espelho da lacuna anterior, e a SPEC também não cobre.
+
+🔵 **Proposta:** o **prazo de entrega é campo obrigatório e estruturado da proposta** (SPEC §3.1). Vencido o prazo, mais uma tolerância de **3 dias**, a marca ganha dois botões: *cancelar e receber de volta* ou *abrir disputa*. Sem prazo estruturado, não existe vencimento — e sem vencimento, o dinheiro da marca fica preso pelo lado inverso.
+
+### 8.4 🔵 Quantas revisões estão incluídas?
+
+A SPEC §12.1 dá à marca o direito de pedir ajuste, mas não diz quantas vezes. Sem limite, "pedir ajuste" vira uma forma educada de nunca aprovar.
+
+**Proposta:** o número de revisões incluídas é **campo estruturado da proposta**, com padrão **2**. Isso se encaixa exatamente na lógica da SPEC §3.1 — cada campo tem preço implícito, então "revisões ilimitadas" vira um item que a marca pode comprar. Esgotadas as revisões, os caminhos são aprovar, comprar mais uma revisão ou abrir disputa.
+
+### 8.5 Tipo D (presencial e híbrido) — estados extras 🔴
+
+A SPEC §1 inclui presença física ("remoto, presencial ou híbrido") e o guia da marca de 2020 já trazia o campo "necessário visita técnica". Mas **todos os estados de entrega da SPEC pressupõem arquivo enviado pelo sistema**, e presença física não é arquivo.
+
+O que muda:
+
+| Ponto | Remoto | Presencial |
+|---|---|---|
+| Antes de executar | — | Estado `agendado`: data e local confirmados pelos dois |
+| O que é "entregue" | Arquivo submetido | **Confirmação de comparecimento** pelas duas partes |
+| Falta | Não existe | **Precisa de tratamento próprio dos dois lados** |
+| Cancelamento | Tabela da SPEC §8.1 | ⚠️ A tabela §8.1 **não serve** — ver abaixo |
+
+⚠️ **A regra de cancelamento da SPEC §8.1 quebra no presencial.** Ela diz "criador já começou → mediação, liberação proporcional ao trabalho feito". Num evento presencial, o criador **bloqueou uma data**, recusou outros trabalhos e possivelmente comprou passagem. Cancelar 2 dias antes e cancelar 30 dias antes não podem valer a mesma coisa, e "proporcional ao trabalho feito" dá zero — o trabalho ainda não começou, mas o prejuízo já existe. **Ver seção 13, decisão 2.**
+
+---
+
+## 9. Máquina 6 — Dinheiro 🟢
+
+**São duas máquinas, não uma:** o dinheiro entrando (cobrança) e o dinheiro saindo (repasse). Quem manda nelas é o Pagar.me, via aviso automático (*webhook* — a notificação que o Pagar.me envia ao nosso sistema quando algo muda). Nosso sistema **registra**, não decide.
+
+### 9.1 Cobrança — o dinheiro entrando
+
+| Estado | Significado | Cor |
+|---|---|---|
+| `criada` | Cobrança gerada | Neutro |
+| `aguardando_pagamento` | QR do Pix na tela, boleto emitido, cartão autorizando | Atenção |
+| `paga` | Pix na hora; boleto confirmado; cartão capturado | Sucesso |
+| `recusada` | Cartão negado | Crítico |
+| `expirada` | QR ou boleto venceu | Neutro |
+| `estornada` | Devolvida | Neutro |
+| `em_contestacao` | Chargeback aberto pelo banco do portador | Crítico |
+| `contestacao_ganha` / `contestacao_perdida` | Decisão do banco | Sucesso / Crítico |
+
+### 9.2 Repasse ao criador — o dinheiro saindo
+
+**Esta é a máquina que protege a INFLUENTZ de quebrar.**
+
+| Estado | Significado | Cor |
+|---|---|---|
+| `retido` | **Escrow.** Marco financiado, entrega não aprovada | **Protegido** |
+| `liberado_aguardando_prazo` | Aprovado, **mas o dinheiro ainda não existe** (cartão D+30) | Atenção |
+| `disponivel` | Está no saldo do criador no Pagar.me | Sucesso |
+| `sacado` | Foi para a conta bancária do criador | Sucesso |
+| `bloqueado_por_pendencia_fiscal` | Acumulado passou de R$ 500 sem MEI/CNPJ (SPEC §4.7) | Atenção |
+| `bloqueado_por_disputa` | Congelado até a decisão | Crítico |
+| `revertido` | Contestação perdida, descontado de saldo futuro (§4.3 item 4) | Crítico |
+
+⚠️ **A distinção entre `liberado_aguardando_prazo` e `disponivel` é o coração da regra de ouro da SPEC §4.2.** São dois fatos diferentes: "a INFLUENTZ já autorizou" e "o dinheiro já existe". Um sistema que trata os dois como a mesma coisa acaba pagando com dinheiro que ainda não recebeu — que é exatamente o risco de falência que a SPEC nomeia. Na tela, o criador lê: *"aprovado — disponível em 12/10"*.
+
+🔵 **A antecipação de recebíveis (SPEC §4.2) encaixa aqui sem inventar nada:** é uma porta de `liberado_aguardando_prazo` direto para `disponivel`, mediante taxa.
+
+🔵 **Pendência fiscal bloqueia o saque, não o contrato.** Se o limite de R$ 500 sem MEI travasse a contratação, o criador descobriria o problema **antes** de ganhar o dinheiro e desistiria. Travando o saque, ele vê "seus R$ 800 estão aqui, abra seu MEI para receber" — o incentivo para regularizar vira concreto. O aviso aparece antes, no aceite; o bloqueio só no saque.
+
+### 9.3 A ligação entre as três máquinas
+
+| Evento | Contrato/Marco | Cobrança | Repasse |
+|---|---|---|---|
+| Marca paga o marco | `financiado` | `paga` | `retido` |
+| Marca aprova a entrega | `aprovado` | — | `liberado_aguardando_prazo` |
+| Pagar.me liquida (D+30, Pix na hora) | — | — | `disponivel` |
+| Chargeback depois de tudo | contrato segue `concluido` | `em_contestacao` | `revertido` se perder |
+
+A última linha é a prova de que a separação era necessária: o contrato **não muda de estado**. Ele foi cumprido. O que mudou foi o dinheiro.
+
+---
+
+## 10. Máquina 7 — Disputa 🟢
+
+| Estado | Significado |
+|---|---|
+| `aberta` | Registrada, entra na fila por risco (SPEC §12.2) |
+| `aguardando_evidencia_marca` / `aguardando_evidencia_criador` | Prazo para cada lado apresentar prova |
+| `em_analise` | Trust & Safety avaliando |
+| `encerrada_por_acordo` | As partes resolveram antes da decisão |
+| `decidida` | Resultado: favorável à marca, favorável ao criador, ou acordo parcial |
+| `executada` | Dinheiro movimentado conforme a decisão |
+
+⚠️ **Disputa congela tudo:** relógio de aprovação automática, repasse e marcos seguintes. Se o marco 1 está em disputa, o criador não continua trabalhando no marco 2 — senão ele acumula trabalho não pago enquanto o problema não se resolve.
+
+⚠️ `decidida` e `executada` são estados separados de propósito. A decisão pode ser "libera para o criador" enquanto o dinheiro do cartão ainda não liquidou. Decidir e executar acontecem em momentos diferentes.
+
+---
+
+## 11. Máquina 8 — Avaliação 🟢
+
+| Estado | Significado |
+|---|---|
+| `pendente` | Contrato concluído, ninguém avaliou |
+| `enviada_oculta` | Uma das partes enviou. **Fica invisível** |
+| `publicada` | As duas enviaram, **ou** o prazo venceu |
+| `expirada_sem_envio` | Ninguém avaliou no prazo |
+
+Implementa o double-blind da SPEC §13.1 — mesmo mecanismo do Airbnb. 🔵 Prazo proposto: **14 dias** após a conclusão. Se só um lado enviou quando o prazo vence, a avaliação dele é publicada sozinha; caso contrário, bastaria não avaliar para silenciar a outra ponta.
+
+---
+
+## 12. Prazos consolidados 🔵
+
+Todos **configuráveis no painel administrativo**, nunca fixos no código — mesma regra da comissão (SPEC §4.4).
+
+| Prazo | Valor proposto | Origem |
+|---|---|---|
+| Aceite do criador na vitrine | 48 h | Convenção de mercado (Fiverr) |
+| Pagamento após o aceite | 48 h (boleto: até o vencimento) | Cálculo próprio |
+| Arrependimento com reembolso total | 24 h após **confirmação do pagamento** | SPEC §8.1, com a correção da §7.1 |
+| Aprovação automática da entrega | **7 dias**, avisos no 3º e 6º | Entre Fiverr (3) e Upwork (14) |
+| Tolerância após o prazo de entrega | 3 dias | Cálculo próprio |
+| Revisões incluídas | 2 (campo da proposta) | Cálculo próprio |
+| Avaliação double-blind | 14 dias | Convenção de mercado (Airbnb) |
+| Resposta da mediação | Definido pelo Trust & Safety | SPEC §12.2 |
+
+---
+
+## 13. Decisões que precisam do Marco 🟡
+
+Só três. Todo o resto acima é decisão técnica ou convenção de mercado e já está tomada.
+
+**1. Um pedido aberto pode contratar vários criadores de uma vez?**
+Campanha real quase sempre contrata vários. Tecnicamente é barato; caro são as telas de campanha. Se ficar para depois, a marca cria um pedido por criador no v1 — funciona, mas é chato para quem contrata 5.
+*Isto é decisão de prioridade, não técnica.*
+
+**2. Cancelamento de trabalho presencial: qual é o apetite de risco?**
+Um criador que bloqueou uma data e recusou outros trabalhos precisa de alguma proteção se a marca cancelar em cima da hora. A escala é do dono: mais protetiva atrai criador e espanta marca; menos protetiva faz o contrário. Uma referência comum de mercado é escalonar por proximidade (ex.: até 7 dias antes, reembolso total; entre 7 e 2 dias, 50%; menos de 48 h, sem reembolso).
+
+**3. Contrato de criador menor de idade entra no v1?**
+A SPEC §8.3 permite, exigindo assinatura do responsável legal. Isso significa construir um fluxo de assinatura de terceiro que não tem conta na plataforma — é trabalho real, e é o tipo de coisa que precisa passar por advogado antes. Adiar para o v2 e bloquear menores no v1 é uma opção legítima e mais barata.
+*Isto é decisão de escopo e de apetite de risco jurídico.*
+
+---
+
+## 14. O que este documento destrava
+
+| Etapa | O que ela já pode fazer com isto |
+|---|---|
+| **3 — Telas** | Cada estado das tabelas acima é uma tela ou um trecho de tela, e cada porta é um botão. A coluna "Cor" já liga cada estado ao selo do `DESIGN-SYSTEM.md` §3.4 |
+| **4 — Modelo de dados** | Cada máquina vira uma tabela com um campo de estado; as portas viram as regras de quem pode mudar o quê |
+| **5 — Conexões** | A seção 9 lista exatamente quais avisos do Pagar.me o sistema precisa escutar |
+
+---
+
+## 15. Pendências que continuam com profissional humano ⚠️
+
+Nada aqui substitui a seção 15 da SPEC. Especificamente, dependem de advogado antes de virar código: a escala de cancelamento presencial (decisão 2), o fluxo de assinatura de responsável legal (decisão 3) e o texto que a plataforma usa ao aplicar aprovação automática — porque aprovar por silêncio precisa estar previsto nos Termos de Uso para ser oponível.
+
+---
+
+### Fontes
+
+- Upwork — [How payments for milestones and fixed-price contracts work](https://support.upwork.com/hc/en-us/articles/211063718-How-payments-for-milestones-and-fixed-price-contracts-work) (liberação automática em 14 dias; financiamento do marco antes do início)
+- Upwork — [Payment protection](https://support.upwork.com/hc/en-us/articles/211063748) (condição de proteção citada na SPEC §4.3)
+- Fiverr — [The complete guide to your Fiverr order: statuses and process](https://help.fiverr.com/hc/en-us/articles/37332473202065-The-complete-guide-to-your-Fiverr-order-Statuses-and-process) (conclusão automática em 3 dias)
+- Fiverr — [How cancellations work for clients](https://help.fiverr.com/hc/en-us/articles/12864193979793-How-cancellations-work-for-clients) (janela de 48 h para a outra ponta responder)
+- Banco Central — [Pix, o que é e como funciona](https://www.bcb.gov.br/estabilidadefinanceira/pix) e [FAQ Participantes do Pix](https://www.bcb.gov.br/content/estabilidadefinanceira/pix/FAQ_Participantes.pdf) (liquidação imediata entre contas — base do argumento do §6.2)
+- Pagar.me — [Recebedores](https://docs.pagar.me/docs/recebedores-2) e [Getting started](https://docs.pagar.me/v4/docs/getting-started)
+
+*Levantamento de arquitetura de produto. Não é parecer jurídico nem contábil.*
