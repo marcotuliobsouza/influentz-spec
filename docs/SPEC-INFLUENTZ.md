@@ -2,8 +2,10 @@
 
 > **O que é este documento.** A fonte da verdade do produto. Toda tela, toda tabela do banco de dados, todo fluxo de pagamento aponta de volta para aqui. Quando algo mudar na visão do produto, muda aqui primeiro — e só depois no código.
 >
-> **Versão:** v0.4
+> **Versão:** v0.5
 > **Status:** as 8 decisões de produto que estavam em aberto foram travadas. Provedor de pagamento corrigido de Stripe Connect para Pagar.me.
+>
+> **O que mudou da v0.4:** correção jurídica em §8.3.1 — criador menor de idade exige **alvará judicial** (ECA art. 149 + Lei nº 15.211/2025), não só assinatura do responsável. Consequência: **18 anos completos** para criar no v1. Ver também `MAQUINA-DE-ESTADOS.md`, que traduz esta SPEC em regras de funcionamento e corrigiu seis lacunas dela.
 >
 > **Legenda:** 🟢 direção definida · 🟡 decisão em aberto · 🔵 proposta de Claude além do que foi pedido · 🔴 lacuna crítica · ⚠️ precisa de profissional humano
 
@@ -211,7 +213,27 @@ O CDC protege relações de **consumo**; a maior parte dos contratos aqui é **B
 - Categoria adulta exige **verificação de idade por documento**, não autodeclaração, para ver e para se candidatar.
 - **Criador menor de 18 anos é bloqueado pelo sistema** de qualquer campanha de categoria adulta ou sensível. Sem exceção, sem override manual.
 
-**Criador menor de idade (fora das categorias sensíveis):** permitido, mas o contrato exige **assinatura do responsável legal**. Menor não assina contrato sozinho no Brasil — sem isso, o contrato é inválido e a plataforma fica exposta.
+### 8.3.1 ⚠️ Correção: assinatura do responsável **não basta** para criador menor de idade 🔴
+
+**O que a v0.4 dizia:** criador menor de idade é permitido, bastando assinatura do responsável legal.
+
+**Isso está juridicamente incompleto.** Pesquisa posterior mostrou que a assinatura do responsável resolve apenas metade do problema:
+
+1. **Capacidade civil** — resolvida pela assinatura. Menor de 16 anos precisa ser *representado*; entre 16 e 18, *assistido*. É o que a v0.4 previa.
+2. **Autorização judicial** — **não resolvida, e é a parte pesada.** O ECA, artigo 149, exige **alvará judicial** para participação de criança ou adolescente em atividade artística. A Lei nº 15.211/2025 (o "ECA Digital") trouxe isso explicitamente para o ambiente digital: quando há conteúdo monetizado, impulsionado ou exploração habitual da imagem do menor, a autorização judicial pode ser exigida.
+
+**Por que isso muda o produto, e não só o contrato:** o alvará é obtido **pelos pais, através de advogado, em petição ao juiz da Vara da Infância e Juventude** da comarca onde o menor mora. A petição descreve a atividade, a frequência, a carga horária e o destino dos rendimentos. **Nenhuma plataforma consegue emitir isso** — é decisão de um juiz, caso a caso, por criança.
+
+**Isso já está sendo cobrado na prática:** perfis com crianças e adolescentes como protagonistas de conteúdo monetizado vêm sendo notificados a apresentar o alvará sob pena de bloqueio da conta.
+
+🟢 **Decisão para o v1: criador precisa ter 18 anos completos.**
+
+- A trava é automática e sem exceção, conferida pela data de nascimento que a **verificação de identidade do provedor de pagamento já entrega** (§13). Não pede documento novo, não custa nada a mais.
+- Marca e agência não têm essa trava — são pessoa jurídica ou representante dela.
+
+*Por que bloquear e não construir o fluxo:* construir agora significaria criar um caminho para um terceiro que **não tem conta na plataforma** (o responsável) assinar, mais a conferência de que ele é mesmo o responsável, mais o recebimento e a validação de um alvará judicial — e ainda assim a plataforma continuaria exposta se o documento fosse falso ou vencido. É a maior exposição jurídica isolada do produto inteiro, num v1 cuja meta (§14) é provar o ciclo com 20 contratos.
+
+🔵 **Caminho para o v2:** o mercado de criador adolescente é real (moda, games, beleza). Ele entra depois, com o alvará como documento obrigatório anexado ao perfil, prazo de validade controlado pelo sistema, e revisão de advogado antes de abrir. Bloquear no v1 não fecha a porta — adia a porta até ela ser segura.
 
 ⚠️ Toda esta seção precisa de validação de advogado antes de virar Termos de Uso.
 

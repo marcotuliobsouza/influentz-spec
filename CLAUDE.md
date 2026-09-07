@@ -82,22 +82,28 @@ Práticas de economia (fonte: https://support.claude.com/pt/articles/9797557-mel
 
 | Etapa | Documento | Estado |
 |---|---|---|
-| 1 — SPEC | `/docs/SPEC-INFLUENTZ.md` | v0.4 ✅ |
-| 2 — Sistema de design | `/docs/DESIGN-SYSTEM.md` | v0.3 ✅ |
-| — Máquina de estados | `/docs/MAQUINA-DE-ESTADOS.md` | v0.1 ✅ (ponte entre a SPEC e as telas) |
-| 3 — Telas / wireframes | — | **próxima** |
+| 1 — SPEC | `/docs/SPEC-INFLUENTZ.md` | v0.5 ✅ |
+| 2 — Sistema de design | `/docs/DESIGN-SYSTEM.md` | v0.4 ✅ |
+| — Máquina de estados | `/docs/MAQUINA-DE-ESTADOS.md` | v0.2 ✅ (ponte entre a SPEC e as telas) |
+| 3 — Telas / wireframes | — | **próxima, desbloqueada** |
 | 4 — Modelo de dados | — | não iniciada |
 | 5 — Conexões | — | não iniciada |
 | 6 — Código | — | não iniciada |
 
 **Fonte de marca:** o guia original da agência (2020) está em `/docs/marca/`, não só no Drive.
 
-**Decisões de dono em aberto** (só o Marco decide):
-1. Lista de cold start — SPEC §14.1
-2. Pedido aberto contrata vários criadores? — MAQUINA-DE-ESTADOS §13.1
-3. Escala de cancelamento de trabalho presencial — MAQUINA-DE-ESTADOS §13.2
-4. Criador menor de idade entra no v1? — MAQUINA-DE-ESTADOS §13.3
-5. Fundo de página rosa, branco ou os dois — DESIGN-SYSTEM §3.0
-6. Terminologia na interface (marca/criador vs cliente/influencer) — DESIGN-SYSTEM §10.1
+### Decisões travadas (não reabrir sem motivo novo)
 
-**Pendências que exigem profissional humano:** contador (regime tributário, retenção) e advogado (Termos de Uso, direito de imagem, LGPD, aprovação automática por silêncio, assinatura de responsável legal).
+| Decisão | Onde |
+|---|---|
+| Fundo de página: `n-50` `#fdf9fa`; `#fcd8e3` é destaque, não papel de parede | DESIGN-SYSTEM §3.0.1 |
+| Terminologia: `marca` / `criador` nos rótulos; "influentz" no marketing | DESIGN-SYSTEM §10.2 |
+| Um pedido aberto contrata vários criadores, já no v1 | MAQUINA-DE-ESTADOS §5.1 |
+| Cancelamento presencial: escala 7 dias / 48 h | MAQUINA-DE-ESTADOS §13.2 |
+| **Criador tem 18 anos completos no v1** — exigência legal, não de escopo | SPEC §8.3.1 |
+
+### Em aberto
+
+**Só uma, e é do Marco:** a lista de cold start — quantos criadores e marcas atendem o telefone dele hoje (SPEC §14.1). É o único item que dinheiro e engenharia não resolvem.
+
+**Pendências que exigem profissional humano:** contador (regime tributário, retenção) e advogado (Termos de Uso, direito de imagem, LGPD, aprovação automática por silêncio, escala de cancelamento presencial, e o alvará judicial quando criador menor de idade entrar no v2).

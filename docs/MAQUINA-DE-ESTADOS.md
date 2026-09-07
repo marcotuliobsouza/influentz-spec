@@ -2,8 +2,10 @@
 
 > **O que é este documento.** A tradução da SPEC em regras de funcionamento: cada coisa que existe no produto (um contrato, um pagamento, uma disputa) só pode estar em uma situação por vez, e só pode ir de uma situação para outra por caminhos permitidos. É o documento que a etapa 3 (telas) e a etapa 4 (modelo de dados) leem para não inventar.
 >
-> **Versão:** v0.1
-> **Base:** `SPEC-INFLUENTZ.md` v0.4 e `DESIGN-SYSTEM.md` v0.2.
+> **Versão:** v0.2
+> **Base:** `SPEC-INFLUENTZ.md` v0.5 e `DESIGN-SYSTEM.md` v0.4.
+>
+> **O que mudou da v0.1:** as três decisões que estavam em aberto foram fechadas (§13). Duas mudaram de figura na pesquisa: o pedido aberto **passa** a contratar vários criadores no v1 (§5.1, reverte a recomendação anterior), e o criador menor de idade **deixa de ser questão de escopo e vira questão de legalidade** (§13.3, com correção na SPEC §8.3.1).
 >
 > **Legenda:** 🟢 definido · 🟡 em aberto · 🔵 proposta de Claude além do pedido · 🔴 lacuna encontrada na SPEC · ⚠️ risco ou correção
 
@@ -58,7 +60,8 @@ A SPEC §3 define dois caminhos de entrada. Cruzando com a estrutura de entrega 
 | **C** | Pedido aberto | Em marcos, remota | Cada marco tem vida própria |
 | **D** | Vitrine ou pedido aberto | **Presencial ou híbrida** | Estados extras de agendamento e falta |
 | **E** | Qualquer um, **intermediado por agência** | Qualquer | Mesmos estados, com autoria registrada |
-| **F** | Qualquer um, **criador menor de idade** | Qualquer | Estado extra de assinatura do responsável |
+
+⚠️ **Não existe tipo para criador menor de idade.** A v0.1 previa um. A pesquisa mostrou que o mecanismo da SPEC §8.3 (assinatura do responsável) é juridicamente insuficiente — falta alvará judicial, que nenhuma plataforma emite. **Criador tem 18 anos completos no v1.** Ver §13.3 e SPEC §8.3.1.
 
 🔵 **Decisão: vitrine é sempre entrega única.** Um item de cardápio ("3 Stories — R$ 300") não comporta etapas. Se a contratação precisa de marcos, ela pertence ao caminho de pedido aberto. Isso mantém o caminho de menor atrito realmente sem atrito, e evita construir duas variações da mesma coisa.
 
@@ -126,7 +129,23 @@ stateDiagram-v2
 | `cancelado` | Marca desistiu |
 | `bloqueado` | Categoria proibida (SPEC §8.3) |
 
-🟡 **Um pedido pode gerar mais de um contrato?** Na prática, uma campanha real contrata 3, 5, 10 criadores do mesmo briefing. Tecnicamente é simples (um pedido, vários contratos). O custo está nas telas: a marca precisa de uma visão de campanha, não de uma lista solta de contratos. **Ver seção 13, decisão 1.**
+### 5.1 Um pedido gera vários contratos 🟢
+
+**Sim, já no v1. Sem tela de campanha dedicada.**
+
+Uma campanha real contrata 3, 5, 10 criadores do mesmo briefing. A marca seleciona quantas propostas quiser, e **cada seleção cria um contrato independente** — com seu próprio escrow, seus próprios marcos, sua própria disputa.
+
+⚠️ **Isto reverte a recomendação anterior deste documento**, que sugeria adiar. O motivo da reversão é uma contradição com a SPEC §2: agências entram no v1 justamente porque hoje sofrem com gestão manual. **A agência rodando uma campanha com vários criadores é o caso de uso que faz a agência existir no produto.** Adiar multi-contrato esvaziaria a razão pela qual as agências foram incluídas.
+
+**O que entra no v1 e o que não entra:**
+
+| Entra | Fica para depois |
+|---|---|
+| Um pedido → vários contratos | Painel de campanha com números agregados |
+| A página do pedido lista os contratos que ele gerou, com o estado de cada um | Orçamento consolidado e alerta de estouro |
+| Selecionar mais de uma proposta | Ação em lote (aprovar 5 entregas de uma vez) |
+
+*Por que o custo é baixo:* a parte cara de "campanha" é a visão agregada, não a relação um-para-muitos. A lista de contratos cabe numa página que já existe — a do próprio pedido. O banco de dados já nasce com a relação certa, então a tela de campanha entra depois sem refazer nada.
 
 ---
 
@@ -184,10 +203,8 @@ Consequência: cobrar antes do aceite do criador produziria estorno de Pix e bol
 
 ```mermaid
 stateDiagram-v2
-    [*] --> aguardando_assinatura_responsavel
     [*] --> aguardando_revisao_manual
     [*] --> aguardando_pagamento
-    aguardando_assinatura_responsavel --> aguardando_pagamento
     aguardando_revisao_manual --> aguardando_pagamento
     aguardando_pagamento --> pagamento_em_processamento
     aguardando_pagamento --> expirado_sem_pagamento
@@ -206,7 +223,6 @@ stateDiagram-v2
 | Estado | Significado | Cor (DESIGN-SYSTEM §3.4) |
 |---|---|---|
 | `aguardando_revisao_manual` | Mesmo CPF/CNPJ nas duas pontas (SPEC §2) ou valor acima do limite (§13) | Atenção |
-| `aguardando_assinatura_responsavel` | Criador menor de idade (SPEC §8.3) | Atenção |
 | `aguardando_pagamento` | Aceito, cobrança emitida, prazo correndo | Atenção |
 | `pagamento_em_processamento` | Boleto emitido ou Pix pendente (§4.2: boleto leva 1 a 2 dias) | Atenção |
 | `em_execucao` | Dinheiro em escrow, trabalho acontecendo | Info |
@@ -324,7 +340,7 @@ O que muda:
 | Falta | Não existe | **Precisa de tratamento próprio dos dois lados** |
 | Cancelamento | Tabela da SPEC §8.1 | ⚠️ A tabela §8.1 **não serve** — ver abaixo |
 
-⚠️ **A regra de cancelamento da SPEC §8.1 quebra no presencial.** Ela diz "criador já começou → mediação, liberação proporcional ao trabalho feito". Num evento presencial, o criador **bloqueou uma data**, recusou outros trabalhos e possivelmente comprou passagem. Cancelar 2 dias antes e cancelar 30 dias antes não podem valer a mesma coisa, e "proporcional ao trabalho feito" dá zero — o trabalho ainda não começou, mas o prejuízo já existe. **Ver seção 13, decisão 2.**
+⚠️ **A regra de cancelamento da SPEC §8.1 quebra no presencial.** Ela diz "criador já começou → mediação, liberação proporcional ao trabalho feito". Num evento presencial, o criador **bloqueou uma data**, recusou outros trabalhos e possivelmente comprou passagem. Cancelar 2 dias antes e cancelar 30 dias antes não podem valer a mesma coisa, e "proporcional ao trabalho feito" dá zero — o trabalho ainda não começou, mas o prejuízo já existe. **Escala adotada em §13.2.**
 
 ---
 
@@ -425,20 +441,46 @@ Todos **configuráveis no painel administrativo**, nunca fixos no código — me
 
 ---
 
-## 13. Decisões que precisam do Marco 🟡
+## 13. Decisões tomadas 🟢
 
-Só três. Todo o resto acima é decisão técnica ou convenção de mercado e já está tomada.
+As três decisões que a v0.1 deixou em aberto foram fechadas. Todas com o mesmo critério: dentro da lei, e sem construir agora aquilo que só ficará seguro depois de um advogado.
 
-**1. Um pedido aberto pode contratar vários criadores de uma vez?**
-Campanha real quase sempre contrata vários. Tecnicamente é barato; caro são as telas de campanha. Se ficar para depois, a marca cria um pedido por criador no v1 — funciona, mas é chato para quem contrata 5.
-*Isto é decisão de prioridade, não técnica.*
+### 13.1 Um pedido contrata vários criadores — **sim, no v1**
 
-**2. Cancelamento de trabalho presencial: qual é o apetite de risco?**
-Um criador que bloqueou uma data e recusou outros trabalhos precisa de alguma proteção se a marca cancelar em cima da hora. A escala é do dono: mais protetiva atrai criador e espanta marca; menos protetiva faz o contrário. Uma referência comum de mercado é escalonar por proximidade (ex.: até 7 dias antes, reembolso total; entre 7 e 2 dias, 50%; menos de 48 h, sem reembolso).
+Decidido e detalhado em §5.1. Reverte a recomendação da v0.1, porque adiar contradizia a razão pela qual a SPEC §2 colocou agências no lançamento.
 
-**3. Contrato de criador menor de idade entra no v1?**
-A SPEC §8.3 permite, exigindo assinatura do responsável legal. Isso significa construir um fluxo de assinatura de terceiro que não tem conta na plataforma — é trabalho real, e é o tipo de coisa que precisa passar por advogado antes. Adiar para o v2 e bloquear menores no v1 é uma opção legítima e mais barata.
-*Isto é decisão de escopo e de apetite de risco jurídico.*
+### 13.2 Cancelamento de trabalho presencial — **escala por proximidade da data**
+
+O problema: a tabela de cancelamento da SPEC §8.1 diz "liberação proporcional ao trabalho feito". Num trabalho presencial, o criador **bloqueou uma data**, recusou outros trabalhos e talvez tenha comprado passagem. Dois dias antes do evento, o trabalho feito é zero e o prejuízo é total. A regra da SPEC dá zero para ele.
+
+🟢 **Regra adotada, contada a partir da data agendada:**
+
+| Marca cancela | Criador recebe | Marca é reembolsada |
+|---|---|---|
+| Mais de 7 dias antes | 0% | 100% |
+| Entre 7 dias e 48 h antes | 50% | 50% |
+| Menos de 48 h antes | 100% | 0% |
+| Criador cancela ou falta, a qualquer momento | 0% | 100% + registro no Trust & Safety |
+
+**Por que esta escala e não outra:** ela espelha a política de cancelamento de hospedagem e de reserva de serviço com hora marcada, que é o problema idêntico — um recurso que não pode ser revendido depois que a data passou. É protetiva o suficiente para o criador aceitar bloquear agenda, e previsível o suficiente para a marca não se sentir presa: sete dias é prazo confortável para desistir sem custo.
+
+⚠️ **Despesa já feita é separada.** Passagem e hospedagem compradas pelo criador **não** entram no percentual — se estiverem declaradas como item estruturado da proposta (§3.1) e comprovadas, são reembolsadas por fora, integralmente, em qualquer faixa. Sem isso, a escala de 50% puniria o criador que se preparou direito.
+
+⚠️ **Precisa de advogado antes dos Termos de Uso.** A escala é decisão de produto; a redação da cláusula é jurídica.
+
+### 13.3 Criador menor de idade — **bloqueado no v1, e não era escopo, era ilegalidade**
+
+🔴 **Esta decisão mudou de natureza durante a pesquisa.** A v0.1 tratou isto como decisão de escopo. Não é: **o mecanismo que a SPEC §8.3 previa — assinatura do responsável legal — é juridicamente insuficiente.**
+
+Falta a autorização judicial. O ECA, artigo 149, exige **alvará judicial** para atividade artística de criança ou adolescente, e a Lei nº 15.211/2025 (o "ECA Digital") trouxe isso explicitamente para conteúdo digital monetizado. O alvará é obtido pelos pais, **por advogado, em petição ao juiz da Vara da Infância e Juventude** da comarca onde o menor mora — descrevendo atividade, frequência, carga horária e destino dos rendimentos.
+
+**Nenhuma plataforma emite isso.** É decisão de juiz, por criança, caso a caso. E já está sendo cobrado: perfis com menores em conteúdo monetizado vêm sendo notificados a apresentar o alvará sob pena de bloqueio da conta.
+
+🟢 **Regra: 18 anos completos para atuar como criador.** A trava é automática, conferida pela data de nascimento que a verificação de identidade do provedor de pagamento já entrega (SPEC §13) — não pede documento novo e não custa nada a mais. Não há override manual.
+
+Correção completa registrada na **SPEC §8.3.1**. O caminho para o v2 está lá.
+
+*Sobre "acolher a todos":* bloquear menor de idade não é excluir — é a mesma razão pela qual um banco não abre conta para um adolescente sozinho. A porta abre no v2, com o alvará como documento do perfil e prazo de validade controlado pelo sistema. Abrir agora, sem isso, exporia o criador adolescente, a família dele e a plataforma ao mesmo tempo.
 
 ---
 
@@ -466,5 +508,6 @@ Nada aqui substitui a seção 15 da SPEC. Especificamente, dependem de advogado 
 - Fiverr — [How cancellations work for clients](https://help.fiverr.com/hc/en-us/articles/12864193979793-How-cancellations-work-for-clients) (janela de 48 h para a outra ponta responder)
 - Banco Central — [Pix, o que é e como funciona](https://www.bcb.gov.br/estabilidadefinanceira/pix) e [FAQ Participantes do Pix](https://www.bcb.gov.br/content/estabilidadefinanceira/pix/FAQ_Participantes.pdf) (liquidação imediata entre contas — base do argumento do §6.2)
 - Pagar.me — [Recebedores](https://docs.pagar.me/docs/recebedores-2) e [Getting started](https://docs.pagar.me/v4/docs/getting-started)
+- ECA art. 149 e Lei nº 15.211/2025 ("ECA Digital") — exigência de alvará judicial para atividade artística de menor, inclusive em conteúdo digital monetizado. Levantamentos de escritórios especializados: [Abe, Rocha Neto, Taparelli, Garcez](https://abeadvogados.com.br/noticias/influenciador-mirim-so-podera-atuar-com-aval-judicial-especialistas-analisam-impactos/) e [Jusbrasil](https://www.jusbrasil.com.br/artigos/alvara-para-influencer-mirim-o-que-pais-precisam-saber-em-2026/5828052099) (§13.3)
 
 *Levantamento de arquitetura de produto. Não é parecer jurídico nem contábil.*

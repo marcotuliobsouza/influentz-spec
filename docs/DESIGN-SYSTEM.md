@@ -3,8 +3,10 @@
 > Base: identidade visual desenvolvida por agência em 2020. **O guia original agora vive neste repositório**, em `docs/marca/Guia da Marca - Influentz (2020).pdf` (33 páginas), e não só no Google Drive.
 > Este documento traduz aquele guia em regras técnicas prontas para implementação em shadcn/ui.
 >
-> **Versão:** v0.3
-> **O que mudou da v0.2:** o guia original foi lido inteiro pela primeira vez e trazido para o repositório. Isso fechou boa parte das pendências do §11 e revelou **três divergências** entre o guia e o que a v0.2 tinha assumido — registradas em §3.0 (cor de fundo), §4.0 (peso da Raleway no corpo do texto) e §10.1 (terminologia). Foram acrescentadas as seções 9 (aplicação do logotipo, com medidas extraídas do vetor) e 10 (terminologia).
+> **Versão:** v0.4
+> **O que mudou da v0.3:** as duas divergências que estavam aguardando decisão foram **decididas** — fundo de página em §3.0.1 e terminologia da interface em §10.2. A decisão de fundo **reverte a recomendação que este próprio documento fazia na v0.3**, com o motivo registrado.
+>
+> **O que a v0.3 tinha feito:** o guia original da agência foi lido inteiro pela primeira vez e trazido para o repositório, fechando as pendências de aplicação do logotipo (§9) e alinhamento de texto (§4.5) e revelando três divergências entre o guia e o que a v0.2 tinha assumido — §3.0 (cor de fundo), §4.0 (peso da Raleway no corpo do texto) e §10.1 (terminologia).
 >
 > **Legenda:** 🟢 definido · 🟡 em aberto · 🔵 proposta de Claude além do pedido · ⚠️ correção ou risco
 
@@ -69,18 +71,37 @@ A v0.2 deste documento colocou `background: #ffffff` no mapa de tokens (§7) sem
 
 **Acessibilidade não é o problema:** texto `n-900` sobre `#fcd8e3` mede entre 14,3:1 e 16,1:1 (§3.2) — AAA folgado. O fundo rosa é viável.
 
-🔵 **Decisão proposta: os dois, separados pela mesma fronteira do §2.1.**
+### 3.0.1 Decisão 🟢
 
-| Superfície | Fundo | Por quê |
+**Fundo padrão de página: `n-50` `#fdf9fa`. Cartões e superfícies de leitura: `#ffffff`. O `#fcd8e3` do guia vira superfície de destaque de marca, não papel de parede.**
+
+| Superfície | Token | Onde |
 |---|---|---|
-| Marketing, página pública, onboarding, vitrine, busca, perfil | **`#fcd8e3`** (o do guia), com cartões brancos por cima | É onde a marca precisa ser reconhecida |
-| Contrato, proposta, extrato, painel financeiro, tabela densa | **`#ffffff`** ou `n-50` `#fdf9fa` | Leitura longa e documento sério |
+| Fundo de página (padrão do produto inteiro) | `n-50` `#fdf9fa` | Todas as telas |
+| Cartão, tabela, formulário, contrato | `#ffffff` | Por cima do fundo |
+| **Destaque de marca** | **`#fcd8e3`** | Topo de página pública, faixa de onboarding, estado vazio, bloco promocional, cartão em destaque |
+| Destaque institucional | `#620073` roxo / `#4f2e3c` vinho | Rodapé, faixa de credibilidade, painel institucional |
 
-*Por que não escolher só um:* fundo rosa em toda tela de contrato e extrato reduz a percepção de seriedade justamente onde a plataforma precisa ser levada a sério pelo financeiro de quem recebe (§2). Fundo branco em tudo joga fora a identidade que a agência construiu. A fronteira já existe no §2.1 e é a mesma — não estamos inventando uma segunda regra para o Marco decorar.
+**Por que esta decisão e não a que eu mesmo tinha recomendado antes.** A versão anterior deste documento propunha rosa nas telas de marca e branco nas telas de produto. Está errada por dois motivos que só ficam visíveis quando se pergunta "o que é premium":
 
-*Por que o produto não se parte em dois:* `n-50` (`#fdf9fa`) é o mesmo rosa, quase apagado. Os fundos são a mesma família em intensidades diferentes, não duas paletas.
+1. **Fundo saturado envelhece rápido e lê como categoria, não como qualidade.** Rosa forte de página inteira comunica "aplicativo de beleza, 2020". Produto que precisa parecer infraestrutura financeira — e é isso que a INFLUENTZ é: escrow, split, nota fiscal — usa superfície quase neutra e gasta o orçamento de cor em momentos escolhidos. É o que Stripe, Shopify e o próprio app do Nubank fazem: a cor da marca é intensa na comunicação e contida na interface, onde ela concorre com botão, alerta e selo de estado.
+2. **Duas cores de página partem o produto em dois.** A regra das duas vozes (§2.1) é sobre *texto* — a pessoa não percebe que mudou de registro. Mudar o fundo, ela percebe: parece que saiu do site e entrou noutro sistema. Justamente no pulo da vitrine para o contrato, que é o momento em que a plataforma mais precisa parecer uma coisa só.
 
-⚠️ **Isto continua sendo decisão de dono.** Se o Marco preferir rosa em tudo ou branco em tudo, muda-se um token e o produto inteiro acompanha. A recomendação técnica está acima.
+**O que se ganha mantendo `n-50` em vez de branco puro:** `n-50` é o mesmo rosa da marca, quase apagado (tem a matiz do `#ff007b` em saturação mínima, §3.3). O produto não fica com cara de painel de banco genérico, e o cartão branco por cima ganha separação sem precisar de sombra pesada. É a intenção da agência — "o fundo não é branco" — executada no nível de 2026.
+
+**Contrastes medidos** (fórmula WCAG 2.1, não estimados):
+
+| Combinação | Medido | Veredito |
+|---|---|---|
+| `n-900` sobre `n-50` | 17,25:1 | AAA |
+| `n-600` (texto secundário) sobre `n-50` | 6,13:1 | AA |
+| `n-900` sobre `#fcd8e3` | 13,79:1 | AAA |
+| `n-600` sobre `#fcd8e3` | 4,90:1 | AA, com folga curta |
+| Roxo `#620073` sobre `#fcd8e3` | 9,10:1 | AAA |
+
+⚠️ **Sobre superfície `#fcd8e3`, o texto secundário sobe para `n-700`.** O `n-600` passa em AA por pouco (4,90:1 contra 6,13:1 no fundo padrão). Como `#fcd8e3` só aparece em bloco de destaque, e não em tela densa, isso não custa nada — mas precisa estar escrito, senão alguém reaproveita o token errado.
+
+⚠️ **Reversível a um token.** Se um dia a decisão mudar, muda-se `background` e o produto inteiro acompanha. Nenhum componente sabe qual é a cor do fundo.
 
 ### 3.1 Cores de marca (herdadas do guia original) 🟢
 
@@ -321,7 +342,7 @@ O shadcn/ui espera esta lista exata de nomes. Preenchê-la é o que torna o sist
 
 | Token shadcn | Valor | Papel |
 |---|---|---|
-| `background` | `#ffffff` (produto) · `#fcd8e3` (marca) | Fundo de página — **ver §3.0, decisão pendente** |
+| `background` | `#fdf9fa` (n-50) | **Fundo de página** — ver §3.0.1 |
 | `foreground` | `#1b1516` (n-900) | Texto principal |
 | `card` | `#ffffff` | Fundo de cartão |
 | `card-foreground` | `#1b1516` | Texto no cartão |
@@ -437,7 +458,19 @@ Três razões concretas:
 
 *Por que "influentz" como substantivo é bom e vale preservar:* a marca vira o nome da coisa, que é o que toda plataforma persegue e quase nenhuma consegue. Mas funciona como chamada, não como rótulo de campo de formulário.
 
-🟡 **Decisão de dono.** A recomendação está acima; a palavra na tela é do Marco.
+### 10.2 Decisão 🟢
+
+**Rótulo funcional: `marca` e `criador`. Chamada de marca: "seja um influentz" e "busque um influentz". "Blogueiro" e "influencer" não aparecem como rótulo em lugar nenhum.**
+
+Além dos três motivos acima, dois argumentos que só aparecem quando se pensa em expansão:
+
+**1. O mercado mundial já trocou a palavra, e a troca foi na direção de "criador".** "Creator economy" é hoje o termo guarda-chuva — um mercado de US$ 33 bilhões em 2025, contra menos de US$ 10 bilhões em 2020 — e **"influencer marketing" é tratado como uma tática dentro dele**, não como o todo. "Criador" engloba influenciador, produtor de vídeo, podcaster e especialista; "influenciador" engloba só um pedaço. Nomear o produto pelo pedaço menor é escolher o teto mais baixo.
+
+**2. `marca / criador` atravessa a fronteira sem tradução; `cliente / influencer` não.** Traduzidos: `brand` e `creator` são exatamente os termos padrão do mercado global. Já `client` em inglês, num marketplace, é ambíguo — quem é cliente de quem? E o dia em que a INFLUENTZ atender uma marca fora do Brasil, o vocabulário do produto já está no idioma certo, sem refazer tela, contrato e e-mail.
+
+⚠️ **O que fica do guia, e é o mais valioso:** "seja um influentz" / "busque um influentz". A marca virando o nome da coisa é o ativo verbal que uma plataforma leva uma década para construir. Ele fica no marketing, no onboarding e na página pública — onde funciona. Não vira rótulo de campo de formulário, onde precisão vale mais que personalidade.
+
+*Fonte da virada de terminologia:* [eMarketer — FAQ on the creator economy](https://www.emarketer.com/insights/definition-creator-economy) e [Influencer Marketing Factory — Creator Economy 2026](https://theinfluencermarketingfactory.com/creator-economy/).
 
 ---
 
@@ -449,8 +482,8 @@ Três razões concretas:
 | Tokens de `sidebar-*` | Idem |
 | Arquivo vetorial do logotipo (SVG) | No Drive; entra na etapa 6 por decisão do Marco (§9.3) |
 | Tamanho mínimo do logotipo | Proposta em §9.4, a confirmar com o vetor em mãos |
-| Fundo de página: rosa, branco ou os dois | Recomendação em §3.0; **decisão de dono** |
-| Terminologia na interface | Recomendação em §10.1; **decisão de dono** |
+
+**Decididas na v0.4:** fundo de página (§3.0.1) e terminologia da interface (§10.2).
 
 **Fechadas na v0.3 pela leitura do guia original:** aplicação do logotipo e área de respiro (§9), alinhamento de texto (§4.5), origem documental da regra das duas vozes (§4.0), inventário de ícones do produto (página 14 do guia).
 
