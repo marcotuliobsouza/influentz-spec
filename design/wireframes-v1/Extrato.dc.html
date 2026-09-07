@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&family=Roboto+Slab:wght@400;700&display=swap">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+:root{
+  --bg:#fdf9fa; --n-100:#f8f3f4; --n-200:#ece5e6; --n-300:#dbd2d4; --n-500:#85787b; --n-600:#685c5e; --n-700:#4e4446; --n-900:#1b1516;
+  --pink:#ff007b; --pink-ink:#0e080a; --purple:#620073;
+  --font-brand:'Raleway',system-ui,sans-serif; --font-inst:'Roboto Slab',Georgia,serif;
+}
+*{box-sizing:border-box;}
+body{margin:0;font-family:var(--font-brand);color:var(--n-900);background:var(--bg);}
+.tabular{font-variant-numeric:lining-nums tabular-nums;}
+.card{background:#ffffff;border-radius:14px;border:1px solid var(--n-200);}
+.btn-primary{background:var(--pink);color:var(--pink-ink);font-family:var(--font-brand);font-weight:700;font-size:14px;border:none;border-radius:10px;padding:10px 16px;cursor:pointer;}
+</style>
+</helmet>
+
+<div style="width:390px;min-height:1320px;background:var(--bg);display:flex;flex-direction:column;">
+
+  <!-- top bar -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 20px;background:#ffffff;border-bottom:1px solid var(--n-200);">
+    <span style="font-family:var(--font-brand);font-weight:700;font-size:20px;">carteira</span>
+    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#1b1516" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10a6 6 0 1112 0c0 4 1.5 5.5 1.5 5.5H4.5S6 14 6 10z"/><path d="M10 19a2 2 0 004 0"/></svg>
+  </div>
+
+  <div style="padding:20px;display:flex;flex-direction:column;gap:18px;">
+
+    <!-- saldo disponivel hero -->
+    <div class="card" style="padding:20px;background:linear-gradient(135deg,#1b1516,#2e2628);border:none;">
+      <div style="font-family:var(--font-brand);font-size:13px;color:#d4c7c9;margin-bottom:6px;">saldo disponível para saque</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <span style="font-family:var(--font-inst);font-weight:700;font-size:30px;color:#ffffff;" class="tabular">R$ 640,00</span>
+        <button class="btn-primary">sacar</button>
+      </div>
+    </div>
+
+    <!-- breakdown -->
+    <div style="display:flex;flex-direction:column;gap:10px;">
+
+      <div class="card" style="padding:16px;border-left:4px solid #620073;display:flex;align-items:center;gap:12px;">
+        <div style="width:38px;height:38px;border-radius:10px;background:#f3e3f7;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#620073" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <div style="flex:1;">
+          <div style="font-family:var(--font-inst);font-weight:700;font-size:14px;color:var(--n-900);">Retido em escrow</div>
+          <div style="font-family:var(--font-brand);font-size:12px;color:var(--n-600);">liberado quando a marca aprovar a entrega</div>
+        </div>
+        <span style="font-family:var(--font-inst);font-weight:700;font-size:15px;color:#620073;" class="tabular">R$ 800,00</span>
+      </div>
+
+      <div class="card" style="padding:16px;border-left:4px solid #92400e;display:flex;align-items:center;gap:12px;">
+        <div style="width:38px;height:38px;border-radius:10px;background:#fef3c7;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#92400e" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        </div>
+        <div style="flex:1;">
+          <div style="font-family:var(--font-inst);font-weight:700;font-size:14px;color:var(--n-900);">Aprovado, aguardando prazo</div>
+          <div style="font-family:var(--font-brand);font-size:12px;color:var(--n-600);">pago no cartão · disponível em <span class="tabular" style="font-family:var(--font-inst);font-weight:700;color:#92400e;">12/10/2026</span></div>
+        </div>
+        <span style="font-family:var(--font-inst);font-weight:700;font-size:15px;color:#92400e;" class="tabular">R$ 1.200,00</span>
+      </div>
+
+      <div class="card" style="padding:16px;border-left:4px solid #15803d;display:flex;align-items:center;gap:12px;">
+        <div style="width:38px;height:38px;border-radius:10px;background:#dcfce7;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.3 2.3L16 10"/></svg>
+        </div>
+        <div style="flex:1;">
+          <div style="font-family:var(--font-inst);font-weight:700;font-size:14px;color:var(--n-900);">Disponível para saque</div>
+          <div style="font-family:var(--font-brand);font-size:12px;color:var(--n-600);">já está na sua conta INFLUENTZ</div>
+        </div>
+        <span style="font-family:var(--font-inst);font-weight:700;font-size:15px;color:#15803d;" class="tabular">R$ 640,00</span>
+      </div>
+
+    </div>
+
+    <!-- info banner -->
+    <div style="display:flex;gap:10px;background:var(--n-100);border-radius:12px;padding:14px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#685c5e" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+      <span style="font-family:var(--font-brand);font-size:12px;color:var(--n-600);line-height:1.5;">a INFLUENTZ nunca adianta um valor antes de recebê-lo do meio de pagamento — por isso "aprovado" e "disponível" são etapas diferentes</span>
+    </div>
+
+    <!-- extrato -->
+    <div>
+      <h3 style="font-family:var(--font-inst);font-weight:700;font-size:15px;margin:4px 0 12px;color:var(--n-900);">Extrato</h3>
+      <div style="display:flex;flex-direction:column;gap:2px;">
+
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px solid var(--n-200);">
+          <div style="width:34px;height:34px;border-radius:9px;background:#dcfce7;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          </div>
+          <div style="flex:1;">
+            <div style="font-family:var(--font-brand);font-weight:600;font-size:13px;color:var(--n-900);">Saque para conta bancária</div>
+            <div style="font-family:var(--font-inst);font-size:11px;color:var(--n-600);" class="tabular">02/09/2026</div>
+          </div>
+          <span style="font-family:var(--font-inst);font-weight:700;font-size:13px;color:var(--n-900);" class="tabular">- R$ 500,00</span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px solid var(--n-200);">
+          <div style="width:34px;height:34px;border-radius:9px;background:#dcfce7;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+          </div>
+          <div style="flex:1;">
+            <div style="font-family:var(--font-brand);font-weight:600;font-size:13px;color:var(--n-900);">Marco aprovado — Amanda Lemos</div>
+            <div style="font-family:var(--font-inst);font-size:11px;color:var(--n-600);" class="tabular">30/08/2026</div>
+          </div>
+          <span style="font-family:var(--font-inst);font-weight:700;font-size:13px;color:#15803d;" class="tabular">+ R$ 640,00</span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 4px;">
+          <div style="width:34px;height:34px;border-radius:9px;background:#f3e3f7;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#620073" stroke-width="1.9"><path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <div style="flex:1;">
+            <div style="font-family:var(--font-brand);font-weight:600;font-size:13px;color:var(--n-900);">Contrato financiado — Nutrivida Ltda.</div>
+            <div style="font-family:var(--font-inst);font-size:11px;color:var(--n-600);" class="tabular">28/08/2026</div>
+          </div>
+          <span style="font-family:var(--font-inst);font-weight:700;font-size:13px;color:#620073;" class="tabular">R$ 800,00</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- bottom tab bar -->
+  <div style="margin-top:auto;display:flex;border-top:1px solid var(--n-200);background:#ffffff;padding:10px 8px 16px;">
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--n-500);">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <span style="font-family:var(--font-brand);font-size:11px;font-weight:600;">busca</span>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--n-500);">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2.5h9l4 4V21a1 1 0 01-1 1H6a1 1 0 01-1-1V3.5a1 1 0 011-1z"/><path d="M15 2.5V7h4M8.5 12h7M8.5 15.5h7"/></svg>
+      <span style="font-family:var(--font-brand);font-size:11px;font-weight:600;">contratos</span>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--n-500);">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1114.6 4.5L20 20l-3.7-1.2A8 8 0 014 12z"/></svg>
+      <span style="font-family:var(--font-brand);font-size:11px;font-weight:600;">mensagens</span>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--pink);">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg>
+      <span style="font-family:var(--font-brand);font-size:11px;font-weight:700;">carteira</span>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

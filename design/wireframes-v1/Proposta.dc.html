@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&family=Roboto+Slab:wght@400;700&display=swap">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+:root{
+  --bg:#fdf9fa; --n-100:#f8f3f4; --n-200:#ece5e6; --n-300:#dbd2d4; --n-500:#85787b; --n-600:#685c5e; --n-700:#4e4446; --n-800:#2e2628; --n-900:#1b1516;
+  --pink:#ff007b; --pink-ink:#0e080a; --purple:#620073;
+  --font-brand:'Raleway',system-ui,sans-serif; --font-inst:'Roboto Slab',Georgia,serif;
+}
+*{box-sizing:border-box;}
+body{margin:0;font-family:var(--font-brand);color:var(--n-900);background:var(--bg);}
+.tabular{font-variant-numeric:lining-nums tabular-nums;}
+label.f-label{font-family:var(--font-inst);font-weight:700;font-size:14px;color:var(--n-800);display:block;margin-bottom:8px;}
+.f-input{font-family:var(--font-inst);font-size:16px;color:var(--n-900);border:1.5px solid var(--n-500);border-radius:10px;padding:13px 14px;background:#fff;width:100%;}
+.f-help{font-family:var(--font-brand);font-size:13px;color:var(--n-600);margin-top:6px;}
+.pill-select{font-family:var(--font-inst);font-size:13px;font-weight:600;padding:9px 14px;border-radius:999px;border:1.5px solid var(--n-300);color:var(--n-700);background:#fff;}
+.pill-select.sel{background:var(--n-900);color:#fff;border-color:var(--n-900);}
+.section-title{font-family:var(--font-inst);font-weight:700;font-size:17px;color:var(--n-900);margin:0 0 4px;}
+.btn-primary{background:var(--pink);color:var(--pink-ink);font-family:var(--font-brand);font-weight:700;font-size:16px;border:none;border-radius:12px;padding:16px;cursor:pointer;width:100%;}
+</style>
+</helmet>
+
+<div style="width:390px;min-height:1560px;background:var(--bg);display:flex;flex-direction:column;">
+
+  <!-- header -->
+  <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--n-200);background:#ffffff;">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1b1516" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    <span style="font-family:var(--font-brand);font-weight:700;font-size:17px;">nova proposta</span>
+  </div>
+
+  <!-- recipient -->
+  <div style="display:flex;align-items:center;gap:10px;padding:16px 20px;background:#ffffff;border-bottom:1px solid var(--n-200);">
+    <div style="width:40px;height:40px;border-radius:50%;background:var(--n-100);display:flex;align-items:center;justify-content:center;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#aba0a2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5"/></svg>
+    </div>
+    <div>
+      <div style="font-family:var(--font-brand);font-weight:700;font-size:14px;color:var(--n-900);">proposta para joão vitor</div>
+      <div style="font-family:var(--font-brand);font-size:12px;color:var(--n-600);">tecnologia · remoto</div>
+    </div>
+  </div>
+
+  <div style="padding:24px 20px;display:flex;flex-direction:column;gap:24px;">
+
+    <!-- detalhes do trabalho -->
+    <div>
+      <h2 class="section-title">Detalhes do trabalho</h2>
+      <p style="font-family:var(--font-brand);font-size:13px;color:var(--n-600);margin:0 0 18px;">campos usados no contrato — evita ambiguidade se algo precisar ser esclarecido depois</p>
+
+      <div style="margin-bottom:18px;">
+        <label class="f-label">Valor do serviço</label>
+        <div style="position:relative;">
+          <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-family:var(--font-inst);color:var(--n-600);">R$</span>
+          <input class="f-input" style="padding-left:38px;" value="1.200,00">
+        </div>
+      </div>
+
+      <div style="margin-bottom:18px;">
+        <label class="f-label">Descrição do trabalho</label>
+        <textarea class="f-input" style="min-height:88px;resize:none;" placeholder="descreva o roteiro, formato e ponto de atenção da campanha">1 vídeo dedicado de até 8 minutos sobre o lançamento do produto, com demonstração ao vivo.</textarea>
+      </div>
+
+      <div style="display:flex;gap:12px;margin-bottom:18px;">
+        <div style="flex:1;">
+          <label class="f-label">Prazo de entrega</label>
+          <div style="display:flex;align-items:center;gap:8px;" class="f-input">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#685c5e" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg>
+            <span class="tabular">10 dias</span>
+          </div>
+        </div>
+        <div style="flex:1;">
+          <label class="f-label">Revisões incluídas</label>
+          <div style="display:flex;align-items:center;justify-content:space-between;" class="f-input">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#685c5e" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/></svg>
+            <span class="tabular" style="font-weight:700;">2</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#685c5e" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          </div>
+        </div>
+      </div>
+      <p class="f-help" style="margin-top:-8px;">revisões adicionais podem ser negociadas depois no chat</p>
+    </div>
+
+    <div style="height:1px;background:var(--n-200);"></div>
+
+    <!-- direitos de conteúdo -->
+    <div>
+      <h2 class="section-title">Direitos de uso do conteúdo</h2>
+      <p style="font-family:var(--font-brand);font-size:13px;color:var(--n-600);margin:0 0 18px;">cada campo aqui vira cláusula do contrato</p>
+
+      <div style="margin-bottom:18px;">
+        <label class="f-label">Prazo de uso</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="pill-select">3 meses</span>
+          <span class="pill-select sel">6 meses</span>
+          <span class="pill-select">12 meses</span>
+          <span class="pill-select">perpétuo</span>
+        </div>
+      </div>
+
+      <div style="margin-bottom:18px;">
+        <label class="f-label">Mídias permitidas</label>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:20px;height:20px;border-radius:5px;background:var(--n-900);display:flex;align-items:center;justify-content:center;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg></div>
+            <span style="font-family:var(--font-inst);font-size:15px;color:var(--n-900);">Redes sociais</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:20px;height:20px;border-radius:5px;background:var(--n-900);display:flex;align-items:center;justify-content:center;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg></div>
+            <span style="font-family:var(--font-inst);font-size:15px;color:var(--n-900);">Site da marca</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:20px;height:20px;border-radius:5px;border:1.5px solid var(--n-400);"></div>
+            <span style="font-family:var(--font-inst);font-size:15px;color:var(--n-700);">Mídia paga</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:20px;height:20px;border-radius:5px;border:1.5px solid var(--n-400);"></div>
+            <span style="font-family:var(--font-inst);font-size:15px;color:var(--n-700);">Mídia offline</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:18px;">
+        <label class="f-label">Impulsionamento pago</label>
+        <div style="display:flex;gap:8px;">
+          <span class="pill-select">sim</span>
+          <span class="pill-select sel">não</span>
+        </div>
+      </div>
+
+      <div>
+        <label class="f-label">Exclusividade</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="pill-select sel">nenhuma</span>
+          <span class="pill-select">30 dias</span>
+          <span class="pill-select">60 dias</span>
+          <span class="pill-select">90 dias</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- footer summary -->
+  <div style="padding:18px 20px 24px;background:#ffffff;border-top:1px solid var(--n-200);">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;">
+      <span style="font-family:var(--font-brand);font-size:13px;color:var(--n-600);">valor total da proposta</span>
+      <span style="font-family:var(--font-inst);font-weight:700;font-size:22px;color:var(--n-900);" class="tabular">R$ 1.200,00</span>
+    </div>
+    <button class="btn-primary">enviar proposta</button>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&family=Roboto+Slab:wght@400;700&display=swap">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+:root{
+  --bg:#fdf9fa; --n-100:#f8f3f4; --n-200:#ece5e6; --n-300:#dbd2d4; --n-500:#85787b; --n-600:#685c5e; --n-700:#4e4446; --n-900:#1b1516;
+  --pink:#ff007b; --pink-ink:#0e080a; --purple:#620073;
+  --font-brand:'Raleway',system-ui,sans-serif; --font-inst:'Roboto Slab',Georgia,serif;
+}
+*{box-sizing:border-box;}
+body{margin:0;font-family:var(--font-brand);color:var(--n-900);background:var(--bg);}
+.tabular{font-variant-numeric:lining-nums tabular-nums;}
+.card{background:#ffffff;border-radius:14px;border:1px solid var(--n-200);}
+.btn-primary{background:var(--pink);color:var(--pink-ink);font-family:var(--font-brand);font-weight:700;font-size:16px;border:none;border-radius:12px;padding:16px;cursor:pointer;width:100%;}
+</style>
+</helmet>
+
+<div style="width:390px;min-height:1260px;background:var(--bg);display:flex;flex-direction:column;">
+
+  <!-- header -->
+  <div style="display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--n-200);background:#ffffff;">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1b1516" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    <span style="font-family:var(--font-inst);font-weight:700;font-size:17px;">Pagamento</span>
+  </div>
+
+  <div style="padding:20px;display:flex;flex-direction:column;gap:20px;">
+
+    <!-- resumo -->
+    <div class="card" style="padding:16px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+        <div style="width:34px;height:34px;border-radius:9px;background:var(--n-100);display:flex;align-items:center;justify-content:center;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#ff007b"><path d="M6 4l14 8-14 8z"/></svg>
+        </div>
+        <div>
+          <div style="font-family:var(--font-inst);font-weight:700;font-size:14px;color:var(--n-900);">1 Reels — joão vitor</div>
+          <div style="font-family:var(--font-brand);font-size:12px;color:var(--n-600);">entrega única</div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;padding-top:12px;border-top:1px solid var(--n-200);">
+        <span style="font-family:var(--font-inst);font-size:14px;color:var(--n-700);">Valor a pagar</span>
+        <span style="font-family:var(--font-inst);font-weight:700;font-size:26px;color:var(--n-900);" class="tabular">R$ 800,00</span>
+      </div>
+      <div style="font-family:var(--font-brand);font-size:12px;color:var(--n-600);text-align:right;margin-top:2px;">tudo incluso, sem taxa somada depois</div>
+    </div>
+
+    <!-- meio de pagamento -->
+    <div>
+      <h3 style="font-family:var(--font-inst);font-weight:700;font-size:15px;margin:0 0 12px;color:var(--n-900);">Como você quer pagar?</h3>
+
+      <div style="display:flex;flex-direction:column;gap:10px;">
+
+        <div class="card" style="padding:14px;border:2px solid var(--pink);display:flex;align-items:center;gap:12px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#620073" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM20 14v3M17 20h4"/></svg>
+          <div style="flex:1;">
+            <div style="font-family:var(--font-inst);font-weight:700;font-size:14px;color:var(--n-900);">Pix</div>
+            <div style="font-family:var(--font-brand);font-size:12px;color:var(--n-600);">confirmado na hora</div>
+          </div>
+          <div style="width:20px;height:20px;border-radius:50%;border:6px solid var(--pink);"></div>
+        </div>
+
+        <div class="card" style="padding:14px;display:flex;align-items:center;gap:12px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#85787b" stroke-width="1.6" stroke-linecap="round"><path d="M3 4v16M7 4v16M9.5 4v16M13 4v16M15.5 4v16M19 4v16M21 4v16"/></svg>
+          <div style="flex:1;">
+            <div style="font-family:var(--font-inst);font-weight:700;font-size:14px;color:var(--n-900);">Boleto</div>
+            <div style="font-family:var(--font-brand);font-size:12px;color:var(--n-600);">confirmação em 1 a 2 dias úteis</div>
+          </div>
+          <div style="width:20px;height:20px;border-radius:50%;border:1.5px solid var(--n-400);"></div>
+        </div>
+
+        <div class="card" style="padding:14px;display:flex;align-items:center;gap:12px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#85787b" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="2"/><path d="M2.5 10h19"/></svg>
+          <div style="flex:1;">
+            <div style="font-family:var(--font-inst);font-weight:700;font-size:14px;color:var(--n-900);">Cartão de crédito</div>
+            <div style="font-family:var(--font-brand);font-size:12px;color:var(--n-600);">requer CNPJ verificado · liberado ao criador em D+30</div>
+          </div>
+          <div style="width:20px;height:20px;border-radius:50%;border:1.5px solid var(--n-400);"></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- QR pix -->
+    <div class="card" style="padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <div style="width:150px;height:150px;background:var(--n-100);border-radius:12px;display:flex;align-items:center;justify-content:center;">
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#aba0a2" stroke-width="1.4"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM20 14v3M17 20h4"/></svg>
+      </div>
+      <span style="font-family:var(--font-brand);font-size:13px;color:var(--n-600);">escaneie ou copie o código Pix abaixo</span>
+      <button style="font-family:var(--font-brand);font-weight:700;font-size:14px;color:var(--purple);background:var(--n-100);border:none;border-radius:10px;padding:10px 16px;width:100%;">copiar código Pix</button>
+    </div>
+
+    <!-- escrow banner -->
+    <div style="display:flex;gap:10px;background:#f3e3f7;border-radius:12px;padding:14px;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#620073" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+      <span style="font-family:var(--font-brand);font-size:13px;color:#620073;line-height:1.5;">o valor fica retido com segurança e só é liberado depois que você aprovar a entrega</span>
+    </div>
+
+  </div>
+
+  <!-- sticky footer -->
+  <div style="margin-top:auto;padding:16px 20px 22px;background:#ffffff;border-top:1px solid var(--n-200);">
+    <button class="btn-primary">confirmar pagamento de <span class="tabular">R$ 800,00</span></button>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

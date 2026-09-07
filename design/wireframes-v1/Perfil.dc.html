@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&family=Roboto+Slab:wght@400;700&display=swap">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+:root{
+  --bg:#fdf9fa; --n-100:#f8f3f4; --n-200:#ece5e6; --n-300:#dbd2d4; --n-500:#85787b; --n-600:#685c5e; --n-700:#4e4446; --n-900:#1b1516;
+  --pink:#ff007b; --pink-ink:#0e080a; --purple:#620073;
+  --font-brand:'Raleway',system-ui,sans-serif; --font-inst:'Roboto Slab',Georgia,serif;
+}
+*{box-sizing:border-box;}
+body{margin:0;font-family:var(--font-brand);color:var(--n-900);background:var(--bg);}
+.tabular{font-variant-numeric:lining-nums tabular-nums;}
+.btn-primary{background:var(--pink);color:var(--pink-ink);font-family:var(--font-brand);font-weight:700;font-size:16px;border:none;border-radius:12px;padding:14px 18px;cursor:pointer;}
+.btn-secondary{background:#ffffff;color:var(--n-900);font-family:var(--font-brand);font-weight:700;font-size:16px;border:1.5px solid var(--n-300);border-radius:12px;padding:14px 18px;cursor:pointer;}
+</style>
+</helmet>
+
+<div style="width:390px;min-height:1150px;background:var(--bg);display:flex;flex-direction:column;position:relative;">
+
+  <!-- cover -->
+  <div style="height:170px;background:linear-gradient(180deg,#e9dde0,#f8f3f4);position:relative;display:flex;align-items:center;justify-content:center;">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#aba0a2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.7"/><path d="M21 16l-5.5-5.5L9 17"/></svg>
+    <div style="position:absolute;top:16px;left:16px;width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1b1516" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </div>
+    <div style="position:absolute;top:16px;right:16px;display:flex;gap:8px;">
+      <div style="width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1b1516" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-9.5-8.8C.7 8 2 4.6 5.3 4c2-.4 3.8.6 4.7 2.2C10.9 4.6 12.7 3.6 14.7 4c3.3.6 4.6 4 3.8 7.2C16 15.6 12 20 12 20z"/></svg>
+      </div>
+      <div style="width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1b1516" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2.2"/><circle cx="18" cy="6" r="2.2"/><circle cx="18" cy="18" r="2.2"/><path d="M8 11l8-4M8 13l8 4"/></svg>
+      </div>
+    </div>
+    <div style="position:absolute;bottom:-32px;left:20px;width:76px;height:76px;border-radius:50%;background:#ffffff;border:4px solid #ffffff;box-shadow:0 2px 8px rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center;">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#aba0a2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5"/></svg>
+    </div>
+  </div>
+
+  <!-- header info -->
+  <div style="padding:44px 20px 20px;border-bottom:1px solid var(--n-200);">
+    <div style="display:flex;align-items:center;gap:6px;">
+      <span style="font-family:var(--font-brand);font-weight:700;font-size:21px;color:var(--n-900);">joão vitor</span>
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#620073" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.3 2.3L16 10"/></svg>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin:8px 0;">
+      <span style="font-family:var(--font-brand);font-size:13px;font-weight:600;padding:5px 10px;border-radius:999px;background:var(--n-100);color:var(--n-700);">tecnologia</span>
+      <span style="font-family:var(--font-brand);font-size:13px;font-weight:600;padding:5px 10px;border-radius:999px;background:var(--n-100);color:var(--n-700);">remoto</span>
+      <div style="display:flex;align-items:center;gap:4px;margin-left:auto;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="#ff007b"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"/></svg>
+        <span style="font-family:var(--font-brand);font-weight:700;font-size:14px;">4,9</span>
+        <span style="font-family:var(--font-brand);font-size:13px;color:var(--n-600);">(128)</span>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:20px;margin-top:16px;">
+      <div style="display:flex;align-items:center;gap:6px;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#620073" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.4"/><path d="M15.7 14.8c2.6.3 4.3 2.2 4.3 5.2"/></svg>
+        <div>
+          <div style="font-family:var(--font-inst);font-weight:700;font-size:14px;" class="tabular">31,2M</div>
+          <div style="font-family:var(--font-brand);font-size:11px;color:var(--n-600);">seguidores · YouTube</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#620073" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 6h6v6"/></svg>
+        <div>
+          <div style="font-family:var(--font-inst);font-weight:700;font-size:14px;" class="tabular">6,8%</div>
+          <div style="font-family:var(--font-brand);font-size:11px;color:var(--n-600);">engajamento</div>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-family:var(--font-brand);font-size:14px;line-height:1.55;color:var(--n-700);margin:16px 0 0;">youtuber e criador de conteúdo sobre tecnologia. mais de 12 bilhões de visualizações acumuladas. gosto de trabalhar com marcas que topam ousar no roteiro.</p>
+  </div>
+
+  <!-- vitrine -->
+  <div style="padding:20px;">
+    <h3 style="font-family:var(--font-brand);font-weight:700;font-size:16px;margin:0 0 12px;color:var(--n-900);">o que ele oferece</h3>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;align-items:center;gap:12px;background:#ffffff;border:1px solid var(--n-200);border-radius:12px;padding:14px;">
+        <div style="width:38px;height:38px;border-radius:9px;background:var(--n-100);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ff007b"><path d="M6 4l14 8-14 8z"/></svg>
+        </div>
+        <div style="flex:1;">
+          <div style="font-family:var(--font-inst);font-weight:700;font-size:14px;color:var(--n-900);">1 Reels</div>
+          <div style="font-family:var(--font-brand);font-size:12px;color:var(--n-600);">entrega em até 5 dias</div>
+        </div>
+        <div style="font-family:var(--font-inst);font-weight:700;font-size:15px;color:var(--n-900);" class="tabular">R$ 800</div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:12px;background:#ffffff;border:1px solid var(--n-200);border-radius:12px;padding:14px;">
+        <div style="width:38px;height:38px;border-radius:9px;background:var(--n-100);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#620073" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.7"/><path d="M21 16l-5.5-5.5L9 17"/></svg>
+        </div>
+        <div style="flex:1;">
+          <div style="font-family:var(--font-inst);font-weight:700;font-size:14px;color:var(--n-900);">3 Stories</div>
+          <div style="font-family:var(--font-brand);font-size:12px;color:var(--n-600);">entrega em até 3 dias</div>
+        </div>
+        <div style="font-family:var(--font-inst);font-weight:700;font-size:15px;color:var(--n-900);" class="tabular">R$ 300</div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:12px;background:#ffffff;border:1px solid var(--n-200);border-radius:12px;padding:14px;">
+        <div style="width:38px;height:38px;border-radius:9px;background:var(--n-100);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#620073" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg>
+        </div>
+        <div style="flex:1;">
+          <div style="font-family:var(--font-inst);font-weight:700;font-size:14px;color:var(--n-900);">1 hora de palestra remota</div>
+          <div style="font-family:var(--font-brand);font-size:12px;color:var(--n-600);">agendamento em até 15 dias</div>
+        </div>
+        <div style="font-family:var(--font-inst);font-weight:700;font-size:15px;color:var(--n-900);" class="tabular">R$ 1.500</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height:90px;"></div>
+
+  <!-- sticky bottom actions -->
+  <div style="position:absolute;bottom:0;left:0;right:0;display:flex;gap:10px;padding:16px 20px 20px;background:#ffffff;border-top:1px solid var(--n-200);">
+    <button class="btn-secondary" style="flex:1;">enviar proposta</button>
+    <button class="btn-primary" style="flex:1;">contratar</button>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

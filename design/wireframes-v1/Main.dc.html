@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&family=Roboto+Slab:wght@400;700&display=swap">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+:root{
+  --bg:#fdf9fa; --card:#ffffff; --accent-surface:#fcd8e3;
+  --n-100:#f8f3f4; --n-200:#ece5e6; --n-300:#dbd2d4; --n-400:#aba0a2; --n-500:#85787b; --n-600:#685c5e; --n-700:#4e4446; --n-800:#2e2628; --n-900:#1b1516;
+  --pink:#ff007b; --pink-ink:#0e080a; --purple:#620073; --wine:#4f2e3c;
+  --font-brand:'Raleway',system-ui,sans-serif; --font-inst:'Roboto Slab',Georgia,serif;
+}
+*{box-sizing:border-box;}
+body{margin:0;font-family:var(--font-brand);color:var(--n-900);background:var(--bg);}
+a{color:var(--purple);text-decoration:none;} a:hover{color:var(--pink);}
+.btn-primary{background:var(--pink);color:var(--pink-ink);font-family:var(--font-brand);font-weight:700;font-size:16px;border:none;border-radius:12px;padding:15px 22px;cursor:pointer;}
+.btn-ghost{background:transparent;color:var(--n-900);font-family:var(--font-brand);font-weight:700;font-size:15px;border:none;cursor:pointer;padding:10px 16px;}
+.tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-brand);font-size:13px;font-weight:600;color:var(--n-700);}
+</style>
+</helmet>
+
+<div style="width:100%;background:var(--bg);">
+
+  <!-- nav -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 64px;background:#ffffff;border-bottom:1px solid var(--n-200);">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="#ff007b"><path d="M6 4l14 8-14 8z"/></svg>
+      <span style="font-family:var(--font-brand);font-weight:700;font-size:22px;color:var(--n-900);">influentz</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:32px;">
+      <a class="tag" href="#" style="font-weight:600;color:var(--n-700);">como funciona</a>
+      <a class="tag" href="#" style="font-weight:600;color:var(--n-700);">para marcas</a>
+      <a class="tag" href="#" style="font-weight:600;color:var(--n-700);">para criadores</a>
+      <button class="btn-ghost">entrar</button>
+    </div>
+  </div>
+
+  <!-- hero: destaque de marca -->
+  <div style="background:var(--accent-surface);padding:88px 64px 104px;">
+    <div style="max-width:1000px;margin:0 auto;text-align:center;">
+      <h1 style="font-family:var(--font-brand);font-weight:700;font-size:48px;line-height:1.15;margin:0 0 20px;color:var(--n-900);">conecte sua marca aos criadores certos</h1>
+      <p style="font-family:var(--font-brand);font-size:18px;line-height:1.5;color:var(--n-700);max-width:560px;margin:0 auto;">contratação, pagamento protegido e entrega acompanhada — tudo dentro de um só lugar</p>
+
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:32px;margin-top:56px;text-align:left;">
+
+        <!-- card criador -->
+        <div style="background:#ffffff;border-radius:16px;padding:40px;display:flex;flex-direction:column;gap:16px;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="#ff007b"><path d="M6 4l14 8-14 8z"/></svg>
+          <h2 style="font-family:var(--font-brand);font-weight:700;font-size:26px;margin:0;color:var(--n-900);">seja um influentz</h2>
+          <p style="font-family:var(--font-brand);font-size:15px;color:var(--n-600);margin:0;">monte seu cardápio de entregas, receba propostas e trabalhe com marcas de verdade</p>
+          <div style="display:flex;flex-direction:column;gap:10px;margin:8px 0 8px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#620073" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+              <span style="font-family:var(--font-brand);font-size:14px;color:var(--n-700);">seu dinheiro fica protegido até a entrega ser aprovada</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#620073" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="9" height="19" rx="1"/><path d="M15 2.5V7h4M8.5 12h7M8.5 15.5h7"/></svg>
+              <span style="font-family:var(--font-brand);font-size:14px;color:var(--n-700);">contrato claro em cada proposta, sem letra miúda</span>
+            </div>
+          </div>
+          <button class="btn-primary" style="width:100%;">criar meu perfil</button>
+        </div>
+
+        <!-- card marca -->
+        <div style="background:#ffffff;border-radius:16px;padding:40px;display:flex;flex-direction:column;gap:16px;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#620073" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <h2 style="font-family:var(--font-brand);font-weight:700;font-size:26px;margin:0;color:var(--n-900);">busque um influentz</h2>
+          <p style="font-family:var(--font-brand);font-size:15px;color:var(--n-600);margin:0;">encontre o criador certo por categoria, contrate e acompanhe a entrega do início ao fim</p>
+          <div style="display:flex;flex-direction:column;gap:10px;margin:8px 0 8px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#620073" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="2"/><path d="M2.5 10h19"/></svg>
+              <span style="font-family:var(--font-brand);font-size:14px;color:var(--n-700);">pague com Pix, boleto ou cartão, valor final sem surpresa</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#620073" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.3 2.3L16 10"/></svg>
+              <span style="font-family:var(--font-brand);font-size:14px;color:var(--n-700);">só libera o pagamento depois que você aprovar</span>
+            </div>
+          </div>
+          <button class="btn-primary" style="width:100%;">encontrar criadores</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- trust row -->
+  <div style="padding:72px 64px;background:var(--bg);">
+    <div style="max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;">
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#620073" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3.2 8.4-7 10-3.8-1.6-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+        <h3 style="font-family:var(--font-brand);font-weight:700;font-size:17px;margin:0;color:var(--n-900);">pagamento protegido</h3>
+        <p style="font-family:var(--font-brand);font-size:14px;color:var(--n-600);margin:0;line-height:1.5;">o dinheiro fica retido até você aprovar a entrega</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#620073" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2.5h9l4 4V21a1 1 0 01-1 1H6a1 1 0 01-1-1V3.5a1 1 0 011-1z"/><path d="M15 2.5V7h4M8.5 12h7M8.5 15.5h7M8.5 8.5h3"/></svg>
+        <h3 style="font-family:var(--font-brand);font-weight:700;font-size:17px;margin:0;color:var(--n-900);">contrato automático</h3>
+        <p style="font-family:var(--font-brand);font-size:14px;color:var(--n-600);margin:0;line-height:1.5;">termos claros, gerados a cada negociação fechada</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#620073" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM20 14v3M17 20h4"/></svg>
+        <h3 style="font-family:var(--font-brand);font-weight:700;font-size:17px;margin:0;color:var(--n-900);">Pix, boleto ou cartão</h3>
+        <p style="font-family:var(--font-brand);font-size:14px;color:var(--n-600);margin:0;line-height:1.5;">valor final tudo incluso, sem taxa somada depois</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- footer institucional -->
+  <div style="background:var(--wine);color:#ffffff;padding:32px 64px;display:flex;align-items:center;justify-content:space-between;">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="#ff007b"><path d="M6 4l14 8-14 8z"/></svg>
+      <span style="font-family:'Roboto Slab',Georgia,serif;font-size:13px;color:#f3e3f7;">© 2026 INFLUENTZ. Todos os direitos reservados.</span>
+    </div>
+    <div style="display:flex;gap:24px;">
+      <a href="#" style="font-family:'Roboto Slab',Georgia,serif;font-size:13px;color:#ffffff;">Termos de Uso</a>
+      <a href="#" style="font-family:'Roboto Slab',Georgia,serif;font-size:13px;color:#ffffff;">Privacidade</a>
+      <a href="#" style="font-family:'Roboto Slab',Georgia,serif;font-size:13px;color:#ffffff;">Contato</a>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>
