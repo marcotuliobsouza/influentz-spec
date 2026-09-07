@@ -80,17 +80,22 @@ Práticas de economia (fonte: https://support.claude.com/pt/articles/9797557-mel
 
 ## 7. Estado atual
 
-| Etapa | Documento | Estado |
-|---|---|---|
-| 1 — SPEC | `/docs/SPEC-INFLUENTZ.md` | v0.5 ✅ |
-| 2 — Sistema de design | `/docs/DESIGN-SYSTEM.md` | v0.4 ✅ |
-| — Máquina de estados | `/docs/MAQUINA-DE-ESTADOS.md` | v0.2 ✅ (ponte entre a SPEC e as telas) |
-| 3 — Telas / wireframes | — | **próxima, desbloqueada** |
-| 4 — Modelo de dados | — | não iniciada |
-| 5 — Conexões | — | não iniciada |
-| 6 — Código | — | não iniciada |
+| Documento | Estado |
+|---|---|
+| `/docs/METODO-DE-TRABALHO.md` | v1.0 ✅ — as 8 fases e o contrato de entrega |
+| `/docs/SPEC-INFLUENTZ.md` | v0.5 ✅ |
+| `/docs/FEATURE-MATRIX.md` | v1.0 ✅ — **inventário completo, 128 funções, 4 superfícies** |
+| `/docs/PRODUTO-DETALHADO.md` | v0.1 ✅ — campos, métricas, tipos de proposta |
+| `/docs/MAQUINA-DE-ESTADOS.md` | v0.2 ✅ |
+| `/docs/DESIGN-SYSTEM.md` | v0.4 ✅ |
+| Telas | 10 wireframes, 2 em alta fidelidade — de ~40 |
+| Modelo de dados, conexões, código | não iniciados |
 
-**Fonte de marca:** o guia original da agência (2020) está em `/docs/marca/`, não só no Drive.
+**As quatro superfícies:** CREATOR APP (celular) · BRAND WEB · AGENCY WEB · ADMIN WEB. Toda tela declara a qual pertence.
+
+**Fonte de marca:** `/docs/marca/` — espelho completo da pasta BRANDING. Logotipo e símbolo em vetor oficial, 21 ícones da marca em SVG, avatares padrão, guia de 33 páginas.
+
+⚠️ **Regra do Google Drive (decisão do Marco):** só a pasta `INFLUENTZ / MARKETING / BRANDING` entra no projeto. Todo o resto do Drive fica fora, incluindo `00_CLEAN_ROOM_PRODUCT_ENGINEERING`. **Fonte de verdade do produto é este repositório.** Ver `/docs/CONFLITOS-A-RESOLVER.md`.
 
 ### Decisões travadas (não reabrir sem motivo novo)
 
