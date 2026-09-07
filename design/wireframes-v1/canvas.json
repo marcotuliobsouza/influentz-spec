@@ -2,20 +2,23 @@
   "artboards": [
     { "file": "Main.dc.html", "x": 0, "y": 0, "w": 1440, "h": 1000 },
     { "file": "Busca.dc.html", "x": 0, "y": 1120, "w": 390, "h": 950 },
-    { "file": "Perfil.dc.html", "x": 470, "y": 1120, "w": 390, "h": 1150 },
+    { "file": "Perfil.dc.html", "x": 470, "y": 1120, "w": 390, "h": 1250 },
     { "file": "Proposta.dc.html", "x": 940, "y": 1120, "w": 390, "h": 1560 },
-    { "file": "Contrato.dc.html", "x": 470, "y": 2780, "w": 390, "h": 1220 },
-    { "file": "Pagamento.dc.html", "x": 940, "y": 2780, "w": 390, "h": 1260 },
-    { "file": "Extrato.dc.html", "x": 1410, "y": 2780, "w": 390, "h": 1320 },
-    { "file": "Chat.dc.html", "x": 470, "y": 4200, "w": 390, "h": 850 },
-    { "file": "Avaliacao.dc.html", "x": 940, "y": 4200, "w": 390, "h": 840 }
+    { "file": "Comparador.dc.html", "x": 1410, "y": 1120, "w": 1100, "h": 900 },
+    { "file": "Contrato.dc.html", "x": 470, "y": 2800, "w": 390, "h": 1220 },
+    { "file": "Pagamento.dc.html", "x": 940, "y": 2800, "w": 390, "h": 1260 },
+    { "file": "Extrato.dc.html", "x": 1410, "y": 2800, "w": 390, "h": 1320 },
+    { "file": "Chat.dc.html", "x": 470, "y": 4220, "w": 390, "h": 850 },
+    { "file": "Avaliacao.dc.html", "x": 940, "y": 4220, "w": 390, "h": 840 }
   ],
   "annotations": [
-    { "id": "note-contexto", "x": -420, "y": 40, "w": 360, "text": "INFLUENTZ — fluxo principal v1\n\nWireframes estáticos, mobile-first. Cobre a jornada de ponta a ponta para marca e criador (SPEC §5)." },
-    { "id": "note-marca-flow", "x": 0, "y": 1050, "w": 1330, "text": "fluxo da marca: busca → vê o perfil do criador → envia proposta" },
-    { "id": "note-encontro", "x": 470, "y": 2710, "w": 830, "text": "ponto de encontro: o contrato existe assim que a proposta é aceita e paga. Pagamento fica ao lado (ação da marca); extrato fica à direita (visão do criador)." },
-    { "id": "note-criador-flow", "x": 1410, "y": 2710, "w": 390, "text": "visão do criador: acompanha o mesmo contrato e vê seu dinheiro (protegido / aguardando prazo / disponível)" },
-    { "id": "note-final", "x": 470, "y": 4130, "w": 860, "text": "chat (liberado só após o pagamento) e avaliação double-blind — compartilhados pelos dois lados" }
+    { "id": "note-contexto", "x": -440, "y": 40, "w": 380, "text": "INFLUENTZ — fluxo principal\n\nAlta fidelidade a partir dos ativos reais da marca: logotipo, os 21 ícones oficiais, avatares padrão e o símbolo \"play\" verdadeiro (não mais um triângulo desenhado à mão).\n\nO que ainda falta está listado em docs/PRODUTO-DETALHADO.md §4." },
+    { "id": "note-marca-flow", "x": 0, "y": 1046, "w": 2500, "text": "fluxo da marca: busca → perfil do criador → proposta → comparar candidaturas" },
+    { "id": "note-perfil", "x": 470, "y": 2400, "w": 390, "text": "PERFIL — refeito em alta fidelidade. Traz as 5 métricas de audiência (docs/PRODUTO-DETALHADO.md §3.2) com a leitura que decide: \"+40% vs. tecnologia\", não só o número cru." },
+    { "id": "note-comparador", "x": 1410, "y": 2050, "w": 1100, "text": "COMPARADOR — tela nova, apontada como ausente pelo Marco. É a que mais justifica a comissão: comparar 5 candidaturas em preço, alcance, engajamento, público e histórico na mesma linha é o trabalho que a agência faz hoje na mão, em planilha. Em desktop de propósito: ninguém compara 5 propostas no celular." },
+    { "id": "note-encontro", "x": 470, "y": 2730, "w": 830, "text": "ponto de encontro: o contrato existe assim que a proposta é aceita e paga. Pagamento ao lado (ação da marca); extrato à direita (visão do criador)." },
+    { "id": "note-criador-flow", "x": 1410, "y": 2730, "w": 390, "text": "visão do criador: mesmo contrato, e o dinheiro dele (protegido / aguardando prazo / disponível)" },
+    { "id": "note-final", "x": 470, "y": 4150, "w": 860, "text": "chat (liberado só após o pagamento) e avaliação double-blind — compartilhados pelos dois lados" }
   ],
   "launch": { "view": "canvas" }
 }

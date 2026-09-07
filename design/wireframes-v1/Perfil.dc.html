@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&family=Roboto+Slab:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&family=Roboto+Slab:wght@400;500;700&display=swap">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -10,122 +10,195 @@
 <helmet>
 <style>
 :root{
-  --bg:#fdf9fa; --n-100:#f8f3f4; --n-200:#ece5e6; --n-300:#dbd2d4; --n-500:#85787b; --n-600:#685c5e; --n-700:#4e4446; --n-900:#1b1516;
-  --pink:#ff007b; --pink-ink:#0e080a; --purple:#620073;
-  --font-brand:'Raleway',system-ui,sans-serif; --font-inst:'Roboto Slab',Georgia,serif;
+  --bg:#fdf9fa; --n-100:#f8f3f4; --n-200:#ece5e6; --n-300:#dbd2d4; --n-400:#aba0a2; --n-500:#85787b; --n-600:#685c5e; --n-700:#4e4446; --n-800:#2e2628; --n-900:#1b1516;
+  --pink:#ff007b; --pink-ink:#0e080a; --purple:#620073; --wine:#4f2e3c; --rose:#fcd8e3;
+  --fb:'Raleway',system-ui,sans-serif; --fi:'Roboto Slab',Georgia,serif;
+  --sh-sm:0 1px 2px rgba(79,46,60,.06),0 4px 10px -4px rgba(79,46,60,.10);
+  --sh-md:0 2px 4px rgba(79,46,60,.06),0 12px 28px -10px rgba(79,46,60,.18);
 }
 *{box-sizing:border-box;}
-body{margin:0;font-family:var(--font-brand);color:var(--n-900);background:var(--bg);}
-.tabular{font-variant-numeric:lining-nums tabular-nums;}
-.btn-primary{background:var(--pink);color:var(--pink-ink);font-family:var(--font-brand);font-weight:700;font-size:16px;border:none;border-radius:12px;padding:14px 18px;cursor:pointer;}
-.btn-secondary{background:#ffffff;color:var(--n-900);font-family:var(--font-brand);font-weight:700;font-size:16px;border:1.5px solid var(--n-300);border-radius:12px;padding:14px 18px;cursor:pointer;}
+body{margin:0;font-family:var(--fb);color:var(--n-900);background:var(--bg);-webkit-font-smoothing:antialiased;}
+a{color:var(--purple);text-decoration:none;} a:hover{color:var(--pink);}
+.tab{font-variant-numeric:lining-nums tabular-nums;}
+.ic{display:inline-block;vertical-align:middle;flex-shrink:0;}
+.btn-p{background:var(--pink);color:var(--pink-ink);font-family:var(--fb);font-weight:800;font-size:16px;border:none;border-radius:14px;padding:16px 20px;cursor:pointer;letter-spacing:-.01em;}
+.btn-s{background:#fff;color:var(--n-900);font-family:var(--fb);font-weight:700;font-size:16px;border:1.5px solid var(--n-300);border-radius:14px;padding:16px 20px;cursor:pointer;}
+.card{background:#fff;border-radius:18px;border:1px solid var(--n-200);box-shadow:var(--sh-sm);}
+.eyebrow{font-family:var(--fb);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--n-500);}
+.stat-n{font-family:var(--fi);font-weight:700;font-size:22px;line-height:1.1;color:var(--n-900);letter-spacing:-.02em;}
+.pill-up{display:inline-flex;align-items:center;gap:4px;background:#dcfce7;color:#15803d;font-family:var(--fb);font-weight:700;font-size:11px;padding:3px 8px;border-radius:999px;}
+.chip{font-family:var(--fb);font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:999px;background:var(--n-100);color:var(--n-700);}
 </style>
 </helmet>
 
-<div style="width:390px;min-height:1150px;background:var(--bg);display:flex;flex-direction:column;position:relative;">
+<div style="width:390px;background:var(--bg);display:flex;flex-direction:column;position:relative;">
 
-  <!-- cover -->
-  <div style="height:170px;background:linear-gradient(135deg,#fcd8e3 0%,#dba6c6 55%,#7a3f8c 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;">
-    <svg width="120" height="120" viewBox="0 0 24 24" fill="#ffffff" opacity="0.18" style="position:absolute;left:-18px;top:-24px;transform:rotate(18deg);"><path d="M6 4l14 8-14 8z"/></svg>
-    <svg width="90" height="90" viewBox="0 0 24 24" fill="#ffffff" opacity="0.14" style="position:absolute;right:-14px;bottom:-30px;transform:rotate(-25deg);"><path d="M6 4l14 8-14 8z"/></svg>
-    <div style="position:absolute;top:16px;left:16px;width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1b1516" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-    </div>
-    <div style="position:absolute;top:16px;right:16px;display:flex;gap:8px;">
-      <div style="width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1b1516" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-9.5-8.8C.7 8 2 4.6 5.3 4c2-.4 3.8.6 4.7 2.2C10.9 4.6 12.7 3.6 14.7 4c3.3.6 4.6 4 3.8 7.2C16 15.6 12 20 12 20z"/></svg>
+  <!-- ===== capa ===== -->
+  <div style="height:196px;background:linear-gradient(142deg,#ff007b 0%,#a4187f 52%,#4f2e3c 100%);position:relative;overflow:hidden;">
+    <svg class="ic" viewBox="0 0 20 20" width="230" height="230" fill="#ffffff" opacity="0.10" style="position:absolute;left:-52px;top:-56px;transform:rotate(14deg);"><path transform="matrix(1,0,0,-1,10.1602,10.7793)" d="M0 0-6.907-2.597C-7.002-2.633-7.102-2.65-7.2-2.65-7.367-2.65-7.533-2.6-7.674-2.502-7.898-2.347-8.032-2.091-8.032-1.818V3.377C-8.032 3.649-7.898 3.905-7.674 4.061-7.449 4.216-7.163 4.252-6.907 4.155L0 1.558C.324 1.437 .539 1.126 .539 .779 .539 .433 .324 .122 0 0M7.972 2.777-7.271 6.675C-7.888 6.832-8.543 6.696-9.046 6.306-9.549 5.915-9.844 5.313-9.844 4.677V-3.118C-9.844-3.755-9.549-4.356-9.046-4.747-8.681-5.031-8.234-5.181-7.781-5.181-7.61-5.181-7.439-5.159-7.271-5.116L7.972-1.219C8.885-.985 9.523-.163 9.523 .779 9.523 1.722 8.885 2.544 7.972 2.777"/></svg>
+    <svg class="ic" viewBox="0 0 20 20" width="150" height="150" fill="#ffffff" opacity="0.07" style="position:absolute;right:-40px;bottom:-52px;transform:rotate(-22deg);"><path transform="matrix(1,0,0,-1,10.1602,10.7793)" d="M0 0-6.907-2.597C-7.002-2.633-7.102-2.65-7.2-2.65-7.367-2.65-7.533-2.6-7.674-2.502-7.898-2.347-8.032-2.091-8.032-1.818V3.377C-8.032 3.649-7.898 3.905-7.674 4.061-7.449 4.216-7.163 4.252-6.907 4.155L0 1.558C.324 1.437 .539 1.126 .539 .779 .539 .433 .324 .122 0 0M7.972 2.777-7.271 6.675C-7.888 6.832-8.543 6.696-9.046 6.306-9.549 5.915-9.844 5.313-9.844 4.677V-3.118C-9.844-3.755-9.549-4.356-9.046-4.747-8.681-5.031-8.234-5.181-7.781-5.181-7.61-5.181-7.439-5.159-7.271-5.116L7.972-1.219C8.885-.985 9.523-.163 9.523 .779 9.523 1.722 8.885 2.544 7.972 2.777"/></svg>
+
+    <div style="position:absolute;top:18px;left:18px;right:18px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="width:40px;height:40px;border-radius:14px;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);">
+        <svg class="ic" viewBox="0 0 20 20" width="19" height="19" fill="#4f2e3c"><path transform="matrix(1,0,0,-1,17.8145,12.003901)" d="M0 0H-10.853L-8.59-2.264C-7.807-3.047-7.807-4.315-8.59-5.099-9.372-5.881-10.641-5.881-11.424-5.098L-17.046 .524C-17.422 .9-17.633 1.41-17.633 1.941V2.065C-17.633 2.598-17.422 3.107-17.046 3.483L-11.424 9.105C-11.032 9.497-10.52 9.693-10.007 9.693-9.494 9.693-8.981 9.497-8.59 9.106-7.807 8.323-7.807 7.054-8.59 6.271L-10.853 4.008H0C1.106 4.008 2.004 3.111 2.004 2.004 2.004 .896 1.106 0 0 0"/></svg>
       </div>
-      <div style="width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1b1516" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2.2"/><circle cx="18" cy="6" r="2.2"/><circle cx="18" cy="18" r="2.2"/><path d="M8 11l8-4M8 13l8 4"/></svg>
+      <div style="width:40px;height:40px;border-radius:14px;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;">
+        <svg class="ic" viewBox="0 0 20 20" width="19" height="19" fill="#4f2e3c"><path transform="matrix(1,0,0,-1,14.1528,2.0298005)" d="M0 0C-1.667 0-3.157-.752-4.153-1.934-5.148-.752-6.639 0-8.306 0-11.303 0-13.733-2.43-13.733-5.428-13.733-5.462-13.729-5.682-13.722-5.76-13.722-5.768-13.722-5.776-13.721-5.785H-13.72C-13.341-9.751-4.459-15.727-4.153-15.94-3.847-15.727 5.036-9.751 5.414-5.785H5.415C5.416-5.776 5.416-5.768 5.417-5.759 5.423-5.682 5.428-5.462 5.428-5.428 5.428-2.43 2.998 0 0 0M0-1.811C1.995-1.811 3.617-3.434 3.617-5.418 3.617-5.448 3.615-5.545 3.612-5.607L3.611-5.613C3.457-7.236 .25-10.563-4.153-13.729-8.556-10.563-11.762-7.236-11.917-5.613L-11.918-5.606C-11.921-5.545-11.923-5.449-11.923-5.428-11.923-3.434-10.3-1.811-8.306-1.811-7.237-1.811-6.228-2.281-5.538-3.101L-4.153-4.745-2.768-3.101C-2.078-2.281-1.069-1.811 0-1.811"/></svg>
       </div>
-    </div>
-    <div style="position:absolute;bottom:-32px;left:20px;width:76px;height:76px;border-radius:50%;background:#ffffff;border:4px solid #ffffff;box-shadow:0 2px 8px rgba(79,46,60,0.16);display:flex;align-items:center;justify-content:center;">
-      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#aba0a2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5"/></svg>
     </div>
   </div>
 
-  <!-- header info -->
-  <div style="padding:44px 20px 20px;border-bottom:1px solid var(--n-200);">
-    <div style="display:flex;align-items:center;gap:6px;">
-      <span style="font-family:var(--font-brand);font-weight:700;font-size:21px;color:var(--n-900);">joão vitor</span>
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#620073" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.3 2.3L16 10"/></svg>
-    </div>
-    <div style="display:flex;align-items:center;gap:8px;margin:8px 0;">
-      <span style="font-family:var(--font-brand);font-size:13px;font-weight:600;padding:5px 10px;border-radius:999px;background:var(--n-100);color:var(--n-700);">tecnologia</span>
-      <span style="font-family:var(--font-brand);font-size:13px;font-weight:600;padding:5px 10px;border-radius:999px;background:var(--n-100);color:var(--n-700);">remoto</span>
-      <div style="display:flex;align-items:center;gap:4px;margin-left:auto;">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="#ff007b"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.7 1.6 7-6.2-3.8-6.2 3.8 1.6-7L2 9.2l7.1-.6z"/></svg>
-        <span style="font-family:var(--font-brand);font-weight:700;font-size:14px;">4,9</span>
-        <span style="font-family:var(--font-brand);font-size:13px;color:var(--n-600);">(128)</span>
+  <!-- ===== identidade ===== -->
+  <div style="padding:0 20px;margin-top:-44px;position:relative;">
+    <div style="display:flex;align-items:flex-end;gap:14px;">
+      <div style="width:88px;height:88px;border-radius:50%;background:#fff;border:4px solid #fff;box-shadow:var(--sh-md);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;">
+        <!-- avatar oficial da marca: criador sem foto -->
+        <svg viewBox="0 0 400 400" width="60" height="60" style="display:block;"><path transform="matrix(1,0,0,-1,144.1074,354.0488)" d="M0 0H12.284C26.491 0 38.05 11.559 38.05 25.764V65.038C50.987 61.28 65.006 61.256 77.967 65.011 94.811 69.893 109.36 80.881 119.263 96.122 119.372 96.092 119.481 96.063 119.59 96.034 165.636 83.749 171.494 55.234 178.909 19.136 179.689 15.336 180.497 11.409 181.352 7.545 183.579-2.504 182.413-5.146 182.264-5.426 182.03-5.618 179.861-7.146 170.727-7.146H100.997L0-7.149ZM74.978 132.704C62.258 127.989 53.674 127.994 40.955 132.743 40.025 133.089 39.054 133.479 38.05 133.909V152.248C38.05 166.444 26.491 177.993 12.284 177.993H-7.777C-12.179 186.869-14.584 195.766-14.584 203.28V225.637C6.862 238.205 34.739 231.523 64.232 224.46 81.956 220.214 100.284 215.823 117.829 215.823 122.255 215.823 126.529 216.114 130.595 216.692V203.28C130.595 176.675 104.605 143.695 74.978 132.704M71.582 87.063C60.428 83.832 48.624 84.69 38.05 89.442V109.479C53.848 104.538 66.392 105.034 82.963 111.182 85.264 112.037 87.584 113.011 89.902 114.092 91.14 111.371 92.724 109.115 94.788 107.084 95.572 106.313 96.424 105.588 97.355 104.896 90.622 96.146 81.79 90.018 71.582 87.063M66.276 311.035C74.472 310.266 80.563 308.199 86.476 306.193 99.214 301.871 111.319 297.766 134.571 306.958 133.339 303.749 131.825 300.014 130.046 295.655L129.9 295.295C128.292 291.352 126.48 286.904 124.515 281.936 123.201 278.609 123.525 274.801 125.381 271.749 127.239 268.694 130.474 266.654 134.038 266.292 145.323 265.168 157.545 270.147 168.15 275.678 159.897 256.26 148.973 245.096 134.283 240.865 116.114 235.63 93.508 241.049 69.515 246.799 51.302 251.162 32.467 255.673 14.317 255.673 3.834 255.673-5.532 254.178-14.098 251.124-12.157 269.807-5.721 284.44 5.078 294.688 18.949 307.853 40.106 313.508 66.276 311.035M-56.056 88.782V152.248C-56.056 153.784-54.804 155.035-53.267 155.035H12.284C13.834 155.035 15.096 153.784 15.096 152.248V25.764C15.096 24.215 13.834 22.955 12.284 22.955H.003V42.914C.003 51.919-7.325 59.245-16.331 59.245H-38.745V67.229C-38.745 73.012-41.055 83.275-56.056 88.782M-57.188 41.293C-52.528 36.292-46.439 36.292-41.546 36.292H-22.955V-7.149H-60.967C-66.389-7.149-70.801-2.73-70.801 2.702V69.407L-64.989 67.583C-63.156 67.005-62.182 66.518-61.699 66.221V57.798C-61.699 51.188-61.366 45.774-57.188 41.293M203.763 12.509C202.996 15.978 202.26 19.547 201.543 23.022L201.388 23.772C197.577 42.323 193.634 61.504 183.202 78.418 171.076 98.073 152.204 111.09 125.511 118.209 123.254 118.814 120.333 119.614 117.975 120.372 117.589 120.521 117.205 120.653 116.817 120.762 112.182 122.329 111.051 123.286 110.886 123.447 110.592 123.813 110.259 125.083 109.98 126.371 136.138 146.442 153.549 177.03 153.549 203.28V224.065C174.405 235.281 188.958 257.872 197.989 293.019 198.122 293.543 198.217 294.074 198.277 294.619 198.826 299.654 196.75 304.235 192.728 306.873 185.355 311.712 178.595 307.861 167.344 301.458 163.583 299.318 158.995 296.706 154.319 294.433 160.553 310.05 163.496 319.829 159.803 330.475 158.689 333.699 156.22 336.243 153.021 337.456 149.83 338.665 146.295 338.392 143.324 336.718 114.994 320.755 107.032 323.457 93.842 327.933 87.029 330.247 79.307 332.868 68.424 333.888 35.465 337.011 8.093 329.205-10.727 311.338-29.666 293.361-38.938 265.749-37.542 231.668V203.284C-37.542 195.175-35.934 186.692-32.757 177.993H-53.267C-67.463 177.993-79.014 166.444-79.014 152.248V94.159C-82.029 93.811-84.731 92.708-87.085 90.857-93.855 85.533-94.132 76.72-93.759 70.824V2.702C-93.759-15.387-79.048-30.104-60.967-30.104H170.729C180.586-30.104 192.839-28.933 200.165-19.804 207.639-10.502 206.014 2.352 203.763 12.509" fill="#4f2e3c"/><path transform="matrix(1,0,0,-1,121.563,237.6572)" d="M0 0V11.264C0 17.594-5.149 22.742-11.479 22.742-17.807 22.742-22.955 17.594-22.955 11.264V0C-22.955-6.327-17.807-11.474-11.479-11.474-5.149-11.474 0-6.327 0 0" fill="#4f2e3c"/></svg>
+      </div>
+      <div style="padding-bottom:6px;display:flex;gap:6px;">
+        <span class="chip" style="background:#fff;box-shadow:var(--sh-sm);">tecnologia</span>
+        <span class="chip" style="background:#fff;box-shadow:var(--sh-sm);">remoto</span>
       </div>
     </div>
 
-    <div style="display:flex;gap:20px;margin-top:16px;">
-      <div style="display:flex;align-items:center;gap:6px;">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#620073" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.4"/><path d="M15.7 14.8c2.6.3 4.3 2.2 4.3 5.2"/></svg>
-        <div>
-          <div style="font-family:var(--font-inst);font-weight:700;font-size:14px;" class="tabular">31,2M</div>
-          <div style="font-family:var(--font-brand);font-size:11px;color:var(--n-600);">seguidores · YouTube</div>
-        </div>
-      </div>
-      <div style="display:flex;align-items:center;gap:6px;">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#620073" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 6h6v6"/></svg>
-        <div>
-          <div style="font-family:var(--font-inst);font-weight:700;font-size:14px;" class="tabular">6,8%</div>
-          <div style="font-family:var(--font-brand);font-size:11px;color:var(--n-600);">engajamento</div>
-        </div>
-      </div>
+    <div style="display:flex;align-items:center;gap:7px;margin-top:14px;">
+      <h1 style="font-family:var(--fb);font-weight:800;font-size:26px;letter-spacing:-.02em;margin:0;color:var(--n-900);">joão vitor</h1>
+      <!-- selo verificado da marca, em degradê -->
+      <svg viewBox="0 0 20 20" width="21" height="21" style="flex-shrink:0;">
+        <defs><linearGradient id="vg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff007b"/><stop offset="1" stop-color="#620073"/></linearGradient></defs>
+        <circle cx="10" cy="10" r="9.2" fill="url(#vg)"/>
+        <g transform="translate(2.6,3.1) scale(0.72)"><path transform="matrix(1,0,0,-1,4.6792,7.5254)" d="M0 0C-.059 0-.118-.02-.168-.06L-2.41-1.818C-2.467-1.863-2.505-1.932-2.513-2.005-2.521-2.077-2.498-2.151-2.451-2.207L2.454-8.079C2.5-8.136 2.567-8.17 2.64-8.177H2.645C2.73-8.177 2.791-8.153 2.839-8.113L13.059 .49C13.114 .537 13.148 .604 13.155 .676 13.161 .747 13.138 .82 13.091 .875L11.183 3.132C11.135 3.188 11.069 3.222 10.996 3.228 10.925 3.232 10.851 3.209 10.795 3.161L3.092-3.572 .21-.1C.156-.034 .079 0 0 0M2.663-9.923C2.604-9.923 2.546-9.921 2.488-9.915 1.948-9.868 1.46-9.613 1.114-9.198L-3.791-3.327C-4.139-2.911-4.306-2.362-4.249-1.822-4.192-1.281-3.914-.779-3.488-.445L-1.246 1.314C-.38 1.994 .85 1.863 1.553 1.016L3.292-1.079 9.646 4.476C10.056 4.834 10.579 5.008 11.126 4.968 11.663 4.928 12.169 4.669 12.517 4.258L14.424 2.002C14.773 1.59 14.939 1.066 14.894 .528 14.848-.011 14.596-.498 14.183-.846L3.963-9.448C3.6-9.755 3.138-9.923 2.663-9.923" fill="#ffffff"/></g>
+      </svg>
     </div>
 
-    <p style="font-family:var(--font-brand);font-size:14px;line-height:1.55;color:var(--n-700);margin:16px 0 0;">youtuber e criador de conteúdo sobre tecnologia. mais de 12 bilhões de visualizações acumuladas. gosto de trabalhar com marcas que topam ousar no roteiro.</p>
+    <div style="display:flex;align-items:center;gap:6px;margin-top:8px;">
+      <svg class="ic" viewBox="0 0 20 20" width="15" height="15" fill="#ff007b"><path transform="matrix(1,0,0,-1,19.6191,7.7388)" d="M0 0C-.125 .384-.457 .665-.857 .723L-6.253 1.507-8.667 6.396C-8.845 6.759-9.215 6.989-9.619 6.989-10.023 6.989-10.393 6.759-10.572 6.396L-12.985 1.507-18.381 .723C-18.781 .665-19.113 .384-19.238 0-19.364-.385-19.259-.807-18.97-1.089L-15.065-4.895-15.987-10.269C-16.055-10.668-15.892-11.071-15.564-11.308-15.237-11.546-14.803-11.577-14.445-11.389L-9.619-8.852-4.793-11.389C-4.637-11.471-4.468-11.511-4.299-11.511-4.078-11.511-3.859-11.443-3.674-11.308-3.347-11.071-3.183-10.668-3.251-10.269L-4.173-4.895-.269-1.089C.021-.807 .125-.385 0 0"/></svg>
+      <span style="font-family:var(--fi);font-weight:700;font-size:14px;" class="tab">4,9</span>
+      <span style="font-family:var(--fb);font-size:13px;color:var(--n-600);">· 128 avaliações · responde em 4 h</span>
+    </div>
+
+    <p style="font-family:var(--fb);font-size:14.5px;line-height:1.6;color:var(--n-700);margin:14px 0 0;">youtuber de tecnologia. mais de 12 bilhões de visualizações acumuladas. gosto de marcas que topam ousar no roteiro</p>
   </div>
 
-  <!-- vitrine -->
-  <div style="padding:20px;">
-    <h3 style="font-family:var(--font-brand);font-weight:700;font-size:16px;margin:0 0 12px;color:var(--n-900);">o que ele oferece</h3>
+  <!-- ===== métricas de audiência ===== -->
+  <div style="padding:24px 20px 0;">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px;">
+      <span class="eyebrow">audiência</span>
+      <span style="font-family:var(--fb);font-size:11px;color:var(--n-500);">YouTube · atualizado hoje</span>
+    </div>
+
+    <div class="card" style="padding:18px;">
+      <div style="display:flex;gap:16px;">
+        <div style="flex:1;">
+          <div class="eyebrow" style="font-size:10px;">alcance médio</div>
+          <div class="stat-n tab" style="margin-top:3px;">412 mil</div>
+          <div style="font-family:var(--fb);font-size:11px;color:var(--n-600);margin-top:2px;">por publicação</div>
+        </div>
+        <div style="width:1px;background:var(--n-200);"></div>
+        <div style="flex:1;">
+          <div class="eyebrow" style="font-size:10px;">engajamento</div>
+          <div class="stat-n tab" style="margin-top:3px;">6,8%</div>
+          <div style="margin-top:5px;"><span class="pill-up">+40% vs. tecnologia</span></div>
+        </div>
+      </div>
+
+      <div style="height:1px;background:var(--n-200);margin:16px 0;"></div>
+
+      <div class="eyebrow" style="font-size:10px;margin-bottom:8px;">quem assiste</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span class="chip">25–34 anos · 46%</span>
+        <span class="chip">homens · 61%</span>
+        <span class="chip">São Paulo · 22%</span>
+      </div>
+
+      <div style="height:1px;background:var(--n-200);margin:16px 0;"></div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <div class="eyebrow" style="font-size:10px;">crescimento · 90 dias</div>
+          <div style="font-family:var(--fb);font-size:12px;color:var(--n-600);margin-top:3px;">curva constante, sem pico anormal</div>
+        </div>
+        <svg width="96" height="34" viewBox="0 0 96 34" fill="none">
+          <path d="M2 30 L18 27 L34 25 L50 19 L66 16 L82 9 L94 5" stroke="#15803d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 30 L18 27 L34 25 L50 19 L66 16 L82 9 L94 5 L94 34 L2 34 Z" fill="#15803d" opacity="0.10"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== histórico na plataforma ===== -->
+  <div style="padding:20px 20px 0;">
+    <div class="eyebrow" style="margin-bottom:10px;">histórico na INFLUENTZ</div>
+    <div style="display:flex;gap:10px;">
+      <div class="card" style="flex:1;padding:14px;text-align:center;">
+        <div class="stat-n tab" style="font-size:19px;">17</div>
+        <div style="font-family:var(--fb);font-size:11px;color:var(--n-600);margin-top:2px;line-height:1.3;">contratos<br>concluídos</div>
+      </div>
+      <div class="card" style="flex:1;padding:14px;text-align:center;">
+        <div class="stat-n tab" style="font-size:19px;color:#15803d;">100%</div>
+        <div style="font-family:var(--fb);font-size:11px;color:var(--n-600);margin-top:2px;line-height:1.3;">entregue<br>no prazo</div>
+      </div>
+      <div class="card" style="flex:1;padding:14px;text-align:center;">
+        <div class="stat-n tab" style="font-size:19px;">0</div>
+        <div style="font-family:var(--fb);font-size:11px;color:var(--n-600);margin-top:2px;line-height:1.3;">disputas<br>abertas</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== vitrine ===== -->
+  <div style="padding:24px 20px 0;">
+    <div class="eyebrow" style="margin-bottom:12px;">o que ele oferece</div>
 
     <div style="display:flex;flex-direction:column;gap:10px;">
-      <div style="display:flex;align-items:center;gap:12px;background:#ffffff;border:1px solid var(--n-200);border-radius:12px;padding:14px;box-shadow:0 1px 2px rgba(79,46,60,.05),0 6px 14px -6px rgba(79,46,60,.12);">
-        <div style="width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,#fcd8e3,#c9a7c4);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ff007b"><path d="M6 4l14 8-14 8z"/></svg>
+
+      <div class="card" style="padding:16px;display:flex;align-items:center;gap:14px;">
+        <div style="width:44px;height:44px;border-radius:13px;background:linear-gradient(140deg,#ff007b,#620073);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg class="ic" viewBox="0 0 20 20" width="20" height="20" fill="#ffffff"><path transform="matrix(1,0,0,-1,10.1602,10.7793)" d="M0 0-6.907-2.597C-7.002-2.633-7.102-2.65-7.2-2.65-7.367-2.65-7.533-2.6-7.674-2.502-7.898-2.347-8.032-2.091-8.032-1.818V3.377C-8.032 3.649-7.898 3.905-7.674 4.061-7.449 4.216-7.163 4.252-6.907 4.155L0 1.558C.324 1.437 .539 1.126 .539 .779 .539 .433 .324 .122 0 0M7.972 2.777-7.271 6.675C-7.888 6.832-8.543 6.696-9.046 6.306-9.549 5.915-9.844 5.313-9.844 4.677V-3.118C-9.844-3.755-9.549-4.356-9.046-4.747-8.681-5.031-8.234-5.181-7.781-5.181-7.61-5.181-7.439-5.159-7.271-5.116L7.972-1.219C8.885-.985 9.523-.163 9.523 .779 9.523 1.722 8.885 2.544 7.972 2.777"/></svg>
         </div>
-        <div style="flex:1;">
-          <div style="font-family:var(--font-inst);font-weight:700;font-size:14px;color:var(--n-900);">1 Reels</div>
-          <div style="font-family:var(--font-brand);font-size:12px;color:var(--n-600);">entrega em até 5 dias</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-family:var(--fi);font-weight:700;font-size:15px;color:var(--n-900);">1 Reels</div>
+          <div style="font-family:var(--fb);font-size:12.5px;color:var(--n-600);margin-top:1px;">entrega em até 5 dias · 2 revisões</div>
         </div>
-        <div style="font-family:var(--font-inst);font-weight:700;font-size:15px;color:var(--n-900);" class="tabular">R$ 800</div>
+        <div style="text-align:right;">
+          <div style="font-family:var(--fi);font-weight:700;font-size:17px;color:var(--n-900);letter-spacing:-.02em;" class="tab">R$ 800</div>
+        </div>
       </div>
 
-      <div style="display:flex;align-items:center;gap:12px;background:#ffffff;border:1px solid var(--n-200);border-radius:12px;padding:14px;box-shadow:0 1px 2px rgba(79,46,60,.05),0 6px 14px -6px rgba(79,46,60,.12);">
-        <div style="width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,#fcd8e3,#c9a7c4);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#620073" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.7"/><path d="M21 16l-5.5-5.5L9 17"/></svg>
+      <div class="card" style="padding:16px;display:flex;align-items:center;gap:14px;">
+        <div style="width:44px;height:44px;border-radius:13px;background:linear-gradient(140deg,#ff007b,#620073);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg class="ic" viewBox="0 0 20 20" width="19" height="19" fill="#ffffff"><path transform="matrix(1,0,0,-1,15.5054,12.3047)" d="M0 0-4.384-3.35-3.941-1.163C-3.813-.528-4.224 .089-4.857 .218-5.003 .247-5.285 .241-5.285 .241H-12.475V9.612H1.464V.241H.823C.823 .241 .722 .238 .672 .237 .437 .23 .201 .154 0 0M2.636 11.954H-13.646C-14.293 11.954-14.818 11.43-14.818 10.783V-.931C-14.818-1.577-14.293-2.102-13.646-2.102H-6.521L-7.298-5.941C-7.395-6.42-7.184-6.908-6.771-7.167-6.58-7.286-6.365-7.345-6.149-7.345-5.898-7.345-5.647-7.265-5.438-7.104L1.107-2.102H2.636C3.283-2.102 3.807-1.577 3.807-.931V10.783C3.807 11.43 3.283 11.954 2.636 11.954"/></svg>
         </div>
-        <div style="flex:1;">
-          <div style="font-family:var(--font-inst);font-weight:700;font-size:14px;color:var(--n-900);">3 Stories</div>
-          <div style="font-family:var(--font-brand);font-size:12px;color:var(--n-600);">entrega em até 3 dias</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-family:var(--fi);font-weight:700;font-size:15px;color:var(--n-900);">3 Stories</div>
+          <div style="font-family:var(--fb);font-size:12.5px;color:var(--n-600);margin-top:1px;">entrega em até 3 dias · 1 revisão</div>
         </div>
-        <div style="font-family:var(--font-inst);font-weight:700;font-size:15px;color:var(--n-900);" class="tabular">R$ 300</div>
+        <div style="text-align:right;">
+          <div style="font-family:var(--fi);font-weight:700;font-size:17px;color:var(--n-900);letter-spacing:-.02em;" class="tab">R$ 300</div>
+        </div>
       </div>
 
-      <div style="display:flex;align-items:center;gap:12px;background:#ffffff;border:1px solid var(--n-200);border-radius:12px;padding:14px;box-shadow:0 1px 2px rgba(79,46,60,.05),0 6px 14px -6px rgba(79,46,60,.12);">
-        <div style="width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,#fcd8e3,#c9a7c4);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#620073" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg>
+      <div class="card" style="padding:16px;display:flex;align-items:center;gap:14px;">
+        <div style="width:44px;height:44px;border-radius:13px;background:linear-gradient(140deg,#ff007b,#620073);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg class="ic" viewBox="0 0 20 20" width="19" height="19" fill="#ffffff"><path transform="matrix(1,0,0,-1,17.7109,8.957)" d="M0 0V-8.378C0-8.585-.169-8.754-.376-8.754H-15.045C-15.253-8.754-15.422-8.585-15.422-8.378V0ZM-12.378 2.667C-11.851 2.667-11.421 3.097-11.421 3.624V4.668H-4V3.624C-4 3.097-3.571 2.667-3.043 2.667-2.516 2.667-2.086 3.097-2.086 3.624V4.668H-.376C-.169 4.668 0 4.499 0 4.291V1.914H-15.422V4.291C-15.422 4.499-15.253 4.668-15.045 4.668H-13.335V3.624C-13.335 3.097-12.906 2.667-12.378 2.667M-.376 6.582H-2.086V7.625C-2.086 8.152-2.516 8.582-3.043 8.582-3.571 8.582-4 8.152-4 7.625V6.582H-11.421V7.625C-11.421 8.152-11.851 8.582-12.378 8.582-12.906 8.582-13.335 8.152-13.335 7.625V6.582H-15.045C-16.309 6.582-17.336 5.555-17.336 4.291V-8.378C-17.336-9.641-16.309-10.668-15.045-10.668H-.376C.887-10.668 1.914-9.641 1.914-8.378V4.291C1.914 5.555 .887 6.582-.376 6.582"/></svg>
         </div>
-        <div style="flex:1;">
-          <div style="font-family:var(--font-inst);font-weight:700;font-size:14px;color:var(--n-900);">1 hora de palestra remota</div>
-          <div style="font-family:var(--font-brand);font-size:12px;color:var(--n-600);">agendamento em até 15 dias</div>
+        <div style="flex:1;min-width:0;">
+          <div style="font-family:var(--fi);font-weight:700;font-size:15px;color:var(--n-900);">1 h de palestra remota</div>
+          <div style="font-family:var(--fb);font-size:12.5px;color:var(--n-600);margin-top:1px;">agenda com 15 dias</div>
         </div>
-        <div style="font-family:var(--font-inst);font-weight:700;font-size:15px;color:var(--n-900);" class="tabular">R$ 1.500</div>
+        <div style="text-align:right;">
+          <div style="font-family:var(--fi);font-weight:700;font-size:17px;color:var(--n-900);letter-spacing:-.02em;" class="tab">R$ 1.500</div>
+        </div>
       </div>
+
     </div>
   </div>
 
-  <div style="height:90px;"></div>
+  <div style="height:112px;"></div>
 
-  <!-- sticky bottom actions -->
-  <div style="position:absolute;bottom:0;left:0;right:0;display:flex;gap:10px;padding:16px 20px 20px;background:#ffffff;border-top:1px solid var(--n-200);">
-    <button class="btn-secondary" style="flex:1;">enviar proposta</button>
-    <button class="btn-primary" style="flex:1;">contratar</button>
+  <!-- ===== ação fixa ===== -->
+  <div style="position:absolute;bottom:0;left:0;right:0;padding:16px 20px 22px;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-top:1px solid var(--n-200);display:flex;gap:10px;">
+    <button class="btn-s" style="flex:1;">enviar proposta</button>
+    <button class="btn-p" style="flex:1.15;">contratar</button>
   </div>
 
 </div>
