@@ -18,14 +18,31 @@
 
 Um erro das telas anteriores foi não deixar claro de quem era cada visão. Corrigido: **a plataforma tem quatro superfícies**, e toda tela declara a qual pertence.
 
-| Superfície | Quem usa | Onde vive | Por quê |
-|---|---|---|---|
-| **CREATOR APP** | Criador | Celular primeiro | O criador vive no celular. Grava, publica e acompanha do telefone |
-| **BRAND WEB** | Marca | Computador primeiro | Comparar 5 propostas, revisar contrato e aprovar pagamento é trabalho de mesa |
-| **AGENCY WEB** | Agência | Computador primeiro | Opera várias marcas e vários criadores ao mesmo tempo |
-| **ADMIN WEB** | Equipe INFLUENTZ | Computador | Mediação, financeiro, Trust & Safety |
+### 0.1 ⚠️ Correção: ninguém fica preso a uma plataforma
 
-⚠️ **"Celular primeiro" não é desktop espremido.** O criador no celular precisa de uma navegação desenhada para o polegar; a marca no computador precisa de tabela e comparação. São desenhos diferentes, não o mesmo desenho em dois tamanhos.
+**A v1.0 deste documento deu a entender que o criador só teria aplicativo de celular. Isso estava errado, e o Marco corrigiu.**
+
+🟢 **Regra: todo usuário tem acesso completo em toda plataforma.**
+
+| | Web responsivo | iOS | Android |
+|---|---|---|---|
+| Criador | ✅ completo | ✅ | ✅ |
+| Marca | ✅ completo | ✅ | ✅ |
+| Agência | ✅ completo | ✅ | ✅ |
+| Admin | ✅ completo | — | — |
+
+**Nenhuma função existe em um lugar e falta no outro.** Um criador que só tem computador precisa conseguir fazer tudo; uma marca que precisa aprovar uma entrega no aeroporto precisa conseguir aprovar pelo celular.
+
+**O que muda é para qual contexto cada tela é desenhada primeiro** — e isso é decisão de desenho, não de acesso:
+
+| Superfície | Contexto principal | Por quê | Mas também roda em |
+|---|---|---|---|
+| **CREATOR** | Celular | O criador grava, publica e acompanha do telefone. Entregar arquivo, ver agenda e conferir saldo acontece na rua | web completo, e web é onde ele monta a vitrine com calma |
+| **BRAND** | Computador | Comparar 5 propostas lado a lado, revisar contrato e aprovar pagamento é trabalho de mesa | celular completo, com layout próprio para aprovar e acompanhar |
+| **AGENCY** | Computador | Opera várias marcas e criadores ao mesmo tempo | celular completo |
+| **ADMIN** | Computador | Mediação, financeiro e Trust & Safety exigem tela grande | — |
+
+⚠️ **Desenhar para o contexto principal não é espremer o outro.** A tela de comparação no celular não é a tabela de computador encolhida — vira cartões que se empilham. Duas telas diferentes, mesma função, nenhuma perda.
 
 🔵 **Uma pessoa pode ter mais de um espaço.** O dono de agência também é criador; o gerente atende três marcas. Sem isso, ele precisa de três logins e a plataforma parece amadora. Um seletor de espaço no topo resolve.
 
@@ -227,6 +244,70 @@ Pedido direto do Marco, e ele está certo: **lista de contratos não é gestão 
 | 104 | Financiar marco a marco | E | |
 | 105 | Notas fiscais e recibos | E | ⚠️ Contador |
 | 106 | Vários métodos salvos | P | |
+
+---
+
+## 3.5 Contrato recorrente ⚠️ módulo reincorporado
+
+⚠️ **Eu tinha tirado a recorrência do escopo, e o motivo estava errado.**
+
+Tirei porque a ideia tinha aparecido num documento cuja origem o Marco não reconhecia — ou seja, descartei pela **fonte**, não pelo **mérito**. Isso contraria a regra do `CLAUDE.md` §2.7: a fala do Marco é matéria-prima e o que importa é verificar, não a procedência. Ele devolveu com um caso de uso concreto que fecha a discussão:
+
+> *"uma marca que contratar creator para provador fixo mensal ou outro período acordado pode ter uma recorrência. Do que terem que ficar contratando toda vez a mesma coisa."*
+
+Está certo. E não é conveniência: **é o modelo de contratação mais valioso da plataforma.** Embaixador de marca, provador mensal, pacote fixo de conteúdo. Para o criador vira renda previsível; para a marca vira relação em vez de transação; para a INFLUENTZ vira receita recorrente — que vale muito mais que comissão avulsa.
+
+### 3.5.1 Como funciona 🟢
+
+| # | Função | Prio | Observação |
+|---|---|---|---|
+| 129 | **Criar contrato recorrente** | P | Mensal, quinzenal, trimestral ou período combinado |
+| 130 | Definir o que se repete a cada ciclo | P | Ex.: 4 Stories + 1 Reels por mês |
+| 131 | **Cada ciclo é um contrato próprio por dentro** | P | Financiamento, entrega, aprovação e repasse independentes |
+| 132 | Renovação automática | P | Com aviso antes de cada ciclo |
+| 133 | **Encerrar a recorrência** (vale a partir do próximo ciclo) | P | Diferente de cancelar o ciclo atual |
+| 134 | **Cancelar só o ciclo atual** | P | Mês em que a marca não vai usar |
+| 135 | **Pausar** | P | Férias do criador, verba parada da marca |
+| 136 | Reajustar valor entre ciclos | P | Precisa de aceite dos dois lados |
+| 137 | Prazo de aviso prévio para encerrar | P | Protege quem reservou agenda |
+| 138 | Ver o histórico de todos os ciclos | P | |
+| 139 | Calendário mostra os ciclos futuros | P | Liga com o módulo de agenda (§2.2) |
+
+### 3.5.2 As três regras que fazem a recorrência não quebrar ⚠️
+
+**1. Um ciclo com problema não contamina os outros.** Se a entrega de março virar disputa, os ciclos de janeiro e fevereiro continuam concluídos e pagos, e o de abril segue. Cada ciclo é uma caixa fechada. Sem isso, uma discussão em um mês trava a relação inteira.
+
+**2. Encerrar a recorrência ≠ cancelar o ciclo atual.** São dois botões diferentes, com consequências diferentes. Confundir os dois é o erro clássico de assinatura — a pessoa clica em "cancelar" achando que está pulando um mês e perde o contrato inteiro.
+
+**3. O criador precisa poder sair.** Recorrência não pode virar armadilha. Ele encerra com o mesmo aviso prévio que a marca tem. ⚠️ O prazo exato precisa de advogado.
+
+### 3.5.3 🔵 A recorrência já nasce com a comissão menor
+
+A SPEC §4.4 dá 8% a partir da terceira contratação entre a mesma marca e o mesmo criador. **Contrato recorrente é exatamente isso, por definição** — então ele entra direto na faixa de 8%, sem esperar três ciclos.
+
+*Por quê:* alinha o incentivo. A plataforma ganha menos por ciclo e muito mais no total, porque troca uma venda por uma relação. É o que faz o criador e a marca preferirem fechar recorrente dentro da plataforma em vez de combinarem por fora.
+
+### 3.5.4 🔵 Como se cobra recorrência no Brasil — e por que isso é uma vantagem agora
+
+Contrato que se repete precisa de cobrança que se repete. Levantamento dos três meios:
+
+| Meio | Serve para recorrência? | Observação |
+|---|---|---|
+| **Pix Automático** | ✅ **Sim, e é a melhor opção** | O cliente autoriza **uma vez** no app do banco; as cobranças seguintes são debitadas sozinhas |
+| Cartão de crédito | ✅ Sim | Cobrança recorrente com cartão salvo. Mas continua com o D+30 e o risco de contestação |
+| Boleto | ⚠️ Ruim | Cada ciclo é um boleto novo que alguém precisa lembrar de pagar. Taxa de inadimplência alta |
+
+⚠️ **O Pix Automático é uma janela aberta agora.** É funcionalidade do Banco Central para pagamento recorrente, que entrou em vigor em **14 de maio de 2026** — ou seja, é novidade no mercado. Ele dispensa convênio bancário complexo, o que antes travava empresa pequena, e uma transação Pix custa em média **até 14 vezes menos** que processar cartão. O cliente ainda define limite máximo por cobrança e pode cancelar a autorização quando quiser.
+
+**O que isso significa para a INFLUENTZ:** dá para lançar recorrência com custo de processamento muito menor que o de qualquer concorrente que só use cartão — e sem o D+30. ⚠️ Confirmar com o Pagar.me se o Pix Automático já está disponível na API deles antes de prometer na tela.
+
+*Fontes:* [PagBrasil — Pix Automático](https://www.pagbrasil.com/pt-br/metodos-de-pagamento/pix-automatico/) · [Banco Central — cronograma 2026](https://www.socialhub.pro/blog/pix-automatico-2026-decreto-bacen-atualizacao/)
+
+### 3.5.5 Quando isso entra 🟢
+
+**Não no v1.** Não porque seja pouco importante — é o contrário — mas porque recorrência é ciclo simples repetido. Se o ciclo simples não funcionar com dinheiro de verdade, recorrência multiplica o problema por doze.
+
+**Entra na Fatia 3**, logo depois do ciclo simples estar provado. E a máquina de estados já nasce preparada: um contrato avulso é uma recorrência de um ciclo só.
 
 ---
 

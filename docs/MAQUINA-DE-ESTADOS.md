@@ -61,6 +61,29 @@ A SPEC §3 define dois caminhos de entrada. Cruzando com a estrutura de entrega 
 | **D** | Vitrine ou pedido aberto | **Presencial ou híbrida** | Estados extras de agendamento e falta |
 | **E** | Qualquer um, **intermediado por agência** | Qualquer | Mesmos estados, com autoria registrada |
 
+### 2.1 Tipo F — contrato recorrente 🔵
+
+Reincorporado a pedido do Marco (caso de uso: provador fixo mensal). Detalhado em `FEATURE-MATRIX.md` §3.5.
+
+**A regra de arquitetura que faz isso funcionar sem inventar uma segunda máquina:**
+
+> **Um contrato avulso é uma recorrência de um ciclo só.**
+
+Cada **ciclo** roda a máquina do contrato (§7) inteira, do começo ao fim, de forma independente: é financiado, executado, entregue, aprovado e repassado sozinho. Por cima dos ciclos existe apenas um invólucro leve, a **assinatura**, com sua própria máquina curta:
+
+| Estado da assinatura | Significado |
+|---|---|
+| `ativa` | Gerando ciclos na periodicidade combinada |
+| `pausada` | Não gera ciclo novo; os ciclos já abertos seguem normalmente |
+| `encerramento_agendado` | Vale até o fim do ciclo atual, depois para |
+| `encerrada` | Não gera mais nada. O histórico de ciclos permanece |
+
+⚠️ **Três regras que impedem o erro clássico de assinatura:**
+
+1. **Ciclo em disputa não contamina os outros.** Março virar disputa não desfaz janeiro nem trava abril. Cada ciclo é uma caixa fechada.
+2. **`encerrada` ≠ ciclo `cancelado`.** São ações diferentes, com botões diferentes e consequências diferentes. Quem clica em "cancelar" achando que pula um mês não pode perder o contrato inteiro.
+3. **A assinatura nunca cancela um ciclo já financiado.** Dinheiro que já entrou em retenção segue o caminho normal — entrega, aprovação e repasse — mesmo depois de a assinatura ser encerrada.
+
 ⚠️ **Não existe tipo para criador menor de idade.** A v0.1 previa um. A pesquisa mostrou que o mecanismo da SPEC §8.3 (assinatura do responsável) é juridicamente insuficiente — falta alvará judicial, que nenhuma plataforma emite. **Criador tem 18 anos completos no v1.** Ver §13.3 e SPEC §8.3.1.
 
 🔵 **Decisão: vitrine é sempre entrega única.** Um item de cardápio ("3 Stories — R$ 300") não comporta etapas. Se a contratação precisa de marcos, ela pertence ao caminho de pedido aberto. Isso mantém o caminho de menor atrito realmente sem atrito, e evita construir duas variações da mesma coisa.

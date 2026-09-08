@@ -106,6 +106,65 @@ Isso é um defeito real das telas atuais. Num produto com quatro superfícies, *
 
 ---
 
+## 7.1 A metodologia está certa? — pergunta do Marco, com pesquisa 🟢
+
+> *"preciso saber a metodologia para que não percamos meses e milhares de reais, se sua metodologia já está certa diante de devs profissionais que usam IA para fazer apps e plataformas de sucesso."*
+
+Pergunta justa. Fui pesquisar em vez de me defender.
+
+### A metodologia que usamos tem nome, e é o padrão de 2026
+
+Chama-se **Spec-Driven Development** (desenvolvimento guiado por especificação). A definição: **a especificação versionada é a única fonte de verdade — não o código.** A spec é o produto; o código é o resultado dela, como um arquivo-fonte que vira programa.
+
+Não é teoria. O GitHub abriu o **Spec Kit**, uma ferramenta que força agentes de IA a escrever a especificação antes do código, em **quatro fases com portão** — não se avança sem validar a anterior. Passou de 80 mil estrelas desde o lançamento e funciona com mais de 24 agentes, incluindo o Claude Code.
+
+**O número que responde a preocupação do Marco:** o GitHub relata que times usando esse método refazem trabalho do zero **cerca de dez vezes menos** que quem trabalha por conversa solta. Relatos da comunidade apontam **60% a 80% menos retrabalho**.
+
+**Por que o método existe:** ele nasceu em 2025 como resposta direta ao fracasso do "vibe coding" — pedir código conversando com a IA. O padrão de falha é sempre o mesmo: o agente produz código plausível que **desvia da intenção**, inventa funções que não existem, e apodrece conforme o projeto cresce.
+
+✅ **Nosso `CLAUDE.md` §4 já dizia "Spec-Driven Development" desde o primeiro dia.** Estamos no método certo. E o `docs/` deste repositório é exatamente a spec versionada que o método exige.
+
+*Fontes:* [GitHub — Spec Kit](https://github.com/github/spec-kit) · [Spec-Driven Development: guia 2026](https://www.thebcms.com/blog/spec-driven-development/)
+
+### O Marco precisa de um orquestrador separado, como ChatGPT + Codex? 🔴 Não. E o motivo importa
+
+Ele descreveu o arranjo anterior: ChatGPT como orquestrador e arquiteto, Codex como executor. É um padrão real. Mas a pesquisa mostra o custo dele, e nós vivemos esse custo esta semana.
+
+⚠️ **Toda passagem de bastão entre ferramentas perde informação.** Em raciocínio de várias etapas, com o mesmo orçamento de pensamento, **um agente único empatou ou superou o arranjo multiagente** — porque cada transferência perde o que um contexto único teria mantido. Resumo é sempre incompleto, e as decisões implícitas dentro do trabalho de outro **não sobrevivem à passagem**.
+
+**A prova disso está neste projeto.** Existia um corpo inteiro de decisões de produto que eu só descobri semanas depois, por acaso, varrendo o Drive. Não foi falta de capacidade de ninguém — foi a passagem de bastão perdendo informação, exatamente como a pesquisa descreve.
+
+**O padrão que a pesquisa aponta como certo para 2026:**
+
+> **um agente principal é dono do plano e da integração; subagentes especializados cuidam de tarefas fechadas, cada um com seu próprio contexto.**
+
+É literalmente o que já fazemos: eu sou dono do plano, e quando precisei revisar os wireframes contra o sistema de design, abri um subagente com contexto limpo para não corrigir a minha própria prova. Subagentes nativos cobrem cerca de 80% da necessidade de orquestração; ferramenta externa só se justifica quando a complexidade não cabe num prompt de orquestração.
+
+*Fontes:* [Multi-Agent Orchestration: padrões que funcionam em 2026](https://www.digitalapplied.com/blog/multi-agent-orchestration-5-patterns-that-work) · [Claude Code Agent Teams e Subagents — playbook 2026](https://www.developersdigest.tech/blog/claude-code-agent-teams-subagents-2026)
+
+### 🔴 O que realmente faz um projeto perder meses e milhares de reais
+
+Não é a escolha de ferramenta. É esta, e nós já tropeçamos nela:
+
+> **A fonte de verdade viver numa conversa ou num Drive, em vez de viver no repositório.**
+
+Conversa acaba. Contexto de chat se perde. Pasta de Drive não tem histórico de decisão. Repositório tem versão, tem histórico e é lido automaticamente no começo de toda sessão.
+
+🟢 **Regra permanente, e é a que mais economiza dinheiro deste projeto:**
+
+**Nenhuma decisão importante existe até estar num arquivo deste repositório.** Se foi decidido numa conversa e não entrou em `/docs`, não foi decidido.
+
+### Resumo honesto da resposta
+
+| Pergunta do Marco | Resposta |
+|---|---|
+| A metodologia está certa? | **Sim.** Spec-Driven Development, o padrão de 2026, já declarado no nosso `CLAUDE.md` desde o início |
+| Precisa de orquestrador separado? | **Não.** Um agente dono do plano + subagentes para tarefas fechadas é o padrão. Ferramenta a mais adiciona perda na passagem de bastão |
+| O que fazia perder tempo? | Fonte de verdade fora do repositório. Corrigido |
+| O que ainda falta no método? | Os portões de aprovação por fase, que este documento acabou de instituir |
+
+---
+
 ## 8. Onde cada coisa vive 🟢
 
 | Fonte | O que é |
