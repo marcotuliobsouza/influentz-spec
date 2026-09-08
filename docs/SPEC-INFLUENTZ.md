@@ -674,30 +674,30 @@ O criador aceita um convite dentro do app da própria rede e autoriza. **A métr
 
 **Fase 3 — aprovado.** Vira Advanced Access / produção. **Os criadores da coorte não refazem nada** — o token deles continua válido, só muda o modo do app. Isso precisa estar previsto na modelagem de dados desde já.
 
-### 9.1.1.1 Redundância ativa desde o dia 1
+### 9.1.1.1 O agregador é o caminho principal, não a reserva 🟢
 
-**O custo não é obstáculo na escala do lançamento.** O Phyllo (vendido também como InsightIQ) tem **plano gratuito de até 250 contas monitoradas** — cinco vezes a meta de 50 criadores do v1. Na escala de lançamento o custo é **zero**; a objeção de preço só passa a valer depois de 250 criadores conectados, quando já existe receita. Fonte: [Phyllo — Sign up](https://www.getphyllo.com/signup/try-free), [Pricing](https://www.getphyllo.com/pricing) (planos pagos sem preço público).
+🔴 **Decisão invertida, e ela tira três aprovações do caminho crítico do lançamento.**
 
-✅ **Decisão: o agregador entra no dia 1 como redundância ativa do Instagram**, não como reserva. Se o App Review atrasar ou reprovar, ninguém fica sem métrica e **nenhum criador reconecta nada**. O criador autentica na tela da própria Meta — é dado consentido por login oficial, não raspagem.
+A versão anterior punha a INFLUENTZ construindo **três integrações próprias** — Meta, TikTok e Google —, cada uma com fila de aprovação, exigência de empresa verificada, prazo fora do nosso controle e risco de reprovação. Isso é três vezes o mesmo trabalho, três vezes o mesmo risco, e **três coisas que podem travar o lançamento por motivo que não é nosso.**
 
-❌ **Raspagem está fora de cogitação.** Modash, Apify, Bright Data e similares entregam dado raspado de perfil público. Isso viola a regra travada da §9 ("métrica só por API oficial") e põe a plataforma do lado errado dos Termos da Meta.
+✅ **A regra do v1: uma integração só, com um agregador que já tem as aprovações das três redes.**
 
-⚠️ **Duas exigências antes de assinar qualquer contrato de agregador — vão para o `juridico-br`:**
-1. Os Termos da Meta proíbem transferir ou licenciar dado da plataforma a terceiros. **O contrato tem que declarar por escrito que a aprovação Meta do fornecedor cobre o uso pelo cliente final.** Sem isso, o risco é do fornecedor e o prejuízo é nosso.
-2. Se o token fica com o fornecedor, ele é **operador de dado pessoal** perante a LGPD: exige contrato de tratamento e menção nominal na Política de Privacidade.
+| | Três integrações próprias | Um agregador |
+|---|---|---|
+| Aprovações a obter | 3, em série, com CNPJ | **0** |
+| Prazo fora do nosso controle | semanas a meses | **nenhum** |
+| Risco de reprovação | 3 pontos de falha | **0** |
+| Exige CNPJ para começar | **Sim** (Meta) | **Não** |
+| Custo no lançamento | R$ 0 | **R$ 0** — plano gratuito de 250 contas monitoradas, cinco vezes a meta do v1 |
+| Trabalho de engenharia | 3× | **1×** |
 
-### 9.1.2 Conta pessoal não tem API — e isso vira passo de onboarding, não recusa 🟡
+**O criador não percebe diferença nenhuma:** ele autentica na tela da própria rede, com o login oficial dela. É dado consentido por OAuth, exatamente como seria na integração própria — **não é raspagem, não é print, não é estimativa.** A regra travada continua valendo ao pé da letra: *métrica só por API oficial.*
 
-A API do Instagram atende apenas contas **profissionais** (Business ou Creator), e não exige mais Página do Facebook vinculada ([doc oficial](https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login)). Conta pessoal não tem API nenhuma — não existe rota pública.
+📌 **Quando a integração própria passa a valer a pena:** depois de 250 criadores conectados, quando o plano gratuito acaba **e já existe receita**. Aí ela vira **otimização de custo**, feita com calma, com a empresa aberta e sem prazo apertado — e não pré-requisito de lançamento. **A camada de abstração já prevista faz a troca ser um adaptador, não uma reescrita.**
 
-✅ **Converter para conta profissional é grátis e leva cerca de um minuto, dentro do app da rede.** Então isso não é motivo de recusa: é uma tela com o passo a passo e um botão de "já converti, tentar de novo".
+❌ **Raspagem continua fora de cogitação.** Fornecedores que entregam dado raspado de perfil público violam os termos das redes e a regra da §9.
 
-### 9.1.3 O que o usuário vê
-
-- **Criador:** "Conecte sua rede para aparecer na busca" → autorização. Se for conta pessoal, o passo a passo de conversão. Se estiver na coorte-piloto, um passo a mais: aceitar o convite dentro do app da rede, com a imagem do caminho exato. **Nenhuma tela pede captura de tela. Nenhuma.**
-- **Métrica, sempre com carimbo:** *"seguidores 82.400 · da API do Instagram · atualizado há 6 h"*. Se o token expirou, faixa de aviso com "métrica congelada em 12/09 — reconecte" e botão. O contrato em andamento **não** para (MAQUINA §3).
-- **Marca:** um selo só — **"conectado por API"** — com a data da última atualização. Não existe mais métrica sem selo, porque não existe mais métrica sem API.
-- **Admin:** some a fila de aprovação manual. Nasce o **painel de saúde das conexões**: quantas expiraram, quantas foram revogadas, status de cada App Review, e quantas vagas restam na coorte-piloto.
+⚠️ **Antes de assinar, duas exigências que vão para o `juridico-br`:** o contrato precisa **declarar por escrito que a aprovação do fornecedor junto às redes cobre o uso pelo cliente final**; e, como o acesso fica com ele, ele é **operador de dado pessoal** — exige contrato de tratamento e menção nominal na Política de Privacidade.
 
 ### 9.1.4 Riscos, sem maquiagem
 
@@ -838,6 +838,40 @@ Um marketplace vazio não tem produto. Isso não é marketing, é viabilidade.
 🔴 **A conta do vídeo, que é onde o custo explode em silêncio.** Guardando os três arquivos de cada contrato por 24 meses, na fase de operação o acervo estabiliza em **18 TB** — US$ 270/mês só de armazenamento, crescendo todo mês sem ninguém notar. **Regra adotada: só o arquivo final aprovado fica 24 meses; brutos e versões rejeitadas ficam 90 dias.** Isso derruba o acervo para 6 TB e o custo para **US$ 90/mês**.
 
 ⚠️ **O que isso quebra:** numa disputa rara sobre "a marca pediu ajuste e o criador atendeu", a versão intermediária pode não existir mais. **Mitigação:** o que sustenta a defesa é o **registro** — briefing congelado, log datado do pedido, aprovação com IP e horário — e isso é texto, custa quase nada e fica os 24 meses. **O arquivo pesado sai; a prova fica.**
+
+## 14.4 O que é construído agora, e o que depende de resposta de terceiro 🟢
+
+**A plataforma inteira pode ser construída e testada sem CNPJ, sem resposta do provedor de pagamento e sem aprovação de rede social.** Isso não é otimismo: é consequência de três decisões de arquitetura já tomadas.
+
+| O que ainda não sabemos | Por que não bloqueia | Como entra depois |
+|---|---|---|
+| **As taxas reais do provedor** | Nenhuma taxa está escrita no código. Elas vivem numa **tabela de configuração**, e as regras leem de lá — inclusive o piso de comissão (§4.4.1) | Digita-se o número na configuração |
+| **Se a antecipação vai existir** | O parcelamento já nasce atrás de **duas chaves desligadas** no painel (§4.2.4). O produto funciona inteiro sem elas | Liga a chave |
+| **Se a Meta aprova o aplicativo** | O agregador é o caminho principal (§9.1.1.1), e **não depende de aprovação nenhuma** | A integração própria vira otimização de custo, depois |
+| **O regime tributário e a nota fiscal** | A emissão da nota é **do usuário**, não da plataforma. O que a plataforma faz é guardar e exibir | Confirma-se com o contador antes do primeiro contrato pago |
+
+🔴 **A regra de arquitetura que sustenta isso — e ela vale como teste automatizado:**
+
+> **Nenhum valor de negócio é escrito dentro do código.** Taxa, prazo, teto, percentual e limite vivem em configuração. **E nenhuma chamada ao provedor de pagamento acontece dentro da regra de negócio** — ela fala com um adaptador. Trocar de provedor, ou descobrir que a taxa é outra, **é trocar um valor ou uma peça, nunca reescrever o dinheiro.**
+
+**O ambiente de teste do provedor é liberado só com e-mail, sem CNPJ.** Dá para construir e rodar o ciclo inteiro — cobrança, split, retenção, aprovação, repasse, estorno — antes de a empresa existir. **A parede é uma só, e é conhecida: nenhuma cobrança real acontece sem CNPJ.**
+
+## 14.5 Arquivos de entrega: por que a plataforma hospeda 🟢
+
+**A ideia de o criador hospedar o arquivo fora e mandar só o link economiza pouco e custa caro.**
+
+**O que ela economiza:** no lançamento, com 20 contratos por mês, o armazenamento custa **cerca de R$ 1 a R$ 11 por mês**. Não é aí que o dinheiro do projeto está.
+
+**O que ela custa, e é o que decide:**
+
+| Risco | Por quê |
+|---|---|
+| **A prova evapora** | O arquivo num serviço de nuvem pessoal pode ser apagado, trocado depois da aprovação, ou simplesmente expirar. Numa disputa, a plataforma não tem nada — e o que sustenta a defesa de contestação é justamente **o arquivo datado com identificador próprio** |
+| **A marca recebe conteúdo trocado** | Aprovar um link não é aprovar um arquivo. O que estava lá na aprovação pode não ser o que está lá depois |
+| **O criador entrega e some** | Sem cópia nossa, a marca pagou e ficou sem nada |
+| **Vira trabalho para o usuário** | Pedir para o criador hospedar em outro lugar, gerar link e configurar permissão é jogar burocracia nele porque a plataforma quis economizar R$ 11 |
+
+✅ **A economia real está na regra de retenção, e ela já está decidida (§14.2):** **só o arquivo final aprovado fica 24 meses; brutos e versões rejeitadas ficam 90 dias.** Isso corta dois terços da conta quando ela passar a existir, sem tirar prova nenhuma — porque a defesa se sustenta no **registro** (briefing congelado, log datado, aprovação com horário e IP), que é texto e custa quase nada.
 
 ## 14.3 Suporte: comprado, não construído 🟢
 

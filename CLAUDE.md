@@ -203,7 +203,7 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 | **Aceite de Termos é sempre do próprio titular.** Ninguém aceita em nome de outro, e dado financeiro nunca entra por mão de operador | FEATURE-MATRIX §5.5 |
 | **CNPJ é pré-requisito do dinheiro, não da métrica.** O Pagar.me em produção exige CNPJ; o Instagram só antecipa a data em ~4 meses. Formato: SLU — MEI é vedado para intermediação de negócios | SPEC §9.1.1 e §9.1.5 |
 | **Métrica de rede: 50 criadores sem empresa verificada, 500 com.** Teto oficial da Meta, não estimativa. YouTube vai direto para produção — em modo Testing o token morre a cada 7 dias | SPEC §9.1 |
-| **Agregador de métricas entra no dia 1 como redundância ativa**, no plano gratuito de 250 contas. Raspagem está fora de cogitação | SPEC §9.1.1.1 |
+| 🟢 **O agregador de métricas é o caminho PRINCIPAL no v1, não a reserva.** Uma integração em vez de três, zero fila de aprovação, não exige CNPJ, plano gratuito até 250 contas. A integração própria vira otimização de custo depois, com receita e sem prazo. Raspagem fora de cogitação | SPEC §9.1.1.1 |
 
 ### Em aberto
 
