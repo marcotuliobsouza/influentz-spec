@@ -1,6 +1,11 @@
 # PAINEL — INFLUENTZ
 
-> **Esta é a única página que você precisa ler.** Se algo importante mudar, muda aqui primeiro.
+> ## 👉 https://claude.ai/code/artifact/e70bb45c-0871-4ba9-a235-33284bcf6137
+>
+> **O Marco lê a versão publicada, não este arquivo.** Ele trabalha pelo navegador e não abre o repositório — insistir em "está no PAINEL.md" é falar com uma parede.
+>
+> **Obrigação de toda sessão:** ao mudar algo relevante, atualizar **os dois** — este arquivo e a página publicada, republicando o mesmo endereço.
+>
 > Atualizado em 08/09/2026.
 
 ---

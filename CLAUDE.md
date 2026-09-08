@@ -156,7 +156,13 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 
 ## 7. Estado atual
 
-📌 **`PAINEL.md` na raiz é a única página que o Marco precisa ler.** Mantê-la atualizada é obrigação de toda sessão.
+📌 **O Marco lê o painel publicado, não arquivo do repositório.**
+
+> **https://claude.ai/code/artifact/e70bb45c-0871-4ba9-a235-33284bcf6137**
+
+🔴 **Ele trabalha pelo navegador e nunca abriu o repositório.** Dizer "está no PAINEL.md" é falar com uma parede — foi o que aconteceu em 08/09/2026, quando ele respondeu *"nao sei que painel vc ta falando e nem sei quais foram as decisões e questoes"*. **Documento que ele não consegue abrir é documento que não existe.**
+
+**Obrigação de toda sessão:** ao mudar algo relevante, atualizar `PAINEL.md` **e republicar o mesmo endereço** com a ferramenta de artefato. E **entrega visual vai como página publicada**, nunca como caminho de arquivo.
 
 | Documento | Estado |
 |---|---|

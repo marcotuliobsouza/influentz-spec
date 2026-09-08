@@ -85,7 +85,7 @@ Os termos comerciais são **campos estruturados**, não texto solto. Isso elimin
 |---|---|---|---|
 | **Pix** | Sim | Na hora, inclusive dentro do split | ⚠️ **Sim, em parte** — o MED (Mecanismo Especial de Devolução) do Banco Central tem janela de **até 80 dias**, só para fraude, golpe ou falha operacional. Não cobre arrependimento |
 | **Boleto** | Sim | 1 a 2 dias após confirmação | **Não.** É o único meio realmente irreversível |
-| **Cartão de crédito** | Sim, **só para marca com CNPJ verificado** | **À vista: D+30.** ⚠️ **Parcelado: uma parcela por mês** — D+30, D+60, D+90… uma para cada parcela que a marca escolher, salvo antecipação | Sim — janela de 75 a 540 dias, conforme a bandeira e o motivo |
+| **Cartão de crédito** | Sim, para qualquer marca verificada — **CPF ou CNPJ** | **À vista: D+30.** ⚠️ **Parcelado: uma parcela por mês** — D+30, D+60, D+90… uma para cada parcela que a marca escolher, salvo antecipação | Sim — janela de 75 a 540 dias, conforme a bandeira e o motivo |
 
 *Por que cartão entra:* ambiente corporativo usa cartão intensamente. Excluí-lo eliminaria uma fatia relevante da demanda.
 
@@ -133,6 +133,20 @@ Os termos comerciais são **campos estruturados**, não texto solto. Isso elimin
 🔵 **Pix parcelado é a solução estruturalmente correta do problema inteiro, e vira tarefa.** Nele quem dá o crédito é o banco do pagador: **a marca parcela, o criador recebe o valor cheio na hora, e ninguém paga antecipação.** A regulamentação do BCB saiu em novembro de 2025 e a disponibilidade corre ao longo de 2026. **Não confirmado que o provedor já expõe na API** — está na lista de perguntas do credenciamento (§4.6.2).
 
 ⚠️ **Regra de ouro contra risco de falência:** a plataforma **nunca adianta dinheiro que ainda não recebeu do provedor.** Uber e iFood adiantam ao motorista/restaurante com capital de giro próprio — copiar isso sem caixa é emprestar dinheiro inexistente. O criador vê no app a data exata em que cada valor vira saldo disponível.
+
+### 4.2.1 Quem pode usar a plataforma 🟢
+
+🔴 **Nenhum usuário precisa de CNPJ para usar a INFLUENTZ.** Nem criador, nem marca.
+
+| Quem | O que precisa | Por quê |
+|---|---|---|
+| **Criador** | CPF, identidade verificada e conta bancária | O provedor de pagamento aceita recebedor pessoa física. Exigir empresa do criador cortaria a maior parte do mercado — e a atividade dele nem cabe no MEI (§4.7) |
+| **Marca** | CPF **ou** CNPJ, identidade verificada | Quem contrata criador não é só empresa grande: é loja de bairro, profissional autônomo, dentista, personal trainer, restaurante, marca pessoal. **Exigir CNPJ da marca cortaria fora boa parte da demanda que sustenta o lançamento** |
+| **Agência** | CNPJ | Ela contrata em nome de terceiros; representar alguém exige pessoa jurídica. Fica para depois do v1 |
+
+**O CNPJ é obrigação da INFLUENTZ, não dos usuários.** A plataforma precisa de empresa aberta porque o provedor de pagamento só libera produção assim, e porque quem intermedia dinheiro de terceiros responde por isso. Isso não se transfere para quem usa.
+
+⚠️ **O que a verificação de CNPJ da marca faz, quando existe:** ela não é porta de entrada — é **degrau de limite**. Empresa com documentação verificada entra em R$ 15.000 no cartão no primeiro dia (§4.3.1.1). Marca pessoa física começa no degrau normal e sobe por histórico, como em qualquer plataforma.
 
 ### 4.3 Proteção contra contestação de compra (chargeback)
 
@@ -186,7 +200,7 @@ A interseção é R$ 2.400–2.700. **R$ 2.500 cai dentro; R$ 3.000 cai fora** (
 
 | Degrau | Condição de subida | Por cobrança | 24 h | 30 dias |
 |---|---|---|---|---|
-| **0 — marca nova** | CNPJ verificado + 3DS autenticado | **R$ 2.500** | R$ 5.000 | R$ 10.000 |
+| **0 — marca nova** | Identidade verificada (CPF ou CNPJ) + 3DS autenticado | **R$ 2.500** | R$ 5.000 | R$ 10.000 |
 | 🟢 **V — Verificada (KYB)** | **Sem histórico, sem espera** — ver §4.3.1.1 | **R$ 15.000** | R$ 30.000 | R$ 60.000 |
 | **1** | 2 contratos concluídos sem incidente **e** 30 dias | R$ 6.000 | R$ 12.000 | R$ 24.000 |
 | **2** | 5 contratos concluídos sem incidente **e** 90 dias | R$ 15.000 | R$ 30.000 | R$ 60.000 |
@@ -550,7 +564,7 @@ O criador aceita um convite dentro do app da própria rede e autoriza. **A métr
 
 **Fase 0 — antes de qualquer código de conexão.** Verificar o domínio no Google e publicar Política de Privacidade e Termos. Não depende de empresa, então começa já.
 
-🔴 **A correção que reorganiza tudo: o que trava primeiro é o dinheiro, não a métrica.** A §4.1 já registra que *"chaves de produção exigem CNPJ"* no Pagar.me. A §4.7 exige MEI/CNPJ do criador, a §13 exige CNPJ verificado das marcas, e a §15 lista pendências de contador que bloqueiam o código de pagamento. **A INFLUENTZ não recebe um real sem CNPJ. Logo o CNPJ nunca foi negociável — só a data era.** O Instagram não cria essa necessidade: ele apenas **antecipa a data em cerca de quatro meses**, porque as filas da Meta são mais longas que a do Pagar.me.
+🔴 **A correção que reorganiza tudo: o que trava primeiro é o dinheiro, não a métrica.** A §4.1 já registra que *"chaves de produção exigem CNPJ"* no Pagar.me. A §15 lista pendências de contador que bloqueiam o código de pagamento. **A INFLUENTZ não recebe um real sem CNPJ. Logo o CNPJ nunca foi negociável — só a data era.** O Instagram não cria essa necessidade: ele apenas **antecipa a data em cerca de quatro meses**, porque as filas da Meta são mais longas que a do Pagar.me.
 
 ⚠️ **MEI não serve**, e o motivo não tem nada a ver com a Meta: intermediação de negócios (CNAE 7490-1/04) **não está na lista de ocupações permitidas ao MEI** ([Portal Gov.br](https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/quero-ser-mei/atividades-permitidas)), e o teto de R$ 81 mil/ano quebraria no primeiro mês bom. O formato indicado é **SLU (Sociedade Limitada Unipessoal)**.
 
