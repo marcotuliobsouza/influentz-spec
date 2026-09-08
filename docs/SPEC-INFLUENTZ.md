@@ -91,7 +91,33 @@ Os termos comerciais são **campos estruturados**, não texto solto. Isso elimin
 
 🔴 **Correção grave, encontrada pelo especialista `financeiro` em 08/09/2026.** A versão anterior escrevia "cartão → D+30" como se fosse uma linha só. **Não é.** Em venda parcelada, o Pagar.me libera **uma parcela por mês**. Se a marca parcelar em 6× um contrato de R$ 6.000, o criador entrega tudo hoje e recebe R$ 1.000 por mês durante seis meses. Isso é muito pior do que a reserva de 90 dias que foi recusada — e estava na SPEC como se não existisse. Fonte: [Pagar.me — cálculo da antecipação](https://pagarme.helpjuice.com/pt_BR/antecipa%C3%A7%C3%A3o-%7C-como-%C3%A9-feito-o-c%C3%A1lculo-da-antecipa%C3%A7%C3%A3o).
 
-✅ **Regra do v1:** cartão parcelado **só com antecipação automática ligada**, com o custo da antecipação embutido no preço que a marca vê (§4.5 já manda mostrar preço final). Se a antecipação não estiver liberada pelo Pagar.me no lançamento, **cartão só à vista no v1**.
+✅ **Regra do v1, fechada pelo especialista `financeiro` com a fórmula oficial do Pagar.me:**
+
+| Situação | Regra |
+|---|---|
+| **Cartão à vista (1×)** | Sempre disponível. Criador recebe **D+30** — é o prazo do meio, não retenção da plataforma |
+| **Cartão 2× e 3×** | Só existe **com antecipação aprovada**. Custo embutido e exibido em linha própria: **1,92% em 2×, 3,84% em 3×** |
+| **Cartão 4× ou mais** | **Não existe no v1.** Nem com antecipação |
+| **Contrato acima do teto do cartão** | Marcos + Pix. Nunca parcela |
+| **Sem antecipação aprovada** | Cartão só à vista, e Pix em destaque |
+
+**A conta que decide, trazendo toda parcela para D+30** (fórmula oficial: *parcela líquida × taxa × dias ÷ 30*; premissas declaradas de MDR 4% e antecipação 4% a.m., que são os números do exemplo do próprio Pagar.me):
+
+> custo = **1,92% por parcela adicional**
+
+| | 2× | 3× | **5×** | **6×** |
+|---|---|---|---|---|
+| Custo | 1,92% | 3,84% | **7,68%** | **9,60%** |
+
+🔴 **Isso encerra três discussões de uma vez.** Em 6× a antecipação custa **9,6%** e a comissão de lançamento é 7,5%: **a plataforma não pode absorver** — seria vender no prejuízo, financiando a conveniência da marca com dinheiro que não tem. **O criador não pode pagar** — ele ofertou olhando o líquido (§4.5), a alíquota é congelada na criação (MAQUINA §7.2), e diferente do iFood ou do Mercado Pago, **aqui quem escolhe parcelar não é quem espera**. Logo, **quem parcela paga** — o que a [Lei 13.455/2017](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13455.htm) autoriza expressamente, desde que informado de forma clara e prévia. Nada somado no fim: o valor aparece no comparador de meios, **antes** de escolher.
+
+📌 **Por que o corte é em 3× e não em 6×:** o comércio brasileiro convencionou "até 3× sem juros". Em 3× o acréscimo é 3,84% — número que a marca aceita. Em 6× é 9,6% — número que faz a marca sair da plataforma, que é exatamente o risco que o dono apontou.
+
+✅ **E o que a marca realmente quer, o produto já tem.** Ela não quer "parcela": quer não desembolsar tudo de uma vez. **Marcos fazem isso melhor** — um contrato de R$ 6.000 em 3 marcos são 3 cobranças de R$ 2.000 espaçadas pela entrega. O caixa da marca se espalha, cada marco cabe no teto do cartão, e **o criador recebe cada marco em D+30 da cobrança dele, nunca em D+180.**
+
+⚠️ **Antecipação não é garantida para conta nova.** Todos os modelos do Pagar.me passam por análise, e a documentação exige modelo já registrado na conta ([modelos de antecipação](https://pagarme.helpjuice.com/pt_BR/p1-saques-recebimentos-e-antecipa%C3%A7%C3%A3o/antecipa%C3%A7%C3%A3o-como-funcionam-os-modelos-de-antecipa%C3%A7%C3%A3o)). **Premissa de trabalho: a antecipação NÃO estará disponível no dia do lançamento.** Se o Pagar.me liberar antes, é ganho — não é plano.
+
+🔵 **Pix parcelado é a solução estruturalmente correta, e vira tarefa.** Nele quem dá o crédito é o banco do pagador: **a marca parcela, o criador recebe o valor cheio na hora, e ninguém paga antecipação.** A regulamentação do BCB saiu em novembro de 2025 e a disponibilidade corre ao longo de 2026. **Não confirmado que o Pagar.me já expõe na API** — perguntar ao Relacionamento na mesma conversa do credenciamento, e só colocar na tela com resposta por escrito.
 
 ⚠️ **Regra de ouro contra risco de falência:** a plataforma **nunca adianta dinheiro que ainda não recebeu do provedor.** Uber e iFood adiantam ao motorista/restaurante com capital de giro próprio — copiar isso sem caixa é emprestar dinheiro inexistente. O criador vê no app a data exata em que cada valor vira saldo disponível.
 
@@ -108,10 +134,10 @@ Os termos comerciais são **campos estruturados**, não texto solto. Isso elimin
 | # | Camada | O que é |
 |---|---|---|
 | 1 | **3D Secure obrigatório** | Em 100% das cobranças de cartão. Autenticado, a responsabilidade por chargeback **de fraude** passa ao banco emissor (*liability shift*). Não autenticou, não passa no cartão: o checkout oferece Pix ou boleto. Fonte: [docs.pagar.me — Autenticação via 3DS](https://docs.pagar.me/docs/autentica%C3%A7%C3%A3o-via-3ds) |
-| 2 | **Teto por transação no cartão** | Cartão tem valor máximo por cobrança. Acima disso: Pix, boleto, ou divisão em marcos que respeitem o teto. O teto sobe conforme o **histórico da marca** — nunca pela espera do criador. ⚠️ **O valor do teto é decisão do Marco** (apetite de risco). Sugestão de partida: R$ 3.000 por cobrança |
-| 3 | **Dossiê de defesa automático** | O sistema gera em um clique o PDF único de até 1,9 MB com contrato congelado, briefing, aceite bilateral com data/hora/IP, comprovante de que o marco foi financiado antes do início, arquivos de entrega datados, aprovação registrada e log do chat. ⚠️ **O prazo de defesa é de 10 dias e é fatal** — vira tarefa com contagem regressiva no painel Trust & Safety. É o mecanismo com que a Upwork efetivamente ganha disputas |
+| 2 | **Teto por transação no cartão — R$ 2.500** | Ver §4.3.1. O teto sobe conforme o **histórico da marca** — nunca pela espera do criador |
+| 3 | **Dossiê de defesa — os dados, não o robô** | ⚠️ **Corrigido pelo `cortador` em 08/09/2026.** O que precisa existir são os **dados**: contrato congelado, aceite bilateral com data/hora/IP, comprovante de que o marco foi financiado antes do início, arquivos de entrega datados, aprovação registrada, log do chat e **a nota fiscal do criador** — e eles já vivem no registro de auditoria. **Gerador automático de PDF foi cortado:** com um chargeback a cada ~20 meses, seria um robô para um evento que acontece duas vezes por década; na primeira vez o dossiê se monta à mão em 40 minutos. **O que fica é o alarme:** o prazo de defesa é de **10 dias corridos e é fatal** ([Pagar.me](https://pagarme.helpjuice.com/pt_BR/sobre-o-pagarme/faq-chargeback)), então vira tarefa com contagem regressiva. Perder por silêncio é o único erro imperdoável aqui |
 | 4 | **A INFLUENTZ é a responsável declarada** | No split do Pagar.me, `liable` e `charge_processing_fee` são **`true` no recebedor da plataforma e `false` no recebedor do criador, sempre explícitos**. ⚠️ O padrão do provedor joga a responsabilidade no **primeiro recebedor da lista** — depender de ordem de array é acidente esperando acontecer. Fonte: [docs.pagar.me — Split](https://docs.pagar.me/v3/docs/split-rules) |
-| 5 | **Fundo de contestação** | **5% da receita de comissão** fica em conta separada e paga os chargebacks perdidos. É a plataforma retendo o dinheiro **dela**, não o do criador. Não aparece em nenhuma tela do criador, porque não é problema dele |
+| 5 | **Fundo de contestação** | **5% da receita de comissão** em **conta bancária separada do CNPJ** — não linha de planilha; dinheiro que só existe em relatório é dinheiro que já foi gasto. Paga os chargebacks perdidos. É a plataforma retendo o dinheiro **dela**. Invisível para o criador. ⚠️ **No lançamento o fundo acumula R$ 90/mês** (5% de R$ 1.800) e **não cobre um chargeback de R$ 2.500 no primeiro ano.** O fundo não é a proteção do lançamento — **o teto da camada 2 é.** O fundo passa a fazer sentido na operação (5% de R$ 180.000 = R$ 9.000/mês) |
 | 6 | **Cobrança do criador só com decisão humana** | Chargeback perdido **não** vira dívida do criador automaticamente. Só há cobrança em conluio comprovado ou entrega inexistente, com motivo, autor e data registrados. Fora disso, é custo da plataforma |
 | 7 | **Pix como meio padrão** | Pix em destaque no checkout ("dinheiro liberado na hora para o criador"). Cartão é a segunda opção — reduz o volume exposto sem perder a venda de ticket alto |
 
@@ -131,6 +157,62 @@ Os termos comerciais são **campos estruturados**, não texto solto. Isso elimin
 ⚠️ **Pré-autorização não serve de escrow.** A janela de captura no Pagar.me é de 5 horas (checkout) ou 5 dias (API) — depois disso o emissor libera o valor. A ideia de "só capturo o cartão quando a entrega for aprovada" não funciona: o escrow tem que ser com dinheiro capturado. Fonte: [docs.pagar.me — Autorização e captura](https://docs.pagar.me/v3/docs/autoriza%C3%A7%C3%A3o-e-captura).
 
 📌 **O que as plataformas comparáveis fazem:** a **Fiverr** debita do saldo do freelancer e só o protege "a seu exclusivo critério". A **Upwork** briga com o banco e preserva o pagamento do freelancer, desde que o fluxo dela tenha sido seguido. **Nenhuma das duas retém 90 dias do prestador.** E na Stripe Connect, no modelo que a INFLUENTZ usa, **a plataforma é sempre a responsável final** — isso não é escolha generosa, é como o sistema de cartão funciona. Fontes: [Stripe — Disputes on Connect platforms](https://docs.stripe.com/connect/disputes), [Fiverr](https://help.fiverr.com/hc/en-us/articles/360010978618-Chargebacks-and-freelancer-protection), [Upwork](https://support.upwork.com/hc/en-us/articles/14085353385747-What-happens-if-you-file-a-chargeback-as-a-client-on-Upwork).
+
+### 4.3.1 O teto do cartão e a escadinha 🎯 decidido em 08/09/2026
+
+> **Revisado por:** especialista `financeiro`. **Decisão tomada por Claude, não pelo Marco** — parâmetro com referência de mercado é categoria B do `CLAUDE.md` §2.1.
+
+**O número não foi escolhido, foi derivado.** Duas restrições, das premissas já registradas (ticket médio R$ 1.200; 20 contratos/mês; comissão de lançamento 7,5% = R$ 1.800/mês):
+
+- **Piso:** o teto não pode morder o caso normal. Dois tickets médios = **R$ 2.400**.
+- **Teto:** nenhuma perda isolada pode consumir mais de 1,5 mês de comissão = **R$ 2.700**.
+
+A interseção é R$ 2.400–2.700. **R$ 2.500 cai dentro; R$ 3.000 cai fora** (1,67 mês) — a sugestão anterior estava alta.
+
+**Frequência esperada:** com 0,6% de chargeback e 40% do GMV em cartão, é **um chargeback a cada ~20 meses**. Mesmo errando por 5×, um a cada 4 meses. R$ 2.500 a cada 4 meses é absorvível sem capital; **R$ 20.000 não é — e é essa que o teto impede.**
+
+| Degrau | Condição de subida | Por cobrança | 24 h | 30 dias |
+|---|---|---|---|---|
+| **0 — marca nova** | CNPJ verificado + 3DS autenticado | **R$ 2.500** | R$ 5.000 | R$ 10.000 |
+| **1** | 2 contratos concluídos sem incidente **e** 30 dias | R$ 6.000 | R$ 12.000 | R$ 24.000 |
+| **2** | 5 contratos concluídos sem incidente **e** 90 dias | R$ 15.000 | R$ 30.000 | R$ 60.000 |
+| **3** | 10 contratos, 180 dias, **e ≥5 deles já fora da janela de 120 dias de contestação** | sem teto automático | — | — |
+| **Sempre** | qualquer cobrança acima de **R$ 30.000** | revisão humana, resposta em 1 dia útil | — | — |
+
+🔴 **Por que a contagem é dupla — contratos E dias.** A MAQUINA §7.2 já achou que contador de contratos sozinho é porta de fraude: dois contratos de R$ 1 destravariam o degrau. **Tempo não se falsifica** — e tempo é a dimensão certa do risco, porque a contestação por serviço não recebido conta 120 dias da data prevista de entrega. **Uma marca só está realmente provada quando os contratos antigos dela passaram da janela de disputa** — por isso o degrau 3, o único sem teto, exige exatamente isso.
+
+**Step-up, independente da escada:**
+
+| Gatilho | Ação |
+|---|---|
+| Cartão emitido fora do Brasil | Revisão manual sempre, em qualquer degrau |
+| Cartão pré-pago | Bloqueado no degrau 0 |
+| Mesmo cartão em dois CNPJs | Revisão manual |
+| Chargeback **aberto** (ganho ou perdido) | Rebaixa um degrau, congela subida por 90 dias |
+| Chargeback **perdido** | Volta ao degrau 0 |
+
+**Precedentes de mercado:** Banco Central (Res. BCB 142/2021 — dispositivo novo: R$ 200 por operação, R$ 1.000/dia, aumento não automático) · PayPal (conta nova retida até 21 dias, revisão a cada 30 dias) · Upwork (conta bancária só após US$ 1.000 gastos em 12 meses) · Mercado Pago (análise mensal recorrente) · [Stripe Radar](https://docs.stripe.com/radar/rules) (revisar acima de US$ 1.000 em pré-pago; 3DS para cliente novo). **O padrão é unânime: teto duro sem histórico, subida por comportamento provado, revisão periódica e porta manual.**
+
+### 4.3.2 O que a marca vê — e a palavra "recusado" nunca aparece
+
+Contrato de R$ 4.800, marca no degrau 0:
+
+> **Cartão de crédito** — até R$ 2.500 por cobrança nesta conta
+> Seu contrato é de R$ 4.800. Dois caminhos:
+>
+> **[Dividir em 2 marcos de R$ 2.400]** — você paga cada etapa quando ela for entregue. É o formato que a maioria usa.
+> **[Pagar por Pix — R$ 4.800]** — sem limite, e o criador recebe na hora.
+>
+> *Seu limite no cartão sobe sozinho conforme você contrata. Depois de 2 contratos concluídos, ele vai para R$ 6.000.*
+>
+> `Preciso pagar no cartão hoje →` (abre pedido de análise, resposta em 1 dia útil)
+
+Quatro coisas fazem isso funcionar:
+
+1. **A saída principal já existe.** Marcos são cobranças separadas (§4.6), então dividir não é truque. ⚠️ **O teto é por cobrança, não por contrato** — isso precisa estar explícito no código.
+2. **O limite vira barra de progresso, não recusa.** Mostrar o próximo degrau converte negativa em promessa.
+3. **Existe porta humana.** MAQUINA §10.1 já fixou: todo estado precisa de saída. Teto sem porta é beco.
+4. **O limite aparece antes do checkout** — no painel da marca e na tela do contrato, antes de escolher o criador. Descobrir o teto na hora de pagar é a sensação de recusa que se quer evitar.
 
 ### 4.4 Comissão (decisão 8)
 
@@ -152,11 +234,77 @@ Os termos comerciais são **campos estruturados**, não texto solto. Isso elimin
 - **Escrow sempre ativo:** o dinheiro fica retido até a entrega ser aprovada. Inegociável — é o que sustenta a confiança dos dois lados.
 - **Marcos (entrega em etapas):** contrato simples e de valor baixo = uma entrega, um pagamento. Contrato maior ou mais longo = a plataforma sugere dividir em etapas automaticamente. Proteção sempre ligada; complexidade proporcional ao risco.
 
-### 4.7 Cadastro fiscal do criador (decisão 2) ⚠️
+### 4.7 Cadastro fiscal do criador (decisão 2) 🔴 corrigido em 08/09/2026 — a versão anterior estava errada
 
-**MEI ou CNPJ obrigatório** para receber acima de um valor acumulado baixo (referência: R$ 500).
+> **Revisado por:** especialista `financeiro`.
 
-Resolve de uma vez: retenção previdenciária, emissão de nota fiscal, crédito fiscal da marca e boa parte da exposição da plataforma. Abrir MEI é gratuito; a plataforma oferece um guia embutido para reduzir o atrito.
+❌ **O que estava escrito e não pode ficar de pé:** *"MEI ou CNPJ obrigatório acima de R$ 500 acumulados; abrir MEI é gratuito; a plataforma oferece um guia embutido."*
+
+🔴 **FATO: não existe ocupação de influenciador digital ou produtor de conteúdo na lista do MEI.** Os CNAEs da atividade — 7311-4/00 (agências de publicidade), 7319-0/03 (marketing direto), 7319-0/04 (consultoria em publicidade) — **não são permitidos ao MEI**. Abrir MEI com CNAE alheio expõe o criador a **desenquadramento retroativo, cinco anos de tributos e multa de até 70%**. Fontes: [Tactus](https://tactus.com.br/influencer-pode-ser-mei/), [Contabilidade.com](https://contabilidade.com/blog/influencer-pode-ser-mei-descubra-como-abrir-empresa/).
+
+Três consequências, e nenhuma é pequena:
+
+1. **O "guia embutido de como abrir MEI" empurraria o criador para uma irregularidade fiscal.** Não pode existir nessa forma.
+2. **O Pagar.me aceita recebedor pessoa física com CPF.** Logo a exigência de MEI é **política da plataforma, não limitação técnica** — e a justificativa que estava escrita não se sustenta.
+3. **O bloqueio de saque por pendência fiscal trava dinheiro que o criador já ganhou**, por uma regra que a plataforma inventou, num patamar (R$ 500) para o qual **não foi encontrada base legal**. Isso é exposição jurídica, não proteção.
+
+✅ **Regra do v1, até o contador responder:** o criador **recebe como pessoa física, com CPF**. A plataforma **avisa** sobre formalização e obrigação fiscal, mas **não bloqueia o saque**. O estado `bloqueado_por_pendencia_fiscal` fica modelado e **não é implementado no v1**.
+
+🔴 **Bloquear dinheiro alheio por regra própria é decisão que precisa de parecer antes de virar código, não depois.**
+
+### 4.8 Cadastro do recebedor — o que a regulação exige e o produto não previa 🔴 novo
+
+**FATO.** Desde 29/02/2024 o Pagar.me exige, para **todo** recebedor novo: dados cadastrais mínimos (Circular BCB 3.978/20) e **validação de identidade com prova de vida**. Cada recebedor ganha uma **Conta Digital vinculada à Stone Pagamentos, regulada pelo BCB**. Fonte: [Adequação de Marketplace para Mudanças Regulatórias](https://docs.pagar.me/page/adequa%C3%A7%C3%A3o-de-marketplace-para-mudan%C3%A7as-regulat%C3%B3rias).
+
+| Quem | Dados obrigatórios |
+|---|---|
+| **Pessoa física** | CPF, nome, data de nascimento, endereço, e-mail, telefone, **renda mensal** e **atividade profissional** |
+| **Pessoa jurídica** | CNPJ, razão social, **faturamento médio anual**, endereço, dados dos sócios |
+
+⚠️ **Renda mensal e atividade profissional não existem no cadastro desenhado.** Sem eles, **o recebedor não é criado** — ou seja, o criador não recebe.
+
+⚠️ **O link de validação de identidade vale 20 minutos**, com até 3 tentativas por código. Ele **não pode** ser mandado por e-mail para a pessoa clicar quando puder: tem que ser gerado dentro do app, na hora, com contagem regressiva visível e botão de gerar novo. Fonte: [Criar recebedores e validar identidade](https://pagarme.helpjuice.com/pt_BR/p2-manual-da-dashboard/dashboard-%7C-criar-recebedores-e-validar-identidade).
+
+### 4.9 A invariante que mantém a INFLUENTZ fora do Banco Central 🔴 novo
+
+**FATO — limiares da Resolução BCB 80/2021:** subcredenciador precisa de autorização a partir de **R$ 500 milhões** em 12 meses. Na fase de operação da §14 (1.000 contratos/mês × R$ 1.200 = **R$ 14,4 milhões/ano**), a INFLUENTZ está em **2,9% do limiar**. **Volume não é o risco.**
+
+🔴 **O risco é arquitetural, e é barato de cometer.** A Resolução BCB 150/2021 e a Circular 3.886/2018 enquadram como subadquirente o marketplace que **repassa valores entre terceiros**. O que mantém a INFLUENTZ fora dessa categoria não é o tamanho — é o desenho.
+
+> **INVARIANTE, que vale teste automatizado permanente:**
+> **Não existe carteira da INFLUENTZ.** O "saldo" que o criador vê é leitura da conta dele no Pagar.me, não um livro-razão que a plataforma controla. **Não existe botão no Admin que mova dinheiro de um usuário para outro** — toda movimentação é instrução ao Pagar.me, com retorno por webhook. O painel administrativo **autoriza; não transfere.**
+
+No dia em que a plataforma receber bruto para repassar depois, ela vira instituição de pagamento não autorizada **independentemente do volume**.
+
+⚠️ **PLD-FT e comunicação ao COAF são do Pagar.me**, porque a Circular BCB 3.978/2020 alcança instituições autorizadas pelo BCB — e a INFLUENTZ não é uma. **Ressalva honesta:** o art. 9º da Lei 9.613/98 alcança quem faz *"intermediação... de recursos financeiros de terceiros"*, e a palavra é larga o bastante para que **só um advogado diga sim ou não**. Premissa de trabalho: tratar como **não obrigada**, mas **construir os controles do mesmo jeito** — são baratos e são os mesmos que as regras antifraude já exigem.
+
+### 4.10 Resolução BCB 264/349 — obrigação nossa, e o prazo já venceu 🔴 novo
+
+**FATO.** O manual do próprio Pagar.me diz que **a responsabilidade é do marketplace**: é preciso dar ao recebedor uma **interface eletrônica** com agenda de recebíveis por Unidade de Recebíveis (UR), valor bruto por UR, deduções discriminadas, recebíveis constituídos, **contratos que gravam a agenda** (contraparte, URs alcançadas, natureza e valor) e **mecanismo de contestação** desses efeitos. Fonte: [Res.264/349 — Manual de Integração](https://docs.pagar.me/page/res264346-manual-de-integra%C3%A7%C3%A3o).
+
+**Prazo:** era 06/11/2023, prorrogado para **01/04/2024**. **Já vencido.** Não é item de roadmap: é condição para operar.
+
+⚠️ **Lacuna aberta.** A carteira e o extrato desenhados **não são agenda de recebíveis por UR**, e não existe nada sobre contratos que gravam a agenda nem sobre contestação. Vale para criador **e** marca, porque ambos são recebedores no split.
+
+### 4.11 Trilha de auditoria — o que registrar e por quanto tempo 🔴 novo
+
+**FATO.** Não existe norma brasileira que imponha trilha imutável a um marketplace de serviços. As referências são indiretas: Marco Civil art. 15, Circular BCB 3.978/2020 e as regras de disputa das bandeiras. Por isso os números abaixo são **decisão adotada**, não obrigação copiada.
+
+**O que registrar** — todo evento de dinheiro, sem exceção: criação de cobrança; **regra de split aplicada, com `liable` e `charge_processing_fee` explícitos**; webhook recebido, com payload bruto e assinatura; mudança de estado de repasse; decisão de disputa; liberação, estorno, débito; alteração de comissão ou prazo no Admin; e **acesso de admin a dado de terceiro** (LGPD art. 46).
+
+**Campos** — quem (usuário ou `sistema`/`webhook`), o quê, quando (UTC com fuso), de onde (IP e user-agent), valor antes e depois, motivo, e o identificador da transação no Pagar.me.
+
+**Imutabilidade** — tabela `append-only`, sem `UPDATE` nem `DELETE`, com **encadeamento por hash**: cada registro carrega o hash do anterior, então adulterar um quebra a cadeia e isso é verificável. **Barato no dia 1, impossível de retrofitar depois.**
+
+| O quê | Prazo | Por quê |
+|---|---|---|
+| Registros de acesso à aplicação | **6 meses** | Mínimo do Marco Civil art. 15 |
+| Evidência de defesa de chargeback | **24 meses** da data prevista de entrega | A janela vai a 540 dias (18 meses); 24 dá margem |
+| Trilha de eventos de dinheiro e dados de KYC | **10 anos** | Espelha o prazo que a Circular BCB 3.978/2020 impõe ao Pagar.me. **Se o provedor guarda 10 anos e nós 2, nós somos o elo fraco** |
+
+⚠️ **A saída para o conflito com a LGPD**, a ser levada ao advogado: guardar a trilha de dinheiro **pseudonimizada** por 10 anos (identificadores, valores, datas, hashes — sem nome, CPF, e-mail ou conteúdo de mensagem), e o **dado pessoal apenas enquanto a base legal existir**. Preserva a auditabilidade e reduz a superfície.
+
+⚠️ **Falta um controle que ainda não existe em lugar nenhum:** consulta a **listas restritivas** (PEP, CEIS, CNEP, sanções) no cadastro e antes de contrato de valor alto, com o resultado e a data gravados na trilha.
 
 ⚠️ Regime tributário, retenção de IR sobre a comissão e obrigações acessórias precisam de **contador especializado em plataforma digital** antes de virarem código.
 
@@ -475,6 +623,13 @@ Um marketplace vazio não tem produto. Isso não é marketing, é viabilidade.
 | Nota fiscal em contrato revertido: o criador emitiu NF, prestou o serviço, e o banco devolveu o dinheiro. Cancela? Emite devolução? | Contador | Lançamento |
 | Repasse que a plataforma absorveu — é despesa dedutível? | Contador | Código de pagamento |
 | Custo da antecipação de recebíveis embutido no preço: natureza contábil e tributária | Contador | Código de pagamento |
+| **Fator R e o Anexo.** Sem folha, a SLU cai no **Anexo V (15,5%)** em vez do Anexo III (6%). Qual pró-labore vira o Fator R, e a partir de que faturamento compensa? | Contador | Abertura da empresa |
+| **CNAE principal:** 7490-1/04 (intermediação) ou 6319-4/00 (serviços de informação na internet)? Muda tributação e ISS | Contador | Abertura da empresa |
+| **Base de cálculo com split na origem:** a receita é só a comissão, ou o Fisco pode pretender o GMV? Decide se o teto do Simples é atingido com R$ 288 mil ou com R$ 14 milhões de GMV | Contador | Abertura da empresa |
+| **Formalização do criador.** Não existe ocupação de influenciador no MEI (§4.7). Qual caminho a plataforma deve recomendar sem induzir a irregularidade, e a partir de que valor? | Contador | Lançamento |
+| **Retenções sobre repasse a criador pessoa física.** Com split na origem, quem retém IR e INSS: a marca, a plataforma, ninguém? **É a que mais pode virar passivo** | Contador | Código de pagamento |
+| **Nota fiscal do criador como documento de defesa de chargeback.** Se o repasse for revertido, o que acontece com a nota já emitida? | Contador | Lançamento |
+| **Reforma tributária (IBS/CBS):** em que janela o split tributário atinge marketplace de serviços? | Contador | Código de pagamento |
 | Termos de Uso, Política de Privacidade, direito de imagem, monitoramento de chat | Advogado | Lançamento |
 | Categorias reguladas e proteção de menores (§8.3) | Advogado | Lançamento |
 | **A relação criador↔plataforma é de consumo ou B2B?** | Advogado | Redação dos Termos, do cancelamento e da comissão |

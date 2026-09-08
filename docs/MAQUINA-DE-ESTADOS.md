@@ -101,7 +101,10 @@ Ela existe porque três regras da SPEC dependem de "o que esta pessoa já pode f
 | `criada` | E-mail confirmado. Navegar, nada mais |
 | `perfil_incompleto` | Faltam dados básicos ou comprovação de rede. **Não aparece na busca, não publica, não propõe** |
 | `aguardando_verificacao` | Documentos enviados ao Pagar.me. Pode montar perfil, não pode receber |
-| `kyc_recusado` | 🔴 **Estado que faltava.** O provedor recusou o cadastro de recebedor — documento ilegível, CPF irregular, conta de terceiro. Ver abaixo. ⚠️ Renomeado de `verificacao_recusada` em 08/09/2026: colidia com "verificação de rede social" na cabeça de todo mundo, e são coisas completamente diferentes |
+| `kyc_pendente` | Enviado ao provedor, aguardando análise |
+| `kyc_parcialmente_recusado` | 🔴 **Estado que faltava, e é o mais importante dos quatro.** Há inconsistência **e dá para corrigir**. É justamente o estado que precisa de botão |
+| `kyc_recusado` | O provedor recusou — documento ilegível, CPF irregular, conta de terceiro. Ver abaixo |
+| `kyc_aprovado` | Recebedor criado e validado |
 | `verificada` | Tudo liberado |
 | `restrita` | Pode ver e concluir o que já está em andamento. **Não inicia contrato novo** |
 | `suspensa` | Suspensão temporária (SPEC §13.2 item 4) |
@@ -109,6 +112,8 @@ Ela existe porque três regras da SPEC dependem de "o que esta pessoa já pode f
 | `encerrada` | Exclusão pedida pelo titular (LGPD, SPEC §8) |
 
 ⚠️ **Borda que só apareceria com o produto no ar:** banir, suspender ou encerrar uma conta **não** encerra os contratos em andamento dela. Existe dinheiro em escrow que precisa ir para algum lugar, e a outra ponta não fez nada de errado. Regra: a conta perde o direito de **iniciar** coisa nova; o que já existe segue até o fim ou até a disputa decidir. Encerramento por LGPD fica pendente até o último contrato fechar — a lei permite reter o mínimo necessário para cumprir obrigação legal e contratual.
+
+⚠️ **Corrigido em 08/09/2026 pelo especialista `financeiro`:** o provedor devolve **quatro** estados (`pending`, `partially_denied`, `denied`, `approved`) e o documento tinha **um**. Colapsar quatro em um recria exatamente o beco sem saída que esta seção diz ter fechado — porque `partially_denied` significa *"dá para corrigir"*, e sem ele a pessoa não recebe o botão que resolve o problema dela.
 
 ⚠️ **`kyc_recusado` é obrigatório, e a falta dele criava um beco sem saída.** Sem esse estado, o criador que entrega, tem a entrega aprovada e é recusado pelo provedor fica com **dinheiro aprovado que não sai, sem saber o motivo e sem nenhum botão**. A saída: o estado carrega o motivo devolvido pelo provedor, oferece reenvio de documento ou troca de conta bancária, e tem prazo. Enquanto isso, o valor permanece retido — nunca se perde.
 
@@ -443,7 +448,9 @@ O que muda:
 
 - **`reservado_contestacao` foi removido.** Era a materialização da reserva de 90 dias, recusada pelo dono do produto — e a pesquisa mostrou que ela nem protegia: a janela de contestação por "serviço não recebido" conta 120 dias **a partir da data prevista de entrega**, então a reserva fecharia antes do risco acabar. Ver SPEC §4.3.
 - **`saldo_negativo` mudou de dono.** Com `liable: true` no recebedor da plataforma, o saldo negativo é da **INFLUENTZ**, não do criador. Ele continua existindo — o Pagar.me produz saldo negativo mecanicamente e ele pode travar saque de outros recebedores na mesma conta — mas vira **`saldo_negativo_plataforma`**, um alerta do painel administrativo alimentado pelo fundo de contestação. **O criador não vê.**
-- ⚠️ **`liberado_aguardando_prazo` precisa expressar parcela.** Com cartão parcelado sem antecipação, o mesmo repasse tem **várias datas** de disponibilidade — uma por parcela — e a máquina hoje assume uma só. Ver SPEC §4.2.
+- ✅ **`liberado_aguardando_prazo` volta a ter uma data só.** A regra do v1 (SPEC §4.2) exige antecipação para 2× e 3× e proíbe 4× ou mais — **isso elimina o problema das múltiplas datas pela raiz**, em vez de modelá-lo. É um argumento a favor da regra, não só consequência dela.
+- ❌ **`debito_pendente_criador` foi cortado do v1** pelo `cortador`: a camada 6 da SPEC §4.3 diz que chargeback perdido não vira dívida do criador, e a §15 pergunta ao advogado se o clawback é sequer válido. O estado fica modelado; **não se constrói máquina de cobrança cuja legalidade é pergunta em aberto.**
+- ⚠️ **`bloqueado_por_pendencia_fiscal` não é implementado no v1.** Ver SPEC §4.7 — a exigência de MEI estava errada e o bloqueio travava dinheiro já ganho por regra que a plataforma inventou.
 
 ### 9.2.1 A máquina de reembolso — faltava inteira 🔴
 
