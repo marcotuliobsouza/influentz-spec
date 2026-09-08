@@ -29,16 +29,22 @@ Três coisas fazem a plataforma valer o que cobra:
 | | |
 |---|---|
 | ✅ **Pronto** | O que o produto faz, como o dinheiro anda, a identidade visual, e as 97 funções do lançamento |
-| 🔨 **Agora** | Desenhar as telas do primeiro ciclo completo |
+| ✂️ **Cortado** | O produto pedia coisa demais de quem usa. Tela de contratar de ~25 campos para **6**; direitos de 7 campos para **1**; dez tipos de trabalho para **4** |
+| 🔨 **Agora** | **Uma tela**, para o Marco julgar antes de autorizar o resto |
 | ⏳ **Depois** | Banco de dados → conexões → código → testes |
 
 ---
 
 ## O que eu preciso de você
 
-**Uma coisa só, e ela não é técnica:**
+**Duas coisas, e nenhuma delas é técnica.**
 
-> ### A lista de cold start
+> ### 1. Olhe a tela de contratar, no painel publicado
+> **Se você fosse a marca, você fecharia nessa tela? O que te faria desistir?**
+>
+> Você não precisa aprovar onze telas para dizer se o produto está de pé — precisa ver uma. Se estiver de pé, sigo para as outras. Se não, refaço agora, que é quando é barato.
+
+> ### 2. A lista de cold start
 > Quantos criadores e quantas marcas atenderiam o seu telefone hoje?
 
 Marketplace vazio não tem produto. É o único item que nem dinheiro nem engenharia resolvem.
@@ -71,16 +77,19 @@ Você pode derrubar qualquer uma destas a qualquer momento, sem justificar.
 
 **Dinheiro**
 - Pagamento por Pix, boleto e cartão, pelo Pagar.me
-- Comissão de 15%, caindo para 8% na recontratação
-- O dinheiro fica retido até a publicação ser confirmada
+- **Comissão sai dos dois lados: 10% do criador + 5% da marca.** A marca vê o preço final desde a busca, com os 5% dentro — nunca taxa somada no checkout
+- O dinheiro fica retido até a entrega ser confirmada
 - **Pix e boleto nunca têm limite.** Só o cartão tem, e empresa verificada entra em R$ 15.000 no primeiro dia
-- **Quem parcela paga os juros** — a plataforma não absorve e o criador não paga
+- 🟡 **Cartão só à vista no v1.** O parcelamento existe escrito e desligado — liga por uma chave quando o Pagar.me responder três perguntas por escrito
 - **O repasse é automático**, todo dia útil, com a tarifa por nossa conta
+- **Nenhum usuário precisa de CNPJ.** Criador recebe com CPF; marca contrata com CPF ou CNPJ
 
 **Produto**
 - Métricas só por API oficial. Sem captura de tela, em lugar nenhum
-- O dinheiro é liberado na **publicação confirmada**, não na aprovação do arquivo
-- A publicação fica no ar por, no mínimo, 90 dias
+- **Um fornecedor único de métricas**, que já tem as aprovações das três redes — em vez de três integrações nossas com três filas de aprovação
+- **Quatro tipos de trabalho**, e uma pergunta resolve todos: *quem vai publicar?*
+- **Seis campos na tela de contratar.** Direitos são uma frase, não um formulário
+- **Duas revisões incluídas, para todo mundo.** Fixo
 - Criador precisa ter 18 anos — exigência legal, não escolha
 - Todo usuário tem web, iOS e Android, com função completa
 - Agência e contrato recorrente ficam para depois do lançamento
@@ -102,6 +111,8 @@ Você pode derrubar qualquer uma destas a qualquer momento, sem justificar.
 | Instagram travar em fila da Meta | 🟢 Fornecedor de dados entra no dia 1 como redundância, no plano gratuito |
 | Plataforma pagar dinheiro que ainda não recebeu | 🟢 Impossível por desenho |
 | Produto grande demais para ser construído | 🟢 97 funções, em três fatias |
+| Produto complicado demais para um cliente leigo usar | 🟢 Cortado. Seis campos na tela de contratar |
+| Depender de resposta do Pagar.me ou da Meta para construir | 🟢 Não depende. Nenhuma taxa está no código, e as métricas vêm de fornecedor único |
 
 ---
 
@@ -114,6 +125,7 @@ Você pode derrubar qualquer uma destas a qualquer momento, sem justificar.
 | **Jurídico** | Risco brasileiro: LGPD, publicidade, Banco Central |
 | **Design** | Revisar tela contra a marca, com olhar limpo |
 | **Cortador** | Matar o que não deveria existir. É o único que pode deletar |
+| **Antifraude** | Pensar como o golpista antes dele. Achou uma rota de lavagem que o nosso próprio desenho estava abrindo |
 
 Eles revisam meu trabalho **antes** de chegar em você. Quem escreve não corrige a própria prova — e o cortador existe porque os outros quatro só sabiam acrescentar.
 
