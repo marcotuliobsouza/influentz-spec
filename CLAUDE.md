@@ -121,6 +121,22 @@ Nunca sair codando sem plano ("vibe coding"). Fonte: Anthropic, *Best practices 
 
 **Nenhum código ou design anterior é reaproveitado.** Repositórios antigos servem só como contexto histórico.
 
+✅ **Reavaliado em 08/09/2026, do zero — e a decisão fica ainda mais forte.** O especialista `financeiro` recomparou os dois hoje:
+
+| Critério | Stripe (conta BR) | Pagar.me |
+|---|---|---|
+| Pix | **Ainda por convite** | Nativo |
+| **Teto do Pix** | 🔴 **Máximo 3.000 USD por transação** | Sem teto de provedor |
+| Parcelamento | A documentação de parcelas cobre o **México**; não há parcelamento BR | Até 21× |
+| Split de marketplace | Connect, maduro | Recebedores + conta digital regulada pelo BCB |
+| Antecipação | Não é produto BR | Sim, mediante aprovação |
+
+🔴 **O argumento decisivo é novo e é numérico: o teto de 3.000 USD por Pix na Stripe.** Um contrato de R$ 30.000 pago por Pix — que é justamente a rota do cliente grande (SPEC §4.3.1.2) — **é tecnicamente impossível na Stripe e trivial no Pagar.me.**
+
+⚠️ **As fraquezas do Pagar.me, ditas sem enfeite, e como compensamos:** antecipação depende de análise humana (a regra do parcelamento já é condicional a ela) · documentação fragmentada em cinco versões, com respostas só via Relacionamento (daí a lista de perguntas da SPEC §4.6.2) · sem antifraude nem garantia inclusos (3DS + KYB + rota boleto no ticket alto) · sem produto de faturamento (a Fatura INFLUENTZ é construída por nós sobre boleto).
+
+🔴 **Compensação obrigatória no dia 1 — fornecedor único é ponto único de falha:** **camada de abstração de meio de pagamento.** Nenhuma chamada ao SDK do provedor dentro da regra de negócio. **Trocar de provedor tem que ser trocar um adaptador, não reescrever o dinheiro.** É a mesma lógica aplicada ao agregador de métricas.
+
 ⚠️ **Correção registrada:** a SPEC nasceu apontando para *Stripe Connect*. Pesquisa posterior mostrou que a Stripe internacional libera Pix para empresa brasileira apenas por convite e não oferece parcelamento de cartão no Brasil. O Pagar.me (adquirido pela Stripe/Stone) cobre Pix, boleto, cartão parcelado e split nativo para o mercado brasileiro, com ambiente de testes sem CNPJ.
 
 ## 6. Uso de modelo e esforço (economia de limite)
@@ -182,6 +198,11 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 | **Criador tem 18 anos completos no v1** — exigência legal, não de escopo | SPEC §8.3.1 |
 | **Métrica só por API oficial. Não existe captura de tela, número digitado nem aprovação manual de métrica** | SPEC §9 |
 | **O criador nunca espera mais que o prazo do meio de pagamento.** Proteção contra chargeback vem de teto por transação e fundo da plataforma, nunca de reter dinheiro do criador | SPEC §4.3 |
+| **Teto é só do cartão.** Pix e boleto nunca têm teto — chargeback só existe no cartão. Empresa verificada (KYB) entra em R$ 15.000 no dia 1, sem histórico | SPEC §4.3.1 |
+| **Quem parcela paga os juros (1,99% a.m.), e eles financiam a data única do criador.** A plataforma não absorve e o criador não paga. Split do criador é valor fixo, nunca percentual | SPEC §4.2 |
+| **Repasse é automático, varredura diária, piso de R$ 50, tarifa por conta da plataforma.** Nunca aprovação manual | SPEC §4.6.1 |
+| **O dinheiro é liberado na publicação confirmada por API, não na aprovação do arquivo.** Permanência mínima padrão: 90 dias | MAQUINA §8.0.1, SPEC §8.2 |
+| **Agência sai do v1. Pedido aberto fica no v1** | FEATURE-MATRIX §5.7 |
 | **Aceite de Termos é sempre do próprio titular.** Ninguém aceita em nome de outro, e dado financeiro nunca entra por mão de operador | FEATURE-MATRIX §5.5 |
 | **CNPJ é pré-requisito do dinheiro, não da métrica.** O Pagar.me em produção exige CNPJ; o Instagram só antecipa a data em ~4 meses. Formato: SLU — MEI é vedado para intermediação de negócios | SPEC §9.1.1 e §9.1.5 |
 | **Métrica de rede: 50 criadores sem empresa verificada, 500 com.** Teto oficial da Meta, não estimativa. YouTube vai direto para produção — em modo Testing o token morre a cada 7 dias | SPEC §9.1 |

@@ -7,7 +7,7 @@
 > **Como ler a prioridade:**
 > **E** = essencial (sem isso não existe produto) · **P** = premium (é o que faz a plataforma valer a comissão) · **F** = futuro (depois de haver volume)
 >
-> **Versão:** v2.0 — **~84 funções vivas no v1**, de 177 escritas. Ver §0.2, o corte.
+> **Versão:** v2.1 — **~81 funções vivas no v1**. Ver §0.2 (o corte) e §5.7 (as quebras do caminho).
 > **O que mudou da v1.0:** acesso por plataforma corrigido (§0.1), contrato recorrente reincorporado (§3.5), e **30 funções acrescentadas pela auditoria do especialista de produto** (§5.5), que encontrou 12 lacunas — 8 delas capazes de travar o lançamento.
 > **Fonte de marca:** `docs/marca/` — pasta BRANDING do Drive, estudada por inteiro
 >
@@ -239,7 +239,7 @@ Pedido direto do Marco, e ele está certo: **lista de contratos não é gestão 
 | 60 | Candidatar-se a pedido aberto | E | Criador define preço e prazo |
 | 61 | ~~Enviar proposta por conta própria~~ | P | |<br>❌ CORTADA — duplica a candidatura (60) e abre canal de abordagem não solicitada
 | 62 | Meus contratos, por estado | E | |
-| 63 | **Enviar a entrega** | E | Arquivo, link ou confirmação de comparecimento |
+| 63 | **Enviar a entrega** — ⚠️ **arquivo de revisão em MP4/H.264 obrigatório**; o original é opcional e liberado só após aprovar. Entrega com várias peças permite **aprovar peça a peça** | E | ⚠️ Corrigido em 08/09/2026: um arquivo de câmera (.mov, ProRes, 900 MB) **não toca no navegador** — a "prévia em streaming" que substituiu a marca d'água exigia a mesma transcodificação que o corte disse ser cara. MP4 é o que o criador exporta para o Instagram de qualquer jeito. E sem aprovação peça a peça, o criador refaz três Stories por causa de um |
 | 64 | Ver o pedido de ajuste referenciado ao briefing | E | |
 | 65 | **Confirmar identificação publicitária** | E | ⚠️ Lembrete na entrega: marcou como parceria paga? Vira prova documental |
 | 66 | Chat, liberado só após pagamento | E | |
@@ -385,13 +385,13 @@ A agência **gerencia, mas nunca toca no dinheiro** — se recebesse e repassass
 
 | # | Função | Prio | Observação |
 |---|---|---|---|
-| 107 | Espaço da agência | E | |
-| 108 | Convidar marca representada (aceite dos dois lados) | E | |
-| 109 | Convidar criador representado (aceite dos dois lados) | E | |
-| 110 | Agir em nome de, com autoria registrada | E | Toda ação mostra quem realmente fez |
-| 111 | Ver campanhas de todas as marcas num lugar | E | |
+| 107 | ~~Espaço da agência~~ | E | |<br>🔵 ADIADA — **agência sai do v1.** Com 50 criadores recrutados pessoalmente, o valor da agência (gerir volume) ainda não existe. O argumento de multi-criador sobrevive sem ela, porque a marca faz igual
+| 108 | ~~Convidar marca representada (aceite dos dois lados)~~ | E | |<br>🔵 ADIADA — **agência sai do v1.** Com 50 criadores recrutados pessoalmente, o valor da agência (gerir volume) ainda não existe. O argumento de multi-criador sobrevive sem ela, porque a marca faz igual
+| 109 | ~~Convidar criador representado (aceite dos dois lados)~~ | E | |<br>🔵 ADIADA — **agência sai do v1.** Com 50 criadores recrutados pessoalmente, o valor da agência (gerir volume) ainda não existe. O argumento de multi-criador sobrevive sem ela, porque a marca faz igual
+| 110 | ~~Agir em nome de, com autoria registrada~~ | E | Toda ação mostra quem realmente fez |<br>🔵 ADIADA — **agência sai do v1.** Com 50 criadores recrutados pessoalmente, o valor da agência (gerir volume) ainda não existe. O argumento de multi-criador sobrevive sem ela, porque a marca faz igual
+| 111 | ~~Ver campanhas de todas as marcas num lugar~~ | E | |<br>🔵 ADIADA — **agência sai do v1.** Com 50 criadores recrutados pessoalmente, o valor da agência (gerir volume) ainda não existe. O argumento de multi-criador sobrevive sem ela, porque a marca faz igual
 | 112 | ~~Calendário consolidado~~ | P | 🔵 Todos os criadores, todas as datas |<br>❌ CORTADA — a agência tem volume perto de zero no lançamento
-| 113 | **Alerta de autonegociação** | E | Mesmo CPF/CNPJ nos dois lados → revisão manual |
+| 113 | ~~**Alerta de autonegociação**~~ | E | Mesmo CPF/CNPJ nos dois lados → revisão manual |<br>🔵 ADIADA — **agência sai do v1.** Com 50 criadores recrutados pessoalmente, o valor da agência (gerir volume) ainda não existe. O argumento de multi-criador sobrevive sem ela, porque a marca faz igual
 | 114 | Permissões por membro da equipe | F | |
 | 115 | Faturamento consolidado | F | |
 | 116 | ~~Relatório por marca~~ | P | |<br>❌ CORTADA — mesma razão
@@ -456,8 +456,8 @@ Auditoria feita pelo especialista de produto em 08/09/2026, com contexto limpo. 
 | 154 | **Original liberado só após aprovar** (ou vencer a aprovação automática) | E | Idem |
 | 155 | ~~Prazo de guarda do arquivo após o contrato~~ | P | |<br>🔵 VIRA CLÁUSULA de Termos — com 20 contratos, custo de armazenamento zero
 | 156 | **Lançar código de rastreio** (marca) | E | Envio de produto físico |
-| 157 | **Confirmar recebimento do produto** (criador) | E | O relógio do criador só começa aqui |
-| 158 | ~~**Declarar extravio**~~ | E | |<br>🔵 ADIADA com o presencial
+| 157 | **Confirmar recebimento do produto** — ⚠️ **duas opções, não um botão:** *"recebi"* / *"não recebi ou veio com problema"*, com observação. A segunda abre item na caixa de entrada | E | O relógio do criador só começa aqui. ❌ **A 158 foi cortada por engano** junto com o presencial — extravio é dos Correios, não de evento. Sem esta opção, o criador que recebe a caixa quebrada só pode esperar o prazo estourar segurando o produto |
+| 158 | ~~**Declarar extravio** (função separada)~~ | E | ✅ **Absorvida pela 157** — vira a segunda opção dela, não uma tela própria
 | 159 | ~~**Check-in presencial** com data, hora e local~~ | E | ⚠️ Ver abaixo |<br>🔵 ADIADA com o presencial
 | 160 | ~~**Confirmação de comparecimento pela marca**, com prazo~~ | E | Idem |<br>🔵 ADIADA com o presencial
 
@@ -550,6 +550,59 @@ Não viram função nova — **corrigem a 7 e a 143** (ver SPEC §4.8):
 - **Pessoa física:** renda mensal e atividade profissional
 - **Pessoa jurídica:** faturamento médio anual e dados dos sócios
 - ⚠️ **O link de validação de identidade vale 20 minutos.** Tem que ser gerado dentro do app, na hora, com contagem regressiva visível e botão de gerar novo — nunca mandado por e-mail para a pessoa clicar quando puder
+
+---
+
+## 5.7 🔴 As quebras do caminho — caminhada end-to-end de 08/09/2026
+
+> **Revisado por:** especialista `produto`. **Não é lista do que falta — é onde o caminho quebra.** Placar: **+4 funções novas, −7 mortas na mesma entrega. Saldo: −3.**
+
+### O que a marca compra é uma publicação, não um arquivo
+
+| # | Função | Prio | Resolve |
+|---|---|---|---|
+| 178 | **Prova de publicação** — o criador cola o permalink; a plataforma **confere pela API já conectada** que o post existe, é da conta certa, tem a data, e traz alcance na mesma chamada. **O repasse é liberado aqui, não na aprovação do arquivo** | E | 🔴 A maior lacuna do produto. O dinheiro saía contra um arquivo aprovado — o criador podia receber sem publicar, publicar e apagar, ou publicar sem marcar parceria paga. **Na disputa a plataforma não tinha prova de nada.** Ver MAQUINA §8.0.1 |
+| 178.1 | **Conferência diária de permanência** — o post sumiu antes do prazo? Entra na caixa de entrada e conta no histórico do criador | E | O campo *permanência mínima* (SPEC §8.2, padrão 90 dias) não existia |
+
+⚠️ **A função 65** (confirmar identificação publicitária) era **caixa de seleção de autodeclaração** — exatamente o que a SPEC §9 proíbe para métrica, e que tinha sido aceito como prova. Com a 178, a marcação de parceria paga passa a ser **conferida na mesma leitura da API**.
+
+### A caixa de entrada do operador — seis coisas apontavam para uma tela que não existia
+
+| # | Função | Prio | Resolve |
+|---|---|---|---|
+| 179 | **Caixa de entrada do operador** — uma lista, com origem, prazo e link para o objeto. É a única tela do Admin que abre todo dia | E | 🔴 O corte dizia *"vira item da caixa de entrada única"* três vezes, e ela **não tinha número, tela nem dono**. Recebem nela: verificação manual, reembolso com falha, denúncia, **o prazo fatal de 10 dias da contestação**, revisão de cobrança alta, alerta de autonegociação, resultado de lista restritiva, extravio, permanência quebrada e chamado de suporte |
+
+⚠️ **Ela também resolve o beco do `aguardando_revisao_manual`:** as ações *aprovar* / *recusar com motivo* vivem aqui, e nasce o estado `recusado_na_revisao`. Antes, o contrato entrava nesse estado e **ninguém tinha como empurrá-lo**.
+
+### Quando o aviso do provedor se perde
+
+| # | Função | Prio | Resolve |
+|---|---|---|---|
+| 180 | **Reconciliação de pagamento** — toda cobrança em `aguardando_pagamento` é **reconsultada ativamente** no provedor, e o Admin tem o botão *"reconsultar e reconciliar"* | E | 🔴 A máquina do dinheiro obedece ao provedor "via webhook", e **webhook perdido é rotina**. A marca pagou o Pix, o contrato ficou parado, o criador não pôde começar e **ninguém tinha ação possível.** ✅ Não fere a invariante da SPEC §4.9: **reler o estado do provedor não é mover dinheiro** |
+
+### A tela do dono
+
+| # | Função | Prio | Resolve |
+|---|---|---|---|
+| 181 | **Painel do dono — seis números, sem gráfico e sem filtro** | E | Não existia **nenhuma tela onde o Marco visse se a plataforma está viva.** Ele tinha a busca de usuário e o painel do provedor: os dois respondem sobre *um caso*, nenhum sobre *a plataforma* |
+
+1. GMV do mês e comissão do mês
+2. Contratos por estado, com **quantos estão parados e há quantos dias** — é o número que mais importa e o único que ninguém olha
+3. **Criadores prontos** (perfil + rede conectada + item publicado) sobre criadores cadastrados — o funil de oferta é o que mata marketplace novo
+4. Marcas que contrataram ao menos uma vez, sobre marcas cadastradas
+5. **Contratos entre par que se repete** — a única medida de retenção, e não só de novidade
+6. Travados: cadastro recusado, reembolso com falha, disputa aberta
+
+### As duas contradições, resolvidas
+
+🟢 **Pedido aberto entra no v1** (Anel 2), como a lista mínima já dizia — corrigido o §7, que o punha na Fatia 2.
+🟢 **Agência sai do v1.** Funções 107 a 113 adiadas. Veto do Marco encerra a discussão em qualquer direção.
+
+### O que NÃO virou função, e por quê
+
+- **Sistema de chamados: não se constrói.** *"O que acontece se não existir?"* — com 20 contratos/mês, quase nada: o Marco responde do e-mail dele. **O que falta é uma linha:** a função 32 passa a enviar automaticamente quem é o usuário, em que tela estava e de qual contrato — senão o operador recebe *"não consigo"* sem saber de quem. E o chamado vira item da 179.
+- **Histórico, registros, administração de usuário: já existem** — 122, 127, 69, 123 e 10. Nada novo.
+- **Comparação de métrica no cold start:** com 50 criadores em oito categorias, a mediana interna sai de três pessoas — é ruído, e às vezes identifica o concorrente. **Regra:** referência externa de mercado no v1, mediana interna só a partir de 30 criadores na categoria; abaixo disso a comparação **não aparece**.
 
 ---
 
