@@ -113,13 +113,13 @@ Ela existe porque três regras da SPEC dependem de "o que esta pessoa já pode f
 
 ⚠️ **Borda que só apareceria com o produto no ar:** banir, suspender ou encerrar uma conta **não** encerra os contratos em andamento dela. Existe dinheiro em escrow que precisa ir para algum lugar, e a outra ponta não fez nada de errado. Regra: a conta perde o direito de **iniciar** coisa nova; o que já existe segue até o fim ou até a disputa decidir. Encerramento por LGPD fica pendente até o último contrato fechar — a lei permite reter o mínimo necessário para cumprir obrigação legal e contratual.
 
-⚠️ **Corrigido em 08/09/2026 pelo especialista `financeiro`:** o provedor devolve **quatro** estados (`pending`, `partially_denied`, `denied`, `approved`) e o documento tinha **um**. Colapsar quatro em um recria exatamente o beco sem saída que esta seção diz ter fechado — porque `partially_denied` significa *"dá para corrigir"*, e sem ele a pessoa não recebe o botão que resolve o problema dela.
+⚠️ **Corrigido pelo especialista `financeiro`:** o provedor devolve **quatro** estados (`pending`, `partially_denied`, `denied`, `approved`) e o documento tinha **um**. Colapsar quatro em um recria exatamente o beco sem saída que esta seção diz ter fechado — porque `partially_denied` significa *"dá para corrigir"*, e sem ele a pessoa não recebe o botão que resolve o problema dela.
 
-🔴 **Correção de 08/09/2026 — `kyc_recusado` prometia saída e entregava um laço.** O texto dizia que o valor *"permanece retido — nunca se perde"*. **E se a recusa for definitiva?** A pessoa não passa na prova de vida, o CPF é de terceiro: o dinheiro ficaria retido para sempre, o criador não recebe e a marca não recupera. **Saída definitiva:** após 3 tentativas ou 30 dias, o valor **volta à marca por estorno**, o contrato é encerrado **sem culpa do criador**, e o caso fica registrado. ⚠️ A redação vai para o `juridico-br` — devolver à marca um serviço já prestado precisa de cláusula.
+🔴 **Recusa definitiva precisa de saída.** Se a pessoa não passa na prova de vida ou o CPF é de terceiro, o valor não pode ficar retido para sempre. Após 3 tentativas ou 30 dias, ele **volta à marca por estorno**, o contrato é encerrado **sem culpa do criador**, e o caso fica registrado. ⚠️ A redação vai para o `juridico-br` — devolver à marca um serviço já prestado precisa de cláusula.
 
 ⚠️ **`kyc_recusado` é obrigatório, e a falta dele criava um beco sem saída.** Sem esse estado, o criador que entrega, tem a entrega aprovada e é recusado pelo provedor fica com **dinheiro aprovado que não sai, sem saber o motivo e sem nenhum botão**. A saída: o estado carrega o motivo devolvido pelo provedor, oferece reenvio de documento ou troca de conta bancária, e tem prazo. Enquanto isso, o valor permanece retido — nunca se perde.
 
-### 3.1 Submáquina — conexão de rede social 🟢 nova em 08/09/2026
+### 3.1 Submáquina — conexão de rede social 🟢 nova
 
 ⚠️ **`rede_declarada` foi eliminado.** Ele materializava a verificação manual por captura de tela, recusada pelo dono do produto. Na INFLUENTZ **não existe métrica que não venha de API** — ver SPEC §9.
 
@@ -308,7 +308,7 @@ A SPEC §4.4 tem três faixas de comissão (15%, 8% na recontratação, 7,5% no 
 
 ---
 
-⚠️ **Correção de 08/09/2026 — `aguardando_revisao_manual` tinha entrada e não tinha quem a empurrasse.** O diagrama desenhava `aguardando_revisao_manual → aguardando_pagamento` e mais nada: **quem aprova?** A função que fazia isso foi cortada, e **não existia estado de recusa** — se o operador concluísse que era conluio, o contrato não tinha para onde ir. Corrigido: as duas ações (*aprovar* / *recusar com motivo*) vivem na **caixa de entrada do operador**, e nasce o estado **`recusado_na_revisao`**, com aviso às duas pontas.
+⚠️ **`aguardando_revisao_manual` tem quem o empurre e tem saída negativa.** As duas ações — *aprovar* e *recusar com motivo* — vivem na **caixa de entrada do operador**, e existe o estado **`recusado_na_revisao`**, com aviso às duas pontas. Sem isso, o contrato entra no estado e ninguém consegue tirá-lo de lá.
 
 ## 8. Máquina 5 — Marco 🟢
 
@@ -354,23 +354,11 @@ stateDiagram-v2
 | `em_disputa` | Congela tudo | Crítico |
 | `cancelado` | Não será entregue | Neutro |
 
-### 8.0.1 🔴 `publicado` — a maior lacuna do produto inteiro, achada em 08/09/2026
+### 8.0.1 `publicado` — o dinheiro sai contra a publicação, não contra o arquivo 🔴
 
-> **Revisado por:** especialista `produto`, provocado por uma pergunta do dono: *"entrega do serviço como será?"*
+**O que a marca compra é uma publicação no ar, não um arquivo aprovado.** Liberar o dinheiro contra o arquivo permitiria ao criador receber sem publicar, publicar e apagar no dia seguinte, ou publicar sem marcar parceria paga — e a plataforma não teria prova de nada numa disputa.
 
-🔴 **O problema, em uma frase: a máquina liberava o dinheiro contra um arquivo aprovado, e o que a marca compra é uma publicação no ar.**
-
-A entrega (função 63) era *"arquivo, link ou confirmação de comparecimento"*. A marca aprovava o **arquivo**, o marco ia para `aprovado`, o dinheiro era liberado — e **nada no produto registrava que o Reels foi ao ar no Instagram do criador.** Não havia campo de link da publicação, não havia estado, não havia conferência.
-
-**Três consequências, todas reais:**
-
-1. O criador podia **receber sem publicar**.
-2. Podia publicar e **apagar no dia seguinte**.
-3. Podia publicar **sem marcar "parceria paga"** — porque a função 65 era uma caixa de seleção de autodeclaração, exatamente o que a SPEC §9 proíbe para métrica e que aqui tinha sido aceito como prova.
-
-**Na disputa, a INFLUENTZ não tinha prova de nada.** O escrow — que é a proposta de valor inteira — estava protegendo o objeto errado.
-
-✅ **A correção: o marco tem dois momentos, não um.**
+**Por isso o marco tem dois momentos, não um.**
 
 | Estado | O que é | Quem age |
 |---|---|---|
@@ -382,7 +370,7 @@ A entrega (função 63) era *"arquivo, link ou confirmação de comparecimento"*
 
 🟢 **Zero trabalho manual, zero captura de tela.** A conexão de rede já existe (SPEC §9) e a mesma chamada que traz seguidores traz o post. É coerente com a regra travada: **na INFLUENTZ nada é provado por print.**
 
-⚠️ **A permanência precisava existir e não existia.** A SPEC §8.2 tinha prazo de uso, mídias, exclusividade e retirada — **não tinha por quanto tempo o post fica no ar.** O criador publicava, recebia e apagava sem descumprir nada escrito. Corrigido: campo estruturado **permanência mínima, padrão 90 dias**. Como o permalink fica guardado, a conferência é uma consulta por dia.
+**Permanência mínima é campo estruturado da proposta, com padrão de 90 dias** (SPEC §8.2). Como o link fica guardado, conferir se o post continua no ar é uma consulta por dia.
 
 ⚠️ **Ordem dos fatores, para não punir a ponta errada:** se o criador publicou e a plataforma não consegue conferir por falha da API, **o dinheiro não fica preso** — o caso vai para a caixa de entrada com o link, e o operador decide. Falha nossa não vira prejuízo dele.
 
@@ -483,7 +471,7 @@ O que muda:
 | `chargeback_absorvido` | 🔵 **Estado novo (08/09/2026).** Contestação perdida e a perda foi para o fundo de contestação da plataforma. Fecha o ciclo — antes, `revertido` deixava a pergunta "revertido de quem?" no ar. **O criador não é tocado** | Neutro |
 | `debito_pendente_criador` | 🔴 **Substitui o antigo `saldo_negativo`, e é muito mais estreito.** Só entra por **decisão humana registrada** — conluio comprovado ou entrega inexistente — com motivo, autor e data. Bloqueia saque, **não** bloqueia contratar | Crítico |
 
-⚠️ **Mudanças de 08/09/2026, revisadas pelo especialista `financeiro`:**
+⚠️ **Mudanças, revisadas pelo especialista `financeiro`:**
 
 - **`reservado_contestacao` foi removido.** Era a materialização da reserva de 90 dias, recusada pelo dono do produto — e a pesquisa mostrou que ela nem protegia: a janela de contestação por "serviço não recebido" conta 120 dias **a partir da data prevista de entrega**, então a reserva fecharia antes do risco acabar. Ver SPEC §4.3.
 - **`saldo_negativo` mudou de dono.** Com `liable: true` no recebedor da plataforma, o saldo negativo é da **INFLUENTZ**, não do criador. Ele continua existindo — o Pagar.me produz saldo negativo mecanicamente e ele pode travar saque de outros recebedores na mesma conta — mas vira **`saldo_negativo_plataforma`**, um alerta do painel administrativo alimentado pelo fundo de contestação. **O criador não vê.**

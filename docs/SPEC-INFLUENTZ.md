@@ -79,7 +79,7 @@ Os termos comerciais são **campos estruturados**, não texto solto. Isso elimin
 3. **Testes sem CNPJ:** sim. Conta de teste liberada só com e-mail; chaves de produção exigem CNPJ depois. Fonte: https://docs.pagar.me/v4/docs/getting-started
 4. **Split:** o valor já nasce dividido no momento do pagamento — a plataforma não recebe tudo para repassar depois. Isso também evita bitributação sobre o valor que nunca foi receita da plataforma.
 
-### 4.2 Meios de pagamento aceitos (decisão 3) ⚠️ corrigido em 08/09/2026
+### 4.2 Meios de pagamento aceitos
 
 | Meio | Aceito no v1 | Quando o dinheiro fica disponível | Pode voltar? |
 |---|---|---|---|
@@ -89,9 +89,7 @@ Os termos comerciais são **campos estruturados**, não texto solto. Isso elimin
 
 *Por que cartão entra:* ambiente corporativo usa cartão intensamente. Excluí-lo eliminaria uma fatia relevante da demanda.
 
-🔴 **Correção grave, encontrada pelo especialista `financeiro` em 08/09/2026.** A versão anterior escrevia "cartão → D+30" como se fosse uma linha só. **Não é.** Em venda parcelada, o Pagar.me libera **uma parcela por mês**. Se a marca parcelar em 6× um contrato de R$ 6.000, o criador entrega tudo hoje e recebe R$ 1.000 por mês durante seis meses. Isso é muito pior do que a reserva de 90 dias que foi recusada — e estava na SPEC como se não existisse. Fonte: [Pagar.me — cálculo da antecipação](https://pagarme.helpjuice.com/pt_BR/antecipa%C3%A7%C3%A3o-%7C-como-%C3%A9-feito-o-c%C3%A1lculo-da-antecipa%C3%A7%C3%A3o).
-
-✅ **Regra do v1 — reescrita em 08/09/2026 com o juro repassado ao comprador.**
+✅ **Regra do v1 — reescrita com o juro repassado ao comprador.**
 
 🔴 **O limite nunca foi o juro. O limite é a data do criador.**
 
@@ -136,11 +134,7 @@ Os termos comerciais são **campos estruturados**, não texto solto. Isso elimin
 
 ⚠️ **Regra de ouro contra risco de falência:** a plataforma **nunca adianta dinheiro que ainda não recebeu do provedor.** Uber e iFood adiantam ao motorista/restaurante com capital de giro próprio — copiar isso sem caixa é emprestar dinheiro inexistente. O criador vê no app a data exata em que cada valor vira saldo disponível.
 
-### 4.3 Proteção contra contestação de compra (chargeback) ⚠️ reescrito em 08/09/2026
-
-> **Revisado por:** especialista `financeiro`, com pesquisa na documentação do Pagar.me, nas regras de disputa das bandeiras e no desenho de Stripe Connect, Upwork e Fiverr.
-
-⚠️ **O que foi eliminado: a reserva de 90 dias.** Recusada pelo dono do produto — *"quem usará nossa plataforma esperando esse tempo para liberar dinheiro? E só uma parte não garantiria 100% do prejuízo"*. **Ele estava certo nos dois pontos, e a pesquisa achou um terceiro que ninguém tinha visto: a reserva de 90 dias era o pior dos mundos, porque nem protegia.** A contestação por "serviço não recebido" (Visa 13.1) conta **120 dias a partir da data prevista de entrega**, não da compra, com teto de 540 dias. Uma reserva de 90 dias a partir do pagamento **fecharia antes de a janela de risco acabar**. Pagava-se a proposta de valor e não se comprava proteção nenhuma.
+### 4.3 Proteção contra contestação de compra (chargeback)
 
 🔴 **Princípio travado: o criador nunca espera mais do que o prazo do meio de pagamento.** Reter dinheiro do criador para cobrir risco de terceiro transfere a ele um custo que é da plataforma.
 
@@ -148,9 +142,9 @@ Os termos comerciais são **campos estruturados**, não texto solto. Isso elimin
 
 | # | Camada | O que é |
 |---|---|---|
-| 1 | **3D Secure sempre tentado — nunca pré-requisito absoluto** | 🔴 **Corrigido em 08/09/2026.** A regra anterior dizia "não autenticou, não passa no cartão" — e isso **recusaria exatamente o cartão corporativo da Coca-Cola**: cartões comerciais circulam por processos B2B dedicados, caem em isenção de autenticação e muitos sequer estão inscritos no protocolo. Pior: **isenção não é transferência de responsabilidade** — quando o lojista pede a isenção, o risco continua com ele. Regra correta: 3DS é tentado sempre; sem autenticação, o cartão só passa **dentro do teto verificado**, e o checkout oferece boleto e Pix **antes**. ⚠️ **A trilha (§4.11) grava o desfecho** — autenticado, tentado, isento ou falhou — porque a defesa de chargeback depende disso |
+| 1 | **3D Secure sempre tentado, nunca obrigatório** | Autenticado, a responsabilidade por fraude passa ao banco emissor. Mas **3DS não pode ser pré-requisito absoluto:** cartão corporativo circula por processos B2B dedicados, cai em isenção de autenticação, e muitos sequer estão inscritos no protocolo — exigir 3DS de todos recusaria o cliente grande. E **isenção não é transferência de responsabilidade:** quando o lojista pede a isenção, o risco continua com ele. Regra: 3DS é tentado sempre; sem autenticação, o cartão só passa **dentro do teto verificado**, e o checkout oferece boleto e Pix **antes**. A trilha (§4.11) grava o desfecho — autenticado, tentado, isento ou falhou — porque a defesa de chargeback depende disso |
 | 2 | **Teto por transação — só no cartão** | 🔴 **Pix e boleto não têm teto.** O que se limita é exposição a chargeback, e **chargeback só existe no cartão**. Ver §4.3.1: R$ 2.500 para marca nova e anônima, **R$ 15.000 na hora para empresa verificada (KYB)**, e sem teto por Pix ou boleto em qualquer caso |
-| 3 | **Dossiê de defesa — os dados, não o robô** | ⚠️ **Corrigido pelo `cortador` em 08/09/2026.** O que precisa existir são os **dados**: contrato congelado, aceite bilateral com data/hora/IP, comprovante de que o marco foi financiado antes do início, arquivos de entrega datados, aprovação registrada, log do chat e **a nota fiscal do criador** — e eles já vivem no registro de auditoria. **Gerador automático de PDF foi cortado:** com um chargeback a cada ~20 meses, seria um robô para um evento que acontece duas vezes por década; na primeira vez o dossiê se monta à mão em 40 minutos. **O que fica é o alarme:** o prazo de defesa é de **10 dias corridos e é fatal** ([Pagar.me](https://pagarme.helpjuice.com/pt_BR/sobre-o-pagarme/faq-chargeback)), então vira tarefa com contagem regressiva. Perder por silêncio é o único erro imperdoável aqui |
+| 3 | **Dossiê de defesa — os dados, e o alarme** | O que precisa existir são os **dados**: contrato congelado, aceite bilateral com data, hora e IP, comprovante de que o marco foi financiado antes do início, arquivos de entrega datados, aprovação registrada, log do chat e a nota fiscal do criador. Todos já vivem no registro de auditoria, e o dossiê se monta a partir deles. **Não existe gerador automático de PDF:** com um chargeback a cada ~20 meses, seria um robô para um evento que acontece duas vezes por década. **O que existe é o alarme:** o prazo de defesa é de **10 dias corridos e é fatal** ([Pagar.me](https://pagarme.helpjuice.com/pt_BR/sobre-o-pagarme/faq-chargeback)), então vira tarefa com contagem regressiva na caixa de entrada. Perder por silêncio é o único erro imperdoável aqui |
 | 4 | **A INFLUENTZ é a responsável declarada** | No split do Pagar.me, `liable` e `charge_processing_fee` são **`true` no recebedor da plataforma e `false` no recebedor do criador, sempre explícitos**. ⚠️ O padrão do provedor joga a responsabilidade no **primeiro recebedor da lista** — depender de ordem de array é acidente esperando acontecer. Fonte: [docs.pagar.me — Split](https://docs.pagar.me/v3/docs/split-rules) |
 | 5 | **Fundo de contestação** | **5% da receita de comissão** em **conta bancária separada do CNPJ** — não linha de planilha; dinheiro que só existe em relatório é dinheiro que já foi gasto. Paga os chargebacks perdidos. É a plataforma retendo o dinheiro **dela**. Invisível para o criador. ⚠️ **No lançamento o fundo acumula R$ 90/mês** (5% de R$ 1.800) e **não cobre um chargeback de R$ 2.500 no primeiro ano.** O fundo não é a proteção do lançamento — **o teto da camada 2 é.** O fundo passa a fazer sentido na operação (5% de R$ 180.000 = R$ 9.000/mês) |
 | 6 | **Cobrança do criador só com decisão humana** | Chargeback perdido **não** vira dívida do criador automaticamente. Só há cobrança em conluio comprovado ou entrega inexistente, com motivo, autor e data registrados. Fora disso, é custo da plataforma |
@@ -173,19 +167,13 @@ Os termos comerciais são **campos estruturados**, não texto solto. Isso elimin
 
 📌 **O que as plataformas comparáveis fazem:** a **Fiverr** debita do saldo do freelancer e só o protege "a seu exclusivo critério". A **Upwork** briga com o banco e preserva o pagamento do freelancer, desde que o fluxo dela tenha sido seguido. **Nenhuma das duas retém 90 dias do prestador.** E na Stripe Connect, no modelo que a INFLUENTZ usa, **a plataforma é sempre a responsável final** — isso não é escolha generosa, é como o sistema de cartão funciona. Fontes: [Stripe — Disputes on Connect platforms](https://docs.stripe.com/connect/disputes), [Fiverr](https://help.fiverr.com/hc/en-us/articles/360010978618-Chargebacks-and-freelancer-protection), [Upwork](https://support.upwork.com/hc/en-us/articles/14085353385747-What-happens-if-you-file-a-chargeback-as-a-client-on-Upwork).
 
-### 4.3.1 O teto **do cartão** e as duas portas ✅ refeito em 08/09/2026
+### 4.3.1 O teto do cartão, e as duas portas para o cliente grande
 
 > **Pix e boleto não têm teto. O que se limita é exposição a chargeback, e chargeback só existe no cartão.**
-
-🔴 **A regra anterior foi reprovada pelo dono, e com razão:**
 
 > *"se uma empresa como COCA COLA usar nossa plataforma e serviço for 30.000 reais a contratação do creator, ela nao vai poder... se limitar, nao teremos clientes pra creators e vice versa"*
 
 **E a pesquisa mostrou que ele estava ainda mais certo do que parecia: o contrato de R$ 30.000 nunca foi um problema de cartão.** Empresa grande no Brasil paga fornecedor por **boleto, TED ou Pix contra nota fiscal**, dentro do contas-a-pagar. O obstáculo real não era o teto — **era a SPEC não ter rota corporativa nenhuma.**
-
-
-
-> **Revisado por:** especialista `financeiro`. **Decisão tomada por Claude, não pelo Marco** — parâmetro com referência de mercado é categoria B do `CLAUDE.md` §2.1.
 
 **O número não foi escolhido, foi derivado.** Duas restrições, das premissas já registradas (ticket médio R$ 1.200; 20 contratos/mês; comissão de lançamento 7,5% = R$ 1.800/mês):
 
@@ -249,7 +237,7 @@ O mercado não resolve o cliente grande com **espera**; resolve com **verificaç
 - **O que protege:** boleto é o único meio verdadeiramente irreversível. **Zero exposição de chargeback num contrato de R$ 30.000** — é a proteção mais forte do inventário inteiro, e é a que o cliente grande naturalmente prefere.
 - **O que quebra para um cliente bom:** o prazo de faturamento vira espera do criador. Por isso a tela dele mostra **a data prevista de compensação antes de aceitar**, e o contrato não começa antes de pagar. Ele nunca trabalha de graça.
 
-🔴 **O que NÃO copiamos do Upwork: faturar depois da entrega (net 30).** Só funciona com capital de giro — ou a plataforma adianta dinheiro que não recebeu (proibido pela §4.2), ou o criador espera mais que o meio de pagamento (proibido pela §4.3). **Fora do v1, e o motivo é o caixa, não a engenharia.**
+**O que não copiamos do Upwork: faturar depois da entrega (net 30).** Só funciona com capital de giro — ou a plataforma adianta dinheiro que não recebeu (proibido pela §4.2), ou o criador espera mais que o meio de pagamento (proibido pela §4.3). **Fora do v1, e o motivo é o caixa, não a engenharia.**
 
 ❌ **Garantia de chargeback contratada: não.** Ela cobre só fraude, é paga à parte, e comprá-la para a faixa alta é pagar por um risco que a Fatura INFLUENTZ **elimina de graça** — em boleto não existe chargeback.
 
@@ -336,11 +324,7 @@ Nenhuma é decisão do Marco; todas viram documento em `/docs` quando respondere
 5. Qual o valor máximo por boleto e por Pix na nossa conta?
 6. Tarifa oficial de saque e de Pix de saída.
 
-### 4.7 Cadastro fiscal do criador (decisão 2) 🔴 corrigido em 08/09/2026 — a versão anterior estava errada
-
-> **Revisado por:** especialista `financeiro`.
-
-❌ **O que estava escrito e não pode ficar de pé:** *"MEI ou CNPJ obrigatório acima de R$ 500 acumulados; abrir MEI é gratuito; a plataforma oferece um guia embutido."*
+### 4.7 Cadastro fiscal do criador
 
 🔴 **FATO: não existe ocupação de influenciador digital ou produtor de conteúdo na lista do MEI.** Os CNAEs da atividade — 7311-4/00 (agências de publicidade), 7319-0/03 (marketing direto), 7319-0/04 (consultoria em publicidade) — **não são permitidos ao MEI**. Abrir MEI com CNAE alheio expõe o criador a **desenquadramento retroativo, cinco anos de tributos e multa de até 70%**. Fontes: [Tactus](https://tactus.com.br/influencer-pode-ser-mei/), [Contabilidade.com](https://contabilidade.com/blog/influencer-pode-ser-mei-descubra-como-abrir-empresa/).
 
@@ -354,7 +338,7 @@ Três consequências, e nenhuma é pequena:
 
 🔴 **Bloquear dinheiro alheio por regra própria é decisão que precisa de parecer antes de virar código, não depois.**
 
-### 4.8 Cadastro do recebedor — o que a regulação exige e o produto não previa 🔴 novo
+### 4.8 Cadastro do recebedor no provedor de pagamento
 
 **FATO.** Desde 29/02/2024 o Pagar.me exige, para **todo** recebedor novo: dados cadastrais mínimos (Circular BCB 3.978/20) e **validação de identidade com prova de vida**. Cada recebedor ganha uma **Conta Digital vinculada à Stone Pagamentos, regulada pelo BCB**. Fonte: [Adequação de Marketplace para Mudanças Regulatórias](https://docs.pagar.me/page/adequa%C3%A7%C3%A3o-de-marketplace-para-mudan%C3%A7as-regulat%C3%B3rias).
 
@@ -367,7 +351,7 @@ Três consequências, e nenhuma é pequena:
 
 ⚠️ **O link de validação de identidade vale 20 minutos**, com até 3 tentativas por código. Ele **não pode** ser mandado por e-mail para a pessoa clicar quando puder: tem que ser gerado dentro do app, na hora, com contagem regressiva visível e botão de gerar novo. Fonte: [Criar recebedores e validar identidade](https://pagarme.helpjuice.com/pt_BR/p2-manual-da-dashboard/dashboard-%7C-criar-recebedores-e-validar-identidade).
 
-### 4.9 A invariante que mantém a INFLUENTZ fora do Banco Central 🔴 novo
+### 4.9 A invariante que mantém a INFLUENTZ fora do Banco Central
 
 **FATO — limiares da Resolução BCB 80/2021:** subcredenciador precisa de autorização a partir de **R$ 500 milhões** em 12 meses. Na fase de operação da §14 (1.000 contratos/mês × R$ 1.200 = **R$ 14,4 milhões/ano**), a INFLUENTZ está em **2,9% do limiar**. **Volume não é o risco.**
 
@@ -380,7 +364,7 @@ No dia em que a plataforma receber bruto para repassar depois, ela vira institui
 
 ⚠️ **PLD-FT e comunicação ao COAF são do Pagar.me**, porque a Circular BCB 3.978/2020 alcança instituições autorizadas pelo BCB — e a INFLUENTZ não é uma. **Ressalva honesta:** o art. 9º da Lei 9.613/98 alcança quem faz *"intermediação... de recursos financeiros de terceiros"*, e a palavra é larga o bastante para que **só um advogado diga sim ou não**. Premissa de trabalho: tratar como **não obrigada**, mas **construir os controles do mesmo jeito** — são baratos e são os mesmos que as regras antifraude já exigem.
 
-### 4.10 Resolução BCB 264/349 — obrigação nossa, e o prazo já venceu 🔴 novo
+### 4.10 Agenda de recebíveis — Resolução BCB 264/349
 
 **FATO.** O manual do próprio Pagar.me diz que **a responsabilidade é do marketplace**: é preciso dar ao recebedor uma **interface eletrônica** com agenda de recebíveis por Unidade de Recebíveis (UR), valor bruto por UR, deduções discriminadas, recebíveis constituídos, **contratos que gravam a agenda** (contraparte, URs alcançadas, natureza e valor) e **mecanismo de contestação** desses efeitos. Fonte: [Res.264/349 — Manual de Integração](https://docs.pagar.me/page/res264346-manual-de-integra%C3%A7%C3%A3o).
 
@@ -388,7 +372,7 @@ No dia em que a plataforma receber bruto para repassar depois, ela vira institui
 
 ⚠️ **Lacuna aberta.** A carteira e o extrato desenhados **não são agenda de recebíveis por UR**, e não existe nada sobre contratos que gravam a agenda nem sobre contestação. Vale para criador **e** marca, porque ambos são recebedores no split.
 
-### 4.11 Trilha de auditoria — o que registrar e por quanto tempo 🔴 novo
+### 4.11 Trilha de auditoria
 
 **FATO.** Não existe norma brasileira que imponha trilha imutável a um marketplace de serviços. As referências são indiretas: Marco Civil art. 15, Circular BCB 3.978/2020 e as regras de disputa das bandeiras. Por isso os números abaixo são **decisão adotada**, não obrigação copiada.
 
@@ -493,7 +477,7 @@ O CDC protege relações de **consumo**; a maior parte dos contratos aqui é **B
 - Categoria adulta exige **verificação de idade por documento**, não autodeclaração, para ver e para se candidatar.
 - **Criador menor de 18 anos é bloqueado pelo sistema** de qualquer campanha de categoria adulta ou sensível. Sem exceção, sem override manual.
 
-### 8.3.1 ⚠️ Correção: assinatura do responsável **não basta** para criador menor de idade 🔴
+### 8.3.1 Criador menor de idade
 
 **O que a v0.4 dizia:** criador menor de idade é permitido, bastando assinatura do responsável legal.
 
@@ -519,17 +503,13 @@ O CDC protege relações de **consumo**; a maior parte dos contratos aqui é **B
 
 ---
 
-## 9. Redes sociais, métricas e verificação 🟢 ⚠️ reescrito em 08/09/2026
-
-> **Revisado por:** especialista `produto`, com pesquisa na documentação oficial da Meta, do TikTok e do Google.
+## 9. Redes sociais e métricas 🟢
 
 **Conexão direta com a API oficial de cada rede (Instagram, TikTok, YouTube), sem intermediário pago.** O usuário autoriza com um clique e os dados vêm da fonte.
 
 🔴 **Regra travada, sem exceção: na INFLUENTZ não existe métrica que não venha de API.** Não existe captura de tela, não existe número digitado pelo usuário, não existe fila de aprovação manual de métrica. Se o dado não veio da API da rede, ele não aparece na plataforma.
 
-### 9.1 Como isso é possível no dia 1, sem esperar aprovação 🟢 ⚠️ corrigido
-
-⚠️ **O que foi eliminado.** A versão anterior criava um nível "Declarada": o criador mandava captura de tela, o Trust & Safety aprovava à mão, e a métrica aparecia rotulada como não verificada. **Foi recusado pelo dono do produto**, e com razão — é trabalho manual empurrado para o usuário porque a integração é difícil, exatamente o que `CLAUDE.md` §2.9 proíbe.
+### 9.1 Métrica real desde o primeiro criador
 
 **O problema real que ele resolvia é verdadeiro:** o App Review do Instagram leva semanas, e o criador convidado pessoalmente (§14.1) não pode ficar travado esperando.
 
@@ -543,7 +523,7 @@ O CDC protege relações de **consumo**; a maior parte dos contratos aqui é **B
 
 O criador aceita um convite dentro do app da própria rede e autoriza. **A métrica que chega é da API, igual à do dia 200.** A diferença é só administrativa e invisível para ele.
 
-🔴 **Armadilha corrigida em 08/09/2026: o modo Testing do YouTube não é ponte, é armadilha.** A documentação do Google é explícita — em projeto com tela de consentimento externa e status "Testing", *"is issued a refresh token expiring in 7 days"*. Traduzindo: **o criador teria que reconectar o YouTube toda semana.** Isso destruiria o carimbo "atualizado há 6 h" da §9.1.3 e transformaria a coorte-piloto em suporte semanal. Como a verificação de produção é grátis, leva 3 a 5 dias úteis e **não exige empresa**, o YouTube vai direto para produção. Fonte: [OAuth 2.0](https://developers.google.com/identity/protocols/oauth2).
+🔴 **Armadilha corrigida: o modo Testing do YouTube não é ponte, é armadilha.** A documentação do Google é explícita — em projeto com tela de consentimento externa e status "Testing", *"is issued a refresh token expiring in 7 days"*. Traduzindo: **o criador teria que reconectar o YouTube toda semana.** Isso destruiria o carimbo "atualizado há 6 h" da §9.1.3 e transformaria a coorte-piloto em suporte semanal. Como a verificação de produção é grátis, leva 3 a 5 dias úteis e **não exige empresa**, o YouTube vai direto para produção. Fonte: [OAuth 2.0](https://developers.google.com/identity/protocols/oauth2).
 
 📌 **Por que a autorização do usuário não basta — a dúvida do dono, respondida.** São duas fechaduras na mesma porta: o **usuário** autoriza (é o botão "Conectar Instagram"), e a **rede** autoriza o aplicativo. A segunda existe porque o clique do usuário é fácil de arrancar — Cambridge Analytica foi exatamente isso, milhões de pessoas clicando "autorizar" num quiz. Desde então a Meta exige saber **qual empresa está por trás do aplicativo**, com CNPJ e contrato social, para ter alguém a responsabilizar se o dado vazar. Não é burocracia: é a rede transferindo responsabilidade legal para uma pessoa jurídica identificável.
 
@@ -554,7 +534,7 @@ O criador aceita um convite dentro do app da própria rede e autoriza. **A métr
 
 ### 9.1.1 As fases, e o que trava o quê ⚠️
 
-🔴 **A Meta tem TRÊS portões em série, não dois.** Corrigido em 08/09/2026 — a versão anterior descrevia dois e o do meio é novo para este projeto:
+🔴 **A Meta tem três portões em série**, e cada um é pré-requisito do seguinte:
 
 | Portão | O que prova | Exige CNPJ | Prazo |
 |---|---|---|---|
@@ -580,9 +560,9 @@ O criador aceita um convite dentro do app da própria rede e autoriza. **A métr
 
 **Fase 3 — aprovado.** Vira Advanced Access / produção. **Os criadores da coorte não refazem nada** — o token deles continua válido, só muda o modo do app. Isso precisa estar previsto na modelagem de dados desde já.
 
-### 9.1.1.1 Redundância ativa desde o dia 1 — e ela é gratuita 🟢 corrigido
+### 9.1.1.1 Redundância ativa desde o dia 1
 
-⚠️ **A versão anterior descartou o agregador por custo. O número desmente isso.** O Phyllo (vendido também como InsightIQ) tem **plano gratuito de até 250 contas monitoradas** — cinco vezes a meta de 50 criadores do v1. Na escala de lançamento o custo é **zero**; a objeção de preço só passa a valer depois de 250 criadores conectados, quando já existe receita. Fonte: [Phyllo — Sign up](https://www.getphyllo.com/signup/try-free), [Pricing](https://www.getphyllo.com/pricing) (planos pagos sem preço público).
+**O custo não é obstáculo na escala do lançamento.** O Phyllo (vendido também como InsightIQ) tem **plano gratuito de até 250 contas monitoradas** — cinco vezes a meta de 50 criadores do v1. Na escala de lançamento o custo é **zero**; a objeção de preço só passa a valer depois de 250 criadores conectados, quando já existe receita. Fonte: [Phyllo — Sign up](https://www.getphyllo.com/signup/try-free), [Pricing](https://www.getphyllo.com/pricing) (planos pagos sem preço público).
 
 ✅ **Decisão: o agregador entra no dia 1 como redundância ativa do Instagram**, não como reserva. Se o App Review atrasar ou reprovar, ninguém fica sem métrica e **nenhum criador reconecta nada**. O criador autentica na tela da própria Meta — é dado consentido por login oficial, não raspagem.
 
@@ -644,9 +624,9 @@ A API do Instagram atende apenas contas **profissionais** (Business ou Creator),
 
 ⚠️ **A economia de adiar o CNPJ não existe.** Manter a empresa parada custa contabilidade mensal; cada semana de lançamento atrasado por fila da Meta custa mais — e o contador já era obrigatório antes do primeiro pagamento por seis motivos da §15. Adiar não elimina o custo: **desloca para o pior momento possível, que é o mês do lançamento.**
 
-### 9.2 Detecção de fraude de engajamento — escopo corrigido 🟡
+### 9.2 Detecção de fraude de engajamento 🟡
 
-A versão anterior propunha analisar proporção curtida/comentário, padrão e horário dos comentários. **Isso não é viável pela via oficial:** as APIs entregam métricas agregadas do perfil autorizado, não o conteúdo de comentários nem a lista de seguidores.
+Analisar proporção curtida/comentário, padrão e horário dos comentários **não é viável pela via oficial:** as APIs entregam métricas agregadas do perfil autorizado, não o conteúdo de comentários nem a lista de seguidores.
 
 O que dá para fazer com dado oficial: **evolução de seguidores ao longo do tempo** (picos anormais são detectáveis) e **taxa de engajamento agregada versus a mediana da categoria**. Pega os casos grosseiros.
 

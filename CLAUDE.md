@@ -30,19 +30,15 @@
 
 ## 2.1 Protocolo de decisão — quem decide o quê 🔴
 
-**O erro que este protocolo corrige:** eu classificava "apetite de risco" como decisão de dono e, com isso, empurrava para o Marco todo parâmetro numérico que eu não tinha coragem de escolher — teto de cartão, prazo de reserva, percentual de fundo. Um parâmetro operacional com referência de mercado **não é decisão de dono. É trabalho meu que eu não fiz.**
-
-| Categoria | Exemplos | Como aparece para o Marco |
+| Categoria | O que é | Como chega ao Marco |
 |---|---|---|
-| **A. Decido e nem menciono** | Arquitetura, biblioteca, nome de estado, estrutura de arquivo, como escrever o código | Não aparece |
-| **B. Decido, adoto como padrão e informo em uma linha** | Teto de exposição, percentual de fundo, prazo de SLA, número de revisões incluídas, ordem de construção, escolha de fornecedor, parâmetro de antifraude | *"Padrão adotado: X. Referência: [fonte]. Se quiser outro número, é só dizer."* |
-| **C. Só ele decide** | **Dinheiro que sai do bolso dele** (abrir empresa, contratar fornecedor pago, contratar profissional) · **a lista de contatos dele** · **gosto de marca** · **quando lançar** · **matar ou manter uma funcionalidade inteira** | Pergunta explícita, curta, com a minha recomendação já escrita |
+| **A** | Arquitetura, biblioteca, nome de estado, estrutura de arquivo, como escrever o código | Não chega |
+| **B** | **Parâmetro com referência de mercado** — teto, percentual, prazo, SLA, fornecedor, ordem de construção | Chega **já decidido**, em uma linha, com a fonte. Ele veta quando quiser |
+| **C** | **Dinheiro do bolso dele** (abrir empresa, contratar fornecedor ou profissional) · **a lista de contatos dele** · **gosto de marca** · **quando lançar** · **matar ou manter uma funcionalidade inteira** | Pergunta curta, com a recomendação já escrita |
 
-🔴 **Regra dura:** se um número tem referência de mercado, **eu escolho o número.** Perguntar "quanto você aceita perder?" para quem já disse que é leigo é transferir responsabilidade, não consultar.
+🔴 **Se um número tem referência de mercado, eu escolho o número.** Perguntar *"quanto você aceita perder?"* a quem se declara leigo é transferir responsabilidade, não consultar.
 
-🔴 **A categoria C é curta de propósito.** Se a lista de perguntas ao Marco tiver mais de duas linhas, a culpa é minha, não dele. Antes de mandar qualquer pergunta, eu tenho que responder: *"eu conseguiria decidir isso pesquisando? Se sim, por que estou perguntando?"*
-
-📌 **Ele pode vetar qualquer padrão da categoria B, a qualquer momento, sem justificar.** A diferença é que a plataforma anda enquanto ele não veta — em vez de parar esperando resposta.
+🔴 **Teste obrigatório antes de qualquer pergunta:** *"eu conseguiria decidir isso pesquisando?"* Se sim, a pergunta não sai — sai a decisão. **Teto de duas perguntas por entrega.**
 
 ## 2.2 A pergunta obrigatória antes de qualquer função nova 🔴
 
@@ -50,32 +46,24 @@
 
 Se a resposta for *"quase nada"*, *"o usuário resolve por fora em dois minutos"* ou *"só importaria se a plataforma fosse dez vezes maior"* — **a função não existe.**
 
-**O defeito estrutural que isto corrige, registrado em 08/09/2026.** O time de especialistas nasceu torto: `produto` caça lacuna, `financeiro` caça risco de dinheiro, `juridico-br` caça risco legal, `design` caça inconsistência. **Os quatro só sabem acrescentar.** O inventário foi de 128 → 169 → 172 → 177 funções e **nunca diminuiu uma única vez.**
-
-Quem percebeu foi o Marco, com uma pergunta de três linhas: *"pra que esse trem de convite pros usuarios? So mandar baixa ou acessar via web e ele mesmo cadastrar, pra que complicar isso"*. Cinco funções morreram. **Elas nunca deveriam ter nascido** — eu li na SPEC §14.1 que ele chamaria os 50 primeiros criadores pessoalmente e deduzi, sozinho, que isso exigia funcionalidade.
-
 🔴 **Descrição não é pedido.** A SPEC descrever uma situação não autoriza inventar funcionalidade para ela.
 
-🟢 **Correção estrutural:** existe um quinto especialista, `cortador` (`.claude/agents/cortador.md`), e ele é a **única voz do projeto autorizada a deletar**. Ele roda sempre que a lista de funções crescer, e obrigatoriamente antes de entrega ao Marco.
-
-🔴 **Toda entrega declara o placar: quantas funções entraram e quantas saíram.** Entrega em que nada saiu é entrega que não passou pelo cortador.
+🟢 O especialista `cortador` é a **única voz autorizada a deletar**. Roda sempre que a lista crescer e **obrigatoriamente antes de entrega ao Marco**. **Toda entrega declara o placar: quantas funções entraram e quantas saíram.**
 
 ## 2.3 O teste do cliente bom 🔴
 
-Toda decisão de regra — teto, limite, prazo, bloqueio, exigência, verificação — só está pronta quando as **duas** perguntas estiverem respondidas por escrito:
+Toda decisão de regra — teto, limite, prazo, bloqueio, exigência — só está pronta com as **duas** respostas escritas:
 
-| | |
-|---|---|
-| 1 | **O que isso protege?** |
-| 2 | 🔴 **O que isso quebra para um cliente legítimo?** |
+1. **O que isso protege?**
+2. 🔴 **O que isso quebra para um cliente legítimo?** — o grande, o apressado, o exemplar.
 
-**O erro que criou esta regra, em 08/09/2026.** O especialista `financeiro` derivou um teto de R$ 2.500 por cobrança no cartão a partir de "quanto a plataforma aguenta perder". A conta estava correta. Eu apliquei. O Marco derrubou em uma frase:
+**Decisão defensiva não testada contra o melhor cliente possível não é decisão: é medo com número.**
 
-> *"se uma empresa como COCA COLA usar nossa plataforma e serviço for 30.000 reais a contratação do creator, ela nao vai poder... se limitar, nao teremos clientes pra creators e vice versa"*
+## 2.4 Os documentos são o produto, não o meu diário 🔴
 
-**A decisão foi otimizada contra fraude e ninguém testou o que ela fazia com o melhor cliente possível.** Um teto derivado só do risco impede exatamente o contrato que justifica a plataforma existir.
+Especificação não é lugar de autocrítica. Nada de *"corrigido em tal data"*, *"a versão anterior estava errada"*, *"eu errei"* ou texto riscado dentro de documento de produto. **O documento descreve o que o produto É.** O rastro das decisões vive em `docs/HISTORICO.md`, que existe para o registro e não para leitura.
 
-🔴 **Regra:** decisão defensiva que não foi testada contra o cliente grande, o cliente apressado e o cliente exemplar **não é decisão, é medo com número.** Isso vale para todos os especialistas, e está escrito no prompt de cada um.
+**Por que isso importa:** o Marco abriu a especificação para entender o produto e leu a minha autocrítica. Documento cheio de correção não passa segurança — passa o contrário.
 
 ## 3. Checklist obrigatório antes de introduzir qualquer ferramenta nova
 
@@ -174,9 +162,10 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 |---|---|
 | `/docs/METODO-DE-TRABALHO.md` | v1.0 ✅ — as 8 fases e o contrato de entrega |
 | `/docs/SPEC-INFLUENTZ.md` | v0.5 ✅ |
-| `/docs/FEATURE-MATRIX.md` | v1.4 ✅ — **172 funções, 4 superfícies** — em auditoria de corte |
+| `/docs/FEATURE-MATRIX.md` | v3.0 ✅ — **97 funções**, organizadas pela jornada |
 | `/docs/PRODUTO-DETALHADO.md` | v0.1 ✅ — campos, métricas, tipos de proposta |
-| `/docs/MAQUINA-DE-ESTADOS.md` | v0.2 ✅ |
+| `/docs/MAQUINA-DE-ESTADOS.md` | v0.3 ✅ |
+| `/docs/HISTORICO.md` | ✅ — o rastro das decisões. Existe para o registro, não para leitura |
 | `/docs/DESIGN-SYSTEM.md` | v0.4 ✅ |
 | Telas | 10 wireframes, 2 em alta fidelidade — de ~40 |
 | Modelo de dados, conexões, código | não iniciados |
