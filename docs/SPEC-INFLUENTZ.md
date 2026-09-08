@@ -703,9 +703,17 @@ As duas avaliações ficam ocultas até ambos enviarem (ou o prazo vencer). Elim
 
 Um marketplace vazio não tem produto. Isso não é marketing, é viabilidade.
 
-**Os primeiros 50 criadores e as primeiras 10 marcas entram por convite pessoal do Marco**, com cadastro feito junto com eles. É trabalho manual, não escala — e é exatamente assim que todo marketplace começou.
+**Os primeiros criadores e marcas entram por convite pessoal do Marco.** É trabalho manual, não escala — e é exatamente assim que todo marketplace começou.
 
-> **Pergunta em aberto para o Marco:** quantos criadores e quantas marcas atenderiam seu telefone hoje? Essa lista é o ativo mais valioso do projeto neste momento.
+✅ **O plano de entrada, definido pelo dono, em três degraus e nesta ordem:**
+
+| Degrau | O que acontece | Por que nesta ordem |
+|---|---|---|
+| **1. Operação real interna** | O Marco roda contratos de verdade, com dinheiro de verdade, entre contas dele. Testa velocidade, armazenamento, pagamento, saque e estorno | **Nenhum usuário externo entra antes disso.** Um erro de dinheiro no primeiro contrato real de um convidado custa a relação e a reputação, que são o ativo do cold start |
+| **2. Convite pessoal** | Criadores e marcas do círculo dele, um a um | Volume pequeno, curadoria alta, e canal direto para ouvir o que quebra |
+| **3. Divulgação paga com um influenciador** | Contratar um influenciador para divulgar a plataforma | 🟢 **E isso é a própria plataforma sendo usada:** a INFLUENTZ contrata pela INFLUENTZ. O primeiro contrato de verdade é o nosso, e ele prova o produto para quem estiver olhando |
+
+**Consequência de infraestrutura, que vale como regra:** a plataforma nasce no menor custo que funciona e **cresce por degrau, conforme a necessidade aparece** — nunca por antecipação. Palavra do dono: *"nos temos que economizar maximo possivel para sobrevivermos ao inicio e depois investirmos ao longo da jornada."*
 
 ---
 
