@@ -79,43 +79,58 @@ Os termos comerciais são **campos estruturados**, não texto solto. Isso elimin
 3. **Testes sem CNPJ:** sim. Conta de teste liberada só com e-mail; chaves de produção exigem CNPJ depois. Fonte: https://docs.pagar.me/v4/docs/getting-started
 4. **Split:** o valor já nasce dividido no momento do pagamento — a plataforma não recebe tudo para repassar depois. Isso também evita bitributação sobre o valor que nunca foi receita da plataforma.
 
-### 4.2 Meios de pagamento aceitos (decisão 3)
+### 4.2 Meios de pagamento aceitos (decisão 3) ⚠️ corrigido em 08/09/2026
 
-| Meio | Aceito no v1 | Quando o dinheiro fica disponível |
-|---|---|---|
-| **Pix** | Sim | Na hora, inclusive dentro do split |
-| **Boleto** | Sim | 1 a 2 dias após confirmação |
-| **Cartão de crédito** | Sim, **só para marca com CNPJ verificado** | **D+30** — padrão do sistema de cartão brasileiro, não regra da INFLUENTZ |
+| Meio | Aceito no v1 | Quando o dinheiro fica disponível | Pode voltar? |
+|---|---|---|---|
+| **Pix** | Sim | Na hora, inclusive dentro do split | ⚠️ **Sim, em parte** — o MED (Mecanismo Especial de Devolução) do Banco Central tem janela de **até 80 dias**, só para fraude, golpe ou falha operacional. Não cobre arrependimento |
+| **Boleto** | Sim | 1 a 2 dias após confirmação | **Não.** É o único meio realmente irreversível |
+| **Cartão de crédito** | Sim, **só para marca com CNPJ verificado** | **À vista: D+30.** ⚠️ **Parcelado: uma parcela por mês** — D+30, D+60, D+90… uma para cada parcela que a marca escolher, salvo antecipação | Sim — janela de 75 a 540 dias, conforme a bandeira e o motivo |
 
 *Por que cartão entra:* ambiente corporativo usa cartão intensamente. Excluí-lo eliminaria uma fatia relevante da demanda.
 
-⚠️ **Regra de ouro contra risco de falência:** a plataforma **nunca adianta dinheiro que ainda não recebeu do provedor.** Uber e iFood adiantam valores ao motorista/restaurante com capital de giro próprio — copiar isso sem caixa é como emprestar dinheiro inexistente. O criador vê no app a data exata em que cada valor vira saldo disponível.
+🔴 **Correção grave, encontrada pelo especialista `financeiro` em 08/09/2026.** A versão anterior escrevia "cartão → D+30" como se fosse uma linha só. **Não é.** Em venda parcelada, o Pagar.me libera **uma parcela por mês**. Se a marca parcelar em 6× um contrato de R$ 6.000, o criador entrega tudo hoje e recebe R$ 1.000 por mês durante seis meses. Isso é muito pior do que a reserva de 90 dias que foi recusada — e estava na SPEC como se não existisse. Fonte: [Pagar.me — cálculo da antecipação](https://pagarme.helpjuice.com/pt_BR/antecipa%C3%A7%C3%A3o-%7C-como-%C3%A9-feito-o-c%C3%A1lculo-da-antecipa%C3%A7%C3%A3o).
 
-🔵 **Antecipação de recebíveis:** quem não quiser esperar o D+30 do cartão pode antecipar mediante taxa — serviço já pronto no Pagar.me. Vira segunda fonte de receita, não risco.
+✅ **Regra do v1:** cartão parcelado **só com antecipação automática ligada**, com o custo da antecipação embutido no preço que a marca vê (§4.5 já manda mostrar preço final). Se a antecipação não estiver liberada pelo Pagar.me no lançamento, **cartão só à vista no v1**.
 
-### 4.3 Proteção contra contestação de compra (chargeback)
+⚠️ **Regra de ouro contra risco de falência:** a plataforma **nunca adianta dinheiro que ainda não recebeu do provedor.** Uber e iFood adiantam ao motorista/restaurante com capital de giro próprio — copiar isso sem caixa é emprestar dinheiro inexistente. O criador vê no app a data exata em que cada valor vira saldo disponível.
 
-A proteção **não** vem de segurar o dinheiro de todos preventivamente — isso puniria os casos normais para cobrir os raros. Vem de:
+### 4.3 Proteção contra contestação de compra (chargeback) ⚠️ reescrito em 08/09/2026
 
-1. **Prova documental:** todo contrato passa pelo fluxo oficial (marco combinado antes de começar, entrega enviada pelo sistema, aprovação registrada). É o que sustenta a defesa junto ao banco. É exatamente o mecanismo de proteção de pagamento do Upwork — que condiciona a cobertura a o marco ter sido financiado antes do início e a entrega ter sido submetida pelo fluxo da plataforma. Fonte: https://support.upwork.com/hc/en-us/articles/211063748
-2. **3D Secure** e análise automática de fraude em toda cobrança por cartão — reduz a chance de a contestação existir.
-3. **Reserva temporária apenas para conta nova**, durante um período de teste curto — não permanente.
-4. Se a contestação chegar após a liberação, o valor é descontado do saldo futuro do criador.
+> **Revisado por:** especialista `financeiro`, com pesquisa na documentação do Pagar.me, nas regras de disputa das bandeiras e no desenho de Stripe Connect, Upwork e Fiverr.
 
-⚠️ **Correção: "nunca do caixa da INFLUENTZ" era uma promessa que a plataforma não consegue cumprir.**
+⚠️ **O que foi eliminado: a reserva de 90 dias.** Recusada pelo dono do produto — *"quem usará nossa plataforma esperando esse tempo para liberar dinheiro? E só uma parte não garantiria 100% do prejuízo"*. **Ele estava certo nos dois pontos, e a pesquisa achou um terceiro que ninguém tinha visto: a reserva de 90 dias era o pior dos mundos, porque nem protegia.** A contestação por "serviço não recebido" (Visa 13.1) conta **120 dias a partir da data prevista de entrega**, não da compra, com teto de 540 dias. Uma reserva de 90 dias a partir do pagamento **fecharia antes de a janela de risco acabar**. Pagava-se a proposta de valor e não se comprava proteção nenhuma.
 
-O texto anterior dizia que a perda saía sempre do saldo futuro do criador. Com a meta de lançamento de 20 contratos (§14), **quase nenhum criador terá saldo futuro** — ele entrega, recebe, saca e some. A contestação chega 60 dias depois e não há de onde descontar. A SPEC prometia o oposto do que aconteceria.
+🔴 **Princípio travado: o criador nunca espera mais do que o prazo do meio de pagamento.** Reter dinheiro do criador para cobrir risco de terceiro transfere a ele um custo que é da plataforma.
 
-🔵 **Defesa real, em quatro camadas:**
+**A proteção vem de sete camadas, todas antes do repasse:**
 
-| Camada | O que é |
-|---|---|
-| 1. Evitar | 3D Secure e análise de fraude em toda cobrança de cartão |
-| 2. Ganhar | Prova documental do fluxo oficial — é o que sustenta a defesa junto ao banco |
-| 3. **Reserva** | Em contrato de **cartão** acima de um valor definido, uma parte do repasse fica retida por **90 dias**, que é a janela típica de contestação. O criador vê isso desde o começo, com data de liberação |
-| 4. **Saldo negativo** | Perdida a contestação sem reserva suficiente, o criador fica com saldo negativo: **saque bloqueado e novos contratos bloqueados** até regularizar |
+| # | Camada | O que é |
+|---|---|---|
+| 1 | **3D Secure obrigatório** | Em 100% das cobranças de cartão. Autenticado, a responsabilidade por chargeback **de fraude** passa ao banco emissor (*liability shift*). Não autenticou, não passa no cartão: o checkout oferece Pix ou boleto. Fonte: [docs.pagar.me — Autenticação via 3DS](https://docs.pagar.me/docs/autentica%C3%A7%C3%A3o-via-3ds) |
+| 2 | **Teto por transação no cartão** | Cartão tem valor máximo por cobrança. Acima disso: Pix, boleto, ou divisão em marcos que respeitem o teto. O teto sobe conforme o **histórico da marca** — nunca pela espera do criador. ⚠️ **O valor do teto é decisão do Marco** (apetite de risco). Sugestão de partida: R$ 3.000 por cobrança |
+| 3 | **Dossiê de defesa automático** | O sistema gera em um clique o PDF único de até 1,9 MB com contrato congelado, briefing, aceite bilateral com data/hora/IP, comprovante de que o marco foi financiado antes do início, arquivos de entrega datados, aprovação registrada e log do chat. ⚠️ **O prazo de defesa é de 10 dias e é fatal** — vira tarefa com contagem regressiva no painel Trust & Safety. É o mecanismo com que a Upwork efetivamente ganha disputas |
+| 4 | **A INFLUENTZ é a responsável declarada** | No split do Pagar.me, `liable` e `charge_processing_fee` são **`true` no recebedor da plataforma e `false` no recebedor do criador, sempre explícitos**. ⚠️ O padrão do provedor joga a responsabilidade no **primeiro recebedor da lista** — depender de ordem de array é acidente esperando acontecer. Fonte: [docs.pagar.me — Split](https://docs.pagar.me/v3/docs/split-rules) |
+| 5 | **Fundo de contestação** | **5% da receita de comissão** fica em conta separada e paga os chargebacks perdidos. É a plataforma retendo o dinheiro **dela**, não o do criador. Não aparece em nenhuma tela do criador, porque não é problema dele |
+| 6 | **Cobrança do criador só com decisão humana** | Chargeback perdido **não** vira dívida do criador automaticamente. Só há cobrança em conluio comprovado ou entrega inexistente, com motivo, autor e data registrados. Fora disso, é custo da plataforma |
+| 7 | **Pix como meio padrão** | Pix em destaque no checkout ("dinheiro liberado na hora para o criador"). Cartão é a segunda opção — reduz o volume exposto sem perder a venda de ticket alto |
 
-⚠️ **E a parte honesta:** se o criador nunca voltar, **o resíduo é prejuízo da plataforma.** Isso é custo de operar marketplace com cartão, e precisa estar previsto no caixa — não escondido atrás de uma frase. É exatamente por isso que a camada 3 existe.
+📊 **A parte honesta, agora com número.** Premissas declaradas: ticket médio R$ 1.200, 40% do GMV em cartão, taxa de chargeback de 0,6% (referência de mercado brasileiro), e 60% dos chargebacks sendo fraude pura — coberta pelo 3DS.
+
+| | Lançamento (20 contratos/mês) | Operação (1.000 contratos/mês) |
+|---|---|---|
+| GMV | R$ 24.000 | R$ 1.200.000 |
+| Perda esperada após 3DS | R$ 23/mês | R$ 1.152/mês |
+| Receita de comissão | R$ 1.800 (7,5%) | R$ 180.000 (15%) |
+| **Perda ÷ comissão** | **1,3%** | **0,64%** |
+
+🔴 **A conclusão que muda a medida certa: a perda média sempre coube na comissão. Ela nunca foi o problema.** O problema é **concentração**. Com 20 contratos por mês, um único chargeback de R$ 1.200 consome dois terços da comissão do mês, e um contrato de R$ 20.000 contestado apaga onze meses de receita. Não existe lei dos grandes números com 20 contratos. **Por isso a medida certa é teto de exposição por transação (camada 2), e não retenção no tempo** — segurar 90 dias protegia contra a média, que já cabia, e não protegia contra o caso isolado, que é o que mata.
+
+⚠️ **Nem a Garantia de Chargeback nem o antifraude vêm inclusos** no produto padrão do Pagar.me — os dois são contratados à parte, e a Garantia cobre **apenas fraude**, não desacordo comercial. Entram quando o volume de cartão justificar o custo fixo; até lá, o 3DS é a camada 1. Fontes: [Garantia de Chargeback](https://conteudo.stone.com.br/garantia-de-fraude/), [Antifraude ClearSale](https://pagarme.helpjuice.com/pt_BR/antifraude-clearsale).
+
+⚠️ **Pré-autorização não serve de escrow.** A janela de captura no Pagar.me é de 5 horas (checkout) ou 5 dias (API) — depois disso o emissor libera o valor. A ideia de "só capturo o cartão quando a entrega for aprovada" não funciona: o escrow tem que ser com dinheiro capturado. Fonte: [docs.pagar.me — Autorização e captura](https://docs.pagar.me/v3/docs/autoriza%C3%A7%C3%A3o-e-captura).
+
+📌 **O que as plataformas comparáveis fazem:** a **Fiverr** debita do saldo do freelancer e só o protege "a seu exclusivo critério". A **Upwork** briga com o banco e preserva o pagamento do freelancer, desde que o fluxo dela tenha sido seguido. **Nenhuma das duas retém 90 dias do prestador.** E na Stripe Connect, no modelo que a INFLUENTZ usa, **a plataforma é sempre a responsável final** — isso não é escolha generosa, é como o sistema de cartão funciona. Fontes: [Stripe — Disputes on Connect platforms](https://docs.stripe.com/connect/disputes), [Fiverr](https://help.fiverr.com/hc/en-us/articles/360010978618-Chargebacks-and-freelancer-protection), [Upwork](https://support.upwork.com/hc/en-us/articles/14085353385747-What-happens-if-you-file-a-chargeback-as-a-client-on-Upwork).
 
 ### 4.4 Comissão (decisão 8)
 
@@ -254,34 +269,76 @@ O CDC protege relações de **consumo**; a maior parte dos contratos aqui é **B
 
 ---
 
-## 9. Redes sociais, métricas e verificação 🟢
+## 9. Redes sociais, métricas e verificação 🟢 ⚠️ reescrito em 08/09/2026
 
-**Conexão direta com a API oficial de cada rede (Instagram, TikTok, YouTube), sem intermediário pago.** O usuário autoriza com um clique e os dados vêm da fonte — sem assinatura mensal.
+> **Revisado por:** especialista `produto`, com pesquisa na documentação oficial da Meta, do TikTok e do Google.
 
-**Trade-off honesto:** cada rede tem processo próprio de aprovação. YouTube é o mais rápido; Instagram e TikTok exigem verificação de empresa e revisão do aplicativo — semanas a meses, fora do nosso controle.
+**Conexão direta com a API oficial de cada rede (Instagram, TikTok, YouTube), sem intermediário pago.** O usuário autoriza com um clique e os dados vêm da fonte.
 
-**Como não travar o lançamento:** vai ao ar com **YouTube conectado no dia 1**; Instagram e TikTok entram conforme cada aprovação sai. A arquitetura já nasce pronta para os três.
+🔴 **Regra travada, sem exceção: na INFLUENTZ não existe métrica que não venha de API.** Não existe captura de tela, não existe número digitado pelo usuário, não existe fila de aprovação manual de métrica. Se o dado não veio da API da rede, ele não aparece na plataforma.
 
-### 9.1 Pelo menos uma rede conectada é obrigatória 🟢 ⚠️ corrigido
+### 9.1 Como isso é possível no dia 1, sem esperar aprovação 🟢 ⚠️ corrigido
 
-Vale para criador, marca **e** agência — para publicar serviço, propor contrato ou aparecer na busca.
+⚠️ **O que foi eliminado.** A versão anterior criava um nível "Declarada": o criador mandava captura de tela, o Trust & Safety aprovava à mão, e a métrica aparecia rotulada como não verificada. **Foi recusado pelo dono do produto**, e com razão — é trabalho manual empurrado para o usuário porque a integração é difícil, exatamente o que `CLAUDE.md` §2.9 proíbe.
 
-⚠️ **Correção: como estava escrito, esta regra impedia o próprio lançamento.**
+**O problema real que ele resolvia é verdadeiro:** o App Review do Instagram leva semanas, e o criador convidado pessoalmente (§14.1) não pode ficar travado esperando.
 
-A §9 admite que Instagram e TikTok levam **semanas a meses** de aprovação, e que só o YouTube entra no dia 1. Ou seja: o criador convidado pessoalmente pelo Marco (§14.1), que tem 80 mil seguidores no Instagram e nenhum canal no YouTube, ficaria travado em `perfil_incompleto` — sem aparecer na busca, sem publicar vitrine, e **sem nenhuma ação possível**. A regra que existia para dar confiança fecharia a porta dos 50 primeiros criadores.
+✅ **A solução é que as três plataformas já têm mecanismo oficial de pré-aprovação — e ele devolve dado real de API, não estimativa.** Não é contorno: é o caminho que a própria Meta, o TikTok e o Google desenharam para piloto.
 
-🔵 **Regra corrigida — verificação em dois níveis:**
+| Rede | Ponte oficial no dia 1 | Capacidade | Fonte |
+|---|---|---|---|
+| **TikTok** | Sandbox: 5 sandboxes × 10 contas-alvo | **50 criadores** | [Add a Sandbox](https://developers.tiktok.com/docs/en/add-a-sandbox) |
+| **Instagram** | *Instagram Tester* + Standard Access — "permissions with Standard Access can only be requested from app users who have a role on the requesting app", e todo app Business já nasce com Standard Access | dezenas (a Meta não publica teto) | [Access Levels](https://developers.facebook.com/docs/graph-api/overview/access-levels) |
+| **YouTube** | Modo Testing: 100 testers; depois, verificação de escopo sensível em **3 a 5 dias úteis** | 100 | [Sensitive scope verification](https://developers.google.com/identity/protocols/oauth2/production-readiness/sensitive-scope-verification), [Manage App Audience](https://support.google.com/cloud/answer/15549945?hl=en) |
 
-| Nível | Como se obtém | O que libera |
+O criador aceita um convite dentro do app da própria rede e autoriza. **A métrica que chega é da API, igual à do dia 200.** A diferença é só administrativa e invisível para ele.
+
+⚠️ **Duas ressalvas honestas, que ficam registradas:**
+
+1. **Sandbox e modo de desenvolvimento existem para testar, não para operar.** Rodar 50 criadores pagantes ali estica a intenção da regra. O risco não é multa — é a Meta ver uso de produção em modo dev na hora do review. Mitigação obrigatória: coorte-piloto **fechada e com prazo**, e o App Review submetido **em paralelo, não depois**.
+2. **O relógio do App Review só começa quando o fluxo de conexão existe funcionando**, porque a Meta exige vídeo de tela do fluxo real. Não dá para submeter antes do produto.
+
+### 9.1.1 As fases, e o que trava o quê ⚠️
+
+**Fase 0 — antes de qualquer código de conexão.** Abrir a **Verificação de Empresa da Meta** (prazo divulgado: até 14 dias úteis) e verificar o domínio no Google. É o único item de prazo que não depende do produto — por isso começa já.
+
+🔴 **CNPJ é caminho crítico do projeto inteiro.** Desde 01/02/2023 a Verificação de Empresa é **obrigatória** para Advanced Access ([Business Verification](https://developers.facebook.com/docs/development/release/business-verification)), e ela exige CNPJ, contrato social, comprovante de endereço e domínio verificado. Sem CNPJ, o Instagram nunca sai do teto do modo piloto. **Isto é decisão de dono, e é a mais urgente do projeto.**
+
+**Fase 1 — dia 1 do cold start.** YouTube em Testing (100 testers) · Instagram por convite de Tester · TikTok em sandbox. Em paralelo, submeter YouTube (3–5 dias úteis) e TikTok ("several days to two weeks", [App Review FAQ](https://developers.tiktok.com/doc/getting-started-faq)).
+
+**Fase 2 — quando o fluxo estiver pronto.** Submeter o App Review do Instagram com o vídeo de tela. A Meta não publica SLA; relatos de mercado em 2026 falam em ~20 dias de média e 4 a 6 semanas ponta a ponta com uma rodada de correção — **fonte secundária, não oficial**.
+
+**Fase 3 — aprovado.** Vira Advanced Access / produção. **Os criadores da coorte não refazem nada** — o token deles continua válido, só muda o modo do app. Isso precisa estar previsto na modelagem de dados desde já.
+
+**Rede de segurança contratada, não improvisada:** negociar com um agregador de dados (Phyllo/InsightIQ) **com data-gatilho**. Se o App Review da Meta não sair até a data X, liga o agregador e ninguém fica sem métrica. Não é o plano principal: preço não é público, e custo recorrente por criador não combina com receita de comissão. ⚠️ Antes de assinar, passa pelo `financeiro` — precisa de teto e gatilho de saída.
+
+### 9.1.2 Conta pessoal não tem API — e isso vira passo de onboarding, não recusa 🟡
+
+A API do Instagram atende apenas contas **profissionais** (Business ou Creator), e não exige mais Página do Facebook vinculada ([doc oficial](https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login)). Conta pessoal não tem API nenhuma — não existe rota pública.
+
+✅ **Converter para conta profissional é grátis e leva cerca de um minuto, dentro do app da rede.** Então isso não é motivo de recusa: é uma tela com o passo a passo e um botão de "já converti, tentar de novo".
+
+### 9.1.3 O que o usuário vê
+
+- **Criador:** "Conecte sua rede para aparecer na busca" → autorização. Se for conta pessoal, o passo a passo de conversão. Se estiver na coorte-piloto, um passo a mais: aceitar o convite dentro do app da rede, com a imagem do caminho exato. **Nenhuma tela pede captura de tela. Nenhuma.**
+- **Métrica, sempre com carimbo:** *"seguidores 82.400 · da API do Instagram · atualizado há 6 h"*. Se o token expirou, faixa de aviso com "métrica congelada em 12/09 — reconecte" e botão. O contrato em andamento **não** para (MAQUINA §3).
+- **Marca:** um selo só — **"conectado por API"** — com a data da última atualização. Não existe mais métrica sem selo, porque não existe mais métrica sem API.
+- **Admin:** some a fila de aprovação manual. Nasce o **painel de saúde das conexões**: quantas expiraram, quantas foram revogadas, status de cada App Review, e quantas vagas restam na coorte-piloto.
+
+### 9.1.4 Riscos, sem maquiagem
+
+| Risco | Consequência real | O que fazer |
 |---|---|---|
-| **Declarada** | O criador informa o perfil e envia comprovação (captura do painel da rede, vídeo de tela). **Trust & Safety aprova manualmente** | Aparecer na busca, publicar vitrine, receber proposta, fechar contrato |
-| **Verificada** | Rede conectada por API oficial | Tudo acima **mais o selo de verificado** e a métrica atualizada sozinha |
+| Meta reprova o App Review | Instagram fica preso ao teto do modo piloto — e é a rede principal do mercado brasileiro | Data-gatilho com o agregador. Reprovação quase sempre é vídeo ruim ou justificativa vaga, e cabe recurso — mas cada rodada reinicia o relógio |
+| **Sem CNPJ** | Advanced Access é impossível. Trava o produto, não só a métrica | Decisão do Marco, na Fase 0 |
+| Token do Instagram expira (60 dias sem uso) | Métrica congela | Rotina de renovação + estado `token_expirado` com botão. **Nunca apagar a métrica anterior** — mostrar com data |
+| Criador só tem conta pessoal | Não conecta | §9.1.2 — conversão vira passo do onboarding |
+| Coorte-piloto lota (50 no TikTok) | Criador 51 fica sem TikTok | Lista de espera com data, e submeter o review antes de chegar em 40 |
+| API da rede cai | Métrica não atualiza | Mostrar a última leitura com data. **Nunca zero, nunca em branco** |
 
-⚠️ **Métrica declarada aparece sempre rotulada como tal**, ao lado do número: *"declarada pelo criador · não verificada por API"*. Nunca se mistura com métrica de API.
+⚠️ **Vai para o `juridico-br` antes de virar tela:** conectar rede social é tratamento de dado pessoal — a base legal do consentimento precisa estar no Termo, e é preciso definir o que acontece com a métrica coletada quando o criador desconecta ou pede exclusão (LGPD).
 
-*Por que isso não enfraquece a confiança:* a aprovação é humana e a origem é visível. O que enfraqueceria a confiança é um marketplace vazio — ou pior, uma métrica declarada exibida como se fosse verificada.
-
-**Conforme cada API sai da fila de aprovação, os criadores daquela rede migram de "declarada" para "verificada" sem refazer cadastro.**
+📌 **O que a concorrência faz:** a Squid (hoje Squid by Wake) integra por API oficial da Meta e do TikTok, com atualização em até 24 h ([central de ajuda](https://meajuda.squid.com.br/docs/como-conectar-o-meu-instagram-a-squid)). Métrica por captura de tela não é padrão de mercado — é gambiarra.
 
 ### 9.2 Detecção de fraude de engajamento — escopo corrigido 🟡
 
@@ -359,6 +416,11 @@ Um marketplace vazio não tem produto. Isso não é marketing, é viabilidade.
 | Tema | Profissional | Bloqueia o quê |
 |---|---|---|
 | Regime tributário, retenção de IR sobre comissão, obrigações acessórias | Contador especializado em plataforma digital | Código de pagamento |
+| Como lançar a perda de chargeback: despesa do período ou provisão? O fundo de contestação é conta contábil ou só segregação de caixa? | Contador | Código de pagamento |
+| Comissão já tributada sobre transação depois revertida — dá para recuperar o tributo sobre receita que deixou de existir? | Contador | Código de pagamento |
+| Nota fiscal em contrato revertido: o criador emitiu NF, prestou o serviço, e o banco devolveu o dinheiro. Cancela? Emite devolução? | Contador | Lançamento |
+| Repasse que a plataforma absorveu — é despesa dedutível? | Contador | Código de pagamento |
+| Custo da antecipação de recebíveis embutido no preço: natureza contábil e tributária | Contador | Código de pagamento |
 | Termos de Uso, Política de Privacidade, direito de imagem, monitoramento de chat | Advogado | Lançamento |
 | Categorias reguladas e proteção de menores (§8.3) | Advogado | Lançamento |
 | **A relação criador↔plataforma é de consumo ou B2B?** | Advogado | Redação dos Termos, do cancelamento e da comissão |
@@ -368,6 +430,12 @@ Um marketplace vazio não tem produto. Isso não é marketing, é viabilidade.
 | O que é compartilhado com a Pagar.me, quando, e como aparece na Política de Privacidade | Advogado | Código de pagamento |
 | Regra interna de acesso do Admin a dado de terceiro, com trilha de auditoria (LGPD art. 46) | Advogado | Lançamento |
 | Texto da mensagem de convite: identificação do remetente, origem do contato, opt-out | Advogado | Ferramenta de convite |
+| Cláusula de responsabilidade por chargeback: a INFLUENTZ absorve, com exceções (conluio, entrega inexistente) que sobrevivam a questionamento | Advogado | Lançamento |
+| Validade do clawback — pode a plataforma debitar saldo futuro do criador por decisão administrativa própria? Precisa de anuência prévia, contraditório, prazo? | Advogado | Lançamento |
+| Retenção de dados para defesa × LGPD: a janela de chargeback vai a 540 dias e a defesa exige log de chat, IP e horário de aceite. Qual prazo é defensável? | Advogado | Lançamento |
+| Exposição ao MED do Pix: obrigações da plataforma quando um Pix recebido é contestado por fraude | Advogado | Código de pagamento |
+| Redação da promessa "a INFLUENTZ garante seu pagamento" — mal escrita, vira obrigação incondicional | Advogado | Lançamento |
+| Conectar rede social é tratamento de dado pessoal: base legal do consentimento no Termo, e o que acontece com a métrica quando o criador desconecta ou pede exclusão | Advogado | Tela de conexão |
 
 📌 **A pergunta mais estruturante da lista é a primeira.** Enquanto não houver resposta de advogado, **tratamos a relação como de consumo** — é o cenário mais caro, e preparar-se para ele não custa nada se a resposta vier ao contrário. O STJ aplica o finalismo mitigado, e criador pessoa física costuma ser reconhecido como vulnerável, mesmo prestando serviço profissional.
 

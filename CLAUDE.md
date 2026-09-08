@@ -106,7 +106,7 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 |---|---|
 | `/docs/METODO-DE-TRABALHO.md` | v1.0 ✅ — as 8 fases e o contrato de entrega |
 | `/docs/SPEC-INFLUENTZ.md` | v0.5 ✅ |
-| `/docs/FEATURE-MATRIX.md` | v1.2 ✅ — **inventário completo, 172 funções, 4 superfícies** |
+| `/docs/FEATURE-MATRIX.md` | v1.3 ✅ — **inventário completo, 177 funções, 4 superfícies** |
 | `/docs/PRODUTO-DETALHADO.md` | v0.1 ✅ — campos, métricas, tipos de proposta |
 | `/docs/MAQUINA-DE-ESTADOS.md` | v0.2 ✅ |
 | `/docs/DESIGN-SYSTEM.md` | v0.4 ✅ |
@@ -128,6 +128,10 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 | Um pedido aberto contrata vários criadores, já no v1 | MAQUINA-DE-ESTADOS §5.1 |
 | Cancelamento presencial: escala 7 dias / 48 h | MAQUINA-DE-ESTADOS §13.2 |
 | **Criador tem 18 anos completos no v1** — exigência legal, não de escopo | SPEC §8.3.1 |
+| **Métrica só por API oficial. Não existe captura de tela, número digitado nem aprovação manual de métrica** | SPEC §9 |
+| **O criador nunca espera mais que o prazo do meio de pagamento.** Proteção contra chargeback vem de teto por transação e fundo da plataforma, nunca de reter dinheiro do criador | SPEC §4.3 |
+| **Aceite de Termos é sempre do próprio titular.** Ninguém aceita em nome de outro, e dado financeiro nunca entra por mão de operador | FEATURE-MATRIX §5.5 |
+| **CNPJ é caminho crítico** — sem ele, o Instagram nunca sai do teto do modo piloto | SPEC §9.1.1 |
 
 ### Em aberto
 

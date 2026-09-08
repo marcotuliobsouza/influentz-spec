@@ -3,7 +3,7 @@
 > **Esta é a única página que o Marco precisa ler.** Tudo o resto é ferramenta de trabalho minha.
 > Se algo importante mudar, muda aqui primeiro.
 >
-> Atualizado em 08/09/2026
+> Atualizado em 08/09/2026 — três decisões suas em aberto, ver abaixo
 
 ---
 
@@ -21,13 +21,27 @@
 
 ## O que eu preciso de você
 
-**Uma coisa só, e ela não é técnica:**
+**Três coisas, e nenhuma delas é técnica.**
 
-> **A lista de cold start.** Quantos criadores e quantas marcas atenderiam o seu telefone hoje?
+### 1. 🔴 A empresa tem CNPJ? — *virou o item mais urgente do projeto*
 
-É o único item que nem dinheiro nem engenharia resolvem. Marketplace vazio não tem produto — e essa lista é o ativo mais valioso do projeto neste momento.
+Descoberto hoje, na pesquisa do especialista de produto: desde fevereiro de 2023 a Meta **exige empresa verificada** (CNPJ, contrato social, comprovante de endereço) para o Instagram liberar métricas de qualquer criador. Sem isso, o Instagram fica para sempre limitado a um punhado de criadores convidados — e o Instagram é a rede principal deste mercado.
 
-**O que você NÃO precisa fazer:** ler documento técnico, auditar especificação, procurar o que falta. Isso é meu trabalho, e agora tem um time de especialistas fazendo. Se eu te pedir para auditar algo de novo, me corrija.
+A verificação leva até 14 dias úteis e **não depende do produto estar pronto**. Por isso ela é a primeira coisa a começar, não a última.
+
+### 2. 🟡 Quanto você aceita perder de uma vez numa compra no cartão?
+
+Não é pergunta técnica, é apetite de risco. Se uma marca contesta a compra no banco, quem paga a conta é a plataforma. A proteção certa não é segurar o dinheiro do criador — é **limitar o valor de cada cobrança no cartão**. Acima do limite, o pagamento é por Pix, boleto, ou dividido em partes.
+
+Minha sugestão de partida: **R$ 3.000 por cobrança**, subindo conforme a marca constrói histórico. Você diz se é confortável ou se quer mais apertado.
+
+### 3. 🔴 A lista de cold start
+
+> Quantos criadores e quantas marcas atenderiam o seu telefone hoje?
+
+Continua sendo o único item que nem dinheiro nem engenharia resolvem.
+
+**O que você NÃO precisa fazer:** ler documento técnico, auditar especificação, procurar o que falta. Isso é meu trabalho, e agora é obrigatório passar pelos especialistas antes de chegar em você.
 
 ---
 
@@ -50,10 +64,13 @@ Você só decide o que é genuinamente de dono: **gosto, prioridade e apetite de
 
 | Risco | Situação |
 |---|---|
+| **Sem CNPJ, o Instagram não libera métrica** | 🔴 Item 1 acima. Trava o produto, não só a métrica |
 | **Marketplace vazio no lançamento** | 🔴 Depende da sua lista de contatos |
-| **Contador** — imposto, retenção, permuta | 🟡 Precisa de profissional antes do código de pagamento |
-| **Advogado** — termos, LGPD, publicidade, menor de idade | 🟡 Precisa de profissional antes do lançamento |
-| Rede social mudar a API e quebrar as métricas | 🟢 Já previsto: monitor de conexão e aviso de reconexão |
+| **Contador** — imposto, retenção, permuta, e agora o tratamento contábil do chargeback | 🟡 Precisa de profissional antes do código de pagamento |
+| **Advogado** — termos, LGPD, publicidade, menor de idade, e agora a cláusula de chargeback | 🟡 Precisa de profissional antes do lançamento |
+| **Cartão parcelado pagaria o criador em prestações** | 🟢 Achado hoje e travado: parcelado só com antecipação ligada, senão só à vista no v1 |
+| Meta demorar ou reprovar a liberação do app | 🟡 Plano A é a coorte-piloto oficial; plano B é fornecedor de dados contratado com data-gatilho |
+| Rede social mudar a API e quebrar as métricas | 🟢 Já previsto: painel de saúde e aviso de reconexão |
 | Plataforma pagar dinheiro que ainda não recebeu | 🟢 Já travado por desenho |
 
 ---

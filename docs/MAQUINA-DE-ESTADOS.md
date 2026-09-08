@@ -100,9 +100,8 @@ Ela existe porque três regras da SPEC dependem de "o que esta pessoa já pode f
 |---|---|
 | `criada` | E-mail confirmado. Navegar, nada mais |
 | `perfil_incompleto` | Faltam dados básicos ou comprovação de rede. **Não aparece na busca, não publica, não propõe** |
-| `rede_declarada` | 🔵 Rede comprovada manualmente e aprovada pelo Trust & Safety (SPEC §9.1). **Transaciona normalmente**, com a métrica rotulada como declarada |
 | `aguardando_verificacao` | Documentos enviados ao Pagar.me. Pode montar perfil, não pode receber |
-| `verificacao_recusada` | 🔴 **Estado que faltava.** O provedor recusou o cadastro de recebedor — documento ilegível, CPF irregular, conta de terceiro. Ver abaixo |
+| `kyc_recusado` | 🔴 **Estado que faltava.** O provedor recusou o cadastro de recebedor — documento ilegível, CPF irregular, conta de terceiro. Ver abaixo. ⚠️ Renomeado de `verificacao_recusada` em 08/09/2026: colidia com "verificação de rede social" na cabeça de todo mundo, e são coisas completamente diferentes |
 | `verificada` | Tudo liberado |
 | `restrita` | Pode ver e concluir o que já está em andamento. **Não inicia contrato novo** |
 | `suspensa` | Suspensão temporária (SPEC §13.2 item 4) |
@@ -111,7 +110,28 @@ Ela existe porque três regras da SPEC dependem de "o que esta pessoa já pode f
 
 ⚠️ **Borda que só apareceria com o produto no ar:** banir, suspender ou encerrar uma conta **não** encerra os contratos em andamento dela. Existe dinheiro em escrow que precisa ir para algum lugar, e a outra ponta não fez nada de errado. Regra: a conta perde o direito de **iniciar** coisa nova; o que já existe segue até o fim ou até a disputa decidir. Encerramento por LGPD fica pendente até o último contrato fechar — a lei permite reter o mínimo necessário para cumprir obrigação legal e contratual.
 
-⚠️ **`verificacao_recusada` é obrigatório, e a falta dele criava um beco sem saída.** Sem esse estado, o criador que entrega, tem a entrega aprovada e é recusado pelo provedor fica com **dinheiro aprovado que não sai, sem saber o motivo e sem nenhum botão**. A saída: o estado carrega o motivo devolvido pelo provedor, oferece reenvio de documento ou troca de conta bancária, e tem prazo. Enquanto isso, o valor permanece retido — nunca se perde.
+⚠️ **`kyc_recusado` é obrigatório, e a falta dele criava um beco sem saída.** Sem esse estado, o criador que entrega, tem a entrega aprovada e é recusado pelo provedor fica com **dinheiro aprovado que não sai, sem saber o motivo e sem nenhum botão**. A saída: o estado carrega o motivo devolvido pelo provedor, oferece reenvio de documento ou troca de conta bancária, e tem prazo. Enquanto isso, o valor permanece retido — nunca se perde.
+
+### 3.1 Submáquina — conexão de rede social 🟢 nova em 08/09/2026
+
+⚠️ **`rede_declarada` foi eliminado.** Ele materializava a verificação manual por captura de tela, recusada pelo dono do produto. Na INFLUENTZ **não existe métrica que não venha de API** — ver SPEC §9.
+
+Esta submáquina é **uma linha por criador × rede**, não um estado de conta. A mesma pessoa pode ter o Instagram conectado e o TikTok expirado.
+
+| Estado | Significado | Saída |
+|---|---|---|
+| `nao_conectada` | Nunca conectou | → `conectando` |
+| `conta_incompativel` | 🔴 Instagram ou TikTok em conta **pessoal** — não existe API para conta pessoal. A tela mostra o passo a passo de conversão para conta profissional, que é grátis e leva um minuto | → `conectando` |
+| `conectando` | Autorização em andamento na rede | → `conectada` / `conexao_falhou` |
+| `conexao_falhou` | Usuário negou, faltou permissão, ou a API caiu. **Sempre com motivo legível e botão de tentar de novo** | → `conectando` |
+| `conectada_piloto` | Conectada via convite de tester (Instagram) ou sandbox (TikTok) na coorte de lançamento. **O dado é de API, é real.** Marcação interna — não muda nada na tela do usuário | → `conectada` quando o App Review sair |
+| `conectada` | Advanced Access / produção | → `token_expirado`, `revogada` |
+| `token_expirado` | O token do Instagram morre com 60 dias sem uso. **A métrica congela com a data visível — nunca vira zero, nunca vira branco** | → `conectando` |
+| `revogada` | O criador tirou o acesso dentro da rede | → `conectando` |
+
+⚠️ **A transição `conectada_piloto` → `conectada` não pede nada do criador.** O token dele continua válido; só muda o modo do app. Isso precisa estar previsto na modelagem de dados desde já.
+
+⚠️ **`perfil_incompleto` nunca fica sem saída.** Sempre carrega o botão de conectar e, se for conta pessoal, o passo a passo de conversão.
 
 ⚠️ **Rede social desconectada no meio do contrato** (a pessoa revoga o acesso no Instagram): o contrato **não** para. O que acontece é o anúncio de vitrine sair do ar. Misturar as duas coisas puniria a ponta errada.
 
@@ -399,7 +419,8 @@ O que muda:
 | `expirada` | QR ou boleto venceu | Neutro |
 | `estornada` | Devolvida | Neutro |
 | `em_contestacao` | Chargeback aberto pelo banco do portador | Crítico |
-| `contestacao_ganha` / `contestacao_perdida` | Decisão do banco | Sucesso / Crítico |
+| `em_defesa` | 🔴 **Estado novo (08/09/2026).** Dossiê montado e enviado. ⚠️ **Prazo de 10 dias, fatal** — é onde mora a contagem regressiva no painel Trust & Safety. Sem este estado, disputa se perde por silêncio | Crítico |
+| `contestacao_ganha` / `contestacao_perdida` | Decisão do banco (até 120 dias) | Sucesso / Crítico |
 
 ### 9.2 Repasse ao criador — o dinheiro saindo
 
@@ -414,9 +435,15 @@ O que muda:
 | `bloqueado_por_pendencia_fiscal` | Acumulado passou de R$ 500 sem MEI/CNPJ (SPEC §4.7) | Atenção |
 | `bloqueado_por_disputa` | Congelado até a decisão | Crítico |
 | `bloqueado_por_verificacao` | 🔴 Provedor recusou o cadastro do recebedor. **O valor fica retido, nunca se perde** | Atenção |
-| `reservado_contestacao` | 🔵 Parte retida por 90 dias em contrato de cartão acima do limite (SPEC §4.3) | Protegido |
 | `revertido` | Contestação perdida, descontado do saldo | Crítico |
-| `saldo_negativo` | 🔴 **Estado que faltava.** Contestação perdida sem saldo nem reserva suficiente. **Saque e novos contratos bloqueados** até regularizar | Crítico |
+| `chargeback_absorvido` | 🔵 **Estado novo (08/09/2026).** Contestação perdida e a perda foi para o fundo de contestação da plataforma. Fecha o ciclo — antes, `revertido` deixava a pergunta "revertido de quem?" no ar. **O criador não é tocado** | Neutro |
+| `debito_pendente_criador` | 🔴 **Substitui o antigo `saldo_negativo`, e é muito mais estreito.** Só entra por **decisão humana registrada** — conluio comprovado ou entrega inexistente — com motivo, autor e data. Bloqueia saque, **não** bloqueia contratar | Crítico |
+
+⚠️ **Mudanças de 08/09/2026, revisadas pelo especialista `financeiro`:**
+
+- **`reservado_contestacao` foi removido.** Era a materialização da reserva de 90 dias, recusada pelo dono do produto — e a pesquisa mostrou que ela nem protegia: a janela de contestação por "serviço não recebido" conta 120 dias **a partir da data prevista de entrega**, então a reserva fecharia antes do risco acabar. Ver SPEC §4.3.
+- **`saldo_negativo` mudou de dono.** Com `liable: true` no recebedor da plataforma, o saldo negativo é da **INFLUENTZ**, não do criador. Ele continua existindo — o Pagar.me produz saldo negativo mecanicamente e ele pode travar saque de outros recebedores na mesma conta — mas vira **`saldo_negativo_plataforma`**, um alerta do painel administrativo alimentado pelo fundo de contestação. **O criador não vê.**
+- ⚠️ **`liberado_aguardando_prazo` precisa expressar parcela.** Com cartão parcelado sem antecipação, o mesmo repasse tem **várias datas** de disponibilidade — uma por parcela — e a máquina hoje assume uma só. Ver SPEC §4.2.
 
 ### 9.2.1 A máquina de reembolso — faltava inteira 🔴
 

@@ -7,7 +7,7 @@
 > **Como ler a prioridade:**
 > **E** = essencial (sem isso não existe produto) · **P** = premium (é o que faz a plataforma valer a comissão) · **F** = futuro (depois de haver volume)
 >
-> **Versão:** v1.2 — **172 funções**
+> **Versão:** v1.3 — **177 funções**
 > **O que mudou da v1.0:** acesso por plataforma corrigido (§0.1), contrato recorrente reincorporado (§3.5), e **30 funções acrescentadas pela auditoria do especialista de produto** (§5.5), que encontrou 12 lacunas — 8 delas capazes de travar o lançamento.
 > **Fonte de marca:** `docs/marca/` — pasta BRANDING do Drive, estudada por inteiro
 >
@@ -358,9 +358,11 @@ Auditoria feita pelo especialista de produto em 08/09/2026, com contexto limpo. 
 
 | # | Função | Prio | Resolve |
 |---|---|---|---|
-| 140 | **Comprovar rede por envio manual** (captura do painel, vídeo de tela) | E | O criador de Instagram entrando no dia 1, com a API ainda na fila |
-| 141 | **Fila de aprovação de rede declarada** no Admin | E | Idem |
-| 142 | **Rótulo "declarada · não verificada"** ao lado da métrica | E | Nunca misturar dado declarado com dado de API |
+| 140 | **Coorte-piloto de conexão** — convite de tester (Instagram) e contas-alvo de sandbox (TikTok), com vagas contadas | E | O criador de Instagram entrando no dia 1 **com métrica de API real**, sem esperar o App Review ❌ substitui o envio manual |
+| 141 | **Painel de saúde das conexões** no Admin — expiradas, revogadas, status de cada App Review, vagas restantes na coorte | E | ❌ Substitui a fila de aprovação manual, que deixou de existir |
+| 142 | **Selo "conectado por API" com data da última atualização**, em toda métrica | E | Não existe mais métrica sem selo, porque não existe mais métrica sem API ❌ substitui o rótulo "declarada" |
+| 142.1 | **Conversão para conta profissional** — tela com passo a passo e botão "já converti, tentar de novo" | E | Conta pessoal não tem API; isso é passo de onboarding, não recusa |
+| 142.2 | **Renovação automática de token e aviso de reconexão** | E | Token do Instagram morre com 60 dias sem uso; métrica congela com data, nunca vira zero |
 | 143 | **Cadastrar e trocar conta bancária** | E | Não existia. Só havia "sacar" |
 | 144 | **Ver motivo da recusa do provedor e reenviar documento** | E | O beco sem saída de quem tem dinheiro aprovado que não sai |
 
@@ -371,7 +373,9 @@ Auditoria feita pelo especialista de produto em 08/09/2026, com contexto limpo. 
 | 145 | **Dados de reembolso da marca no checkout** de Pix e boleto | E | Não havia por onde devolver dinheiro fora do cartão |
 | 146 | **Acompanhar reembolso** nas duas pontas | E | |
 | 147 | **Fila de reembolso com falha** no Admin | E | Reembolso que não completa não pode sumir em silêncio |
-| 148 | **Reserva de contestação** visível ao criador, com data de liberação | E | Contestação que chega depois do saque |
+| 148 | **Dossiê de defesa automático** — PDF único de até 1,9 MB com contrato congelado, aceite datado, comprovante de financiamento anterior ao início, entrega e aprovação | E | ❌ Substitui a "reserva de contestação", eliminada. **Prazo de defesa de 10 dias, fatal** — vira tarefa com contagem regressiva no Trust & Safety |
+| 148.1 | **Fundo de contestação** no painel administrativo — 5% da comissão, saldo e histórico de perdas absorvidas | E | A plataforma retém o dinheiro **dela**, não o do criador. Invisível para o criador |
+| 148.2 | **Teto de exposição por cobrança no cartão**, com escadinha por histórico da marca | E | O risco não é a média, é o caso isolado: um chargeback de R$ 1.200 come dois terços da comissão de um mês de lançamento |
 | 149 | **Saldo negativo** com saque e novos contratos bloqueados | E | Idem |
 | 150 | **Anexar nota fiscal do criador** antes da liberação do repasse | E | A marca com CNPJ precisa da nota para lançar a despesa |
 | 151 | **Marca baixa a nota do criador** dentro do contrato | E | Idem |
