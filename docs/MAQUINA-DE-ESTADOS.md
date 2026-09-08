@@ -359,27 +359,24 @@ stateDiagram-v2
 | `em_disputa` | Congela tudo | Crítico |
 | `cancelado` | Não será entregue | Neutro |
 
-### 8.0.1 Os quatro regimes de prova 🔴
+### 8.0.1 Os quatro tipos de trabalho 🟢
 
-**A regra geral:** *o dinheiro é liberado no evento comprovável mais próximo daquilo que a marca comprou* — e esse evento é escrito na tela, com todas as letras, **antes de qualquer um aceitar**.
+**A regra geral:** *o dinheiro é liberado no evento comprovável mais próximo daquilo que a marca comprou* — e esse evento é escrito na tela, em português, **antes de qualquer um aceitar**.
 
-⚠️ **Por que a regra anterior não servia.** Ela dizia que o dinheiro sai na publicação conferida por API. Isso resolve o post patrocinado e **não resolve o resto do produto**: em UGC o criador entrega o vídeo e **quem publica é a marca, no perfil dela** — não existe post do criador para conferir. Palestra, evento presencial, foto de produto e dublagem também não terminam em publicação. Com a regra antiga, **um contrato de palestra não tinha nenhum evento capaz de fechá-lo**: nascia sem estado terminal alcançável sem intervenção manual.
+| Tipo de trabalho | Quem publica | O que a marca recebe | O que prova que acabou | Direitos padrão |
+|---|---|---|---|---|
+| **1. Publicação no perfil do criador** — Reels, TikTok, vídeo no YouTube, post | **criador** | A publicação no ar, no perfil dele | O criador cola o link. A plataforma confere na API que está no ar | Fica no ar **90 dias**. A marca reposta nos canais dela por **12 meses**. Anúncio pago: **não**, salvo se contratado |
+| **2. Stories** | **criador** | A sequência no ar | Mesma conferência por API, **enquanto está no ar** | Fica no ar **24 h**. Repost por 12 meses |
+| **3. Material entregue para a marca usar** — UGC, foto de produto, vídeo de anúncio, locução, roteiro | **marca** *(ou criador, ou os dois)* | Os arquivos, em alta | Arquivo entregue + aprovação da marca. **Sem resposta em 7 dias, aprova sozinho e o criador recebe** | **12 meses, já incluindo anúncio pago** nas contas da própria marca — é para isso que ela compra |
+| **4. Compromisso com hora marcada** — evento, palestra, live, gravação presencial | **ninguém** *(se ele também postar, soma-se a linha 1)* | A presença dele, na data e hora combinadas | Os dois confirmam no app. **Se um não confirmar em 7 dias, vale a confirmação do outro** | A marca usa o registro do evento por **12 meses** |
 
-| Regime | Quando se aplica | O que prova a entrega |
-|---|---|---|
-| **P1 — automática** | Post, Reels ou vídeo **no perfil do criador**, em rede que ele tem conectada | Link + conferência na API. 🔴 **A conta é identificada pelo id numérico congelado no contrato no momento do aceite — nunca pelo @**, que se troca em dez segundos |
-| **P1-S — automática com janela** | Stories | Idem, **enquanto está no ar** — a plataforma consulta em até 12 h, senão a prova evapora |
-| **P2 — bilateral** | **UGC** (a marca publica), foto de produto, dublagem, roteiro, review entregue, e qualquer rede **não conectada** | Arquivo entregue + aceite da marca, **ou o relógio de aprovação automática** |
-| **P3 — comparecimento** | Palestra, evento, presença presencial | **Duas confirmações**, com data e hora. A de qualquer um dos dois lados basta se a outra não vier no prazo |
-| **P4 — documental** | Whitelisting, Spark Ads, anúncio no perfil do criador | **O código ou a permissão de anúncio**, com validade declarada. Entregue o código válido, o marco está cumprido — usar a tempo é problema da marca |
+🔴 **A pergunta que resolve tudo é uma só, e ela está na tela:** *"Quem vai publicar? A marca · O criador · Os dois."* O caso de material entregue em que a marca **também** quer que o criador poste é a **linha 3 com a resposta trocada** — ou as linhas 3 e 1 no mesmo pedido. **Não existe categoria nova.**
 
-🔴 **O regime não é escolhido pelo usuário.** Ele é **derivado** de dois campos da proposta: `tipo_de_entrega` e **`quem publica`** (criador / marca / ninguém). Se quem publica é a marca, o regime é P2 e **a tela nem oferece campo de link**. Se é o criador, a proposta **só aceita rede que ele já tem conectada** — senão o contrato nasceria prometendo uma prova que a plataforma não consegue produzir.
+**O que não é tipo de trabalho:** anúncio pelo perfil do criador é uma **caixinha** dentro das linhas 1 e 3, não uma quinta linha. Embaixador é a linha 1 repetida todo mês — é contrato recorrente. Afiliado e performance ficam fora do v1, porque valor variável não pode ser financiado antes do início.
 
-**O P1 não enfraquece.** Nele, `em_comprovacao` só é alcançável com o link já conferido pela API, então aprovar é aprovar um post que a plataforma já viu no ar. A ordem no P1 continua sendo: aprovar o material **antes** de publicar → publicar → conferir por API → liberar.
+**Nenhuma sigla aparece para o usuário.** Ele lê a coluna *"o que prova que acabou"*, em português.
 
-**Onde não há prova automática, não se inventa prova frágil.** Em UGC o critério honesto é o aceite da marca com relógio, e a proteção vem de quatro coisas que custam pouco: arquivo datado com hash na trilha de auditoria; **arquivo de revisão com marca d'água, e o original liberado só na aprovação**; **os direitos de uso só transferem na aprovação** — usar sem aprovar é uso não licenciado, não desacordo comercial; e aprovação automática por prazo, para que o silêncio não vire arma.
-
-❌ **Afiliado e performance ficam fora do v1**, e o motivo é o escrow: valor variável não pode ser financiado antes do início. Sem valor conhecido não há o que reter, não há comissão calculável e não há disputa julgável.
+⚠️ **A publicação só é oferecida em rede que o criador já tem conectada** — senão o contrato nasceria prometendo uma prova que a plataforma não consegue produzir.
 
 ### 8.0.2 O que o usuário vê antes de aceitar
 
@@ -479,14 +476,14 @@ O espelho da lacuna anterior, e a SPEC também não cobre.
 
 ### 8.4 Revisões — quem define, quantas, e o que impede o loop infinito 🔴
 
-**Quem define o número é o criador**, por item de vitrine ou por proposta, dentro de uma faixa que a plataforma fixa. É ele quem paga o custo do retrabalho.
+**São duas revisões incluídas, para todo mundo.** Escolher esse número item por item é uma decisão a mais para o criador e uma informação a mais para a marca comparar — e nenhum dos dois ganha com isso.
 
 | Parâmetro | Regra |
 |---|---|
-| Faixa permitida | **1 a 5.** Padrão **2** |
-| "Revisões ilimitadas" | ❌ **Proibido.** Não é vantagem comercial: é disputa com hora marcada |
-| Onde aparece | Ao lado do preço, na vitrine e na proposta: *"2 rodadas de ajuste incluídas"* |
-| Negociação | Só no pedido aberto, como campo estruturado — nunca em texto solto |
+| Quantas | 🟢 **Duas, para todo mundo. Fixo.** Não é campo, não é decisão, não aparece na tela de quem monta a proposta |
+| "Ilimitadas" | ❌ Não existe. Não é vantagem comercial: é disputa com hora marcada |
+| Onde aparece | Ao lado do preço, como informação: *"2 rodadas de ajuste incluídas"* |
+| Negociável? | **Só no pedido aberto**, onde já se negocia. O criador que quer vender revisão extra embute no preço |
 
 *Referência de mercado:* no Fiverr o número é definido pelo vendedor no pacote e revisão extra é vendida à parte; no Upwork o mecanismo equivalente é o aditivo sobre o marco, e a própria plataforma reporta que **41% das disputas vêm de confusão de escopo**.
 
@@ -578,7 +575,7 @@ A §6.2 identificou que Pix e boleto não desfazem como cartão, e parou aí. Fa
 
 Hoje a plataforma **não tem** a chave Pix nem os dados bancários da marca. Ela cancela na janela de 24 h, ganha a disputa — e o dinheiro fica parado sem caminho.
 
-🔵 **Correção:** no checkout de **Pix e boleto**, a marca informa os dados de reembolso junto com o pagamento. É o momento certo: ela está ali, e ainda não precisou de nada.
+🔵 **Regra:** **no Pix não se pede dado nenhum** — a devolução nativa volta sozinha para a conta de origem, dentro de 90 dias, e pedir outra conta abriria rota de lavagem (SPEC §4.2.3). **Só o boleto** pede dados de reembolso no checkout, e a conta tem que ter o mesmo CPF ou CNPJ do pagador.
 
 | Estado do reembolso | Significado |
 |---|---|

@@ -569,16 +569,25 @@ O CDC protege relações de **consumo**; a maior parte dos contratos aqui é **B
 
 ### 8.2 Direitos sobre o conteúdo (decisão 5) 🟢 ⚠️
 
-**Padrão: uso limitado, com upgrade pago para uso ampliado.** Cada item é campo estruturado da proposta:
+**Uma pergunta na tela. O resto é padrão fixo.**
 
-| Campo | Opções |
+O mercado não pergunta: **fixa**. Ninguém pede sete decisões a quem quer comprar um Reels.
+
+🟢 **O que fica na tela de quem contrata:**
+
+| Campo | Como funciona |
 |---|---|
-| Prazo de uso | 3 / 6 / 12 meses / perpétuo |
-| Mídias permitidas | Redes sociais / site da marca / mídia paga / mídia offline (múltipla escolha) |
-| Impulsionamento pago | Sim/não + verba máxima |
-| Exclusividade | Nenhuma / 30 / 60 / 90 dias |
-| Direito de imagem | Finalidade e prazo delimitados (autorização genérica e eterna é frágil no Brasil) |
-| Retirada | Condições para exigir remoção em caso de polêmica de qualquer um dos lados |
+| **"A marca pode usar em anúncio pago?"** | Sim/Não. **Já vem marcado conforme o tipo de trabalho** — desmarcado em publicação no perfil, marcado em material entregue. **Este campo único substitui três antigos** (mídias permitidas, impulsionamento e verba máxima) |
+| **Exclusividade** | Só em "opções avançadas". Padrão: **nenhuma** |
+
+🟢 **O que vira padrão fixo e invisível**, resumido numa frase editável em "opções avançadas": prazo de uso **12 meses** · todas as mídias da marca · permanência no ar conforme o tipo (90 dias, ou 24 h em Stories) · e **retirada de conteúdo**, que deixa de ser campo e vira cláusula igual para todos — qualquer lado pode pedir remoção em caso de crise, **sem estorno automático**.
+
+⚠️ **O que não pode ser cortado, porque é lei — e mesmo assim não vira pergunta:**
+
+- **Direito de imagem com finalidade e prazo delimitados.** Autorização genérica e eterna é frágil no Brasil. A cláusula é **gerada automaticamente** a partir da finalidade e do prazo que já estão nos campos acima. Zero decisão a mais, texto continua válido.
+- **Identificação publicitária.** O guia do CONAR de 2026 manda usar a ferramenta nativa da rede ("parceria paga com"). Isso **deixa de ser campo escolhível** e vira regra fixa da plataforma, com lembrete na hora da entrega. **Menos um campo, mais proteção.**
+
+🔴 **O que isso quebra para um cliente legítimo:** a agência grande que quer 24 meses e mídia offline não acha isso na primeira tela. **Saída:** um link *"ajustar direitos"* logo abaixo da frase de resumo, que abre os campos completos. **Quem precisa, acha; quem não precisa, nem vê.**
 
 *Por que isso é produto, não só jurídico:* cada campo tem preço implícito, o que aumenta o ticket médio e, portanto, a comissão.
 
