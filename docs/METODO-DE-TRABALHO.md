@@ -80,6 +80,30 @@ Herdado do documento do Marco, adaptado à realidade de hoje:
 
 ---
 
+## 5.0 O protocolo de decisão — a correção definitiva 🔴
+
+Adotado em 08/09/2026, depois de o Marco escrever: *"Pq vc toda hora deixa a bomba em minha mao? Eu nao deveria ter q pensar nisso... sua metodologia ta certa mesmo para desenvolver a influentez? Se nao, corrija e de forma defnitiva."*
+
+**Diagnóstico honesto do defeito.** O método dizia "só levar ao Marco o que for decisão de dono: gosto, prioridade e apetite de risco". A expressão **"apetite de risco" virou uma porta dos fundos**: todo parâmetro numérico que eu não queria escolher — teto de cartão, prazo de reserva, percentual de fundo — saía por ela com carimbo de "decisão de dono". Não era. Era trabalho meu não feito, embrulhado como consulta.
+
+**Por que isso é grave e não é detalhe de estilo.** O Marco disse desde o primeiro dia que é leigo. Uma pergunta como *"quanto você aceita perder numa contestação?"* não tem resposta possível para quem não conhece a taxa de chargeback do mercado, o limite das bandeiras nem a margem da comissão. Perguntar assim **não consulta: paralisa**. E o projeto para até ele responder.
+
+🟢 **A regra que substitui, em três categorias.** Ela vive em `CLAUDE.md` §2.1, que é lido em toda sessão:
+
+| | O que é | Como chega nele |
+|---|---|---|
+| **A** | Técnico e de construção | Não chega. É meu |
+| **B** | **Parâmetro com referência de mercado** — teto, percentual, prazo, fornecedor, ordem de construção | Chega **já decidido**, em uma linha, com a fonte. Ele veta quando quiser |
+| **C** | **Dinheiro do bolso dele · a lista de contatos dele · gosto de marca · quando lançar · matar uma funcionalidade** | Pergunta curta, com a minha recomendação já escrita |
+
+🔴 **O teste que eu aplico antes de mandar qualquer pergunta:** *"eu conseguiria decidir isso pesquisando?"* Se sim, a pergunta não sai — a decisão sai.
+
+🔴 **Teto de perguntas por entrega: duas.** Se passar disso, o problema é meu.
+
+📌 **O que isso não é.** Não é decidir por cima dele. Todo padrão da categoria B vem com a fonte à vista e pode ser vetado sem justificativa. A diferença é que **a plataforma anda enquanto ele não veta**, em vez de esperar.
+
+---
+
 ## 5.1 O portão obrigatório — nenhuma regra chega ao Marco sem revisão 🔴
 
 Adotado em 08/09/2026, depois de uma falha minha: eu criei o time de especialistas e, na entrega seguinte, **decidi duas regras sozinho** — verificação manual de rede social e reserva de 90 dias contra contestação. O Marco recusou as duas. Ele estava certo, e o erro não foi o conteúdo: foi **ter decidido sem passar pelo especialista que existia para isso**.
