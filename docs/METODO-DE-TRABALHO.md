@@ -80,6 +80,29 @@ Herdado do documento do Marco, adaptado à realidade de hoje:
 
 ---
 
+## 5.1 O portão obrigatório — nenhuma regra chega ao Marco sem revisão 🔴
+
+Adotado em 08/09/2026, depois de uma falha minha: eu criei o time de especialistas e, na entrega seguinte, **decidi duas regras sozinho** — verificação manual de rede social e reserva de 90 dias contra contestação. O Marco recusou as duas. Ele estava certo, e o erro não foi o conteúdo: foi **ter decidido sem passar pelo especialista que existia para isso**.
+
+🟢 **Regra:** antes de qualquer regra virar texto em documento, ela passa pelo especialista da área. Sem exceção, sem "esse caso é simples".
+
+| Se a regra envolve… | Passa por | Antes de |
+|---|---|---|
+| Cobrança, retenção, repasse, prazo, estorno, contestação, comissão | `financeiro` | Escrever na SPEC §4 ou na máquina de dinheiro |
+| Campo, estado, fluxo, caminho de exceção, o que falta | `produto` | Desenhar tela e antes de pedir aprovação |
+| O que vira cláusula, termo, consentimento, dado pessoal, publicidade, menor | `juridico-br` | Escrever a regra |
+| Tela, cor, ícone, contraste, coerência visual | `design` | Mostrar ao Marco |
+
+**E toda entrega passa a declarar quem revisou.** No cabeçalho da entrega, uma linha:
+
+> *Revisado por: `financeiro` (pesquisa de provedor) · `juridico-br` (aceite de termos)*
+
+Se essa linha estiver vazia, a entrega não está pronta — e o Marco pode devolver sem ler.
+
+**Por que isso resolve o que ele reclamou:** a queixa dele foi *"sempre preciso te guiar"*. Guiar é apontar o que falta. Se o especialista aponta antes, ele não precisa apontar depois. O portão existe para transferir o trabalho de achar erro de volta para mim.
+
+---
+
 ## 6. A regra que eu assumo como permanente 🔵
 
 Adotada do próprio documento do Marco (§8 de `DESENVOLVIMENTO PLATAFORMA...`), porque ela está certa:

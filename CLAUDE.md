@@ -20,6 +20,11 @@
 6. **Toda resposta termina indicando o modelo/esforço para o próximo passo** (ver seção 6).
 7. **A fala do Marco é matéria-prima, não especificação final.** Verificar, comparar com o mercado, ir além do que foi literalmente pedido.
 8. **Ao tocar num módulo, pensar nele como sistema completo**, incluindo bordas que um não-técnico não teria como prever.
+9. **Nunca a "opção mais fácil".** Regra permanente, dada pelo Marco em 08/09/2026, palavra dele:
+   > *"nao quero nada mais a partir de agora 'opcao mais facil' nem pra isso e para nada durante toda construcao da plataforma"*
+
+   Isso proíbe explicitamente: jogar trabalho manual para o usuário porque a integração é difícil; entregar uma versão degradada como se fosse a solução; escolher o caminho que dá menos trabalho para mim em vez do que é certo para o produto. Se o caminho certo é caro ou demorado, o certo é dizer **quanto custa e quanto demora** — não trocar por um substituto pior.
+10. **Regra financeira ou de produto não sai da minha cabeça sozinha.** Toda regra de dinheiro passa pelo especialista `financeiro` **antes** de virar texto; toda regra de produto passa pelo `produto`; toda regra que vira cláusula passa pelo `juridico-br`; toda tela passa pelo `design`. Decidir sozinho e mostrar ao Marco é o erro que ele já apontou em 08/09/2026 — não repetir.
 
 ## 3. Checklist obrigatório antes de introduzir qualquer ferramenta nova
 
