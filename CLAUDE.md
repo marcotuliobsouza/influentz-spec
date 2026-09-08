@@ -78,7 +78,24 @@ Práticas de economia (fonte: https://support.claude.com/pt/articles/9797557-mel
 - Conectores desligados quando não estiverem em uso.
 - Conteúdo em projeto/repositório é cacheado e não recontabiliza.
 
+## 6.1 Time de especialistas (subagentes) 🟢
+
+Definidos em `.claude/agents/`. Não são conversa paralela — são revisores com contexto próprio, acionados por caso:
+
+| Especialista | Quando acionar |
+|---|---|
+| `produto` | Antes de desenhar tela e antes de pedir aprovação. Caça lacuna |
+| `design` | Depois de criar ou alterar tela, antes de mostrar ao Marco |
+| `juridico-br` | Antes de escrever regra que vira cláusula ou tela |
+| `financeiro` | Antes de escrever qualquer regra de dinheiro |
+
+⚠️ **Regra:** quem escreve não revisa a própria prova. Toda entrega passa pelo especialista antes de chegar ao Marco.
+
+⚠️ **O Marco nunca é o revisor.** Se ele encontrar a lacuna, o processo falhou — `CLAUDE.md` §2.3. Auditar documento é trabalho de especialista, não dele.
+
 ## 7. Estado atual
+
+📌 **`PAINEL.md` na raiz é a única página que o Marco precisa ler.** Mantê-la atualizada é obrigação de toda sessão.
 
 | Documento | Estado |
 |---|---|
