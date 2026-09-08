@@ -288,10 +288,14 @@ O CDC protege relações de **consumo**; a maior parte dos contratos aqui é **B
 | Rede | Ponte oficial no dia 1 | Capacidade | Fonte |
 |---|---|---|---|
 | **TikTok** | Sandbox: 5 sandboxes × 10 contas-alvo | **50 criadores** | [Add a Sandbox](https://developers.tiktok.com/docs/en/add-a-sandbox) |
-| **Instagram** | *Instagram Tester* + Standard Access — "permissions with Standard Access can only be requested from app users who have a role on the requesting app", e todo app Business já nasce com Standard Access | dezenas (a Meta não publica teto) | [Access Levels](https://developers.facebook.com/docs/graph-api/overview/access-levels) |
-| **YouTube** | Modo Testing: 100 testers; depois, verificação de escopo sensível em **3 a 5 dias úteis** | 100 | [Sensitive scope verification](https://developers.google.com/identity/protocols/oauth2/production-readiness/sensitive-scope-verification), [Manage App Audience](https://support.google.com/cloud/answer/15549945?hl=en) |
+| **Instagram** | *Instagram Tester* + Standard Access — "testers can grant the app any permission while it is in development" | **50** sem empresa verificada · **500** com | [App Roles](https://developers.facebook.com/docs/development/build-and-test/app-roles/), [Access Levels](https://developers.facebook.com/docs/graph-api/overview/access-levels) |
+| **YouTube** | 🔴 **Direto para a verificação de escopo sensível** — 3 a 5 dias úteis, grátis, **sem exigir empresa**. Nunca ficar em modo Testing | ilimitado | [Sensitive scope verification](https://developers.google.com/identity/protocols/oauth2/production-readiness/sensitive-scope-verification) |
 
 O criador aceita um convite dentro do app da própria rede e autoriza. **A métrica que chega é da API, igual à do dia 200.** A diferença é só administrativa e invisível para ele.
+
+🔴 **Armadilha corrigida em 08/09/2026: o modo Testing do YouTube não é ponte, é armadilha.** A documentação do Google é explícita — em projeto com tela de consentimento externa e status "Testing", *"is issued a refresh token expiring in 7 days"*. Traduzindo: **o criador teria que reconectar o YouTube toda semana.** Isso destruiria o carimbo "atualizado há 6 h" da §9.1.3 e transformaria a coorte-piloto em suporte semanal. Como a verificação de produção é grátis, leva 3 a 5 dias úteis e **não exige empresa**, o YouTube vai direto para produção. Fonte: [OAuth 2.0](https://developers.google.com/identity/protocols/oauth2).
+
+📌 **Por que a autorização do usuário não basta — a dúvida do dono, respondida.** São duas fechaduras na mesma porta: o **usuário** autoriza (é o botão "Conectar Instagram"), e a **rede** autoriza o aplicativo. A segunda existe porque o clique do usuário é fácil de arrancar — Cambridge Analytica foi exatamente isso, milhões de pessoas clicando "autorizar" num quiz. Desde então a Meta exige saber **qual empresa está por trás do aplicativo**, com CNPJ e contrato social, para ter alguém a responsabilizar se o dado vazar. Não é burocracia: é a rede transferindo responsabilidade legal para uma pessoa jurídica identificável.
 
 ⚠️ **Duas ressalvas honestas, que ficam registradas:**
 
@@ -300,9 +304,25 @@ O criador aceita um convite dentro do app da própria rede e autoriza. **A métr
 
 ### 9.1.1 As fases, e o que trava o quê ⚠️
 
-**Fase 0 — antes de qualquer código de conexão.** Abrir a **Verificação de Empresa da Meta** (prazo divulgado: até 14 dias úteis) e verificar o domínio no Google. É o único item de prazo que não depende do produto — por isso começa já.
+🔴 **A Meta tem TRÊS portões em série, não dois.** Corrigido em 08/09/2026 — a versão anterior descrevia dois e o do meio é novo para este projeto:
 
-🔴 **CNPJ é caminho crítico do projeto inteiro.** Desde 01/02/2023 a Verificação de Empresa é **obrigatória** para Advanced Access ([Business Verification](https://developers.facebook.com/docs/development/release/business-verification)), e ela exige CNPJ, contrato social, comprovante de endereço e domínio verificado. Sem CNPJ, o Instagram nunca sai do teto do modo piloto. **Isto é decisão de dono, e é a mais urgente do projeto.**
+| Portão | O que prova | Exige CNPJ | Prazo |
+|---|---|---|---|
+| 1. Verificação de Empresa | Que a empresa existe | **Sim** | 1 a 14 dias úteis |
+| 2. **Access Verification (Tech Provider)** | Que você presta serviço a **outras** empresas | **Sim** (depende do portão 1) | ~5 dias, prazo oficial |
+| 3. App Review | Cada permissão, uma a uma | Depende dos dois | Sem SLA público |
+
+⚠️ **O portão 2 atinge exatamente as permissões que a INFLUENTZ usa** — `instagram_business_basic` e `instagram_manage_insights` estão na lista oficial que exige Access Verification, e a página diz que *"before access verification can begin, a business admin must complete Business Verification"*. Sem ele, a chamada volta com erro 100. Fonte: [Access Verification](https://developers.facebook.com/docs/development/release/access-verification).
+
+⚠️ **Não existe caminho individual.** A Meta encerrou em 01/02/2023: *"individual verification will no longer be allowed for access once the business verification process is complete"* ([anúncio oficial](https://developers.facebook.com/blog/post/2023/02/01/developer-platform-requiring-business-verification-for-advanced-access/)).
+
+❌ **App sob CNPJ de terceiro (parceiro, agência, desenvolvedor) está descartado.** Quem é dono do app é o controlador do dado perante a LGPD; emprestar CNPJ sem o enquadramento de Tech Provider é declaração falsa na verificação, punida com banimento do portfólio inteiro; e o app — com os tokens de todos os criadores — fica sendo ativo de outra pessoa. **A versão legítima dessa ideia é o agregador**, que é a mesma coisa com contrato e sancionada pela Meta.
+
+**Fase 0 — antes de qualquer código de conexão.** Verificar o domínio no Google e publicar Política de Privacidade e Termos. Não depende de empresa, então começa já.
+
+🔴 **A correção que reorganiza tudo: o que trava primeiro é o dinheiro, não a métrica.** A §4.1 já registra que *"chaves de produção exigem CNPJ"* no Pagar.me. A §4.7 exige MEI/CNPJ do criador, a §13 exige CNPJ verificado das marcas, e a §15 lista pendências de contador que bloqueiam o código de pagamento. **A INFLUENTZ não recebe um real sem CNPJ. Logo o CNPJ nunca foi negociável — só a data era.** O Instagram não cria essa necessidade: ele apenas **antecipa a data em cerca de quatro meses**, porque as filas da Meta são mais longas que a do Pagar.me.
+
+⚠️ **MEI não serve**, e o motivo não tem nada a ver com a Meta: intermediação de negócios (CNAE 7490-1/04) **não está na lista de ocupações permitidas ao MEI** ([Portal Gov.br](https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/quero-ser-mei/atividades-permitidas)), e o teto de R$ 81 mil/ano quebraria no primeiro mês bom. O formato indicado é **SLU (Sociedade Limitada Unipessoal)**.
 
 **Fase 1 — dia 1 do cold start.** YouTube em Testing (100 testers) · Instagram por convite de Tester · TikTok em sandbox. Em paralelo, submeter YouTube (3–5 dias úteis) e TikTok ("several days to two weeks", [App Review FAQ](https://developers.tiktok.com/doc/getting-started-faq)).
 
@@ -310,7 +330,17 @@ O criador aceita um convite dentro do app da própria rede e autoriza. **A métr
 
 **Fase 3 — aprovado.** Vira Advanced Access / produção. **Os criadores da coorte não refazem nada** — o token deles continua válido, só muda o modo do app. Isso precisa estar previsto na modelagem de dados desde já.
 
-**Rede de segurança contratada, não improvisada:** negociar com um agregador de dados (Phyllo/InsightIQ) **com data-gatilho**. Se o App Review da Meta não sair até a data X, liga o agregador e ninguém fica sem métrica. Não é o plano principal: preço não é público, e custo recorrente por criador não combina com receita de comissão. ⚠️ Antes de assinar, passa pelo `financeiro` — precisa de teto e gatilho de saída.
+### 9.1.1.1 Redundância ativa desde o dia 1 — e ela é gratuita 🟢 corrigido
+
+⚠️ **A versão anterior descartou o agregador por custo. O número desmente isso.** O Phyllo (vendido também como InsightIQ) tem **plano gratuito de até 250 contas monitoradas** — cinco vezes a meta de 50 criadores do v1. Na escala de lançamento o custo é **zero**; a objeção de preço só passa a valer depois de 250 criadores conectados, quando já existe receita. Fonte: [Phyllo — Sign up](https://www.getphyllo.com/signup/try-free), [Pricing](https://www.getphyllo.com/pricing) (planos pagos sem preço público).
+
+✅ **Decisão: o agregador entra no dia 1 como redundância ativa do Instagram**, não como reserva. Se o App Review atrasar ou reprovar, ninguém fica sem métrica e **nenhum criador reconecta nada**. O criador autentica na tela da própria Meta — é dado consentido por login oficial, não raspagem.
+
+❌ **Raspagem está fora de cogitação.** Modash, Apify, Bright Data e similares entregam dado raspado de perfil público. Isso viola a regra travada da §9 ("métrica só por API oficial") e põe a plataforma do lado errado dos Termos da Meta.
+
+⚠️ **Duas exigências antes de assinar qualquer contrato de agregador — vão para o `juridico-br`:**
+1. Os Termos da Meta proíbem transferir ou licenciar dado da plataforma a terceiros. **O contrato tem que declarar por escrito que a aprovação Meta do fornecedor cobre o uso pelo cliente final.** Sem isso, o risco é do fornecedor e o prejuízo é nosso.
+2. Se o token fica com o fornecedor, ele é **operador de dado pessoal** perante a LGPD: exige contrato de tratamento e menção nominal na Política de Privacidade.
 
 ### 9.1.2 Conta pessoal não tem API — e isso vira passo de onboarding, não recusa 🟡
 
@@ -330,7 +360,7 @@ A API do Instagram atende apenas contas **profissionais** (Business ou Creator),
 | Risco | Consequência real | O que fazer |
 |---|---|---|
 | Meta reprova o App Review | Instagram fica preso ao teto do modo piloto — e é a rede principal do mercado brasileiro | Data-gatilho com o agregador. Reprovação quase sempre é vídeo ruim ou justificativa vaga, e cabe recurso — mas cada rodada reinicia o relógio |
-| **Sem CNPJ** | Advanced Access é impossível. Trava o produto, não só a métrica | Decisão do Marco, na Fase 0 |
+| **Sem CNPJ** | ⚠️ **O Pagar.me em produção trava antes do Instagram.** A plataforma não recebe dinheiro nenhum. O CNPJ nunca foi decisão sobre métrica | Ver a data-gatilho em §9.1.5 |
 | Token do Instagram expira (60 dias sem uso) | Métrica congela | Rotina de renovação + estado `token_expirado` com botão. **Nunca apagar a métrica anterior** — mostrar com data |
 | Criador só tem conta pessoal | Não conecta | §9.1.2 — conversão vira passo do onboarding |
 | Coorte-piloto lota (50 no TikTok) | Criador 51 fica sem TikTok | Lista de espera com data, e submeter o review antes de chegar em 40 |
@@ -339,6 +369,30 @@ A API do Instagram atende apenas contas **profissionais** (Business ou Creator),
 ⚠️ **Vai para o `juridico-br` antes de virar tela:** conectar rede social é tratamento de dado pessoal — a base legal do consentimento precisa estar no Termo, e é preciso definir o que acontece com a métrica coletada quando o criador desconecta ou pede exclusão (LGPD).
 
 📌 **O que a concorrência faz:** a Squid (hoje Squid by Wake) integra por API oficial da Meta e do TikTok, com atualização em até 24 h ([central de ajuda](https://meajuda.squid.com.br/docs/como-conectar-o-meu-instagram-a-squid)). Métrica por captura de tela não é padrão de mercado — é gambiarra.
+
+### 9.1.5 A data-gatilho do CNPJ 🎯
+
+**As três filas da Meta correm em série** — cada uma é pré-requisito da seguinte — e duas delas **não dependem de uma linha de código**, só de CNPJ e domínio.
+
+| Etapa | Melhor caso | Pior caso |
+|---|---|---|
+| Abrir SLU | 1 dia útil | 5 dias úteis |
+| Portfólio Empresarial + domínio | 1 dia | 3 dias |
+| Verificação de Empresa | 1 dia útil | 14 dias úteis |
+| Access Verification | ~5 dias | ~10 dias |
+| App Review do Instagram | ~14 dias | ~30 dias |
+| Uma reprovação e recurso | 0 | ~20 dias |
+| **Total** | **~5 semanas** | **~15 semanas** |
+
+*Verificação de Empresa e App Review não têm SLA publicado pela Meta — são relatos de mercado. Access Verification tem "approximately 5 days" na documentação oficial.*
+
+> 🎯 **GATILHO 1 — CNPJ:** a empresa precisa existir **no mínimo 6 semanas antes** do dia em que a tela de conexão do Instagram funcionar de ponta a ponta. Não seis semanas antes do lançamento — seis semanas antes da **tela**. É o tempo dos portões 1 e 2, que são pura fila.
+>
+> 🎯 **GATILHO 2 — App Review:** submetido no mesmo dia em que a tela funcionar. Como ele exige vídeo do fluxo real, a tela precisa ficar pronta **10 a 15 semanas antes do lançamento**.
+
+**Em calendário:** para o Instagram estar liberado no dia do lançamento, **o CNPJ precisa existir cerca de 4 meses antes.** Na prática: a empresa abre **no dia em que começar o desenvolvimento da tela de conexão** — não depois.
+
+⚠️ **A economia de adiar o CNPJ não existe.** Manter a empresa parada custa contabilidade mensal; cada semana de lançamento atrasado por fila da Meta custa mais — e o contador já era obrigatório antes do primeiro pagamento por seis motivos da §15. Adiar não elimina o custo: **desloca para o pior momento possível, que é o mês do lançamento.**
 
 ### 9.2 Detecção de fraude de engajamento — escopo corrigido 🟡
 
@@ -436,6 +490,8 @@ Um marketplace vazio não tem produto. Isso não é marketing, é viabilidade.
 | Exposição ao MED do Pix: obrigações da plataforma quando um Pix recebido é contestado por fraude | Advogado | Código de pagamento |
 | Redação da promessa "a INFLUENTZ garante seu pagamento" — mal escrita, vira obrigação incondicional | Advogado | Lançamento |
 | Conectar rede social é tratamento de dado pessoal: base legal do consentimento no Termo, e o que acontece com a métrica quando o criador desconecta ou pede exclusão | Advogado | Tela de conexão |
+| Contrato de operador de dados com o agregador de métricas, e menção nominal na Política de Privacidade | Advogado | Contratar o agregador |
+| Declaração escrita do agregador de que a aprovação da Meta dele cobre o uso pelo cliente final | Advogado | Contratar o agregador |
 
 📌 **A pergunta mais estruturante da lista é a primeira.** Enquanto não houver resposta de advogado, **tratamos a relação como de consumo** — é o cenário mais caro, e preparar-se para ele não custa nada se a resposta vier ao contrário. O STJ aplica o finalismo mitigado, e criador pessoa física costuma ser reconhecido como vulnerável, mesmo prestando serviço profissional.
 

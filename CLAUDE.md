@@ -166,7 +166,9 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 | **Métrica só por API oficial. Não existe captura de tela, número digitado nem aprovação manual de métrica** | SPEC §9 |
 | **O criador nunca espera mais que o prazo do meio de pagamento.** Proteção contra chargeback vem de teto por transação e fundo da plataforma, nunca de reter dinheiro do criador | SPEC §4.3 |
 | **Aceite de Termos é sempre do próprio titular.** Ninguém aceita em nome de outro, e dado financeiro nunca entra por mão de operador | FEATURE-MATRIX §5.5 |
-| **CNPJ é caminho crítico** — sem ele, o Instagram nunca sai do teto do modo piloto | SPEC §9.1.1 |
+| **CNPJ é pré-requisito do dinheiro, não da métrica.** O Pagar.me em produção exige CNPJ; o Instagram só antecipa a data em ~4 meses. Formato: SLU — MEI é vedado para intermediação de negócios | SPEC §9.1.1 e §9.1.5 |
+| **Métrica de rede: 50 criadores sem empresa verificada, 500 com.** Teto oficial da Meta, não estimativa. YouTube vai direto para produção — em modo Testing o token morre a cada 7 dias | SPEC §9.1 |
+| **Agregador de métricas entra no dia 1 como redundância ativa**, no plano gratuito de 250 contas. Raspagem está fora de cogitação | SPEC §9.1.1.1 |
 
 ### Em aberto
 
