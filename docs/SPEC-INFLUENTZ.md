@@ -361,6 +361,15 @@ Um marketplace vazio não tem produto. Isso não é marketing, é viabilidade.
 | Regime tributário, retenção de IR sobre comissão, obrigações acessórias | Contador especializado em plataforma digital | Código de pagamento |
 | Termos de Uso, Política de Privacidade, direito de imagem, monitoramento de chat | Advogado | Lançamento |
 | Categorias reguladas e proteção de menores (§8.3) | Advogado | Lançamento |
+| **A relação criador↔plataforma é de consumo ou B2B?** | Advogado | Redação dos Termos, do cancelamento e da comissão |
+| Tela e registro de aceite: o que fica gravado e como se prova | Advogado | Lançamento |
+| Aprovação automática por silêncio — sobrevive ao CDC art. 51? | Advogado | Lançamento |
+| Base legal e ROPA da fase de convite; prazo de retenção do rascunho; aviso de coleta indireta (LGPD art. 9º) | Advogado | Ferramenta de convite |
+| O que é compartilhado com a Pagar.me, quando, e como aparece na Política de Privacidade | Advogado | Código de pagamento |
+| Regra interna de acesso do Admin a dado de terceiro, com trilha de auditoria (LGPD art. 46) | Advogado | Lançamento |
+| Texto da mensagem de convite: identificação do remetente, origem do contato, opt-out | Advogado | Ferramenta de convite |
+
+📌 **A pergunta mais estruturante da lista é a primeira.** Enquanto não houver resposta de advogado, **tratamos a relação como de consumo** — é o cenário mais caro, e preparar-se para ele não custa nada se a resposta vier ao contrário. O STJ aplica o finalismo mitigado, e criador pessoa física costuma ser reconhecido como vulnerável, mesmo prestando serviço profissional.
 
 ---
 

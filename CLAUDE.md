@@ -106,7 +106,7 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 |---|---|
 | `/docs/METODO-DE-TRABALHO.md` | v1.0 ✅ — as 8 fases e o contrato de entrega |
 | `/docs/SPEC-INFLUENTZ.md` | v0.5 ✅ |
-| `/docs/FEATURE-MATRIX.md` | v1.1 ✅ — **inventário completo, 169 funções, 4 superfícies** |
+| `/docs/FEATURE-MATRIX.md` | v1.2 ✅ — **inventário completo, 172 funções, 4 superfícies** |
 | `/docs/PRODUTO-DETALHADO.md` | v0.1 ✅ — campos, métricas, tipos de proposta |
 | `/docs/MAQUINA-DE-ESTADOS.md` | v0.2 ✅ |
 | `/docs/DESIGN-SYSTEM.md` | v0.4 ✅ |
@@ -133,4 +133,4 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 
 **Só uma, e é do Marco:** a lista de cold start — quantos criadores e marcas atendem o telefone dele hoje (SPEC §14.1). É o único item que dinheiro e engenharia não resolvem.
 
-**Pendências que exigem profissional humano:** contador (regime tributário, retenção) e advogado (Termos de Uso, direito de imagem, LGPD, aprovação automática por silêncio, escala de cancelamento presencial, e o alvará judicial quando criador menor de idade entrar no v2).
+**Pendências que exigem profissional humano:** contador (regime tributário, retenção) e advogado — lista completa e atualizada na **SPEC §15**. A pergunta mais estruturante da lista: *a relação criador↔plataforma é de consumo ou B2B?* Até haver resposta, tratamos como **de consumo** (cenário mais caro; preparar-se para ele não custa nada se a resposta vier ao contrário).
