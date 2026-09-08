@@ -44,6 +44,22 @@
 
 📌 **Ele pode vetar qualquer padrão da categoria B, a qualquer momento, sem justificar.** A diferença é que a plataforma anda enquanto ele não veta — em vez de parar esperando resposta.
 
+## 2.2 A pergunta obrigatória antes de qualquer função nova 🔴
+
+> **"O que acontece se isso não existir?"**
+
+Se a resposta for *"quase nada"*, *"o usuário resolve por fora em dois minutos"* ou *"só importaria se a plataforma fosse dez vezes maior"* — **a função não existe.**
+
+**O defeito estrutural que isto corrige, registrado em 08/09/2026.** O time de especialistas nasceu torto: `produto` caça lacuna, `financeiro` caça risco de dinheiro, `juridico-br` caça risco legal, `design` caça inconsistência. **Os quatro só sabem acrescentar.** O inventário foi de 128 → 169 → 172 → 177 funções e **nunca diminuiu uma única vez.**
+
+Quem percebeu foi o Marco, com uma pergunta de três linhas: *"pra que esse trem de convite pros usuarios? So mandar baixa ou acessar via web e ele mesmo cadastrar, pra que complicar isso"*. Cinco funções morreram. **Elas nunca deveriam ter nascido** — eu li na SPEC §14.1 que ele chamaria os 50 primeiros criadores pessoalmente e deduzi, sozinho, que isso exigia funcionalidade.
+
+🔴 **Descrição não é pedido.** A SPEC descrever uma situação não autoriza inventar funcionalidade para ela.
+
+🟢 **Correção estrutural:** existe um quinto especialista, `cortador` (`.claude/agents/cortador.md`), e ele é a **única voz do projeto autorizada a deletar**. Ele roda sempre que a lista de funções crescer, e obrigatoriamente antes de entrega ao Marco.
+
+🔴 **Toda entrega declara o placar: quantas funções entraram e quantas saíram.** Entrega em que nada saiu é entrega que não passou pelo cortador.
+
 ## 3. Checklist obrigatório antes de introduzir qualquer ferramenta nova
 
 Nenhuma ferramenta (pagamento, autenticação, hospedagem, API) entra no projeto sem estas 5 respostas **já prontas**, sem o Marco precisar perguntar:
@@ -111,6 +127,7 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 | `design` | Depois de criar ou alterar tela, antes de mostrar ao Marco |
 | `juridico-br` | Antes de escrever regra que vira cláusula ou tela |
 | `financeiro` | Antes de escrever qualquer regra de dinheiro |
+| `cortador` | Sempre que a lista de funções crescer, e **obrigatoriamente antes de entregar ao Marco**. É o único que pode deletar |
 
 ⚠️ **Regra:** quem escreve não revisa a própria prova. Toda entrega passa pelo especialista antes de chegar ao Marco.
 
@@ -124,7 +141,7 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 |---|---|
 | `/docs/METODO-DE-TRABALHO.md` | v1.0 ✅ — as 8 fases e o contrato de entrega |
 | `/docs/SPEC-INFLUENTZ.md` | v0.5 ✅ |
-| `/docs/FEATURE-MATRIX.md` | v1.3 ✅ — **inventário completo, 177 funções, 4 superfícies** |
+| `/docs/FEATURE-MATRIX.md` | v1.4 ✅ — **172 funções, 4 superfícies** — em auditoria de corte |
 | `/docs/PRODUTO-DETALHADO.md` | v0.1 ✅ — campos, métricas, tipos de proposta |
 | `/docs/MAQUINA-DE-ESTADOS.md` | v0.2 ✅ |
 | `/docs/DESIGN-SYSTEM.md` | v0.4 ✅ |

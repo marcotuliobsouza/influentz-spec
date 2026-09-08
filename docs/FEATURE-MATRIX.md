@@ -7,7 +7,7 @@
 > **Como ler a prioridade:**
 > **E** = essencial (sem isso não existe produto) · **P** = premium (é o que faz a plataforma valer a comissão) · **F** = futuro (depois de haver volume)
 >
-> **Versão:** v1.3 — **177 funções**
+> **Versão:** v1.4 — **172 funções** (5 cortadas)
 > **O que mudou da v1.0:** acesso por plataforma corrigido (§0.1), contrato recorrente reincorporado (§3.5), e **30 funções acrescentadas pela auditoria do especialista de produto** (§5.5), que encontrou 12 lacunas — 8 delas capazes de travar o lançamento.
 > **Fonte de marca:** `docs/marca/` — pasta BRANDING do Drive, estudada por inteiro
 >
@@ -417,28 +417,28 @@ Auditoria feita pelo especialista de produto em 08/09/2026, com contexto limpo. 
 
 ⚠️ **Por que o aditivo (165) importa comercialmente:** hoje, se a marca quer antecipar a publicação ou acrescentar um Story pagando mais, só existem três saídas — pedir ajuste (que consome revisão e não muda preço), cancelar, ou **combinar por fora**. A terceira é exatamente o que a SPEC §13.2 tenta impedir. Sem aditivo, a plataforma empurra volume para fora dela mesma.
 
-### Operação de lançamento
+### Operação de lançamento — ❌ **cortada inteira em 08/09/2026**
 
-| # | Função | Prio | Resolve |
-|---|---|---|---|
-| 168 | **Convite por link** nominal, com papel pré-definido, uso único e validade de 14 dias | E | ⚠️ Ver abaixo |
-| 169 | **Convite preparado** — rascunho de perfil público no Admin, sem conta e sem dado financeiro | E | Substitui o "cadastro assistido" ❌ |
-| 169.1 | **Funil de convites** no Admin: rascunho → convidado → cadastro iniciado → ativo, com lembrete automático | E | É isto que impede o criador convidado de sumir |
-| 169.2 | **Modo presencial**: o cadastro acontece no aparelho do criador; o operador orienta, não substitui | E | Preserva o cenário da SPEC §14.1 sem defeito jurídico |
-| 169.3 | **Descarte automático** do rascunho de convite não convertido em 60 dias | E | Minimização por desenho — LGPD |
+**As funções 168, 169, 169.1, 169.2 e 169.3 foram eliminadas.** Não substituídas: **eliminadas.**
 
-⚠️ **Por que 168 e 169 travariam o lançamento:** a SPEC §14.1 diz que os 50 primeiros criadores entram por convite pessoal do Marco, com cadastro feito junto com eles. **Não existia nenhuma ferramenta para isso.** Ele faria por WhatsApp e planilha, fora da plataforma — e a operação que sustenta o lançamento inteiro ficaria sem registro nenhum.
+Pergunta do Marco que derrubou o bloco inteiro:
 
-❌ **O "cadastro assistido" original foi eliminado.** Revisão do especialista `juridico-br` em 08/09/2026. Ele previa que um operador do Admin preenchesse o cadastro **e aceitasse os Termos de Uso** no lugar do criador. Dois defeitos que impedem o lançamento:
+> *"pra que esse trem de convite pros usuarios? So mandar baixa ou acessar via web e ele mesmo cadastrar, pra que complicar isso"*
 
-1. **Aceite por terceiro não forma contrato.** O CC art. 104 exige manifestação de vontade do próprio agente; representação exigiria procuração (art. 653), e conversa de WhatsApp não é procuração. O CDC art. 46 derruba contrato que o consumidor não teve oportunidade de conhecer. E a Lei 14.063/2020 exige, mesmo no nível mais fraco de assinatura eletrônica, que o meio identifique o signatário — um aceite feito de dentro do Admin identifica o **operador**: login, IP e sessão são dele.
-   **O agravante:** isso contamina a função 166. A tabela de aceites versionados só vale como prova porque toda linha significa a mesma coisa. Cinquenta linhas com o mesmo IP e horário comercial permitem que a defesa do outro lado ataque a confiabilidade do mecanismo inteiro — inclusive para quem aceitou normalmente. E esses 50 criadores são justamente os que vão estrear cancelamento, disputa e aprovação por silêncio.
-2. **Dado financeiro por mão alheia é caminho de desvio.** Nenhuma base do art. 7º da LGPD cobre bem um operador cadastrar CPF e chave Pix de terceiro: consentimento não houve (e o ônus da prova é do controlador, art. 8º §2º); "procedimentos preliminares a pedido do titular" (inciso V) exigiria provar o pedido, que estaria fora da plataforma, e não alcança dado bancário; legítimo interesse não passa no teste de **expectativa legítima** do Guia Orientativo da ANPD (fev/2024) — ninguém espera que abram uma conta financeira no seu nome antes de se cadastrar.
-   Independente da LGPD: um operador com poder de cadastrar a chave Pix de outra pessoa é um desvio de repasse embutido no Admin. Se a chave for errada, o dinheiro do criador sai para outro CPF e o log mostra que **a plataforma** escolheu o destino.
+**Ele está certo, e a resposta honesta é que esse bloco nunca deveria ter nascido.** A SPEC §14.1 diz que o Marco chama pessoalmente os 50 primeiros criadores. Disso eu concluí, sozinho, que a plataforma precisava de "ferramenta de convite" — link nominal, rascunho de perfil, funil, descarte automático. **Cinco funções para resolver um problema que o link da App Store e o endereço do site já resolvem.**
 
-✅ **O que substitui (169 a 169.3), preservando o benefício operacional:** o operador prepara um rascunho **só com dado profissional público** — nome artístico, @handles, nicho, cidade, faixa de preço sugerida, observação. Não é conta: não autentica, não recebe proposta, não aparece na busca, não movimenta dinheiro. Os campos de CPF, documento e chave Pix **não existem nessa tela**. O criador entra pelo link, confere, corrige, cria a própria senha, aceita os termos e só então informa CPF e dados bancários — aceite dele, IP dele, log dele. O que impede o criador de sumir não é cadastrar por ele: é o **funil visível** (169.1), que mostra exatamente onde cada um travou.
+O criador convidado por WhatsApp baixa o app, ou abre o site, e se cadastra — igual a todo mundo. É isso.
 
-📌 **Cadastro direto continua sendo o caminho normal** — funções 1 a 5. Ninguém precisa ser convidado para entrar na INFLUENTZ. O convite é atribuição e curadoria da fase de lançamento, não porta de entrada obrigatória.
+⚠️ **O que eu inventei e o que o Marco pediu:**
+
+| | |
+|---|---|
+| Ele pediu | Nada. §14.1 descreve como ele vai conseguir os primeiros usuários, não uma funcionalidade |
+| Eu entreguei | Cinco funções, uma auditoria jurídica e três revisões |
+
+📌 **A atribuição — saber que aquele criador veio do Marco — não justifica funcionalidade nenhuma no v1.** Se um dia importar, é **um campo opcional no cadastro** ("como você conheceu a INFLUENTZ?"), não um subsistema.
+
+🔴 **A lição, registrada porque ela vale para o produto inteiro:** antes de qualquer função nova, a pergunta obrigatória é **"o que acontece se ela não existir?"**. Se a resposta for "quase nada", ela não existe. Ver `CLAUDE.md` §2.2.
 
 ---
 
