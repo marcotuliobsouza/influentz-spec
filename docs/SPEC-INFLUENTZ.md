@@ -100,7 +100,22 @@ A proteção **não** vem de segurar o dinheiro de todos preventivamente — iss
 1. **Prova documental:** todo contrato passa pelo fluxo oficial (marco combinado antes de começar, entrega enviada pelo sistema, aprovação registrada). É o que sustenta a defesa junto ao banco. É exatamente o mecanismo de proteção de pagamento do Upwork — que condiciona a cobertura a o marco ter sido financiado antes do início e a entrega ter sido submetida pelo fluxo da plataforma. Fonte: https://support.upwork.com/hc/en-us/articles/211063748
 2. **3D Secure** e análise automática de fraude em toda cobrança por cartão — reduz a chance de a contestação existir.
 3. **Reserva temporária apenas para conta nova**, durante um período de teste curto — não permanente.
-4. Se a contestação chegar após a liberação, o valor é descontado do saldo futuro do criador. Nunca do caixa da INFLUENTZ.
+4. Se a contestação chegar após a liberação, o valor é descontado do saldo futuro do criador.
+
+⚠️ **Correção: "nunca do caixa da INFLUENTZ" era uma promessa que a plataforma não consegue cumprir.**
+
+O texto anterior dizia que a perda saía sempre do saldo futuro do criador. Com a meta de lançamento de 20 contratos (§14), **quase nenhum criador terá saldo futuro** — ele entrega, recebe, saca e some. A contestação chega 60 dias depois e não há de onde descontar. A SPEC prometia o oposto do que aconteceria.
+
+🔵 **Defesa real, em quatro camadas:**
+
+| Camada | O que é |
+|---|---|
+| 1. Evitar | 3D Secure e análise de fraude em toda cobrança de cartão |
+| 2. Ganhar | Prova documental do fluxo oficial — é o que sustenta a defesa junto ao banco |
+| 3. **Reserva** | Em contrato de **cartão** acima de um valor definido, uma parte do repasse fica retida por **90 dias**, que é a janela típica de contestação. O criador vê isso desde o começo, com data de liberação |
+| 4. **Saldo negativo** | Perdida a contestação sem reserva suficiente, o criador fica com saldo negativo: **saque bloqueado e novos contratos bloqueados** até regularizar |
+
+⚠️ **E a parte honesta:** se o criador nunca voltar, **o resíduo é prejuízo da plataforma.** Isso é custo de operar marketplace com cartão, e precisa estar previsto no caixa — não escondido atrás de uma frase. É exatamente por isso que a camada 3 existe.
 
 ### 4.4 Comissão (decisão 8)
 
@@ -247,9 +262,26 @@ O CDC protege relações de **consumo**; a maior parte dos contratos aqui é **B
 
 **Como não travar o lançamento:** vai ao ar com **YouTube conectado no dia 1**; Instagram e TikTok entram conforme cada aprovação sai. A arquitetura já nasce pronta para os três.
 
-### 9.1 Pelo menos uma rede conectada é obrigatória 🟢
+### 9.1 Pelo menos uma rede conectada é obrigatória 🟢 ⚠️ corrigido
 
 Vale para criador, marca **e** agência — para publicar serviço, propor contrato ou aparecer na busca.
+
+⚠️ **Correção: como estava escrito, esta regra impedia o próprio lançamento.**
+
+A §9 admite que Instagram e TikTok levam **semanas a meses** de aprovação, e que só o YouTube entra no dia 1. Ou seja: o criador convidado pessoalmente pelo Marco (§14.1), que tem 80 mil seguidores no Instagram e nenhum canal no YouTube, ficaria travado em `perfil_incompleto` — sem aparecer na busca, sem publicar vitrine, e **sem nenhuma ação possível**. A regra que existia para dar confiança fecharia a porta dos 50 primeiros criadores.
+
+🔵 **Regra corrigida — verificação em dois níveis:**
+
+| Nível | Como se obtém | O que libera |
+|---|---|---|
+| **Declarada** | O criador informa o perfil e envia comprovação (captura do painel da rede, vídeo de tela). **Trust & Safety aprova manualmente** | Aparecer na busca, publicar vitrine, receber proposta, fechar contrato |
+| **Verificada** | Rede conectada por API oficial | Tudo acima **mais o selo de verificado** e a métrica atualizada sozinha |
+
+⚠️ **Métrica declarada aparece sempre rotulada como tal**, ao lado do número: *"declarada pelo criador · não verificada por API"*. Nunca se mistura com métrica de API.
+
+*Por que isso não enfraquece a confiança:* a aprovação é humana e a origem é visível. O que enfraqueceria a confiança é um marketplace vazio — ou pior, uma métrica declarada exibida como se fosse verificada.
+
+**Conforme cada API sai da fila de aprovação, os criadores daquela rede migram de "declarada" para "verificada" sem refazer cadastro.**
 
 ### 9.2 Detecção de fraude de engajamento — escopo corrigido 🟡
 

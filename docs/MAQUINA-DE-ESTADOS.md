@@ -99,8 +99,10 @@ Ela existe porque três regras da SPEC dependem de "o que esta pessoa já pode f
 | Estado | O que a pessoa pode fazer |
 |---|---|
 | `criada` | E-mail confirmado. Navegar, nada mais |
-| `perfil_incompleto` | Falta rede social conectada (§9.1) ou dados básicos. **Não aparece na busca, não publica, não propõe** |
-| `aguardando_verificacao` | Documentos enviados ao Pagar.me. Pode montar perfil, não pode transacionar |
+| `perfil_incompleto` | Faltam dados básicos ou comprovação de rede. **Não aparece na busca, não publica, não propõe** |
+| `rede_declarada` | 🔵 Rede comprovada manualmente e aprovada pelo Trust & Safety (SPEC §9.1). **Transaciona normalmente**, com a métrica rotulada como declarada |
+| `aguardando_verificacao` | Documentos enviados ao Pagar.me. Pode montar perfil, não pode receber |
+| `verificacao_recusada` | 🔴 **Estado que faltava.** O provedor recusou o cadastro de recebedor — documento ilegível, CPF irregular, conta de terceiro. Ver abaixo |
 | `verificada` | Tudo liberado |
 | `restrita` | Pode ver e concluir o que já está em andamento. **Não inicia contrato novo** |
 | `suspensa` | Suspensão temporária (SPEC §13.2 item 4) |
@@ -108,6 +110,8 @@ Ela existe porque três regras da SPEC dependem de "o que esta pessoa já pode f
 | `encerrada` | Exclusão pedida pelo titular (LGPD, SPEC §8) |
 
 ⚠️ **Borda que só apareceria com o produto no ar:** banir, suspender ou encerrar uma conta **não** encerra os contratos em andamento dela. Existe dinheiro em escrow que precisa ir para algum lugar, e a outra ponta não fez nada de errado. Regra: a conta perde o direito de **iniciar** coisa nova; o que já existe segue até o fim ou até a disputa decidir. Encerramento por LGPD fica pendente até o último contrato fechar — a lei permite reter o mínimo necessário para cumprir obrigação legal e contratual.
+
+⚠️ **`verificacao_recusada` é obrigatório, e a falta dele criava um beco sem saída.** Sem esse estado, o criador que entrega, tem a entrega aprovada e é recusado pelo provedor fica com **dinheiro aprovado que não sai, sem saber o motivo e sem nenhum botão**. A saída: o estado carrega o motivo devolvido pelo provedor, oferece reenvio de documento ou troca de conta bancária, e tem prazo. Enquanto isso, o valor permanece retido — nunca se perde.
 
 ⚠️ **Rede social desconectada no meio do contrato** (a pessoa revoga o acesso no Instagram): o contrato **não** para. O que acontece é o anúncio de vitrine sair do ar. Misturar as duas coisas puniria a ponta errada.
 
@@ -307,7 +311,8 @@ stateDiagram-v2
 |---|---|---|
 | `planejado` | Definido no contrato, ainda não financiado | Neutro |
 | `aguardando_pagamento` | Cobrança emitida para este marco | Atenção |
-| `financiado` | **Dinheiro em escrow.** O criador pode começar | Protegido |
+| `financiado` | **Dinheiro retido.** O criador pode começar | Protegido |
+| `aguardando_produto` | 🔴 **Estado que faltava.** Campanha exige produto físico e ele ainda não chegou. **O relógio de entrega do criador não corre aqui** | Atenção |
 | `agendado` | Só tipo D (presencial): data confirmada pelos dois | Info |
 | `em_execucao` | Trabalho em andamento | Info |
 | `entregue` | Criador submeteu. **Começa o relógio da aprovação** | Atenção |
@@ -316,6 +321,18 @@ stateDiagram-v2
 | `aprovado` | Aprovado pela marca **ou por prazo vencido** | Sucesso |
 | `em_disputa` | Congela tudo | Crítico |
 | `cancelado` | Não será entregue | Neutro |
+
+### 8.0 `aguardando_produto` — a trava que faltava 🔴
+
+O `PRODUTO-DETALHADO.md` §2.B previa este estado e ele nunca entrou aqui. Sem ele, acontece o seguinte: **o prazo do criador corre enquanto o produto está nos Correios, e ele leva penalidade por atraso que é da marca.**
+
+**Regras:**
+
+1. O marco entra em `aguardando_produto` logo depois de `financiado`, quando a proposta marca "requer envio de produto".
+2. **O relógio de entrega só começa quando o recebimento é confirmado.** Isso não é gentileza — é o único jeito de o prazo ser justo.
+3. A marca lança o código de rastreio; o criador confirma o recebimento.
+4. **Prazo-limite de recebimento.** Vencido, sem produto: a marca reenvia, ou o contrato é **cancelado com reembolso integral e sem culpa do criador** — ele não pode ser penalizado por extravio.
+5. Extravio declarado por qualquer uma das partes abre revisão no Trust & Safety.
 
 ### 8.1 Financiamento marco a marco 🟢
 
@@ -396,7 +413,29 @@ O que muda:
 | `sacado` | Foi para a conta bancária do criador | Sucesso |
 | `bloqueado_por_pendencia_fiscal` | Acumulado passou de R$ 500 sem MEI/CNPJ (SPEC §4.7) | Atenção |
 | `bloqueado_por_disputa` | Congelado até a decisão | Crítico |
-| `revertido` | Contestação perdida, descontado de saldo futuro (§4.3 item 4) | Crítico |
+| `bloqueado_por_verificacao` | 🔴 Provedor recusou o cadastro do recebedor. **O valor fica retido, nunca se perde** | Atenção |
+| `reservado_contestacao` | 🔵 Parte retida por 90 dias em contrato de cartão acima do limite (SPEC §4.3) | Protegido |
+| `revertido` | Contestação perdida, descontado do saldo | Crítico |
+| `saldo_negativo` | 🔴 **Estado que faltava.** Contestação perdida sem saldo nem reserva suficiente. **Saque e novos contratos bloqueados** até regularizar | Crítico |
+
+### 9.2.1 A máquina de reembolso — faltava inteira 🔴
+
+A §6.2 identificou que Pix e boleto não desfazem como cartão, e parou aí. Faltava o outro lado: **quando a marca tem direito ao dinheiro de volta, por onde ele volta?**
+
+Hoje a plataforma **não tem** a chave Pix nem os dados bancários da marca. Ela cancela na janela de 24 h, ganha a disputa — e o dinheiro fica parado sem caminho.
+
+🔵 **Correção:** no checkout de **Pix e boleto**, a marca informa os dados de reembolso junto com o pagamento. É o momento certo: ela está ali, e ainda não precisou de nada.
+
+| Estado do reembolso | Significado |
+|---|---|
+| `solicitado` | Direito reconhecido — cancelamento na janela, disputa ganha, contrato expirado |
+| `em_processamento` | Enviado ao provedor |
+| `devolvido` | Dinheiro na conta da marca |
+| `falhou` | 🔴 Dados errados ou conta inválida. **Gera tarefa no painel administrativo** — nunca fica parado em silêncio |
+
+⚠️ **`falhou` precisa existir.** Sem ele, reembolso que não completa vira dinheiro sumido: a marca cobra, o suporte não sabe onde está, e ninguém tem estado para consultar.
+
+*Cartão é diferente:* o estorno volta pelo próprio cartão, sem precisar de dado nenhum.
 
 ⚠️ **A distinção entre `liberado_aguardando_prazo` e `disponivel` é o coração da regra de ouro da SPEC §4.2.** São dois fatos diferentes: "a INFLUENTZ já autorizou" e "o dinheiro já existe". Um sistema que trata os dois como a mesma coisa acaba pagando com dinheiro que ainda não recebeu — que é exatamente o risco de falência que a SPEC nomeia. Na tela, o criador lê: *"aprovado — disponível em 12/10"*.
 
@@ -427,6 +466,21 @@ A última linha é a prova de que a separação era necessária: o contrato **n�
 | `encerrada_por_acordo` | As partes resolveram antes da decisão |
 | `decidida` | Resultado: favorável à marca, favorável ao criador, ou acordo parcial |
 | `executada` | Dinheiro movimentado conforme a decisão |
+
+### 10.1 Prazo de evidência e revelia 🔴
+
+Os estados `aguardando_evidencia_*` prometiam "prazo para cada lado" e esse prazo **não existia em lugar nenhum**. Sem ele, quem simplesmente não responde trava a disputa para sempre — e todo estado precisa de saída quando ninguém age.
+
+🔵 **Regra adotada:**
+
+| | |
+|---|---|
+| Prazo para apresentar evidência | **5 dias corridos**, configurável no painel administrativo |
+| Um lado não responde | **Decisão à revelia contra quem silenciou.** O outro lado ganha |
+| Os dois não respondem | Volta ao estado anterior à disputa e o relógio de aprovação automática retoma |
+| Aviso | No 1º e no 4º dia, por e-mail e push |
+
+*Fundamento:* é a regra que o próprio Marco já tinha escrito em 2020 — quem abre chamado e não tem resposta da outra parte ganha a causa. Ela estava certa e voltou.
 
 ⚠️ **Disputa congela tudo:** relógio de aprovação automática, repasse e marcos seguintes. Se o marco 1 está em disputa, o criador não continua trabalhando no marco 2 — senão ele acumula trabalho não pago enquanto o problema não se resolve.
 

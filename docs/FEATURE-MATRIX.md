@@ -7,7 +7,8 @@
 > **Como ler a prioridade:**
 > **E** = essencial (sem isso não existe produto) · **P** = premium (é o que faz a plataforma valer a comissão) · **F** = futuro (depois de haver volume)
 >
-> **Versão:** v1.0
+> **Versão:** v1.1 — **169 funções**
+> **O que mudou da v1.0:** acesso por plataforma corrigido (§0.1), contrato recorrente reincorporado (§3.5), e **30 funções acrescentadas pela auditoria do especialista de produto** (§5.5), que encontrou 12 lacunas — 8 delas capazes de travar o lançamento.
 > **Fonte de marca:** `docs/marca/` — pasta BRANDING do Drive, estudada por inteiro
 >
 > **Legenda:** 🔵 proposta de Claude além do que foi pedido · ⚠️ decisão com risco ou dependência
@@ -346,6 +347,80 @@ A agência **gerencia, mas nunca toca no dinheiro** — se recebesse e repassass
 | 126 | **Painel de saúde das APIs sociais** | P | 🔵 |
 | 127 | Registro de auditoria imutável | E | Toda ação sensível fica gravada |
 | 128 | Moderação de conteúdo e denúncias | E | |
+
+---
+
+## 5.5 Funções acrescentadas pela auditoria 🔴
+
+Auditoria feita pelo especialista de produto em 08/09/2026, com contexto limpo. Encontrou **12 lacunas, 8 delas capazes de travar o lançamento**. Todas conferidas e todas procedentes. As funções que faltavam:
+
+### Cadastro e identidade
+
+| # | Função | Prio | Resolve |
+|---|---|---|---|
+| 140 | **Comprovar rede por envio manual** (captura do painel, vídeo de tela) | E | O criador de Instagram entrando no dia 1, com a API ainda na fila |
+| 141 | **Fila de aprovação de rede declarada** no Admin | E | Idem |
+| 142 | **Rótulo "declarada · não verificada"** ao lado da métrica | E | Nunca misturar dado declarado com dado de API |
+| 143 | **Cadastrar e trocar conta bancária** | E | Não existia. Só havia "sacar" |
+| 144 | **Ver motivo da recusa do provedor e reenviar documento** | E | O beco sem saída de quem tem dinheiro aprovado que não sai |
+
+### Dinheiro
+
+| # | Função | Prio | Resolve |
+|---|---|---|---|
+| 145 | **Dados de reembolso da marca no checkout** de Pix e boleto | E | Não havia por onde devolver dinheiro fora do cartão |
+| 146 | **Acompanhar reembolso** nas duas pontas | E | |
+| 147 | **Fila de reembolso com falha** no Admin | E | Reembolso que não completa não pode sumir em silêncio |
+| 148 | **Reserva de contestação** visível ao criador, com data de liberação | E | Contestação que chega depois do saque |
+| 149 | **Saldo negativo** com saque e novos contratos bloqueados | E | Idem |
+| 150 | **Anexar nota fiscal do criador** antes da liberação do repasse | E | A marca com CNPJ precisa da nota para lançar a despesa |
+| 151 | **Marca baixa a nota do criador** dentro do contrato | E | Idem |
+
+### Entrega
+
+| # | Função | Prio | Resolve |
+|---|---|---|---|
+| 152 | **Envio retomável**, com tamanho e formato declarados e estado de falha | E | Reels de 900 MB no 4G que cai aos 80% |
+| 153 | **Prévia com marca d'água antes da aprovação** | E | ⚠️ Ver abaixo |
+| 154 | **Original liberado só após aprovar** (ou vencer a aprovação automática) | E | Idem |
+| 155 | Prazo de guarda do arquivo após o contrato | P | |
+| 156 | **Lançar código de rastreio** (marca) | E | Envio de produto físico |
+| 157 | **Confirmar recebimento do produto** (criador) | E | O relógio do criador só começa aqui |
+| 158 | **Declarar extravio** | E | |
+| 159 | **Check-in presencial** com data, hora e local | E | ⚠️ Ver abaixo |
+| 160 | **Confirmação de comparecimento pela marca**, com prazo | E | Idem |
+
+⚠️ **Por que a prévia com marca d'água (153) é essencial:** o dinheiro fica retido, mas **o conteúdo não**. Sem isso, nada impede a marca de baixar o vídeo final, publicar e nunca aprovar. O escrow protege uma ponta só. Marca d'água antes, original depois da aprovação, protege as duas.
+
+⚠️ **Por que o check-in (159) é essencial:** a regra de cancelamento presencial dá 100% ou 0% conforme quem faltou — mas sem registro, isso vira palavra contra palavra decidindo dinheiro. Check-in com carimbo de hora e local é a prova que faltava.
+
+### Disputa
+
+| # | Função | Prio | Resolve |
+|---|---|---|---|
+| 161 | **Enviar evidência** | E | A disputa tinha estados e nenhuma função |
+| 162 | **Ver o que a outra parte alegou** | E | |
+| 163 | **Acompanhar o andamento e o prazo** | E | |
+| 164 | **Aceitar acordo** antes da decisão | P | |
+
+### Contrato
+
+| # | Função | Prio | Resolve |
+|---|---|---|---|
+| 165 | **Aditivo de escopo** com aceite dos dois lados | P | ⚠️ Ver abaixo |
+| 166 | **Termos de Uso versionados**, com registro de qual versão cada um aceitou, quando e de onde | E | A aprovação automática por silêncio só é oponível se estiver nos termos aceitos |
+| 167 | **Contrato em PDF para as duas pontas e para a agência** | E | Só a marca tinha |
+
+⚠️ **Por que o aditivo (165) importa comercialmente:** hoje, se a marca quer antecipar a publicação ou acrescentar um Story pagando mais, só existem três saídas — pedir ajuste (que consome revisão e não muda preço), cancelar, ou **combinar por fora**. A terceira é exatamente o que a SPEC §13.2 tenta impedir. Sem aditivo, a plataforma empurra volume para fora dela mesma.
+
+### Operação de lançamento
+
+| # | Função | Prio | Resolve |
+|---|---|---|---|
+| 168 | **Convite por link** com papel pré-definido | E | ⚠️ Ver abaixo |
+| 169 | **Cadastro assistido** no Admin, com autoria registrada | E | Idem |
+
+⚠️ **Por que 168 e 169 travariam o lançamento:** a SPEC §14.1 diz que os 50 primeiros criadores entram por convite pessoal do Marco, com cadastro feito junto com eles. **Não existia nenhuma ferramenta para isso.** Ele faria por WhatsApp e planilha, fora da plataforma — e a operação que sustenta o lançamento inteiro ficaria sem registro nenhum.
 
 ---
 

@@ -101,7 +101,7 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 |---|---|
 | `/docs/METODO-DE-TRABALHO.md` | v1.0 ✅ — as 8 fases e o contrato de entrega |
 | `/docs/SPEC-INFLUENTZ.md` | v0.5 ✅ |
-| `/docs/FEATURE-MATRIX.md` | v1.0 ✅ — **inventário completo, 128 funções, 4 superfícies** |
+| `/docs/FEATURE-MATRIX.md` | v1.1 ✅ — **inventário completo, 169 funções, 4 superfícies** |
 | `/docs/PRODUTO-DETALHADO.md` | v0.1 ✅ — campos, métricas, tipos de proposta |
 | `/docs/MAQUINA-DE-ESTADOS.md` | v0.2 ✅ |
 | `/docs/DESIGN-SYSTEM.md` | v0.4 ✅ |
