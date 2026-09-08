@@ -83,56 +83,100 @@ Os termos comerciais são **campos estruturados**, não texto solto. Isso elimin
 
 | Meio | Aceito no v1 | Quando o dinheiro fica disponível | Pode voltar? |
 |---|---|---|---|
-| **Pix** | Sim | Na hora, inclusive dentro do split | ⚠️ **Sim, em parte** — o MED (Mecanismo Especial de Devolução) do Banco Central tem janela de **até 80 dias**, só para fraude, golpe ou falha operacional. Não cobre arrependimento |
+| **Pix** | Sim | Na hora, inclusive dentro do split | ⚠️ **Sim, por fraude — e desde 02/02/2026 é mais severo.** Ver §4.2.2, o MED 2.0. **Não cobre desacordo comercial** — qualidade, atraso e arrependimento ficam de fora |
 | **Boleto** | Sim | 1 a 2 dias após confirmação | **Não.** É o único meio realmente irreversível |
 | **Cartão de crédito** | Sim, para qualquer marca verificada — **CPF ou CNPJ** | **À vista: D+30.** ⚠️ **Parcelado: uma parcela por mês** — D+30, D+60, D+90… uma para cada parcela que a marca escolher, salvo antecipação | Sim — janela de 75 a 540 dias, conforme a bandeira e o motivo |
 
 *Por que cartão entra:* ambiente corporativo usa cartão intensamente. Excluí-lo eliminaria uma fatia relevante da demanda.
 
-✅ **Regra do v1 — reescrita com o juro repassado ao comprador.**
+### 4.2.4 Parcelamento — duas regras, e a que vale hoje é a B 🔴
 
-🔴 **O limite nunca foi o juro. O limite é a data do criador.**
+🔴 **A descoberta que reorganiza esta seção.** A tabela de 4,19% à vista e 13,63% em 6×, com recebimento em 1 dia, é do plano **Essencial** — **e o Essencial não tem split de pagamento**. A INFLUENTZ é marketplace com recebedores, logo é cliente do plano **Flex**, cujas taxas são **customizadas e não publicadas**. E o próprio site avisa: *"para novos vendedores... pode ser retido por até 15 dias por questões de análise. A opção de receber na hora fica disponível automaticamente assim que você constrói um histórico de vendas."* ([pagar.me/ofertas](https://www.pagar.me/ofertas))
 
-| Situação | Regra |
+**Traduzindo:** a data única em que a regra de parcelamento se apoiava (a) vinha de um plano que não serve para nós e (b) **não existe para conta nova em plano nenhum**.
+
+⚠️ **E a antecipação também não existe no dia 1.** A antecipação pontual só pode ser pedida *"depois de 60 dias transacionando cartão de crédito"*; os modelos automáticos são liberados *"de acordo com o volume transacional existente"*; e mesmo com modelo aprovado, *"a solicitação pode ser negada"* em caso de desvio ou alto índice de chargeback ([Central de Ajuda](https://pagarme.helpjuice.com/pt_BR/antecipa%C3%A7%C3%A3o-como-funcionam-os-modelos-de-antecipa%C3%A7%C3%A3o)). Valor mínimo, máximo e limites: **não publicados em lugar nenhum.**
+
+---
+
+#### 🟢 REGRA B — sem antecipação. **É a que vale hoje.**
+
+| Meio | Regra do v1 |
 |---|---|
-| **Cartão 1×** | Sempre. Criador em data única |
-| **Cartão 2× a 12×** | Existe **somente** se o modelo que dá **data única ao criador** estiver ativo (plano de recebimento em 1 dia, ou antecipação aprovada). Juros de **1,99% ao mês, simples**, do 2× em diante, **pagos pelo comprador** |
-| **Sem data única disponível** | **Cartão só 1×.** Sem exceção — parcelar sem isso é o criador recebendo em seis vezes |
-| **Parcela mínima** | R$ 200 (regra nossa, não do provedor) — evita 12× de R$ 50 |
-| **Acima do teto do cartão** | Boleto, Pix ou marcos |
+| **Pix** | Sem teto. Dinheiro do criador **no mesmo dia** da publicação confirmada |
+| **Boleto** | Sem teto. Compensa em 1 a 2 dias úteis |
+| **Cartão** | **Somente à vista.** Teto de R$ 2.500 (degrau 0) ou R$ 15.000 (KYB) |
+| **Cartão parcelado** | ❌ **Não existe. O botão não aparece** — não é "indisponível", simplesmente não é oferecido |
+| **Data do criador no cartão** | **D+30 da cobrança**, exibida em dia e mês, nunca como sigla ⚠️ Premissa até o contrato Flex confirmar. Se vier melhor, o criador recebe antes — **nunca depois do prometido** |
+| **Ticket alto** | Marcos + Pix, ou Fatura INFLUENTZ em boleto (§4.3.1.2) |
 
-**A conta, com fonte.** As taxas publicadas do Pagar.me no plano com recebimento em 1 dia são **4,19% à vista e 13,63% em 6×** ([pagar.me/ofertas](https://www.pagar.me/ofertas)) — custo de ~9,4 pontos, praticamente idêntico aos 9,6% calculados por outro caminho. Repassando 1,99% a.m. ao comprador:
+**O que o criador vê ANTES de aceitar** — e esta tela não existia:
 
-| | Valor cobrado | Líquido após a taxa | Sobra vs. 1× |
-|---|---|---|---|
-| 1× | 1,0000·C | 0,9581·C | — |
-| 3× | 1,0597·C | 0,9753·C | **+1,7 pontos** |
-| 6× | 1,1194·C | 0,9668·C | **+0,9 ponto** |
-| 12× | 1,2388·C | 0,9714·C | **+1,3 ponto** |
+> **Você vai receber R$ 1.080**
+> *(R$ 1.200 do seu preço, menos 10% de comissão)*
+>
+> 🟢 **Esta marca vai pagar por Pix.** Disponível **no mesmo dia** em que sua publicação for confirmada.
+> 🟡 *Boleto* — disponível **2 dias úteis** depois. · 🟡 *Cartão* — disponível em **12 de outubro**; o dinheiro do cartão só existe 30 dias depois da compra, e isso é regra do sistema de cartões, não nossa.
+>
+> `Aceitar` · `Recusar`
 
-🟢 **1,99% ao mês — a taxa que o varejo brasileiro pratica — cobre o custo do parcelamento em qualquer número de parcelas e ainda sobra cerca de 1 ponto.** A plataforma não financia nada, o criador não paga nada, e a marca vê o número antes.
+🔴 **Duas regras de redação inegociáveis:** a data aparece **antes** do botão de aceitar. E **"aprovado" nunca aparece sozinho** — sempre "aprovado, disponível em 12/10". São dois fatos diferentes e a tela nunca funde os dois.
 
-⚠️ **O corte em 3× cai.** Ele existia porque a plataforma absorveria o custo. Com o juro repassado, **3× e 12× têm o mesmo efeito no caixa da plataforma: nenhum.**
+#### 🟡 REGRA A — com data única. **Escrita, e desligada.**
 
-❌ **"3× sem juros" não existe no v1.** Absorver 3,84% de uma comissão de 15% é entregar um quarto da margem. Se um dia virar arma comercial, é campanha com prazo e custo declarados — nunca regra.
+Liga por **uma chave no painel administrativo, sem uma linha de código nova**, quando chegarem três respostas **por escrito**:
 
-**Como funciona por dentro.** A API do Pagar.me **calcula, mas não escolhe**: a documentação diz com todas as letras *"A Pagar.me NÃO cobra juros, essa rota é apenas uma rota de conveniência"*. Existe `GET /transactions/calculate_installments_amount`, que recebe valor, taxa e número de parcelas e devolve valor por parcela e total ([doc](https://docs.pagar.me/v3/reference/calculando-pagamentos-parcelados)). **A plataforma define a taxa, chama a simulação, mostra "6× de R$ 1.865 · total R$ 11.194", e envia ao provedor o valor já com juros.** Na fatura da marca aparece só a parcela — por isso a tela tem que dizer antes.
+1. Qual é a taxa do **plano Flex com split** para a nossa conta.
+2. Se existe **data única** para venda parcelada nessa configuração, e a partir de qual histórico.
+3. **Quem é debitado da taxa de antecipação** — o marketplace ou o recebedor. Se a resposta for "o recebedor", **a Regra A morre na origem**: ela violaria a regra de que o criador não paga antecipação.
 
-🔴 **O split tem que ser em valor fixo, não em percentual.** O criador recebe sobre o valor do contrato, **jamais sobre o valor com juros**: a regra de split dele é `flat`, no líquido congelado, e a plataforma fica com o resíduo — que é onde caem taxa, juros e antecipação. **Se o split for percentual, o juro contamina a base do criador** e o valor congelado do contrato deixa de ser verdade.
+Quando ligada: cartão 2× a 12×, parcela mínima R$ 200, **juros de 1,99% ao mês pagos pelo comprador**, calculados e **congelados na criação do contrato** junto com a comissão, split do criador em **valor fixo** (nunca percentual — senão o juro contamina a base dele).
 
-📌 **O parcelamento sem juros de verdade já existe e chama-se marco.** Um contrato de R$ 30.000 em 3 marcos são 3 cobranças de R$ 10.000 no Pix, espaçadas pela entrega: **custo zero para os dois lados**.
+⚠️ **E o teto muda junto:** no parcelado, o teto por cobrança é **metade** do teto do degrau (R$ 1.250 no degrau 0, R$ 7.500 no KYB), porque **a contestação de uma venda parcelada atinge a transação inteira, e a janela de risco só começa a contar depois da última parcela**. Parcelar não dilui risco: **alonga**.
 
-❌ **"Antecipar minha grana" não nasce como função.** Aplicando a pergunta do `CLAUDE.md` §2.2 — *o que acontece se não existir?* Quase nada: com Pix na hora e cartão em data única, o criador **já recebe no melhor prazo do meio**. O botão só existiria para encurtar D+30 **cobrando dele** — vender ao criador a solução de um problema que nós criamos. E tecnicamente ele nem tem conta no provedor: quem operaria seria a plataforma.
+**A arquitetura que faz as duas conviverem:** duas chaves no Admin (`parcelamento_habilitado` e `data_unica_confirmada`), ambas nascendo desligadas, e **um único ponto no código** que decide quantas parcelas mostrar. Ligar é um clique, não um lançamento de versão.
 
-✅ **O modelo em que ninguém perde:** a antecipação **não é oferecida ao criador — é comprada pela plataforma, embutida no preço do parcelamento, e paga por quem parcelou.** O criador vê uma data, e uma só.
-
-⚠️ **Se a proposta comercial vier pior que a tabela publicada**, a saída **não** é o criador pagar nem a plataforma absorver: é **desligar o parcelamento e empurrar marcos + Pix**, que resolvem o caixa da marca a custo zero. A funcionalidade sai; ninguém paga a conta.
-
-⚠️ **Antecipação não é por contrato, é por saldo.** A documentação é clara: *"toda parcela é paga em valor integral"* e *"não é possível escolher uma transação para receber antecipadamente"*. Isso mata qualquer desenho do tipo "antecipar este contrato específico".
-
-🔵 **Pix parcelado é a solução estruturalmente correta do problema inteiro, e vira tarefa.** Nele quem dá o crédito é o banco do pagador: **a marca parcela, o criador recebe o valor cheio na hora, e ninguém paga antecipação.** A regulamentação do BCB saiu em novembro de 2025 e a disponibilidade corre ao longo de 2026. **Não confirmado que o provedor já expõe na API** — está na lista de perguntas do credenciamento (§4.6.2).
+🔴 **O que a Regra B quebra para um cliente legítimo, dito sem maquiar:** a marca média — R$ 3.000 a R$ 8.000, agência pequena, e-commerce em crescimento — que queria dividir em 3× **não vai poder**. É cliente bom, e alguns vão embora. **A compensação é real e precisa estar na tela:** marcos com Pix resolvem o mesmo problema de caixa, espaçados pela entrega, com **custo zero** contra 6% a 13% de juros; e o boleto de 30 dias dá o mesmo fôlego. O cliente grande não é afetado — ele já ia por boleto.
 
 ⚠️ **Regra de ouro contra risco de falência:** a plataforma **nunca adianta dinheiro que ainda não recebeu do provedor.** Uber e iFood adiantam ao motorista/restaurante com capital de giro próprio — copiar isso sem caixa é emprestar dinheiro inexistente. O criador vê no app a data exata em que cada valor vira saldo disponível.
+
+### 4.2.2 MED 2.0 — o Pix mudou em 02/02/2026 🔴
+
+> **Revisado pelo especialista `antifraude`.** Isto corrige uma frase que estava travada como decisão: *"chargeback só existe no cartão"*.
+
+**A frase correta é:** *reversão por **desacordo comercial** só existe no cartão; o Pix tem reversão por **fraude**, com janela curta e **bloqueio antes da análise**.*
+
+A Resolução BCB 493/2025, obrigatória desde **02/02/2026**, mudou o Pix recebido:
+
+| O que mudou | Consequência para nós |
+|---|---|
+| **Bloqueio cautelar do saldo do recebedor por até 72 h** a partir da notificação de fraude | O banco **bloqueia primeiro e analisa a boa-fé depois** |
+| Rastreio em **até 5 camadas** de contas seguintes | Dinheiro de golpe que passou por outra conta antes **alcança o nosso recebedor** |
+| Convertido em devolução, a conta pode ser **monitorada por 90 dias**, retendo créditos novos | O criador pode ficar sem receber por um fato que ele não praticou |
+| O recebedor pode ser **marcado como fraudador** mesmo sem devolução | Sujar o nome de um criador inocente |
+
+🔴 **Por que isso é nosso e não do provedor:** no split, **o criador é um recebedor**. Uma marca que pague com Pix de dinheiro sujo pode **congelar o saldo do criador**, e ele não tinha como saber.
+
+⚠️ **O relógio é muito pior que o do cartão:** no cartão são 10 dias para defender; no MED são **72 horas de bloqueio**. Vira item da caixa de entrada do operador com prioridade máxima: *"bloqueio cautelar de Pix — responder hoje"*.
+
+✅ **O que NÃO muda:** o teto continua sendo só do cartão. O MED **exclui expressamente desacordo comercial**, então não é chargeback disfarçado e não justifica limite no Pix.
+
+🟢 **E isto reforça a Fatura INFLUENTZ (§4.3.1.2):** o **boleto é o único meio verdadeiramente irreversível** — uma vantagem que a seção nem reivindicava.
+
+### 4.2.3 Devolução de Pix vai para a conta de origem, e isso encolhe uma função 🔴
+
+**Fato:** a devolução nativa do Pix **só pode ser feita para a mesma conta que originou o pagamento**, dentro de **90 dias**. O Banco Central não permite devolver para outra chave.
+
+🔴 **Isso fecha uma rota de lavagem que o nosso próprio desenho estava abrindo.** A função de "dados de reembolso no checkout" deixava a marca informar **uma conta diferente** da que pagou. O golpe seria: pagar R$ 20.000 por Pix, apontar outra conta para reembolso, cancelar dentro da janela — **e sair dinheiro limpo por outra conta, sem contrato nenhum, com a plataforma bancando o trajeto.**
+
+✅ **Regra corrigida:**
+
+- Para Pix dentro de 90 dias, **não se pede dado nenhum** — o caminho de volta já vem junto com o dinheiro.
+- A função sobrevive **só para boleto** (que não tem devolução nativa) **e para Pix fora dos 90 dias**.
+- Onde ela existir, **a conta de reembolso tem que ter o mesmo CPF ou CNPJ do pagador**.
+- **Reembolso para titularidade diferente nunca é automático** — cai na caixa de entrada.
+
+**O que quebra para um cliente legítimo:** quase nada, e na verdade melhora — **menos campos no checkout do Pix**. O caso real que sofre é a empresa que paga pela matriz e quer receber na filial: vira uma revisão de um dia útil, e é raro.
 
 ### 4.2.1 Quem pode usar a plataforma 🟢
 
@@ -160,7 +204,7 @@ Os termos comerciais são **campos estruturados**, não texto solto. Isso elimin
 | 2 | **Teto por transação — só no cartão** | 🔴 **Pix e boleto não têm teto.** O que se limita é exposição a chargeback, e **chargeback só existe no cartão**. Ver §4.3.1: R$ 2.500 para marca nova e anônima, **R$ 15.000 na hora para empresa verificada (KYB)**, e sem teto por Pix ou boleto em qualquer caso |
 | 3 | **Dossiê de defesa — os dados, e o alarme** | O que precisa existir são os **dados**: contrato congelado, aceite bilateral com data, hora e IP, comprovante de que o marco foi financiado antes do início, arquivos de entrega datados, aprovação registrada, log do chat e a nota fiscal do criador. Todos já vivem no registro de auditoria, e o dossiê se monta a partir deles. **Não existe gerador automático de PDF:** com um chargeback a cada ~20 meses, seria um robô para um evento que acontece duas vezes por década. **O que existe é o alarme:** o prazo de defesa é de **10 dias corridos e é fatal** ([Pagar.me](https://pagarme.helpjuice.com/pt_BR/sobre-o-pagarme/faq-chargeback)), então vira tarefa com contagem regressiva na caixa de entrada. Perder por silêncio é o único erro imperdoável aqui |
 | 4 | **A INFLUENTZ é a responsável declarada** | No split do Pagar.me, `liable` e `charge_processing_fee` são **`true` no recebedor da plataforma e `false` no recebedor do criador, sempre explícitos**. ⚠️ O padrão do provedor joga a responsabilidade no **primeiro recebedor da lista** — depender de ordem de array é acidente esperando acontecer. Fonte: [docs.pagar.me — Split](https://docs.pagar.me/v3/docs/split-rules) |
-| 5 | **Fundo de contestação** | **5% da receita de comissão** em **conta bancária separada do CNPJ** — não linha de planilha; dinheiro que só existe em relatório é dinheiro que já foi gasto. Paga os chargebacks perdidos. É a plataforma retendo o dinheiro **dela**. Invisível para o criador. ⚠️ **No lançamento o fundo acumula R$ 90/mês** (5% de R$ 1.800) e **não cobre um chargeback de R$ 2.500 no primeiro ano.** O fundo não é a proteção do lançamento — **o teto da camada 2 é.** O fundo passa a fazer sentido na operação (5% de R$ 180.000 = R$ 9.000/mês) |
+| 5 | **Fundo de contestação** | 🔴 **Saldo negativo na conta do provedor pode travar o saque de outros criadores que não têm nada a ver com o caso** — o dano vira coletivo e reputacional. Por isso o fundo repõe o saldo negativo **no mesmo dia útil, automaticamente, com alarme**; não é tarefa de fim de mês. **5% da receita de comissão** em **conta bancária separada do CNPJ** — não linha de planilha; dinheiro que só existe em relatório é dinheiro que já foi gasto. Paga os chargebacks perdidos. É a plataforma retendo o dinheiro **dela**. Invisível para o criador. ⚠️ **No lançamento o fundo acumula R$ 90/mês** (5% de R$ 1.800) e **não cobre um chargeback de R$ 2.500 no primeiro ano.** O fundo não é a proteção do lançamento — **o teto da camada 2 é.** O fundo passa a fazer sentido na operação (5% de R$ 180.000 = R$ 9.000/mês) |
 | 6 | **Cobrança do criador só com decisão humana** | Chargeback perdido **não** vira dívida do criador automaticamente. Só há cobrança em conluio comprovado ou entrega inexistente, com motivo, autor e data registrados. Fora disso, é custo da plataforma |
 | 7 | **Pix como meio padrão** | Pix em destaque no checkout ("dinheiro liberado na hora para o criador"). Cartão é a segunda opção — reduz o volume exposto sem perder a venda de ticket alto |
 
@@ -203,6 +247,9 @@ A interseção é R$ 2.400–2.700. **R$ 2.500 cai dentro; R$ 3.000 cai fora** (
 | **0 — marca nova** | Identidade verificada (CPF ou CNPJ) + 3DS autenticado | **R$ 2.500** | R$ 5.000 | R$ 10.000 |
 | 🟢 **V — Verificada (KYB)** | **Sem histórico, sem espera** — ver §4.3.1.1 | **R$ 15.000** | R$ 30.000 | R$ 60.000 |
 | **1** | 2 contratos concluídos sem incidente **e** 30 dias | R$ 6.000 | R$ 12.000 | R$ 24.000 |
+
+🔴 **A escada tem um piso de valor, senão ela é escalada com contratos de fachada.** Dois contratos de R$ 100 não podem subir uma marca de R$ 2.500 para R$ 6.000. **Um contrato só conta para subir de degrau se valer pelo menos 20% do teto do degrau seguinte** — e **contrato entre partes relacionadas não conta nunca**, para nada: nem degrau, nem recontratação de 8%, nem avaliação pública.
+
 | **2** | 5 contratos concluídos sem incidente **e** 90 dias | R$ 15.000 | R$ 30.000 | R$ 60.000 |
 | **3** | 10 contratos, 180 dias, **e ≥5 deles já fora da janela de 120 dias de contestação** | sem teto automático | — | — |
 | **Sempre** | qualquer cobrança acima de **R$ 30.000** | revisão humana, resposta em 1 dia útil | — | — |
@@ -300,9 +347,50 @@ Quatro coisas fazem isso funcionar:
 
 *Referência de mercado:* Workana cobra do freelancer comissão escalonada de 20% caindo até 5% conforme recompra, mais 4,5% do contratante; 99Freelas cobra de 5% a 20% do freelancer. Marketplaces brasileiros em geral operam entre 10% e 20%. 15% posiciona a INFLUENTZ no meio da faixa, com desconto por fidelização — que é o mecanismo que a Workana usa e funciona.
 
+### 4.4.1 De quem sai a comissão, e o piso que impede prejuízo 🔴
+
+**A comissão sai dos dois lados, na proporção 2 para 1: 10% do criador, 5% da marca.**
+
+⚠️ Isto resolve uma **contradição** que existia entre duas seções: uma dizia 10% + 5%, a outra dizia que a comissão saía só do criador. Eram duas contas diferentes, e o código escolheria sozinho.
+
+**Por que dividida, e por que nessa proporção:**
+
+| | Criador | Marca |
+|---|---|---|
+| Sensível a preço? | **Muito** — é renda pessoal | Menos — é verba de marketing |
+| Tem alternativa fora? | **Muito mais** — fechar por mensagem direta é grátis | Menos — achar criador confiável, com métrica auditada e contrato, é o trabalho todo |
+| O que faz a oferta crescer? | **Ele.** Marketplace vazio de criador não tem produto | Ela chega atrás da oferta |
+
+Isso parece argumentar por cobrar mais da marca — e argumenta, até certo ponto. **Duas coisas travam a divisão em 10/5:** a marca compara com a agência, que cobra 15% a 20% de *fee* sobre a verba, então 5% embutido é imbatível; e **o criador compara com a alternativa real dele, que não é 0%** — é receber por Pix sem contrato, sem escrow e sem prova, cobrando sozinho quando a marca some. **10% é metade do que Fiverr, Workana e 99Freelas cobram do prestador.**
+
+📌 **Nenhuma plataforma consolidada cobra de um lado só.** Fiverr: 20% do vendedor + 5,5% do comprador. Upwork: até 15% do freelancer + 5% do cliente. Workana: 20% regressivo + 4,5%. O único caso de lado único é o Airbnb — que migrou **na direção contrária**, e pôde fazer isso porque já tem demanda de sobra. Marketplace em lançamento não tem.
+
+> 🔴 **PISO DE COMISSÃO EFETIVA.** Nenhum contrato é criado com comissão efetiva menor que **o custo do meio de pagamento mais 3 pontos percentuais.** A verificação é automática, roda **na criação do contrato**, e usa a taxa real do provedor gravada na configuração — nunca um número escrito no código.
+
+**Por que isso existe:** a recontratação de 8% no cartão à vista deixa uma margem de 3,7%, e ela ainda precisa pagar a tarifa de repasse, os 5% do fundo de contestação e a infraestrutura — sobrando perto de **2,9% num contrato de R$ 1.200**, no meio de pagamento que carrega 100% do risco de contestação. **E os 8% viram prejuízo se a taxa do provedor passar de 7,79%** — número que, como o plano Flex não é público, ainda não sabemos.
+
+O piso resolve sem matar o desconto de fidelização, que é o mecanismo que segura o par marca–criador dentro da plataforma. **Regra de honestidade obrigatória: o desconto exibido é sempre o efetivamente aplicado** — a tela mostra o número final, nunca a promessa genérica.
+
 ### 4.5 Preço exibido (decisão 4)
 
-**A marca vê e paga o preço final, tudo incluso.** A comissão é descontada do lado do criador antes do repasse. Sem surpresa no checkout, que é o principal ponto de atrito relatado por clientes de plataformas que somam taxa no final.
+**A marca vê e paga o preço final, desde a primeira tela de busca. Nunca existe taxa somada no checkout.**
+
+O criador cadastra o preço que quer receber pelo trabalho — R$ 1.200. **A vitrine mostra R$ 1.260 já no card da busca**, com os 5% dentro. A marca navega, escolhe e paga sempre o mesmo número.
+
+| | Valor |
+|---|---|
+| Preço do criador | R$ 1.200,00 |
+| **A marca paga** | **R$ 1.260,00** |
+| **O criador recebe** | **R$ 1.080,00** |
+| Comissão bruta da plataforma | R$ 180,00 |
+
+**O que cada um vê:**
+
+> **Marca:** *Ana Souza · 1 Reels + 3 Stories* — **R$ 1.260**. *Valor final. Inclui a taxa da INFLUENTZ, a retenção do pagamento e o contrato. Nada é somado no checkout.*
+
+> **Criador:** **Você recebe R$ 1.080** — R$ 1.200 do seu preço, menos R$ 120 de comissão. *Disponível no mesmo dia da publicação confirmada.*
+
+⚠️ **O criador pode simplesmente precificar o trabalho considerando a comissão, e a tela precisa deixar isso óbvio em vez de escondido.**
 
 ### 4.6 Escrow e marcos 🟢
 
@@ -337,6 +425,12 @@ Nenhuma é decisão do Marco; todas viram documento em `/docs` quando respondere
 4. **Pix parcelado já está exposto na API?**
 5. Qual o valor máximo por boleto e por Pix na nossa conta?
 6. Tarifa oficial de saque e de Pix de saída.
+7. 🔴 **Como somos notificados de um bloqueio cautelar ou MED sobre um recebedor do nosso split?** Por qual webhook, e **quem apresenta a defesa — nós ou o titular?** Sem essa resposta, o primeiro MED nos pega sem canal, com 72 h de relógio.
+8. 🔴 **Qual é a taxa do plano Flex com split para a nossa conta**, à vista e por faixa de parcelas? *(A tabela publicada é do plano Essencial, que não tem split.)*
+9. 🔴 **Existe data única de recebimento para venda parcelada nessa configuração, e a partir de qual histórico?**
+10. 🔴 **Quem é debitado da taxa de antecipação — o marketplace ou o recebedor?** *(Se for o recebedor, o parcelamento não liga.)*
+11. Valor mínimo, máximo e limites de antecipação — por dia, por transação, por conta.
+12. 🔴 **A validação de mesma titularidade da conta bancária vale para recebedores criados por API**, ou só pela dashboard? **Se valer só pela dashboard, o desvio de repasse volta a ser possível e vira a prioridade número um.** Hoje estamos protegidos por uma regra que ainda não confirmamos.
 
 ### 4.7 Cadastro fiscal do criador
 
@@ -393,6 +487,12 @@ No dia em que a plataforma receber bruto para repassar depois, ela vira institui
 **O que registrar** — todo evento de dinheiro, sem exceção: criação de cobrança; **regra de split aplicada, com `liable` e `charge_processing_fee` explícitos**; webhook recebido, com payload bruto e assinatura; mudança de estado de repasse; decisão de disputa; liberação, estorno, débito; alteração de comissão ou prazo no Admin; e **acesso de admin a dado de terceiro** (LGPD art. 46).
 
 **Campos** — quem (usuário ou `sistema`/`webhook`), o quê, quando (UTC com fuso), de onde (IP e user-agent), valor antes e depois, motivo, e o identificador da transação no Pagar.me.
+
+🔴 **Três provas que precisam nascer no instante do fato, porque não se remontam depois:**
+
+1. **O log dos avisos do 3º e do 6º dia**, com data, canal e confirmação de entrega — é ele que sustenta a aprovação automática. *"O cliente aprovou"* é prova forte; *"o cliente não respondeu em 7 dias"* é prova fraca, **a menos que exista o registro de que ele foi avisado duas vezes**.
+2. **O hash do arquivo entregue**, no ato do envio.
+3. **O permalink, a resposta bruta da API que confirmou a publicação, e o id numérico da conta que publicou.** Reconstruir isso 60 dias depois, com o post já removido, é impossível.
 
 **Imutabilidade** — tabela `append-only`, sem `UPDATE` nem `DELETE`, com **encadeamento por hash**: cada registro carrega o hash do anterior, então adulterar um quebra a cadeia e isso é verificável. **Barato no dia 1, impossível de retrofitar depois.**
 
@@ -717,10 +817,50 @@ Um marketplace vazio não tem produto. Isso não é marketing, é viabilidade.
 
 ---
 
+## 14.2 Custo de operar, e em quantos contratos a plataforma se paga 💰
+
+⚠️ Premissas declaradas: dólar a R$ 5,50 · vídeo de entrega ≈ 250 MB, três arquivos por contrato · retenção espelhando a janela de defesa.
+
+| Estágio | Tecnologia | Com contabilidade e tarifas |
+|---|---|---|
+| **Teste interno** (só o fundador) | **≈ R$ 3/mês** | R$ 3 |
+| **Lançamento** (20 contratos/mês, 50 criadores) | **≈ R$ 262/mês** | **≈ R$ 735/mês** |
+| **Operação** (1.000 contratos/mês) | ≈ R$ 1.320/mês | — |
+
+**No lançamento:** Supabase Pro (US$ 25 — obrigatório, o plano gratuito não tem backup e pausa por inatividade) · Vercel Pro (US$ 20) · armazenamento Cloudflare R2 (~US$ 2) · e-mail, notificação, monitoramento, agregador de métricas e ferramenta de suporte **todos no plano gratuito**.
+
+📌 **Uma data-gatilho que não é escolha:** o plano gratuito da Vercel é para uso **pessoal, não comercial**. **No dia em que a primeira marca real pagar, o plano vira Pro.** É termo de uso, não otimização.
+
+> ✅ **Em quantos contratos a plataforma se paga:** com a comissão de lançamento, **5 contratos por mês pagam a tecnologia** e **12 pagam tudo**. A meta de 20 contratos/mês paga o conjunto com quase o dobro de folga.
+>
+> ⚠️ **O que esses R$ 735 não incluem:** salário de ninguém, advogado, marketing e a formação do fundo de contestação. Com 20 contratos a 7,5%, sobram cerca de R$ 505 por mês — **isso não é lucro, é colchão.**
+
+🔴 **A conta do vídeo, que é onde o custo explode em silêncio.** Guardando os três arquivos de cada contrato por 24 meses, na fase de operação o acervo estabiliza em **18 TB** — US$ 270/mês só de armazenamento, crescendo todo mês sem ninguém notar. **Regra adotada: só o arquivo final aprovado fica 24 meses; brutos e versões rejeitadas ficam 90 dias.** Isso derruba o acervo para 6 TB e o custo para **US$ 90/mês**.
+
+⚠️ **O que isso quebra:** numa disputa rara sobre "a marca pediu ajuste e o criador atendeu", a versão intermediária pode não existir mais. **Mitigação:** o que sustenta a defesa é o **registro** — briefing congelado, log datado do pedido, aprovação com IP e horário — e isso é texto, custa quase nada e fica os 24 meses. **O arquivo pesado sai; a prova fica.**
+
+## 14.3 Suporte: comprado, não construído 🟢
+
+**A ferramenta de atendimento é comprada. A fila operacional é construída. Confundir as duas é o erro caro aqui.**
+
+Com 20 contratos/mês, o volume esperado é de **três a seis chamados por mês**. *O que acontece se um sistema de chamados próprio não existir?* **Nada** — uma caixa de e-mail resolve três chamados. Construir fila, tíquete, SLA, macros e relatório para isso consome semanas que deveriam estar na máquina de dinheiro.
+
+✅ **Decisão: ferramenta de chat com plano gratuito de dois lugares, conversas ilimitadas e aplicativo de celular. Custo zero.** ❌ Solução auto-hospedada está descartada: "de graça" ali significa manter servidor, atualizar, fazer backup e ser o responsável quando cair — troca R$ 0 de licença por horas que uma operação de uma pessoa não tem.
+
+🔴 **O que é construído, e não é opcional:** a **caixa de entrada do operador** — aprovar ou recusar contrato em revisão, o prazo fatal de defesa de contestação, reembolso que falhou, publicação removida antes do prazo, cadastro parcialmente recusado, pedido de análise de valor alto. **Isso não é suporte: é operação que mexe em dinheiro e em estado de contrato.** Nenhuma ferramenta comprada aprova um contrato ou defende uma contestação.
+
+**Quando a decisão vira a outra:** ao chegar o terceiro atendente (o plano gratuito tem dois lugares) e, muito depois, em volume alto — mas mesmo lá continua sendo **comprado**. Nem Fiverr nem Upwork construíram o deles.
+
+⚠️ **O gatilho oculto e mais perigoso:** o dia em que o suporte for feito por alguém que não é o fundador. Aí entra controle de quem vê o quê e trilha de acesso a dado de terceiro — **isso é construção nossa, e não vem de ferramenta nenhuma.**
+
 ## 15. Pendências que exigem profissional humano ⚠️
 
 | Tema | Profissional | Bloqueia o quê |
 |---|---|---|
+| 🔴 **A composição documental de uma transação normal, agora com o número exato:** a marca desembolsa R$ 1.260, o criador recebe R$ 1.080, a plataforma fica com R$ 180. **Quantas notas existem, de quem para quem, e de qual valor?** | Contador | **Primeiro contrato pago** |
+| **Os 5% da marca são receita de serviço da INFLUENTZ ou desconto no preço do criador?** Muda a base do Simples e muda quem emite o quê | Contador | Primeiro contrato pago |
+| **Retenção de 15 dias do provedor em conta nova:** receita reconhecida na venda ou na liquidação? Afeta o primeiro trimestre inteiro | Contador | Código de pagamento |
+| **Chargeback de venda parcelada** revertido integralmente: como estornar a comissão e os juros já tributados de uma transação que atravessou dois exercícios | Contador | Código de pagamento |
 | 🔴 **A composição documental de uma transação normal.** Com split na origem, a marca desembolsa R$ 1.200 e recebe uma nota do criador de quanto — R$ 1.200 ou R$ 1.080? E a nota da INFLUENTZ pela comissão, existe? **É a pergunta mais urgente da lista: bloqueia o primeiro contrato pago, não o código.** O contador da primeira marca recusa o lançamento da despesa e o contrato nº 1 já vira problema. Até haver resposta, o contrato em PDF declara a composição do valor | Contador | **Primeiro contrato pago** |
 | Regime tributário, retenção de IR sobre comissão, obrigações acessórias | Contador especializado em plataforma digital | Código de pagamento |
 | Como lançar a perda de chargeback: despesa do período ou provisão? O fundo de contestação é conta contábil ou só segregação de caixa? | Contador | Código de pagamento |
@@ -761,6 +901,7 @@ Um marketplace vazio não tem produto. Isso não é marketing, é viabilidade.
 | **Cláusula de permanência mínima da publicação** (§8.2) e a consequência de remover antes do prazo | Advogado | Lançamento |
 | **Divulgação dos juros de parcelamento** conforme CDC art. 52 — taxa efetiva, número de parcelas e montante total | Advogado | Checkout |
 | **Contrato-quadro corporativo** da conta verificada (§4.3.1.1) — peça jurídica nova | Advogado | Cliente corporativo |
+| 🔴 **Quando a plataforma suspende um contrato por suspeita de lavagem, o que ela faz com o dinheiro?** Devolver ao pagador pode ser completar a lavagem; reter sem cláusula é apropriação. **É a única pergunta desta lista que não tem resposta boa improvisada no dia** | Advogado | Lançamento |
 | Contrato de operador de dados com o agregador de métricas, e menção nominal na Política de Privacidade | Advogado | Contratar o agregador |
 | Declaração escrita do agregador de que a aprovação da Meta dele cobre o uso pelo cliente final | Advogado | Contratar o agregador |
 

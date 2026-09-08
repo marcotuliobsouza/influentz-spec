@@ -194,7 +194,9 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 | **Métrica só por API oficial. Não existe captura de tela, número digitado nem aprovação manual de métrica** | SPEC §9 |
 | **O criador nunca espera mais que o prazo do meio de pagamento.** Proteção contra chargeback vem de teto por transação e fundo da plataforma, nunca de reter dinheiro do criador | SPEC §4.3 |
 | **Teto é só do cartão.** Pix e boleto nunca têm teto — chargeback só existe no cartão. Empresa verificada (KYB) entra em R$ 15.000 no dia 1, sem histórico | SPEC §4.3.1 |
-| **Quem parcela paga os juros (1,99% a.m.), e eles financiam a data única do criador.** A plataforma não absorve e o criador não paga. Split do criador é valor fixo, nunca percentual | SPEC §4.2 |
+| 🟡 **Cartão só à vista no v1.** Parcelamento existe escrito e **desligado**: a antecipação exige 60 dias de histórico de cartão e a tabela de taxas do nosso plano não é pública. Liga por chave no Admin quando três respostas escritas do provedor chegarem | SPEC §4.2.4 |
+| **Comissão sai dos dois lados: 10% do criador + 5% da marca.** A marca vê o preço final desde a busca, com os 5% dentro. **Piso: comissão efetiva nunca abaixo do custo do meio de pagamento + 3 pontos** | SPEC §4.4.1 e §4.5 |
+| **Pix tem reversão por fraude (MED 2.0, desde 02/02/2026), com bloqueio de 72 h antes da análise.** Só o boleto é irreversível de verdade | SPEC §4.2.2 |
 | **Repasse é automático, varredura diária, piso de R$ 50, tarifa por conta da plataforma.** Nunca aprovação manual | SPEC §4.6.1 |
 | **O dinheiro é liberado na publicação confirmada por API, não na aprovação do arquivo.** Permanência mínima padrão: 90 dias | MAQUINA §8.0.1, SPEC §8.2 |
 | **Agência sai do v1. Pedido aberto fica no v1** | FEATURE-MATRIX §5.7 |

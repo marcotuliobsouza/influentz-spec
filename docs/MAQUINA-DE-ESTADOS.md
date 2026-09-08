@@ -319,19 +319,21 @@ stateDiagram-v2
     [*] --> planejado
     planejado --> aguardando_pagamento
     aguardando_pagamento --> financiado
+    financiado --> aguardando_insumo
+    aguardando_insumo --> em_execucao
     financiado --> agendado
     agendado --> em_execucao
     financiado --> em_execucao
-    em_execucao --> entregue
-    entregue --> ajuste_solicitado
+    em_execucao --> em_comprovacao
+    em_comprovacao --> ajuste_solicitado
     ajuste_solicitado --> reenviado
     reenviado --> ajuste_solicitado
     reenviado --> aprovado
-    entregue --> aprovado
-    aprovado --> publicado
-    publicado --> permanencia_cumprida
-    publicado --> removido_antes_do_prazo
-    entregue --> em_disputa
+    em_comprovacao --> aprovado
+    aprovado --> em_permanencia
+    em_permanencia --> concluido
+    em_permanencia --> removido_antes_do_prazo
+    em_comprovacao --> em_disputa
     ajuste_solicitado --> em_disputa
     em_disputa --> aprovado
     em_disputa --> cancelado
@@ -344,47 +346,109 @@ stateDiagram-v2
 | `planejado` | Definido no contrato, ainda não financiado | Neutro |
 | `aguardando_pagamento` | Cobrança emitida para este marco | Atenção |
 | `financiado` | **Dinheiro retido.** O criador pode começar | Protegido |
-| `aguardando_produto` | 🔴 **Estado que faltava.** Campanha exige produto físico e ele ainda não chegou. **O relógio de entrega do criador não corre aqui** | Atenção |
-| `agendado` | Só tipo D (presencial): data confirmada pelos dois | Info |
+| `aguardando_insumo` | A marca ainda não entregou o que o criador precisa para trabalhar — produto físico, acesso, roteiro. **O relógio do criador não corre aqui** | Atenção |
+| `agendado` | Data confirmada pelos dois (regime P3 e entregas com data fixa) | Info |
 | `em_execucao` | Trabalho em andamento | Info |
-| `entregue` | Criador submeteu. **Começa o relógio da aprovação** | Atenção |
+| `em_comprovacao` | 🔴 O criador cumpriu **o que o contrato define como prova**. Começa o relógio da aprovação | Atenção |
 | `ajuste_solicitado` | Marca pediu revisão referenciada ao briefing (§12.1) | Atenção |
-| `reenviado` | Criador reenviou. Relógio recomeça | Atenção |
-| `aprovado` | Aprovado pela marca **ou por prazo vencido** | Sucesso |
+| `reenviado` | Criador reenviou | Atenção |
+| `aprovado` | Aprovado pela marca **ou por prazo vencido**. 🔴 **É aqui que o dinheiro é liberado, em todos os regimes** | Sucesso |
+| `em_permanencia` | Obrigação **depois** do pagamento: a publicação precisa continuar no ar pelo prazo combinado | Info |
+| `removido_antes_do_prazo` | Saiu do ar antes. Entra na caixa de entrada e conta no histórico do criador — **nunca gera estorno automático** | Atenção |
+| `concluido` | Permanência cumprida, ou regime que não tem permanência | Sucesso |
 | `em_disputa` | Congela tudo | Crítico |
 | `cancelado` | Não será entregue | Neutro |
 
-### 8.0.1 `publicado` — o dinheiro sai contra a publicação, não contra o arquivo 🔴
+### 8.0.1 Os quatro regimes de prova 🔴
 
-**O que a marca compra é uma publicação no ar, não um arquivo aprovado.** Liberar o dinheiro contra o arquivo permitiria ao criador receber sem publicar, publicar e apagar no dia seguinte, ou publicar sem marcar parceria paga — e a plataforma não teria prova de nada numa disputa.
+**A regra geral:** *o dinheiro é liberado no evento comprovável mais próximo daquilo que a marca comprou* — e esse evento é escrito na tela, com todas as letras, **antes de qualquer um aceitar**.
 
-**Por isso o marco tem dois momentos, não um.**
+⚠️ **Por que a regra anterior não servia.** Ela dizia que o dinheiro sai na publicação conferida por API. Isso resolve o post patrocinado e **não resolve o resto do produto**: em UGC o criador entrega o vídeo e **quem publica é a marca, no perfil dela** — não existe post do criador para conferir. Palestra, evento presencial, foto de produto e dublagem também não terminam em publicação. Com a regra antiga, **um contrato de palestra não tinha nenhum evento capaz de fechá-lo**: nascia sem estado terminal alcançável sem intervenção manual.
 
-| Estado | O que é | Quem age |
+| Regime | Quando se aplica | O que prova a entrega |
 |---|---|---|
-| `entregue` | O arquivo subiu, para a marca aprovar antes de ir ao ar | Criador |
-| `aprovado` | A marca aprovou o conteúdo. **O dinheiro ainda não sai** | Marca |
-| `publicado` | 🔴 **Novo.** O criador cola o permalink; a plataforma **confere pela API que já está conectada** que o post existe, é da conta conectada, tem a data — e traz alcance e engajamento na mesma chamada. **É aqui que o repasse é liberado** | Criador + API |
-| `permanencia_cumprida` | O post ficou no ar pelo prazo combinado | Sistema |
-| `removido_antes_do_prazo` | 🔴 **Novo.** Sumiu antes. Entra na caixa de entrada do operador e conta no histórico do criador | Sistema |
+| **P1 — automática** | Post, Reels ou vídeo **no perfil do criador**, em rede que ele tem conectada | Link + conferência na API. 🔴 **A conta é identificada pelo id numérico congelado no contrato no momento do aceite — nunca pelo @**, que se troca em dez segundos |
+| **P1-S — automática com janela** | Stories | Idem, **enquanto está no ar** — a plataforma consulta em até 12 h, senão a prova evapora |
+| **P2 — bilateral** | **UGC** (a marca publica), foto de produto, dublagem, roteiro, review entregue, e qualquer rede **não conectada** | Arquivo entregue + aceite da marca, **ou o relógio de aprovação automática** |
+| **P3 — comparecimento** | Palestra, evento, presença presencial | **Duas confirmações**, com data e hora. A de qualquer um dos dois lados basta se a outra não vier no prazo |
+| **P4 — documental** | Whitelisting, Spark Ads, anúncio no perfil do criador | **O código ou a permissão de anúncio**, com validade declarada. Entregue o código válido, o marco está cumprido — usar a tempo é problema da marca |
 
-🟢 **Zero trabalho manual, zero captura de tela.** A conexão de rede já existe (SPEC §9) e a mesma chamada que traz seguidores traz o post. É coerente com a regra travada: **na INFLUENTZ nada é provado por print.**
+🔴 **O regime não é escolhido pelo usuário.** Ele é **derivado** de dois campos da proposta: `tipo_de_entrega` e **`quem publica`** (criador / marca / ninguém). Se quem publica é a marca, o regime é P2 e **a tela nem oferece campo de link**. Se é o criador, a proposta **só aceita rede que ele já tem conectada** — senão o contrato nasceria prometendo uma prova que a plataforma não consegue produzir.
 
-**Permanência mínima é campo estruturado da proposta, com padrão de 90 dias** (SPEC §8.2). Como o link fica guardado, conferir se o post continua no ar é uma consulta por dia.
+**O P1 não enfraquece.** Nele, `em_comprovacao` só é alcançável com o link já conferido pela API, então aprovar é aprovar um post que a plataforma já viu no ar. A ordem no P1 continua sendo: aprovar o material **antes** de publicar → publicar → conferir por API → liberar.
 
-⚠️ **Ordem dos fatores, para não punir a ponta errada:** se o criador publicou e a plataforma não consegue conferir por falha da API, **o dinheiro não fica preso** — o caso vai para a caixa de entrada com o link, e o operador decide. Falha nossa não vira prejuízo dele.
+**Onde não há prova automática, não se inventa prova frágil.** Em UGC o critério honesto é o aceite da marca com relógio, e a proteção vem de quatro coisas que custam pouco: arquivo datado com hash na trilha de auditoria; **arquivo de revisão com marca d'água, e o original liberado só na aprovação**; **os direitos de uso só transferem na aprovação** — usar sem aprovar é uso não licenciado, não desacordo comercial; e aprovação automática por prazo, para que o silêncio não vire arma.
 
-### 8.0 `aguardando_produto` — a trava que faltava 🔴
+❌ **Afiliado e performance ficam fora do v1**, e o motivo é o escrow: valor variável não pode ser financiado antes do início. Sem valor conhecido não há o que reter, não há comissão calculável e não há disputa julgável.
 
-O `PRODUTO-DETALHADO.md` §2.B previa este estado e ele nunca entrou aqui. Sem ele, acontece o seguinte: **o prazo do criador corre enquanto o produto está nos Correios, e ele leva penalidade por atraso que é da marca.**
+### 8.0.2 O que o usuário vê antes de aceitar
 
-**Regras:**
+Um bloco fixo na proposta, **com o mesmo texto para os dois lados**, congelado no contrato:
 
-1. O marco entra em `aguardando_produto` logo depois de `financiado`, quando a proposta marca "requer envio de produto".
-2. **O relógio de entrega só começa quando o recebimento é confirmado.** Isso não é gentileza — é o único jeito de o prazo ser justo.
-3. A marca lança o código de rastreio; o criador confirma o recebimento.
-4. **Prazo-limite de recebimento.** Vencido, sem produto: a marca reenvia, ou o contrato é **cancelado com reembolso integral e sem culpa do criador** — ele não pode ser penalizado por extravio.
-5. Extravio declarado por qualquer uma das partes abre revisão no Trust & Safety.
+> **O que libera o pagamento de R$ 1.200**
+> ✅ Você publica o Reels no @perfil e cola o link aqui. A INFLUENTZ confere na API do Instagram que o post está no ar. *(P1)*
+>
+> ✅ Você entrega os 3 vídeos em MP4. A marca tem **7 dias** para aprovar ou pedir ajuste. **Sem resposta dela, é aprovado automaticamente e você recebe.** Quem publica é a marca — não há link para colar. *(P2)*
+>
+> ✅ Você comparece **dia 14/10, às 19h, na Av. Paulista 1000**. Os dois confirmam a presença no app. **Se a marca não confirmar em 7 dias, vale a sua confirmação.** *(P3)*
+
+Uma frase, valor incluído, e sempre com **quem perde no silêncio** explícito.
+
+### 8.0.3 Permanência — obrigação depois do pagamento, e o padrão varia por tipo
+
+⚠️ **Permanência não retém dinheiro.** Se ela segurasse o repasse, o criador esperaria 90 dias para receber — o oposto da regra travada. Descumprir gera registro, cláusula e direito de disputa da marca; **nunca estorno automático**.
+
+| Tipo | Permanência padrão |
+|---|---|
+| Feed e Reels | **90 dias** |
+| **Stories** | **24 horas** |
+| P2, P3 e P4 | não se aplica |
+
+🔴 **Stories com padrão de 90 dias nasceria descumprido**, porque Stories expira em 24 horas. O padrão passa a ser por tipo de entrega, não único.
+
+### 8.0.4 Produto físico — três vozes, e a transportadora é a que decide 🔴
+
+**O relógio do criador não corre enquanto o produto está a caminho.** Isso não é gentileza: é o único jeito de o prazo ser justo, porque o atraso dos Correios é da marca, não dele.
+
+⚠️ **Mas só o criador confirmando o recebimento dá a ele o poder de travar o contrato mentindo.** Por isso são três vozes:
+
+| Voz | O que diz | Efeito |
+|---|---|---|
+| **Marca** | Declara o envio e o **código de rastreio** | Sem código no prazo, é ela que está em falta |
+| **Transportadora** | Postado · em trânsito · **entregue** · devolvido · extraviado | 🔴 **É a fonte da verdade sobre a chegada** |
+| **Criador** | "Recebi e está conforme" · "Chegou errado ou danificado" (com foto) · "Não chegou" | Confirma **conformidade**, não chegada. A foto vira prova |
+
+**O criador deixa de confirmar *se chegou* e passa a confirmar *se veio certo*.**
+
+🔴 **O relógio começa pelo que vier primeiro, e isso é a correção mais importante desta seção:**
+
+1. o criador confirma; **ou**
+2. o rastreio marca "entregue" (mais 24 h); **ou**
+3. vence o prazo desde a postagem sem nenhuma contestação registrada.
+
+**A confirmação do criador continua existindo — ela deixa de ser um veto.** Sem isso, um clique mentiroso entrega o produto de graça: o marco trava, o contrato é cancelado com reembolso integral, e o golpista fica com a mercadoria. Repetível com quantas marcas ele quiser.
+
+**Quando as vozes discordam** — rastreio diz entregue e o criador diz que não chegou: o relógio **não** começa, e o caso vai para a caixa de entrada **com o registro da transportadora anexado**. O padrão da decisão é o rastreio, salvo prova em contrário. **Não é automático** — baixa indevida existe, e punir o criador por isso seria punir a ponta errada. Mas a alegação dele agora contradiz um documento de terceiro, em vez de valer sozinha.
+
+| Situação | Prazo | O que acontece |
+|---|---|---|
+| Marca lança o rastreio | 5 dias úteis após `financiado` | Vencido: aviso. Aos 10 dias úteis: cancelamento com **reembolso integral e sem culpa do criador** |
+| Rastreio marca "entregue" | — | O relógio do criador começa 24 h depois, sozinho |
+| Sem evento de entrega | 15 dias corridos da postagem | A marca reenvia uma vez, ou cancelamento com reembolso integral |
+| Entregue e o criador silencia | 24 h | O relógio corre. **Silêncio não trava mais o contrato** |
+| "Chegou errado ou danificado" | imediato | Volta para `aguardando_insumo`, caixa de entrada com a foto, marca reenvia ou cancela |
+
+🔴 **"Não recebi" é alegação registrada, não estado silencioso.** Vai para a caixa de entrada com rastreio, endereço e valor, **e fica no histórico do criador**. Duas alegações de não-recebimento com rastreio marcado como entregue = revisão de conta. **É o registro que mata o golpe repetível — não a apuração do caso isolado.**
+
+⚠️ **Enquanto a alegação estiver aberta, o prazo do criador fica suspenso.** O que corre é a apuração, nunca a penalidade. E a alegação só pesa contra ele **quando o rastreio diz "entregue" e ele diz que não** — criador em área de entrega ruim não pode ser punido por estatística.
+
+**Rastreio é obrigatório quando a proposta marca "requer envio".** Sem código lançado, a marca não avança o marco. ⚠️ **Exceção honesta:** entrega em mãos e motoboy existem — nesse caso o modo é *"entrega sem rastreio"*, com **confirmação bilateral** e foto do produto pelo criador. Quem abre mão da prova assume a regra mais lenta.
+
+**Acima de R$ 1.000 de valor declarado, o envio exige comprovação de entrega** (aviso de recebimento ou entrega com assinatura), paga pela marca. Um produto de R$ 3.000 sem prova de entrega é um convite.
+
+🔴 **A API dos Correios não serve, e isso muda o desenho.** Ela passou a exigir contrato e **só permite consultar objetos do próprio remetente** — a INFLUENTZ não pode rastrear um objeto postado pela marca ([Correios — Desenvolvedores](https://www.correios.com.br/atendimento/developers)). A rota que funciona é agregador de rastreio: o **17TRACK** cobre os Correios e dá **100 consultas gratuitas por mês** ([17TRACK](https://www.17track.net/en/carriers/correios-brazil), [planos](https://help.17track.net/hc/en-us/articles/37575217580825-Plan-Details)). Com cerca de 6 objetos por mês no lançamento, o custo é **zero**. Mesma regra do agregador de métricas: **adaptador próprio, fornecedor trocável.** ⚠️ Preço dos planos pagos e cobertura de transportadoras privadas não confirmados — entram na lista de perguntas de fornecedor.
+
+⚠️ **O que isso quebra para um cliente legítimo:** o criador que viaja e pega o produto na portaria três dias depois vê o relógio já correndo. Saída: um botão de **"recebi hoje, não na data do rastreio"**, que ajusta uma vez e fica registrado.
 
 ### 8.1 Financiamento marco a marco 🟢
 
@@ -413,11 +477,40 @@ O espelho da lacuna anterior, e a SPEC também não cobre.
 
 🔵 **Proposta:** o **prazo de entrega é campo obrigatório e estruturado da proposta** (SPEC §3.1). Vencido o prazo, mais uma tolerância de **3 dias**, a marca ganha dois botões: *cancelar e receber de volta* ou *abrir disputa*. Sem prazo estruturado, não existe vencimento — e sem vencimento, o dinheiro da marca fica preso pelo lado inverso.
 
-### 8.4 🔵 Quantas revisões estão incluídas?
+### 8.4 Revisões — quem define, quantas, e o que impede o loop infinito 🔴
 
-A SPEC §12.1 dá à marca o direito de pedir ajuste, mas não diz quantas vezes. Sem limite, "pedir ajuste" vira uma forma educada de nunca aprovar.
+**Quem define o número é o criador**, por item de vitrine ou por proposta, dentro de uma faixa que a plataforma fixa. É ele quem paga o custo do retrabalho.
 
-**Proposta:** o número de revisões incluídas é **campo estruturado da proposta**, com padrão **2**. Isso se encaixa exatamente na lógica da SPEC §3.1 — cada campo tem preço implícito, então "revisões ilimitadas" vira um item que a marca pode comprar. Esgotadas as revisões, os caminhos são aprovar, comprar mais uma revisão ou abrir disputa.
+| Parâmetro | Regra |
+|---|---|
+| Faixa permitida | **1 a 5.** Padrão **2** |
+| "Revisões ilimitadas" | ❌ **Proibido.** Não é vantagem comercial: é disputa com hora marcada |
+| Onde aparece | Ao lado do preço, na vitrine e na proposta: *"2 rodadas de ajuste incluídas"* |
+| Negociação | Só no pedido aberto, como campo estruturado — nunca em texto solto |
+
+*Referência de mercado:* no Fiverr o número é definido pelo vendedor no pacote e revisão extra é vendida à parte; no Upwork o mecanismo equivalente é o aditivo sobre o marco, e a própria plataforma reporta que **41% das disputas vêm de confusão de escopo**.
+
+🔴 **A regra que fecha o botão de nunca pagar.** A versão anterior dizia que pedir ajuste pausa o relógio e ele reinicia do zero a cada reenvio. Sem limite de rodadas, isso é um jeito educado de nunca aprovar.
+
+> **Só as revisões incluídas pausam e reiniciam o relógio. Esgotadas, o relógio corre até o fim e aprova.** A marca continua com três saídas: aprovar, propor aditivo, ou abrir disputa.
+
+### 8.4.1 Ajuste ou mudança de escopo — o critério é mecânico, não é opinião
+
+O critério já existia no produto e ninguém tinha usado: **os campos estruturados congelados no contrato.**
+
+> **Ajuste** = pedido que pode ser cumprido **sem alterar nenhum campo congelado** — formato, duração, quantidade, plataforma, data, local, roteiro já aprovado, menções obrigatórias.
+> **Mudança de escopo** = pedido que **só** pode ser cumprido alterando um deles.
+
+**Como se decide, sem depender de quem grita mais:**
+
+1. A marca pede o ajuste **referenciado ao ponto do briefing**.
+2. O criador tem um botão **"isso muda o escopo"** — e é obrigado a **apontar qual campo congelado muda**. Sem apontar campo, o botão não envia.
+3. Apontado o campo, o pedido vira **aditivo proposto**, com preço e prazo novos. A marca aceita, retira o pedido, ou abre disputa.
+4. **O relógio congela enquanto o aditivo está pendente, por até 3 dias** — senão o aditivo vira a nova forma de empurrar.
+
+O criador decide primeiro porque carrega o custo e porque a alegação dele é **verificável contra um campo**, não contra um sentimento. A marca nunca fica sem saída: tem a disputa, e na disputa a prova já está pronta — o campo congelado contra o pedido escrito.
+
+**O efeito esperado com 20 contratos por mês** (premissas declaradas: 15% pedem ajuste, 1 em 4 desses esgota as revisões): sem limite e sem aditivo, 2 a 3 casos abertos por mês, sem prazo, nenhum fechando sozinho. Com a regra, **0,5 a 0,8 disputa por mês**. E o ganho maior não é o número — é que **o caso que sobra já chega com a prova pronta**, então mediar leva minutos.
 
 ### 8.5 Tipo D (presencial e híbrido) — estados extras 🔴
 

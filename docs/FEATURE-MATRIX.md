@@ -36,6 +36,7 @@ Todo usuário tem web, iOS e Android com função completa. O que muda é para q
 | 10 | Desconectar rede | E |
 | 11 | Selo "conectado por API" com a data da última atualização, em toda métrica | E |
 | 12 | Renovação automática de acesso, com aviso de reconexão quando falha | E |
+| 12.1 | **Série histórica de seguidores**, gravada desde o primeiro dia | E |
 
 **Na INFLUENTZ não existe métrica que não venha da API oficial da rede.** Sem captura de tela, sem número digitado, sem aprovação manual.
 
@@ -107,8 +108,8 @@ Duas regras que valem em toda tela onde aparece número:
 |---|---|---|
 | 33 | Enviar a entrega | E |
 | 34 | Ver o pedido de ajuste referenciado ao ponto exato do briefing | E |
-| 35 | Confirmar identificação publicitária | E |
-| 36 | **Prova de publicação:** colar o link do post publicado | E |
+| 35 | Confirmar identificação publicitária, **e declarar uso de inteligência artificial** (não / parcial / integral) | E |
+| 36 | **Confirmar a entrega no formato que o contrato pede** — link do post (P1), arquivo (P2), check-in de comparecimento (P3) ou código de anúncio (P4) | E |
 
 **Sobre a função 33.** A entrega exige um **arquivo de revisão em MP4/H.264** — que é o que o criador exporta para a rede de qualquer jeito. O arquivo original é opcional e só é liberado à marca depois da aprovação. Entrega com várias peças permite **aprovar peça a peça**, para o criador não refazer três Stories por causa de um.
 
@@ -128,7 +129,7 @@ O relógio de entrega do criador **só começa a correr quando ele confirma o re
 |---|---|---|
 | 38 | Carteira: protegido · aguardando prazo · disponível | E |
 | 39 | Extrato com a origem de cada valor | E |
-| 40 | Cadastrar e trocar conta bancária, com reconfirmação por e-mail | E |
+| 40 | Cadastrar e trocar conta bancária — **aviso vai para o e-mail ANTERIOR**, e o repasse automático tem carência de 24 h | E |
 | 41 | Sacar fora do ciclo automático, com a tarifa exibida antes | E |
 | 42 | Ver o motivo da recusa do provedor e reenviar documento | E |
 | 43 | Cadastro fiscal, com aviso sobre formalização | E |
@@ -185,7 +186,7 @@ O relógio de entrega do criador **só começa a correr quando ele confirma o re
 | 66 | Fatura INFLUENTZ: pró-forma e boleto com vencimento acordado | E |
 | 67 | Notas fiscais e recibos | E |
 | 68 | Baixar a nota do criador dentro do contrato | E |
-| 69 | Dados de reembolso no checkout de Pix e boleto | E |
+| 69 | Dados de reembolso — **só para boleto e para Pix fora de 90 dias** | E |
 
 **Sobre a 65 e a 66 — a rota do cliente grande.** Empresa grande no Brasil paga fornecedor por boleto contra nota fiscal, dentro do contas-a-pagar. **Pix e boleto nunca têm teto.** A conta verificada existe para que uma empresa legítima entre com limite alto no cartão **no primeiro dia, sem precisar construir histórico**.
 
@@ -233,7 +234,7 @@ O criador precisa saber quem está contratando ele antes de aceitar.
 | 82 | Buscar usuário e ver histórico completo | E |
 | 83 | Suspender ou banir, com motivo registrado | E |
 | 84 | Registro de auditoria imutável | E |
-| 85 | Consulta a listas restritivas no cadastro e antes de contrato de valor alto | E |
+| 85 | Consulta a listas restritivas no cadastro e antes de contrato de valor alto. Restrição interna é por **sócio, não por CNPJ**, e por vários atributos — sempre como sinal, nunca como bloqueio automático | E |
 | 86 | Reconciliação de pagamento: reconsultar o provedor e destravar o contrato | E |
 | 87 | Teto de exposição por cobrança no cartão, com degraus por histórico e por verificação | E |
 | 88 | **Caixa de entrada do operador** | E |
