@@ -158,7 +158,17 @@ Os termos comerciais são **campos estruturados**, não texto solto. Isso elimin
 
 📌 **O que as plataformas comparáveis fazem:** a **Fiverr** debita do saldo do freelancer e só o protege "a seu exclusivo critério". A **Upwork** briga com o banco e preserva o pagamento do freelancer, desde que o fluxo dela tenha sido seguido. **Nenhuma das duas retém 90 dias do prestador.** E na Stripe Connect, no modelo que a INFLUENTZ usa, **a plataforma é sempre a responsável final** — isso não é escolha generosa, é como o sistema de cartão funciona. Fontes: [Stripe — Disputes on Connect platforms](https://docs.stripe.com/connect/disputes), [Fiverr](https://help.fiverr.com/hc/en-us/articles/360010978618-Chargebacks-and-freelancer-protection), [Upwork](https://support.upwork.com/hc/en-us/articles/14085353385747-What-happens-if-you-file-a-chargeback-as-a-client-on-Upwork).
 
-### 4.3.1 O teto do cartão e a escadinha 🎯 decidido em 08/09/2026
+### 4.3.1 O teto do cartão e a escadinha ⚠️ EM REVISÃO — não construir ainda
+
+🔴 **Reprovado pelo dono em 08/09/2026, e com razão.** O teto abaixo foi derivado só do risco de fraude, sem ninguém testar o que ele faz com um cliente legítimo grande:
+
+> *"se uma empresa como COCA COLA usar nossa plataforma e serviço for 30.000 reais a contratação do creator, ela nao vai poder... se limitar, nao teremos clientes pra creators e vice versa"*
+
+**O texto abaixo fica registrado porque a matemática do risco continua válida — mas a regra vai ser refeita** com caminho de conta corporativa, e com a pergunta que faltou: *o que isso quebra para o melhor cliente possível?* Ver `CLAUDE.md` §2.3.
+
+⚠️ **Duas coisas que já estão claras e mudam o desenho:** o teto só faz sentido **no cartão** — Pix e boleto nunca tiveram teto, e no B2B brasileiro um contrato de R$ 30.000 dificilmente é pago no cartão. E um CNPJ verificado com contrato assinado e nota fiscal emitida **não tem o mesmo risco de contestação que um cartão anônimo** — tratar os dois igual é o erro de origem.
+
+
 
 > **Revisado por:** especialista `financeiro`. **Decisão tomada por Claude, não pelo Marco** — parâmetro com referência de mercado é categoria B do `CLAUDE.md` §2.1.
 

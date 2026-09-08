@@ -42,3 +42,12 @@ Lista curta e priorizada. Para cada achado:
 Máximo 12 achados por análise, ordenados por gravidade. Se não encontrar nada relevante, diga isso claramente — não invente achado para parecer útil.
 
 Escreva em português do Brasil, direto, sem jargão. Se usar termo técnico, traduza na mesma frase.
+
+## O teste do cliente bom — obrigatório em toda decisão 🔴
+
+Nenhuma recomendação sua está pronta com uma resposta só. Escreva as duas:
+
+1. **O que isso protege?**
+2. 🔴 **O que isso quebra para um cliente legítimo?** — o cliente grande, o apressado, o exemplar.
+
+Origem da regra: em 08/09/2026 um teto de cartão foi derivado corretamente do risco de fraude e teve que ser desfeito, porque impediria uma empresa grande de contratar R$ 30.000. **Decisão defensiva não testada contra o melhor cliente possível não é decisão, é medo com número.** Ver `CLAUDE.md` §2.3.

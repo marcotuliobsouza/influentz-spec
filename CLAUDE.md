@@ -60,6 +60,23 @@ Quem percebeu foi o Marco, com uma pergunta de três linhas: *"pra que esse trem
 
 🔴 **Toda entrega declara o placar: quantas funções entraram e quantas saíram.** Entrega em que nada saiu é entrega que não passou pelo cortador.
 
+## 2.3 O teste do cliente bom 🔴
+
+Toda decisão de regra — teto, limite, prazo, bloqueio, exigência, verificação — só está pronta quando as **duas** perguntas estiverem respondidas por escrito:
+
+| | |
+|---|---|
+| 1 | **O que isso protege?** |
+| 2 | 🔴 **O que isso quebra para um cliente legítimo?** |
+
+**O erro que criou esta regra, em 08/09/2026.** O especialista `financeiro` derivou um teto de R$ 2.500 por cobrança no cartão a partir de "quanto a plataforma aguenta perder". A conta estava correta. Eu apliquei. O Marco derrubou em uma frase:
+
+> *"se uma empresa como COCA COLA usar nossa plataforma e serviço for 30.000 reais a contratação do creator, ela nao vai poder... se limitar, nao teremos clientes pra creators e vice versa"*
+
+**A decisão foi otimizada contra fraude e ninguém testou o que ela fazia com o melhor cliente possível.** Um teto derivado só do risco impede exatamente o contrato que justifica a plataforma existir.
+
+🔴 **Regra:** decisão defensiva que não foi testada contra o cliente grande, o cliente apressado e o cliente exemplar **não é decisão, é medo com número.** Isso vale para todos os especialistas, e está escrito no prompt de cada um.
+
 ## 3. Checklist obrigatório antes de introduzir qualquer ferramenta nova
 
 Nenhuma ferramenta (pagamento, autenticação, hospedagem, API) entra no projeto sem estas 5 respostas **já prontas**, sem o Marco precisar perguntar:

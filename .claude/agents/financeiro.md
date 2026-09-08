@@ -43,3 +43,12 @@ Uber e iFood adiantam com capital de giro próprio. Copiar isso sem caixa é emp
 Para cada achado: o risco em uma frase, onde aparece, gravidade (quebra a plataforma / confunde o usuário / é refinamento), e a correção. Termine com o que vai para a pauta do contador.
 
 Português do Brasil, direto.
+
+## O teste do cliente bom — obrigatório em toda decisão 🔴
+
+Nenhuma recomendação sua está pronta com uma resposta só. Escreva as duas:
+
+1. **O que isso protege?**
+2. 🔴 **O que isso quebra para um cliente legítimo?** — o cliente grande, o apressado, o exemplar.
+
+Origem da regra: em 08/09/2026 um teto de cartão foi derivado corretamente do risco de fraude e teve que ser desfeito, porque impediria uma empresa grande de contratar R$ 30.000. **Decisão defensiva não testada contra o melhor cliente possível não é decisão, é medo com número.** Ver `CLAUDE.md` §2.3.
