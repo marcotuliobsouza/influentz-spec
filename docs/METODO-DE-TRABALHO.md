@@ -116,6 +116,10 @@ Adotado em 08/09/2026, depois de uma falha minha: eu criei o time de especialist
 | Campo, estado, fluxo, caminho de exceção, o que falta | `produto` | Desenhar tela e antes de pedir aprovação |
 | O que vira cláusula, termo, consentimento, dado pessoal, publicidade, menor | `juridico-br` | Escrever a regra |
 | Tela, cor, ícone, contraste, coerência visual | `design` | Mostrar ao Marco |
+| Entrega, repasse, cadastro, disputa — qualquer porta por onde entra golpe | `antifraude` | Escrever a regra |
+| Onde algo é hospedado, quanto custa, quanto aguenta, o que acontece quando cai | `infra` | Prometer velocidade, armazenamento ou disponibilidade |
+| **Tudo, no fim** — a coerência do produto inteiro e o desempate entre especialistas | `arquiteto-produto` | Qualquer coisa chegar ao Marco |
+| **Tudo, no fim** — o que não deveria existir | `cortador` | Qualquer coisa chegar ao Marco |
 
 **E toda entrega passa a declarar quem revisou.** No cabeçalho da entrega, uma linha:
 
@@ -216,12 +220,42 @@ Conversa acaba. Contexto de chat se perde. Pasta de Drive não tem histórico de
 
 | Fonte | O que é |
 |---|---|
-| **Este repositório** (`/docs`) | Fonte de verdade viva. Tudo que decidimos entra aqui |
-| **Drive — `00_CLEAN_ROOM_PRODUCT_ENGINEERING`** | Corpo de trabalho anterior (agosto/2026): Constituição, Registro de Decisões, jornadas, papéis. **Tem decisões APROVADAS que o repositório ainda não reflete** |
-| **Drive — `MARKETING/BRANDING`** | Ativos de marca. Já espelhado em `/docs/marca` |
+| **Este repositório** (`/docs`) | **Fonte de verdade única e viva.** Tudo que é decidido entra aqui |
+| **O painel publicado** | O que o Marco lê. Espelha o repositório, e é atualizado na mesma sessão em que o repositório muda |
+| **Drive — `MARKETING/BRANDING`** | Ativos de marca. Já espelhado em `docs/marca/` |
 | **Canvas do Claude Design** | Telas. Não é fonte de verdade — é reflexo do que está nos documentos |
 
-⚠️ **Enquanto as duas primeiras não forem reconciliadas, nenhuma tela nova deve ser desenhada.** Ver `CONFLITOS-A-RESOLVER.md`.
+🔴 **Todo o resto do Google Drive está fora do projeto, por decisão do Marco** — inclusive `00_CLEAN_ROOM_PRODUCT_ENGINEERING`. Assunto encerrado, não reabrir. Ver `CONFLITOS-A-RESOLVER.md`, que existe só como registro do encerramento.
+
+---
+
+## 9. O portão de entrega — a lista que roda antes de qualquer coisa chegar ao Marco 🔴
+
+**Instituído em 09/09/2026.** O §5.1 criou o portão de *revisão por especialista*, e ele funcionou: as regras passaram a ser revisadas. **Mas o Marco continuou achando buraco** — e a queixa dele nomeia o defeito com precisão:
+
+> *"Percebe que novamente eu que to tentando achar sempre algo? … cada hora vc acha algo estranho ou que ja existia, isso ta bagunçando e tokens cuspindo em excesso … a partir de agora faca a metodologia correta pra seguirmos, se nao sera mais sofrimento, so retorne quando tiver tudo q precisa."*
+
+🔴 **O diagnóstico, sem enfeite: o portão do §5.1 revisa o pedaço, e ninguém verificava o todo antes de entregar.** Eu entregava fatia — a conta de infraestrutura sem a conta de negócio, a regra de repasse sem o custo do repasse — e o Marco virava o integrador que descobre o que ficou de fora. **Entregar meio assunto não é entregar rápido: é terceirizar a costura para quem menos deveria costurar.**
+
+🟢 **A correção: nenhuma entrega sai sem estas nove respostas escritas. Não é sugestão — é a condição para eu falar com ele.**
+
+| # | A pergunta | Falhou quando… |
+|---|---|---|
+| 1 | **O assunto está inteiro?** Não a fatia — o assunto. Se é dinheiro, é a entrada, a saída, a tarifa, o estorno e o piso, tudo | Entreguei o custo de infraestrutura sem o ponto de equilíbrio |
+| 2 | **Que número novo isso cria, e ele foi decidido?** Todo parâmetro com referência de mercado sai decidido por mim, com fonte (§5.0 categoria B) | — |
+| 3 | **Que custo isso cria, com unidade e período?** | Números de armazenamento sem "por mês / por giga" |
+| 4 | **O que isso quebra para o melhor cliente possível?** (`CLAUDE.md` §2.3) | O teto do cartão contra uma marca grande |
+| 5 | **Isso é promessa que a plataforma consegue cumprir e provar?** | A garantia de impulsionamento por meses |
+| 6 | **Que outro documento passa a estar errado por causa disto?** Todos os afetados são corrigidos **na mesma entrega**, nunca "depois" | Comissão dita de duas formas em dois arquivos |
+| 7 | **O `cortador` passou?** E o placar está declarado | — |
+| 8 | **O `arquiteto-produto` passou?** É ele que responde "o produto está coerente" | — |
+| 9 | **O painel publicado foi atualizado?** Documento que ele não abre é documento que não existe | Disse "está no PAINEL.md" a quem nunca abriu o repositório |
+
+⚠️ **A regra de ouro que resume as nove:** eu só chamo o Marco quando **não sobrou nenhuma pergunta que eu conseguiria responder pesquisando.** O teto continua sendo **duas perguntas por entrega**, e o alvo é **zero**.
+
+### 9.1 O que o Marco pode fazer quando o portão falhar
+
+**Devolver sem ler.** Se a entrega não declara quem revisou, ou não traz o placar de cortes, ou levanta uma pergunta que eu poderia ter respondido sozinho, **a resposta certa dele é "voltou para você"** — e isso não é grosseria, é o processo funcionando.
 
 ---
 
