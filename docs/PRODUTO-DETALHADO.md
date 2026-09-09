@@ -193,22 +193,21 @@ Não são escolha do produto — sem eles o usuário não recebe (SPEC §4.8).
 
 ---
 
-## 7. A tela de enviar a entrega — seis obrigações, nenhuma de enfeite 🔴
+## 7. A tela de enviar a entrega — quatro obrigações, nenhuma de enfeite 🔴
 
-**O número que manda nesta tela:** um vídeo de 250 MB pelo 4G brasileiro mediano leva **cerca de 4 minutos e 46 segundos**, e no pior caso quase 7 (SPEC §14.2.8). Isso não é uma barrinha — é tempo suficiente para a pessoa sair do app, atender uma ligação ou a tela bloquear. **Uma tela de envio mal feita transforma esse tempo em entrega abandonada.**
+**O número que manda nesta tela:** um vídeo de 250 MB pelo 4G brasileiro leva **cerca de 5 minutos**, e no pior caso quase 7 (SPEC §14.2.7). Isso não é uma barrinha — é tempo suficiente para a pessoa sair do app, atender uma ligação ou a tela bloquear. **Uma tela de envio mal feita transforma esse tempo em entrega abandonada.**
 
 | # | O que a tela mostra | Por quê |
 |---|---|---|
-| 1 | **Percentual e o número absoluto** — *"128 MB de 250 MB"* | Percentual sozinho parece travado |
-| 2 | **Tempo restante estimado**, recalculado enquanto envia | *"faltam cerca de 2 min"* é a diferença entre esperar e desistir |
-| 3 | **"Pode sair desta tela, o envio continua"** | 🔴 **Só pode ser escrito se o envio realmente continuar em segundo plano.** Se não continuar, a frase é *"mantenha o app aberto"* e a tela impede o bloqueio automático |
-| 4 | **Aviso de dados móveis, com a opção "enviar só no Wi‑Fi"** | 250 MB é fatia relevante de franquia. O arquivo fica na fila e sobe sozinho depois |
-| 5 | **Se falhar: "continuar de onde parou"** | Nunca *"tentar de novo do zero"*. O envio é em partes: uma queda aos 70% custa **9 segundos, não 3 minutos e meio** |
-| 6 | **Ao terminar: confirmação com data, hora e identificador do arquivo** | É isto que vira prova numa disputa |
+| 1 | **O número absoluto, não só o percentual** — *"128 MB de 250 MB"* | Percentual sozinho parece travado. **Não existe estimativa de tempo restante:** em 4G ela erra por um fator de quatro, e prometer "faltam 2 min" para entregar 6 é pior que não prometer nada |
+| 2 | **"Pode sair desta tela, o envio continua"** | ✅ **O envio roda em segundo plano no v1** — decidido, não condicional. A frase só existe porque o comportamento existe |
+| 3 | **Se falhar: "continuar de onde parou"** | Nunca *"tentar de novo do zero"*. O envio é em partes: uma queda aos 70% custa **9 segundos, não 3 minutos e meio** |
+| 4 | **Ao terminar: confirmação com data, hora e identificador do arquivo** | É isto que vira prova numa disputa |
 
 ⚠️ **A borda que precisa aparecer na tela:** um envio interrompido é descartado pelo armazenamento em **7 dias**. A tela diz *"envio pausado — retome até dia X"*.
 
-✅ **O criador nunca precisa saber nada sobre formato de arquivo.** Se o vídeo vier num formato que faria a marca esperar um minuto e meio pelo primeiro quadro, **a plataforma corrige sozinha antes de disponibilizar** (SPEC §14.2.9). Nada é pedido a ele, e nada é recusado por isso.
+❌ **O que não existe, e é decisão, não esquecimento:** *"enviar só quando eu estiver no Wi-Fi"*. Parece um aviso e é uma função inteira — detecção de rede, fila que sobe sozinha depois, e um estado novo de *"o criador enviou mas o arquivo não chegou"* bem no dia do prazo de entrega. **Quem não quer gastar franquia espera chegar em casa e aperta enviar.** Dois minutos por fora, decisão dele, zero código.
+
 
 ---
 

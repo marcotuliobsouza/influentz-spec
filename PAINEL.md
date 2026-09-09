@@ -73,26 +73,28 @@ Contando para trás a partir do primeiro contrato pago:
 
 ## Quanto custa manter a plataforma no ar
 
-**Você perguntou se os valores de armazenamento eram por mês, por ano ou por giga. A pergunta era justa — os números saíam sem unidade. Agora todo número tem unidade e período.**
+**Você perguntou se os valores de armazenamento eram por mês, por ano ou por giga. A pergunta era justa — os números saíam sem unidade, o que é o mesmo que não sair. Refiz a conta inteira. Agora toda linha tem unidade e período.**
 
 | Fase | **Por mês** | Uma vez só |
 |---|---|---|
-| **Enquanto só existe desenvolvimento** (nenhuma cobrança real) | **R$ 3,33** — é o domínio, diluído em 12 meses | — |
-| **Primeiro contrato de verdade** (o seu, no teste) | **R$ 296,21** | R$ 137,50 na Google Play |
-| **Lançamento** — 20 contratos por mês | **R$ 312,35** | — |
-| **Operação** — 1.000 contratos por mês | **R$ 1.836,48** (sem o fornecedor de métricas) | — |
+| Enquanto só existe desenvolvimento (nenhuma cobrança real) | **R$ 3,33** — é o domínio, diluído em 12 meses | — |
+| Primeiro contrato de verdade (o seu, no teste) | **R$ 296,21** | R$ 137,50 na Google Play |
+| **Lançamento** — 20 contratos por mês | **R$ 307,76** | — |
+| Operação — 1.000 contratos por mês | **R$ 1.607,13** (sem o fornecedor de métricas) | — |
 
-**Isso é só tecnologia.** Com o contador, o lançamento fica entre **R$ 507 e R$ 912 por mês**. **Três contratos por mês já pagam a tecnologia inteira**, com ticket de R$ 800.
+**Isso é só tecnologia.** Com o contador, o lançamento fica entre **R$ 503 e R$ 908 por mês**. **De 2 a 5 contratos por mês pagam a tecnologia** e de 5 a 13 pagam tudo, dependendo do ticket. A meta de 20 paga o conjunto em qualquer cenário.
 
-**Duas coisas que eu precisei corrigir para você:**
+**Duas coisas que eu preciso corrigir para você:**
 
 1. 🔴 **Eu te disse que o fornecedor de métricas tem plano gratuito de 250 contas. Isso não está publicado em lugar nenhum.** Fui à página oficial de preços e ela só oferece orçamento sob medida. **A escolha do fornecedor continua certa** — uma integração em vez de três, sem fila de aprovação, sem exigir CNPJ. **O que não está provado é o "R$ 0".** Falta um e-mail pedindo o número por escrito, não uma decisão nova.
 
-2. 🔴 **E a pergunta a fazer antes do preço é maior que o preço:** *a cobrança é por conta conectada ou por consulta?* Conferir que a publicação continua no ar gera cerca de **90 mil consultas por mês** na fase de operação. **Se for por consulta, essa linha sozinha custa mais que toda a infraestrutura junta.** Já reduzimos 79% dessas consultas mudando a frequência da checagem, sem perder nada.
+2. 🔴 **E a pergunta a fazer antes do preço é maior que o preço:** *a cobrança é por conta conectada ou por consulta?* Conferir que a publicação continua no ar gera cerca de **90 mil consultas por mês** na fase de operação. **Se for por consulta, essa linha sozinha custa mais que toda a infraestrutura junta.** Já cortei 79% dessas consultas mudando a frequência da checagem, sem perder nada.
 
-**O que eu descobri e não estava na conta:** conta de desenvolvedor da Apple (US$ 99 por ano), Google Play (US$ 25, uma vez), e **cópia de segurança de verdade** — o plano do nosso banco guarda backup por 7 dias, e a janela em que uma marca pode contestar uma compra chega a **540 dias**. Cópia própria, diária e cifrada, custa centavos e é inegociável.
+**O que eu descobri e não estava na conta:** conta de desenvolvedor da Apple (US$ 99 por ano), Google Play (US$ 25, uma vez), e **cópia de segurança de verdade do banco de dados** — o plano guarda backup por 7 dias, e a janela em que uma marca pode contestar uma compra chega a **540 dias**. Aqui a régua não é "o site saiu do ar", é **"a prova sumiu"**. Cópia própria, diária e cifrada, cabe no plano gratuito e passa a ser obrigatória.
 
-**Uma coisa que o criador vai sentir:** subir um vídeo de 250 MB pelo 4G leva **quase 5 minutos**. A tela de envio agora tem seis obrigações escritas — mostrar quanto falta em minutos, deixar sair da tela sem cancelar, oferecer "só no Wi-Fi", e **retomar de onde parou** em vez de recomeçar do zero.
+**E o plano gratuito da Vercel proíbe uso comercial** — a definição inclui "qualquer método de solicitar ou processar pagamento". **O seu primeiro Pix de teste já dispara isso.** Não é volume, é cláusula.
+
+**Uma coisa que o criador vai sentir:** subir um vídeo de 250 MB pelo 4G leva **quase 5 minutos**. A tela de envio tem quatro obrigações: mostrar MB de MB, deixar sair da tela sem cancelar, **retomar de onde parou** em vez de recomeçar do zero, e confirmar no fim com data, hora e identificador — que é o que vira prova.
 
 ---
 

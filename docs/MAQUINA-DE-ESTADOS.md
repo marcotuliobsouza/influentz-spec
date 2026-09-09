@@ -405,7 +405,7 @@ Uma frase, valor incluído, e sempre com **quem perde no silêncio** explícito.
 
 🔴 **Stories com padrão de 90 dias nasceria descumprido**, porque Stories expira em 24 horas. O padrão passa a ser por tipo de entrega, não único.
 
-**Como a permanência é verificada, e por que a cadência é decisão de custo:** a plataforma consulta a API oficial **uma vez por dia nos primeiros 7 dias e uma vez por semana depois**, até fechar o prazo. Verificar todo dia por 90 dias geraria, na fase de operação, cerca de **90.000 consultas por mês** — noventa vezes o número de criadores conectados. **A cadência escalonada corta 79% das consultas e não perde nada:** remoção precoce quase sempre acontece nos primeiros dias, e a que acontece depois é detectada em até uma semana. Ver `SPEC-INFLUENTZ.md` §14.2.6.
+**Como a permanência é verificada:** a plataforma consulta a API oficial **uma vez por dia nos primeiros 7 dias e uma vez por semana depois**, até fechar o prazo. Remoção precoce quase sempre acontece nos primeiros dias; a que acontece depois é detectada em até uma semana. *(O porquê da cadência é de custo e está em `SPEC-INFLUENTZ.md` §14.2.5.)*
 
 ### 8.0.4 Produto físico — três vozes, e a transportadora é a que decide 🔴
 
