@@ -149,10 +149,23 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 | `juridico-br` | Antes de escrever regra que vira cláusula ou tela |
 | `financeiro` | Antes de escrever qualquer regra de dinheiro |
 | `cortador` | Sempre que a lista de funções crescer, e **obrigatoriamente antes de entregar ao Marco**. É o único que pode deletar |
+| `antifraude` | Antes de escrever regra de entrega, repasse, cadastro ou disputa. Pensa como o golpista |
+| `infra` | Antes de prometer velocidade, armazenamento ou disponibilidade. **Todo número dele tem unidade e período** |
+| 🔴 `arquiteto-produto` | **Coordena os outros.** Resolve conflito entre especialistas, garante que a jornada faz sentido de ponta a ponta, e é o único que responde *"o produto está coerente?"*. **Roda por último, antes de qualquer coisa chegar ao Marco** |
 
 ⚠️ **Regra:** quem escreve não revisa a própria prova. Toda entrega passa pelo especialista antes de chegar ao Marco.
 
-⚠️ **O Marco nunca é o revisor.** Se ele encontrar a lacuna, o processo falhou — `CLAUDE.md` §2.3. Auditar documento é trabalho de especialista, não dele.
+⚠️ **O Marco nunca é o revisor.** Se ele encontrar a lacuna, o processo falhou. Auditar documento é trabalho de especialista, não dele.
+
+🔴 **O defeito que criou o `arquiteto-produto`, registrado em 09/09/2026.** Todos os especialistas eram **revisores por recorte** — cada um certo dentro do próprio pedaço, e **nenhum olhando o produto inteiro**. Resultado: o Marco virou o integrador, o único que percebia quando uma tela estava incompleta ou quando duas decisões se contradiziam. Palavra dele:
+
+> *"vc nao tem um especialista pra coordenar o projeto da nossa plataforma? Pq vc disse q seria orquestrador ou nao? Pois eu to tendo que pensar em tudo, ta dificil… Influentz nao pode ser so mais uma no mercado."*
+
+**A ordem de acionamento passa a ser:** os especialistas de recorte trabalham → **o `arquiteto-produto` recebe tudo, resolve os conflitos e responde pela coerência** → o `cortador` corta o excesso → só então chega ao Marco.
+
+🔴 **Ele decide os impasses; não devolve ao Marco.** Critério de desempate: lei e proteção do dinheiro de terceiro ganham sempre · o que se consegue cumprir e provar ganha do que soa melhor · a experiência de quem paga e de quem recebe ganha da nossa conveniência operacional · o simples ganha do completo quando os dois resolvem.
+
+🔴 **Nada é prometido ao usuário sem que a plataforma consiga cumprir e provar.** Palavra do Marco: *"tem algumas coisas q so podemos prometer se podemos cumprir, provar. Imagina se nao tiver, quantas mediacoes, problemas juridicos teremos?"* Promessa que a plataforma não executa vira mediação, disputa e processo — e vale para o produto inteiro, não só para o item em discussão.
 
 ## 7. Estado atual
 
