@@ -946,6 +946,8 @@ Com 20 contratos/mês, o volume esperado é de **três a seis chamados por mês*
 | **Cláusula de permanência mínima da publicação** (§8.2) e a consequência de remover antes do prazo | Advogado | Lançamento |
 | **Divulgação dos juros de parcelamento** conforme CDC art. 52 — taxa efetiva, número de parcelas e montante total | Advogado | Checkout |
 | **Contrato-quadro corporativo** da conta verificada (§4.3.1.1) — peça jurídica nova | Advogado | Cliente corporativo |
+| **Cláusula sobre o material que a marca envia** (foto de produto, kit de mídia): a declaração de titularidade e o limite de uso pelo criador. Escrita em §8.2 e **ainda não revisada por advogado** | Advogado | Lançamento |
+| **Cláusula da licença de anúncio pago** e da cobrança retroativa por uso sem autorização (PRODUTO §2) — é cobrança sobre fato passado, precisa de redação que sustente | Advogado | Lançamento |
 | 🔴 **Quando a plataforma suspende um contrato por suspeita de lavagem, o que ela faz com o dinheiro?** Devolver ao pagador pode ser completar a lavagem; reter sem cláusula é apropriação. **É a única pergunta desta lista que não tem resposta boa improvisada no dia** | Advogado | Lançamento |
 | Contrato de operador de dados com o agregador de métricas, e menção nominal na Política de Privacidade | Advogado | Contratar o agregador |
 | Declaração escrita do agregador de que a aprovação da Meta dele cobre o uso pelo cliente final | Advogado | Contratar o agregador |

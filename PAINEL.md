@@ -30,7 +30,7 @@ Três coisas fazem a plataforma valer o que cobra:
 |---|---|
 | ✅ **Pronto** | O que o produto faz, como o dinheiro anda, a identidade visual, e as 97 funções do lançamento |
 | ✂️ **Cortado** | O produto pedia coisa demais de quem usa. Tela de contratar de ~25 campos para **6**; direitos de 7 campos para **1**; dez tipos de trabalho para **4** |
-| 🔨 **Agora** | **Uma tela**, para o Marco julgar antes de autorizar o resto |
+| 🔨 **Agora** | **A tela de contratar**, publicada e revisada, esperando o julgamento do Marco antes de autorizar o resto |
 | ⏳ **Depois** | Banco de dados → conexões → código → testes |
 
 ---
@@ -90,6 +90,8 @@ Você pode derrubar qualquer uma destas a qualquer momento, sem justificar.
 - **Quatro tipos de trabalho**, e uma pergunta resolve todos: *quem vai publicar?*
 - **Seis campos na tela de contratar.** Direitos são uma frase, não um formulário
 - **Duas revisões incluídas, para todo mundo.** Fixo
+- **A foto do produto entra no briefing** — o criador precisa ver a embalagem, e é daí que nasce quase todo pedido de ajuste
+- **A caixinha de anúncio pago entrega a chave, não só cobra:** conceder a autorização no Instagram e no TikTok vira condição para o criador receber
 - Criador precisa ter 18 anos — exigência legal, não escolha
 - Todo usuário tem web, iOS e Android, com função completa
 - Agência e contrato recorrente ficam para depois do lançamento
