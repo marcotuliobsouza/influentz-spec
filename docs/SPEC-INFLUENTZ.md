@@ -425,6 +425,9 @@ Nenhuma é decisão do Marco; todas viram documento em `/docs` quando respondere
 4. **Pix parcelado já está exposto na API?**
 5. Qual o valor máximo por boleto e por Pix na nossa conta?
 6. Tarifa oficial de saque e de Pix de saída.
+13. 🔴 **Qual o tempo máximo entre a transação e o repasse no split?** Se houver teto, contrato longo com retenção não cabe — e isso muda o desenho, não o preço.
+14. Cobrança recorrente com split existe na nossa configuração, ou cada ciclo é uma transação nova?
+15. **O teto do cartão vale por transação ou por contrato?** Três ciclos de R$ 10.000 são três exposições ou uma?
 7. 🔴 **Como somos notificados de um bloqueio cautelar ou MED sobre um recebedor do nosso split?** Por qual webhook, e **quem apresenta a defesa — nós ou o titular?** Sem essa resposta, o primeiro MED nos pega sem canal, com 72 h de relógio.
 8. 🔴 **Qual é a taxa do plano Flex com split para a nossa conta**, à vista e por faixa de parcelas? *(A tabela publicada é do plano Essencial, que não tem split.)*
 9. 🔴 **Existe data única de recebimento para venda parcelada nessa configuração, e a partir de qual histórico?**
@@ -913,6 +916,7 @@ Com 20 contratos/mês, o volume esperado é de **três a seis chamados por mês*
 | Nota fiscal em contrato revertido: o criador emitiu NF, prestou o serviço, e o banco devolveu o dinheiro. Cancela? Emite devolução? | Contador | Lançamento |
 | Repasse que a plataforma absorveu — é despesa dedutível? | Contador | Código de pagamento |
 | Custo da antecipação de recebíveis embutido no preço: natureza contábil e tributária | Contador | Código de pagamento |
+| Devolução parcial do valor do anúncio pago quando a autorização cai antes dos 12 meses: percentual, proporcionalidade e prazo | Contador | Lançamento |
 | **Os juros de parcelamento cobrados do comprador são receita da INFLUENTZ?** Entram na base do Simples? São receita de serviço ou financeira? Muda o preço e muda a nota | Contador | Código de pagamento |
 | A nota da INFLUENTZ cobre só a comissão, ou comissão + juros? Como o juro aparece no documento fiscal | Contador | Primeiro contrato pago |
 | **Pró-forma antes do pagamento:** que documento é emitido no momento do boleto sem gerar obrigação tributária antecipada, já que o serviço ainda não foi prestado? | Contador | Fatura INFLUENTZ |
@@ -946,6 +950,7 @@ Com 20 contratos/mês, o volume esperado é de **três a seis chamados por mês*
 | **Cláusula de permanência mínima da publicação** (§8.2) e a consequência de remover antes do prazo | Advogado | Lançamento |
 | **Divulgação dos juros de parcelamento** conforme CDC art. 52 — taxa efetiva, número de parcelas e montante total | Advogado | Checkout |
 | **Contrato-quadro corporativo** da conta verificada (§4.3.1.1) — peça jurídica nova | Advogado | Cliente corporativo |
+| **Cláusula da obrigação de manter a autorização de anúncio por 12 meses**, e a consequência de retirá-la antes. É responsabilização, não garantia — a redação precisa deixar isso claro | Advogado | Lançamento |
 | **Cláusula sobre o material que a marca envia** (foto de produto, kit de mídia): a declaração de titularidade e o limite de uso pelo criador. Escrita em §8.2 e **ainda não revisada por advogado** | Advogado | Lançamento |
 | **Cláusula da licença de anúncio pago** e da cobrança retroativa por uso sem autorização (PRODUTO §2) — é cobrança sobre fato passado, precisa de redação que sustente | Advogado | Lançamento |
 | 🔴 **Quando a plataforma suspende um contrato por suspeita de lavagem, o que ela faz com o dinheiro?** Devolver ao pagador pode ser completar a lavagem; reter sem cláusula é apropriação. **É a única pergunta desta lista que não tem resposta boa improvisada no dia** | Advogado | Lançamento |

@@ -212,11 +212,22 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 | **Pix tem reversão por fraude (MED 2.0, desde 02/02/2026), com bloqueio de 72 h antes da análise.** Só o boleto é irreversível de verdade | SPEC §4.2.2 |
 | **Repasse é automático, varredura diária, piso de R$ 50, tarifa por conta da plataforma.** Nunca aprovação manual | SPEC §4.6.1 |
 | **O dinheiro é liberado na publicação confirmada por API, não na aprovação do arquivo.** Permanência mínima padrão: 90 dias | MAQUINA §8.0.1, SPEC §8.2 |
-| **Agência sai do v1. Pedido aberto fica no v1** | FEATURE-MATRIX §5.7 |
+| **Agência sai do v1. Pedido aberto fica no v1** | FEATURE-MATRIX |
+| **Quantidade é o que cabe numa data de entrega.** Três Reels na mesma data são um contrato, uma data, um pagamento. Combo de itens diferentes não existe — vira item único da vitrine | PRODUTO §1 |
+| **A data sobe livre e não desce.** Para frente é livre; para antes do prazo do criador, o caminho é a proposta direta. **Não existe módulo de calendário com vagas no v1** — existe limite de trabalhos simultâneos, padrão 3 | PRODUTO §1 |
+| 🔴 **Não se vende garantia de veiculação de anúncio.** O criador pode desligar a autorização a qualquer momento, e a plataforma não consegue nem observar. Vende-se **a autorização concedida no ato** e a **obrigação contratual** de mantê-la — responsabilizar, não garantir | PRODUTO §2 |
 | **Aceite de Termos é sempre do próprio titular.** Ninguém aceita em nome de outro, e dado financeiro nunca entra por mão de operador | FEATURE-MATRIX §5.5 |
 | **CNPJ é pré-requisito do dinheiro, não da métrica.** O Pagar.me em produção exige CNPJ; o Instagram só antecipa a data em ~4 meses. Formato: SLU — MEI é vedado para intermediação de negócios | SPEC §9.1.1 e §9.1.5 |
 | **Métrica de rede: 50 criadores sem empresa verificada, 500 com.** Teto oficial da Meta, não estimativa. YouTube vai direto para produção — em modo Testing o token morre a cada 7 dias | SPEC §9.1 |
 | 🟢 **O agregador de métricas é o caminho PRINCIPAL no v1, não a reserva.** Uma integração em vez de três, zero fila de aprovação, não exige CNPJ, plano gratuito até 250 contas. A integração própria vira otimização de custo depois, com receita e sem prazo. Raspagem fora de cogitação | SPEC §9.1.1.1 |
+
+### ⚠️ Incoerências entre documentos — pendentes de decisão
+
+Encontradas pelo `arquiteto-produto` em 09/09/2026. **Não são lacunas: é o mesmo assunto dito de duas formas em lugares diferentes.** Enquanto viverem, quem construir escolhe sozinho — e escolhe errado.
+
+1. 🔴 **Trabalho presencial está dentro e fora ao mesmo tempo.** A ordem de construção manda para depois do v1; a modalidade está marcada como essencial, "opções avançadas" tem bloco de presencial, e a máquina de estados detalha agendamento e cancelamento presencial. **Ou entra, ou sai.**
+2. **A SPEC §4.6 promete que "a plataforma sugere dividir em etapas automaticamente"** — mas marcos múltiplos ficaram para depois do v1. A SPEC promete função que o lançamento não tem.
+3. **O chat só abre depois do pagamento, e o criador aceita em 48 h sem poder perguntar nada.** O piso de data resolve boa parte, mas o botão de **pedir ajuste precisa estar visível para ele também na vitrine** — senão ele fica com sim ou não diante de uma dúvida legítima.
 
 ### Em aberto
 
