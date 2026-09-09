@@ -391,6 +391,8 @@ Um bloco fixo na proposta, **com o mesmo texto para os dois lados**, congelado n
 
 Uma frase, valor incluído, e sempre com **quem perde no silêncio** explícito.
 
+⚠️ **Quando o contrato inclui anúncio pago**, entra mais uma linha no mesmo bloco: *"você concede a permissão de parceria no Instagram, ou cola o código do TikTok, com validade de 12 meses."* **É condição de o criador receber, não um pedido informal depois** — senão a marca paga pelo direito e nunca recebe a chave.
+
 ### 8.0.3 Permanência — obrigação depois do pagamento, e o padrão varia por tipo
 
 ⚠️ **Permanência não retém dinheiro.** Se ela segurasse o repasse, o criador esperaria 90 dias para receber — o oposto da regra travada. Descumprir gera registro, cláusula e direito de disputa da marca; **nunca estorno automático**.

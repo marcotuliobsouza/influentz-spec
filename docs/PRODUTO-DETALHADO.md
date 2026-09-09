@@ -15,7 +15,7 @@ Um cliente leigo abre e fecha em dois minutos. Nada aqui é obrigatório de ente
 | 1 | **O que você quer** | Vem preenchido pelo item da vitrine |
 | 2 | **Quantos** | 1 |
 | 3 | **Para quando** | Sugerido pelo prazo do item |
-| 4 | **Briefing** — o que a marca quer dizer, em texto livre | vazio |
+| 4 | **Briefing** — o que a marca quer dizer, em texto livre, **com anexo de imagem** | vazio |
 | 5 | **Vai enviar produto?** | Não |
 | 6 | **Preço** | Vem do item da vitrine |
 
@@ -24,7 +24,32 @@ Um cliente leigo abre e fecha em dois minutos. Nada aqui é obrigatório de ente
 - **"Quem vai publicar?"** — a marca · o criador · os dois. *(Aparece só em material entregue.)*
 - **"A marca pode usar em anúncio pago?"** — já vem marcado conforme o tipo.
 
-📌 **Tudo o mais tem padrão e vive atrás de "opções avançadas":** direitos, exclusividade, permanência, quem paga o frete, aprovação prévia de roteiro. **Cerca de 19 campos saíram da tela padrão.** Quem precisa deles acha em um clique; quem não precisa nem vê que existem.
+**A tela precisa dizer sozinha de onde ela veio.** Sem acrescentar campo:
+
+- **Cabeçalho:** *"Contratando: 1 Reels — @nome"*, com a foto do item da vitrine. Formulário sem origem parece proposta em branco.
+- **Preço e prazo com cara de travado**, com a etiqueta *"definido pelo criador"* — campo editável e campo fixo não podem ter a mesma aparência.
+- **Rodapé:** *"O criador tem 48 h para aceitar. Você só paga depois do aceite."*
+
+📌 **A proposta direta não é outro formulário.** É a mesma tela, com três campos destravados — o que você quer, o preço e o prazo nascem vazios — e o botão vira *"Enviar proposta"*.
+
+📌 **O criador vê de onde veio, numa etiqueta:** *Da sua vitrine* · *Proposta direta* · *Do seu envio ao pedido aberto*. Isso importa porque as regras diferem: na vitrine ele só aceita ou recusa; nos outros dois ele pode contrapor. Sem a etiqueta, ele procura um botão de negociar que não existe.
+
+### Anexo de imagem no briefing
+
+**O criador precisa ver o produto.** Dá para gravar um vídeo de um sérum sem ver a embalagem — e sai errado: cor do frasco, tamanho na mão, onde fica o logo, se a tampa é de rosca. **Todo pedido de ajuste que vira "não é assim que o produto é" nasce daí**, e ajuste consome revisão, e revisão esgotada vira disputa.
+
+**Até 10 arquivos, 100 MB no total** (imagem e PDF). Conta empresarial verificada abre até 300 MB, para quem tem kit de mídia grande. Custa R$ 1 a R$ 2 por mês na escala do lançamento.
+
+⚠️ **Duas frases entram na cláusula fixa de direitos, geradas sozinhas:** a marca **declara ter os direitos** sobre o material que envia, inclusive de imagem de quem apareça nele; e o criador pode usar esse material **apenas para executar este contrato**. Sem isso, a marca sobe uma foto com uma modelo contratada, o criador publica, e a modelo cobra de quem? Da plataforma, junto.
+
+### O que existe em "opções avançadas" — 12 itens, todos com padrão
+
+**Direitos e uso:** prazo de uso (12 meses) · onde a marca pode usar (todos os canais dela) · exclusividade (nenhuma).
+**Entrega:** aprovação prévia do roteiro (não) · menções obrigatórias · palavras e temas proibidos · formato e duração (o do item) · rede onde publica (a que o criador tem conectada).
+**Produto físico**, só se houver envio: o criador fica com o produto (sim) · valor declarado · entrega sem rastreio (não).
+**Presencial**, só no tipo 4: data e hora · endereço · despesas reembolsáveis.
+
+❌ **Três saíram de lá:** *quem paga o frete* (já é regra fixa — quem envia paga, e o campo contradizia a regra) · *permanência editável* (não retém dinheiro; editá-la criava promessa que a plataforma não executa — virou cláusula por tipo) · *territorialidade* (ninguém no lançamento contrata conteúdo em português para usar só na Argentina — virou cláusula: Brasil).
 
 ---
 
@@ -36,6 +61,24 @@ Um cliente leigo abre e fecha em dois minutos. Nada aqui é obrigatório de ente
 | **Valor do produto** | Define a exigência de comprovação de entrega acima de R$ 1.000 |
 
 **O que virou regra fixa, e saiu da tela:** quem envia paga o frete · prazo de envio de 5 dias úteis · o endereço já é o do criador cadastrado. O caso raro de frete dividido se resolve por mensagem.
+
+### Anúncio pago — o que a caixinha entrega, e o que ela não pode prometer
+
+**A caixinha custa mais. Então ela precisa entregar a chave, não só cobrar por ela.**
+
+| Rede | Existe interruptor? | Quem controla |
+|---|---|---|
+| **Instagram** | **Sim.** Rodar a publicação do criador como anúncio de parceria exige permissão concedida por ele no painel da Meta. Desde 2026, conteúdo de criador promovido **tem que** usar esse formato — sem isso o anúncio da marca é reprovado | **O criador** |
+| **TikTok** | **Sim.** O código de Spark Ads é gerado pelo criador, com validade que ele escolhe: 7, 30, 60 ou 365 dias | **O criador** |
+| **YouTube** | ❌ **Não existe equivalente.** Qualquer vídeo público pode virar anúncio no Google Ads por quem tiver o endereço | Ninguém |
+
+🔴 **O buraco que nenhuma rede fecha:** a marca pode **baixar o vídeo e subir como anúncio dela mesma**. Entra como criativo próprio, sem o perfil do criador, e nenhuma API sabe que aquilo saiu daqui.
+
+✅ **A correção — sem tela nova.** Com a caixinha marcada, entra uma linha no bloco *"o que libera o pagamento"*: **o criador concede a permissão de parceria no Instagram, ou cola o código do TikTok, com validade de 12 meses.** Com a caixinha desmarcada, ele lê na entrega: *"este contrato não inclui anúncio pago — não gere código nem conceda permissão."*
+
+❌ **Não se constrói detector de impulsionamento não autorizado.** Varrer biblioteca de anúncios custa engenharia contínua para um caso que aparece talvez uma vez por trimestre. No lugar: um botão **"reportar uso fora do contratado"** dentro do contrato, com o link da Biblioteca de Anúncios da Meta — que é pública — e a consequência escrita: **cobrança retroativa da diferença, mais registro**. Quem denuncia é o criador, que é quem tem motivo para olhar.
+
+**O rótulo passa a dizer o que entrega:** *"Quero usar em anúncio pago. Inclui a autorização do criador no Instagram e no TikTok, e a licença de uso por 12 meses. Uso sem esta autorização é cobrado retroativamente."*
 
 ⚠️ **O endereço do criador só é revelado depois do contrato pago.** Isso fecha a coleta de endereços por marca falsa.
 

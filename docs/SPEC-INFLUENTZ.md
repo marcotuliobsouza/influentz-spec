@@ -582,6 +582,8 @@ O mercado não pergunta: **fixa**. Ninguém pede sete decisões a quem quer comp
 
 🟢 **O que vira padrão fixo e invisível**, resumido numa frase editável em "opções avançadas": prazo de uso **12 meses** · todas as mídias da marca · permanência no ar conforme o tipo (90 dias, ou 24 h em Stories) · e **retirada de conteúdo**, que deixa de ser campo e vira cláusula igual para todos — qualquer lado pode pedir remoção em caso de crise, **sem estorno automático**.
 
+⚠️ **Duas cláusulas fixas sobre o material que a marca envia** (foto do produto, kit de mídia), geradas sozinhas: a marca **declara ter os direitos** sobre o que envia, inclusive de imagem de quem apareça nele; e o criador pode usar esse material **apenas para executar aquele contrato**.
+
 ⚠️ **O que não pode ser cortado, porque é lei — e mesmo assim não vira pergunta:**
 
 - **Direito de imagem com finalidade e prazo delimitados.** Autorização genérica e eterna é frágil no Brasil. A cláusula é **gerada automaticamente** a partir da finalidade e do prazo que já estão nos campos acima. Zero decisão a mais, texto continua válido.
