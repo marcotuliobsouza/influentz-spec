@@ -149,6 +149,9 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 | `juridico-br` | Antes de escrever regra que vira cláusula ou tela |
 | `financeiro` | Antes de escrever qualquer regra de dinheiro |
 | `cortador` | Sempre que a lista de funções crescer, e **obrigatoriamente antes de entregar ao Marco**. É o único que pode deletar |
+| `antifraude` | Antes de escrever regra de entrega, de repasse, de cadastro ou de disputa. Pensa como o golpista antes dele |
+| `arquiteto-produto` | **Coordena.** Resolve conflito entre especialistas e responde "o produto está coerente?". Roda antes de qualquer coisa chegar ao Marco |
+| `infra` | Antes de prometer velocidade, armazenamento ou disponibilidade. **Todo número dele tem unidade e período** |
 | `antifraude` | Antes de escrever regra de entrega, repasse, cadastro ou disputa. Pensa como o golpista |
 | `infra` | Antes de prometer velocidade, armazenamento ou disponibilidade. **Todo número dele tem unidade e período** |
 | 🔴 `arquiteto-produto` | **Coordena os outros.** Resolve conflito entre especialistas, garante que a jornada faz sentido de ponta a ponta, e é o único que responde *"o produto está coerente?"*. **Roda por último, antes de qualquer coisa chegar ao Marco** |
@@ -219,6 +222,10 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 | **Aceite de Termos é sempre do próprio titular.** Ninguém aceita em nome de outro, e dado financeiro nunca entra por mão de operador | FEATURE-MATRIX §5.5 |
 | **CNPJ é pré-requisito do dinheiro, não da métrica.** O Pagar.me em produção exige CNPJ; o Instagram só antecipa a data em ~4 meses. Formato: SLU — MEI é vedado para intermediação de negócios | SPEC §9.1.1 e §9.1.5 |
 | **Métrica de rede: 50 criadores sem empresa verificada, 500 com.** Teto oficial da Meta, não estimativa. YouTube vai direto para produção — em modo Testing o token morre a cada 7 dias | SPEC §9.1 |
+| **O vídeo mora no Cloudflare R2 e em nenhum outro lugar, e nunca passa pelo servidor do site.** Download é grátis no R2 e custa US$ 0,09/GB no Supabase — **6.200× por visualização** | SPEC §14.2.2 |
+| **O relógio da retenção conta do marco do contrato, não do envio:** finais 24 meses da publicação confirmada; brutos 90 dias do fechamento. **Contrato ou disputa aberta congela a exclusão** | SPEC §14.5.1 e §14.5.2 |
+| **Backup é nosso, não do plano.** O provedor guarda 7 dias; a janela de contestação chega a 540. Cópia diária cifrada, guardada 540 dias | SPEC §14.2.10 |
+| ⚠️ **O "plano gratuito de 250 contas" do agregador não está publicado.** A decisão do fornecedor continua certa pelos outros motivos; o "R$ 0" é premissa. **A pergunta antes do preço: cobra por conta conectada ou por chamada?** | SPEC §9.1.1.1 e §14.2.6 |
 | 🟢 **O agregador de métricas é o caminho PRINCIPAL no v1, não a reserva.** Uma integração em vez de três, zero fila de aprovação, não exige CNPJ, plano gratuito até 250 contas. A integração própria vira otimização de custo depois, com receita e sem prazo. Raspagem fora de cogitação | SPEC §9.1.1.1 |
 
 ### ⚠️ Incoerências entre documentos — pendentes de decisão

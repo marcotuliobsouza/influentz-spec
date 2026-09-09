@@ -702,10 +702,16 @@ A versão anterior punha a INFLUENTZ construindo **três integrações próprias
 | Prazo fora do nosso controle | semanas a meses | **nenhum** |
 | Risco de reprovação | 3 pontos de falha | **0** |
 | Exige CNPJ para começar | **Sim** (Meta) | **Não** |
-| Custo no lançamento | R$ 0 | **R$ 0** — plano gratuito de 250 contas monitoradas, cinco vezes a meta do v1 |
+| Custo no lançamento | R$ 0 | ⚠️ **Não confirmado** — ver o aviso abaixo |
 | Trabalho de engenharia | 3× | **1×** |
 
 **O criador não percebe diferença nenhuma:** ele autentica na tela da própria rede, com o login oficial dela. É dado consentido por OAuth, exatamente como seria na integração própria — **não é raspagem, não é print, não é estimativa.** A regra travada continua valendo ao pé da letra: *métrica só por API oficial.*
+
+🔴 **Correção importante: o "plano gratuito de 250 contas" não foi confirmado.** A página oficial de preços do fornecedor diz apenas *"depending on your exact use case, we offer customized plans"*, com botão de orçamento e **nenhum número publicado**. Isso não prova que o plano gratuito não existe — prova que **ele não está publicado**, e portanto **não é fato: é premissa.**
+
+**A decisão de arquitetura continua certa pelos outros motivos** — uma integração em vez de três, zero fila de aprovação, não exige CNPJ, e nenhum ponto de reprovação. **O que falta é um e-mail ao fornecedor com o número por escrito**, não uma escolha nova.
+
+⚠️ **E a pergunta a fazer antes do preço é outra, e é maior:** *a cobrança é por conta conectada ou por chamada?* A verificação de permanência da publicação gera, na fase de operação, cerca de **90.000 consultas por mês** — noventa vezes o número de criadores conectados. **Se for por chamada, essa linha sozinha pode custar mais que toda a infraestrutura somada.** Mitigação já disponível e de graça: verificar uma vez por dia nos primeiros 7 dias e uma vez por semana depois — **corta 79% das chamadas** sem perder a capacidade de detectar remoção.
 
 📌 **Quando a integração própria passa a valer a pena:** depois de 250 criadores conectados, quando o plano gratuito acaba **e já existe receita**. Aí ela vira **otimização de custo**, feita com calma, com a empresa aberta e sem prazo apertado — e não pré-requisito de lançamento. **A camada de abstração já prevista faz a troca ser um adaptador, não uma reescrita.**
 
@@ -831,27 +837,198 @@ Um marketplace vazio não tem produto. Isso não é marketing, é viabilidade.
 
 ---
 
-## 14.2 Custo de operar, e em quantos contratos a plataforma se paga 💰
+## 14.2 Custo de operar — com unidade e período em toda linha 💰
 
-⚠️ Premissas declaradas: dólar a R$ 5,50 · vídeo de entrega ≈ 250 MB, três arquivos por contrato · retenção espelhando a janela de defesa.
+📌 **Premissa de câmbio, declarada uma vez e válida para a seção inteira: US$ 1,00 = R$ 5,50.** **Todo valor desta seção é por mês**, salvo quando a linha disser *por ano* ou *uma vez*.
 
-| Estágio | Tecnologia | Com contabilidade e tarifas |
+### 14.2.1 A conta do vídeo — o item que explode em silêncio
+
+**Premissa de tamanho:** arquivo MP4/H.264 vertical 1080×1920, até ~3 minutos → **250 MB por arquivo**. Um Reels de 60 s exportado pelo celular dá 90–130 MB; 250 MB só é atingido em peça longa ou 4K. **Planejar por 250 MB é errar para o lado caro, que é o certo.**
+
+**Premissa de quantidade, e a retenção que vale para cada tipo:**
+
+| Tipo de arquivo | Quantos por contrato | Tamanho | Retenção |
+|---|---|---|---|
+| Arquivo final aprovado | 1 | 250 MB | **24 meses**, contados **da publicação confirmada por API** |
+| Brutos e versões recusadas | 2 | 500 MB | **90 dias**, contados **do fechamento do contrato** |
+| **Total por contrato** | **3** | **750 MB** | — |
+
+**Acervo acumulado no lançamento (20 contratos/mês).** Preço Cloudflare R2: **US$ 0,015 por GB por mês**, com **10 GB por mês grátis**.
+
+| Mês | Acervo total | **Custo por mês** |
 |---|---|---|
-| **Teste interno** (só o fundador) | **≈ R$ 3/mês** | R$ 3 |
-| **Lançamento** (20 contratos/mês, 50 criadores) | **≈ R$ 262/mês** | **≈ R$ 735/mês** |
-| **Operação** (1.000 contratos/mês) | ≈ R$ 1.320/mês | — |
+| 1 | 15 GB | R$ 0,41 |
+| 4 | 50 GB — os brutos param de crescer | R$ 3,30 |
+| 12 | 90 GB | R$ 6,60 |
+| **25 em diante** | **150 GB — estabiliza de vez** | **R$ 11,55** |
 
-**No lançamento:** Supabase Pro (US$ 25 — obrigatório, o plano gratuito não tem backup e pausa por inatividade) · Vercel Pro (US$ 20) · armazenamento Cloudflare R2 (~US$ 2) · e-mail, notificação, monitoramento, agregador de métricas e ferramenta de suporte **todos no plano gratuito**.
+**Na operação (1.000 contratos/mês):** finais 6.000 GB + brutos 1.500 GB = **7,3 TB → R$ 617,92 por mês**. **Sem a regra de retenção** seriam 17,6 TB → **R$ 1.485 por mês**. 🔴 **A regra de retenção vale R$ 867 por mês.** Ela não é higiene: é o segundo maior item da conta.
 
-📌 **Uma data-gatilho que não é escolha:** o plano gratuito da Vercel é para uso **pessoal, não comercial**. **No dia em que a primeira marca real pagar, o plano vira Pro.** É termo de uso, não otimização.
+### 14.2.2 Quanto custa cada visualização — e por que o vídeo mora no R2
 
-> ✅ **Em quantos contratos a plataforma se paga:** com a comissão de lançamento, **5 contratos por mês pagam a tecnologia** e **12 pagam tudo**. A meta de 20 contratos/mês paga o conjunto com quase o dobro de folga.
+| Onde o arquivo está | O que se paga por assistir | 1 visualização de 250 MB | 1.000 visualizações |
+|---|---|---|---|
+| **Cloudflare R2** | Download é **grátis**; paga-se só a leitura (US$ 0,36 por milhão de operações) | **R$ 0,00002** | **R$ 0,02** |
+| Supabase Storage | **US$ 0,09 por GB baixado** | R$ 0,12 | R$ 123,75 |
+
+🔴 **É 6.200 vezes mais caro, e nada na tela muda** — o vídeo toca igual. Aparece só na fatura, 30 dias depois. **Decisão: o vídeo mora no R2 e em nenhum outro lugar, e nunca passa pelo servidor do site** — o celular do criador manda direto para o R2 com endereço temporário assinado.
+
+### 14.2.3 As quatro contas, por estágio
+
+**Estágio 1a — desenvolvimento puro (nenhuma cobrança real ainda)**
+
+| Serviço | Paga-se por quê | Preço oficial | Quantidade / premissa | **R$ por mês** |
+|---|---|---|---|---|
+| Supabase Free | banco + login | US$ 0/mês | banco de teste < 100 MB | 0,00 |
+| Vercel Hobby | hospedar o site | US$ 0/mês | ainda sem cobrança no site | 0,00 |
+| Cloudflare R2 | guardar arquivo | US$ 0,015/GB/mês, 10 GB/mês grátis | < 10 GB | 0,00 |
+| Domínio `.com.br` | o endereço | **R$ 40 por ano** (Registro.br) | 1 domínio | 3,33 |
+| **Total** | | | | **R$ 3,33 por mês** |
+
+**Estágio 1b — degrau 1 do cold start (§14.1): o primeiro dinheiro de verdade**
+
+| Serviço | Por que muda aqui | **R$ por mês** |
+|---|---|---|
+| Supabase **Pro** | US$ 25/mês. O Free **não tem cópia de segurança**, **pausa após 1 semana sem uso** e **limita arquivo a 50 MB** — um vídeo de 250 MB nem cabe | 137,50 |
+| Vercel **Pro** | US$ 20/mês. O Hobby proíbe *"qualquer método de solicitar ou processar pagamento de visitantes do site"*. **O primeiro Pix real já é uso comercial, mesmo sendo do próprio fundador** | 110,00 |
+| Apple Developer | US$ 99 **por ano** = R$ 544,50/ano | 45,38 |
+| Domínio | R$ 40 **por ano** | 3,33 |
+| Cloudflare R2 | < 10 GB, dentro do gratuito | 0,00 |
+| **Total** | | **R$ 296,21 por mês** |
+| Google Play | US$ 25, **pagamento único, sem renovação** | R$ 137,50 (uma vez) |
+
+**Estágio 2 — lançamento (20 contratos/mês · 50 criadores · 10 marcas · 1 operador)**
+
+| Serviço | Paga-se por quê | Preço unitário oficial | Quantidade e premissa | **R$ por mês** |
+|---|---|---|---|---|
+| Supabase Pro | banco + login + trilha de auditoria | US$ 25/mês: 8 GB de banco, 250 GB de download, backup diário por 7 dias | banco < 500 MB; 60 usuários ativos/mês | 137,50 |
+| Vercel Pro | hospedar o site | US$ 20/mês, 1 TB de tráfego e 10 M de requisições | ~20 GB/mês | 110,00 |
+| R2 — guardar vídeo | US$ 0,015 por GB por mês | acervo em regime: 150 GB (no mês 12 são 90 GB → R$ 6,60) | 11,55 |
+| R2 — subir e assistir | Classe A US$ 4,50/M · Classe B US$ 0,36/M | 3.120 e ~2.000 por mês — dentro do gratuito | 0,00 |
+| Resend | e-mail transacional | Free: 3.000 por mês **e teto de 100 por dia** | ~350 por mês | 0,00 |
+| Expo Push | notificação no celular | **grátis, sem custo por mensagem** | ~600 por mês | 0,00 |
+| Sentry Developer | monitorar erro | Free: 5.000 erros/mês, **1 usuário**, 30 dias de histórico | < 1.000 por mês | 0,00 |
+| Crisp Free | ferramenta de suporte | Free: **2 assentos**, conversas ilimitadas | 3 a 6 chamados/mês | 0,00 |
+| Agregador de métricas | ler seguidores e alcance por API oficial | ⚠️ **preço não publicado — só por orçamento** | 50 contas conectadas | **0,00 — premissa, não fato** |
+| 17TRACK | rastreio de encomenda | Free: 100 por mês | ~6 objetos/mês | 0,00 |
+| Apple Developer | publicar o app iOS | US$ 99 **por ano** | 1 conta | 45,38 |
+| Domínio `.com.br` | o endereço | R$ 40 **por ano** | 1 | 3,33 |
+| Backblaze B2 | **cópia de segurança fora do fornecedor principal** | US$ 6,95 por TB por mês, 10 GB grátis | finais + dumps do banco | 4,59 |
+| **TOTAL DO LANÇAMENTO** | | | | **R$ 312,35 por mês** |
+
+No **mês 12**, com o acervo ainda em 90 GB, o total é **R$ 306 por mês**.
+
+**Estágio 3 — operação (1.000 contratos/mês · 2.500 criadores · 300 marcas · 3 operadores)**
+
+| Serviço | Preço unitário oficial | Quantidade e premissa | **R$ por mês** |
+|---|---|---|---|
+| Supabase Pro + disco extra | US$ 25/mês + US$ 0,125 por GB de banco acima de 8 GB | ~10 GB no ano 2 | 165,00 |
+| Vercel Pro | US$ 20/mês, 1 TB incluso | ~300 GB/mês | 110,00 |
+| **R2 — armazenamento** | US$ 0,015/GB/mês | **7.500 GB em regime** | **617,92** |
+| R2 — operações | Classe A e B | dentro do gratuito | 0,00 |
+| Resend Pro | US$ 20/mês, 50.000 e-mails | ~15.000/mês | 110,00 |
+| Expo Push | grátis | ~30.000/mês | 0,00 |
+| Sentry Team | US$ 26/mês, 90 dias de histórico | 3 pessoas | 143,00 |
+| Crisp Mini | US$ 45/mês, 4 assentos | 3 operadores | 247,50 |
+| 17TRACK pago | ⚠️ **não confirmado** — premissa de US$ 30/mês | ~300 envios/mês | 165,00 — premissa |
+| **Agregador de métricas** | ⚠️ **não publicado** — premissa de US$ 500/mês | 2.500 contas + checagem de permanência | **2.750,00 — premissa, e é a maior incerteza da conta** |
+| Backblaze B2 | US$ 6,95/TB/mês | cópia dos 6.000 GB de finais | 229,35 |
+| Apple Developer | US$ 99/ano | | 45,38 |
+| Domínio | R$ 40/ano | | 3,33 |
+| **TOTAL sem o agregador** | | | **R$ 1.836,48 por mês** |
+| **TOTAL com a premissa do agregador** | | | **R$ 4.586,48 por mês** |
+
+### 14.2.4 O resumo em uma tabela
+
+| Estágio | **R$ por mês** | Pagamento único |
+|---|---|---|
+| Desenvolvimento puro | **R$ 3,33** | — |
+| Degrau 1 — primeiro dinheiro de verdade | **R$ 296,21** | R$ 137,50 (Google Play) |
+| **Lançamento** (20 contratos/mês) | **R$ 312,35** | — |
+| Operação (1.000 contratos/mês) — sem o agregador | **R$ 1.836,48** | — |
+| Operação — com a premissa do agregador | **R$ 4.586,48** | — |
+
+⚠️ **Isto é só tecnologia.** Não inclui contador (R$ 195 a R$ 600 por mês), advogado, marketing, salário de ninguém, nem a formação do fundo de contestação. **Com o contador, o lançamento fica entre R$ 507 e R$ 912 por mês.**
+
+> ✅ **Em quantos contratos a plataforma paga a própria tecnologia.** Com a comissão efetiva de 15% (§4.4.1), cada contrato rende 15% do seu valor:
 >
-> ⚠️ **O que esses R$ 735 não incluem:** salário de ninguém, advogado, marketing e a formação do fundo de contestação. Com 20 contratos a 7,5%, sobram cerca de R$ 505 por mês — **isso não é lucro, é colchão.**
+> | Ticket médio | Comissão por contrato | Contratos/mês que pagam **a tecnologia** (R$ 312) | Contratos/mês que pagam **tecnologia + contador** (R$ 912) |
+> |---|---|---|---|
+> | R$ 500 | R$ 75 | **5** | **13** |
+> | R$ 800 | R$ 120 | **3** | **8** |
+> | R$ 1.500 | R$ 225 | **2** | **5** |
+>
+> **A meta de 20 contratos por mês paga o conjunto em qualquer um dos três cenários.**
 
-🔴 **A conta do vídeo, que é onde o custo explode em silêncio.** Guardando os três arquivos de cada contrato por 24 meses, na fase de operação o acervo estabiliza em **18 TB** — US$ 270/mês só de armazenamento, crescendo todo mês sem ninguém notar. **Regra adotada: só o arquivo final aprovado fica 24 meses; brutos e versões rejeitadas ficam 90 dias.** Isso derruba o acervo para 6 TB e o custo para **US$ 90/mês**.
+### 14.2.5 Quando cada plano gratuito estoura — com o número que dispara
 
-⚠️ **O que isso quebra:** numa disputa rara sobre "a marca pediu ajuste e o criador atendeu", a versão intermediária pode não existir mais. **Mitigação:** o que sustenta a defesa é o **registro** — briefing congelado, log datado do pedido, aprovação com IP e horário — e isso é texto, custa quase nada e fica os 24 meses. **O arquivo pesado sai; a prova fica.**
+| Serviço | Limite do plano gratuito | **Estoura em que número** |
+|---|---|---|
+| **Vercel Hobby** | uso **não comercial** | 🔴 **No dia da primeira cobrança no site**, inclusive a do fundador. Não é volume, é cláusula |
+| **Supabase Free** | 500 MB de banco · **arquivo de no máximo 50 MB** · sem backup · pausa após 1 semana | 🔴 **Antes de qualquer volume:** um vídeo de 250 MB não cabe no teto de 50 MB |
+| **Cloudflare R2** | 10 GB por mês | Mês 1 do lançamento (15 GB). Custo de estouro: R$ 0,41 |
+| **Resend Free** | 3.000 por mês **e 100 por dia** | 🔴 **O teto diário manda.** O mensal só estoura em ~170 contratos/mês; o diário estoura num único dia de disparo em massa |
+| **Sentry Developer** | 5.000 erros/mês, **1 usuário** | **Na segunda pessoa** que precisar ver erro. Volume não é o gatilho |
+| **Crisp Free** | **2 assentos** | **No terceiro atendente** |
+| **Expo Push** | 600 por segundo | Não estoura neste produto |
+| **17TRACK** | 100 por mês | ⚠️ **Depende de uma resposta que não temos:** se a cota for por **consulta** e não por objeto, estoura em **~16 envios por mês** — dentro do lançamento |
+| **Agregador de métricas** | ⚠️ não publicado | Ver §9.1.1.1 |
+
+### 14.2.6 As três coisas que podem estourar o custo sem ninguém perceber
+
+1. 🔴 **O agregador de métricas — e o risco não é o preço por conta, é a unidade de cobrança.** A verificação de permanência de 90 dias (§8.2) gera **~90.000 consultas por mês** na operação, noventa vezes o número de criadores conectados. **Se a cobrança for por chamada, essa linha sozinha passa todo o resto somado.** *Mitigação já adotada e de graça:* verificar **1× por dia nos primeiros 7 dias, depois 1× por semana** — cai de 90 para 19 consultas por publicação, **redução de 79%**, sem perder a capacidade de detectar remoção.
+2. 🔴 **Um único endereço de vídeo servido do lugar errado** multiplica o custo por 6.200 e não muda nada na tela. *Detecção:* alerta de gasto no Supabase em US$ 5/mês de download.
+3. 🔴 **A rotina de exclusão que falha em silêncio.** É ela que mantém o acervo em 7,5 TB em vez de 17,6 TB. Uma rotina que não roda não gera erro: gera silêncio. *Detecção:* número no Admin — **GB apagados no mês passado**. Zero duas vezes seguidas é alarme.
+
+### 14.2.7 O que é fato com fonte, e o que ainda é premissa
+
+**Fato, com preço oficial publicado:** Supabase (Free e Pro US$ 25/mês) · Vercel (Hobby não comercial e Pro US$ 20/mês) · Cloudflare R2 (US$ 0,015/GB/mês, download grátis, 11 noves de durabilidade) · Resend (Free 3.000/mês e 100/dia; Pro US$ 20/mês) · Expo Push (sem custo) · Sentry (Developer US$ 0; Team US$ 26/mês) · Crisp (Free 2 assentos; Mini US$ 45/mês) · Backblaze B2 (US$ 6,95/TB/mês) · Apple Developer US$ 99/ano · Google Play US$ 25 uma vez · domínio `.com.br` R$ 40/ano.
+
+**Premissa, não fato — e cada uma move a conta:** dólar a R$ 5,50 (cada R$ 0,50 de variação move a operação em ~R$ 170/mês) · vídeo de 250 MB e 3 arquivos por contrato · **preço do agregador de métricas (a maior)** · preço e unidade de cobrança do 17TRACK · 20 visualizações por entrega na operação.
+
+## 14.2.8 O que o criador sente ao subir um vídeo pelo celular 🔴
+
+**Premissa declarada:** envio (upload) mediano do 4G brasileiro em torno de **7 Mbit/s** — por operadora, de 5,42 a 8,83 Mbit/s.
+
+| Tamanho | 5 Mbit/s (ruim) | **7 Mbit/s (mediano)** | 10 Mbit/s (bom) | 20 Mbit/s (5G) |
+|---|---|---|---|---|
+| 150 MB | 4 min 00 s | **2 min 51 s** | 2 min 00 s | 1 min 00 s |
+| **250 MB** | 6 min 40 s | **4 min 46 s** | 3 min 20 s | 1 min 40 s |
+| 500 MB | 13 min 20 s | **9 min 31 s** | 6 min 40 s | 3 min 20 s |
+
+🔴 **São quase 5 minutos, e no pior caso quase 7.** Isso não é uma barrinha: é tempo suficiente para a pessoa sair do app, atender uma ligação ou a tela bloquear. **A tela de envio tem seis obrigações, e nenhuma é enfeite** — estão detalhadas em `PRODUTO-DETALHADO.md`.
+
+✅ **O envio é retomável sem construirmos nada.** O R2 aceita envio em partes no padrão S3 — com partes de 8 MB, um vídeo de 250 MB vira ~32 pedaços, e uma queda aos 70% custa **um pedaço de 8 MB, não os 175 MB já enviados**. Na prática: **perde 9 segundos, não 3 minutos e meio.**
+
+⚠️ **A borda que virou regra:** envio pela metade é apagado pela Cloudflare em **7 dias**. A tela avisa *"envio pausado — retome até dia X"*.
+
+## 14.2.9 A pegadinha do vídeo que ninguém vê até acontecer 🔴
+
+Um arquivo MP4 guarda o índice interno (`moov`) **no fim** do arquivo por padrão. Sem mover esse índice para o começo, **o navegador da marca baixa os 250 MB inteiros antes de mostrar o primeiro quadro.**
+
+| Situação | Tempo até o primeiro quadro |
+|---|---|
+| Arquivo com o índice no começo | **1 a 2 segundos** — toca enquanto baixa |
+| 🔴 Arquivo com o índice no fim | **60 a 90 segundos** |
+
+✅ **Regra da plataforma:** todo arquivo de entrega é **verificado no recebimento** e, se vier com o índice no fim, **a plataforma corrige antes de disponibilizar à marca**. Não custa nada e não se pede nada ao criador. *(Detalhe técnico: `-movflags +faststart`.)*
+
+## 14.2.10 Cair e voltar — a régua não é "o site saiu do ar", é "a prova sumiu" 🔴
+
+Contrato, aceite datado e trilha de auditoria não se refazem.
+
+| Peça | O que se perde | Tempo para voltar | **A cópia de segurança de verdade** |
+|---|---|---|---|
+| **Banco (Supabase)** | 🔴 tudo o que é prova: contrato, aceite com data e IP, trilha de auditoria | horas | ⚠️ **O plano não basta:** o Pro guarda backup diário por **7 dias**, e a janela de contestação chega a **540 dias**. **O de verdade é nosso: cópia diária cifrada para o R2 e cópia mensal para a Backblaze, guardadas 540 dias.** Custo: centavos |
+| **Arquivos (R2)** | a peça que a marca comprou | — | Durabilidade de onze noves **não protege contra apagar por engano**. **Versionamento ligado + cópia dos finais na Backblaze** |
+| **Site (Vercel)** | ninguém entra; **nada se perde** | **minutos** | O código no GitHub é o backup |
+| **E-mail (Resend)** | avisos não saem | horas | **A central de notificações dentro do produto é a fonte da verdade; o e-mail é cópia** |
+| **Pagar.me** | não se cobra nem se repassa | fora do nosso controle | **O nosso razão é nosso.** Toda chamada gravada antes e depois, com chave de idempotência, para nunca cobrar duas vezes |
+| **Agregador** | métrica congela e a confirmação de publicação para | horas a dias | **Mostrar a última leitura com a data. Nunca zero, nunca em branco** (§9.1.4), e fila de reprocessamento |
+
+**Os dois números da política:** **perda máxima aceitável de dado: 24 horas** · **tempo para voltar: 4 horas** no banco e **15 minutos** no site.
+
+🔴 **24 horas é frouxo para dado de dinheiro, e existe remédio com preço:** recuperação ponto-a-ponto do Supabase por **US$ 100/mês (R$ 550/mês)**, que leva a perda máxima a **segundos**. **Não no lançamento. O gatilho é o dia em que o volume transacionado no mês passar de R$ 55.000** — quando 24 h de perda vale mais que a assinatura.
 
 ## 14.4 O que é construído agora, e o que depende de resposta de terceiro 🟢
 
@@ -885,7 +1062,24 @@ Um marketplace vazio não tem produto. Isso não é marketing, é viabilidade.
 | **O criador entrega e some** | Sem cópia nossa, a marca pagou e ficou sem nada |
 | **Vira trabalho para o usuário** | Pedir para o criador hospedar em outro lugar, gerar link e configurar permissão é jogar burocracia nele porque a plataforma quis economizar R$ 11 |
 
-✅ **A economia real está na regra de retenção, e ela já está decidida (§14.2):** **só o arquivo final aprovado fica 24 meses; brutos e versões rejeitadas ficam 90 dias.** Isso corta dois terços da conta quando ela passar a existir, sem tirar prova nenhuma — porque a defesa se sustenta no **registro** (briefing congelado, log datado, aprovação com horário e IP), que é texto e custa quase nada.
+✅ **A economia real está na regra de retenção, e ela já está decidida (§14.2):** **só o arquivo final aprovado fica 24 meses; brutos e versões recusadas ficam 90 dias.** Isso corta dois terços da conta, sem tirar prova nenhuma — porque a defesa se sustenta no **registro** (briefing congelado, log datado, aprovação com horário e IP), que é texto e custa quase nada.
+
+### 14.5.1 De quando cada relógio começa a contar 🔴
+
+**O prazo não conta do envio do arquivo. Conta do marco do contrato — e essa distinção evita apagar prova de um contrato ainda aberto.**
+
+| Arquivo | O relógio começa | Prazo |
+|---|---|---|
+| Final aprovado | **na publicação confirmada por API** (o mesmo marco que libera o dinheiro, §8.2) | 24 meses |
+| Brutos e versões recusadas | **no fechamento do contrato** | 90 dias |
+
+🔴 **Por que isso é uma correção, e não um detalhe.** Se os 90 dias dos brutos corressem a partir do envio, **um contrato de três meses perderia os próprios brutos enquanto ainda estivesse aberto** — exatamente quando uma disputa sobre *"pedi ajuste e ele atendeu"* pode acontecer. O relógio contado do fechamento resolve isso sem custar nada.
+
+### 14.5.2 A trava de exclusão 🔴
+
+**Contrato aberto, disputa aberta ou contestação de cartão em andamento congelam a exclusão de qualquer arquivo do contrato, independentemente da idade dele.** Com janela de contestação que chega a 540 dias, é essa trava que impede a plataforma de apagar a própria defesa.
+
+**Quanto custa a trava, em número:** se 20% dos contratos ficarem abertos três meses a mais, o acervo de brutos na fase de operação vai de 1.500 GB para 1.800 GB — **mais R$ 24,75 por mês**. É barato. **Não travar é que é caro.**
 
 ## 14.3 Suporte: comprado, não construído 🟢
 

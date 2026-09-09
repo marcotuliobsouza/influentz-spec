@@ -106,3 +106,15 @@ Não foram correções de produto, e são as mais importantes.
 ---
 
 *Última atualização: 08/09/2026.*
+
+## 09/09/2026 — A conta de infraestrutura, e uma afirmação minha que não se sustentou
+
+**O gatilho.** Marco: *"Sobre custos de storage vc sempre Menciona uns valores mas isso é valor mensal? Anual? Por gigas? Pelo o que? Vc tem especialista em infra?"* Não tinha. Os números de custo vinham do especialista financeiro, que sabe de dinheiro e não de nuvem, e saíam sem unidade e sem período — o que é o mesmo que não sair. Criado o especialista `infra`, com regra número um: **todo número tem unidade e período.**
+
+**O que a conta refeita mudou.** Lançamento de ≈R$ 262/mês para **R$ 312,35/mês**; operação de ≈R$ 1.320/mês para **R$ 1.836,48/mês** sem o agregador. A diferença são três custos que não estavam na conta: Apple Developer (US$ 99/ano), Google Play (US$ 25 uma vez) e **cópia de segurança fora do fornecedor principal**.
+
+**O erro que precisou ser dito ao Marco.** Eu havia afirmado a ele, como fato, que o agregador de métricas tem plano gratuito de 250 contas monitoradas — e usei isso como argumento na decisão de arquitetura. A página oficial de preços **não publica número nenhum**, só oferece orçamento sob medida. A decisão do fornecedor continua certa pelos outros motivos; o que caiu foi o "R$ 0". Corrigido na SPEC §9.1.1.1 e comunicado no painel publicado.
+
+**Três correções de produto vieram junto:** o relógio dos brutos contado do fechamento do contrato e não do envio (um contrato de três meses perderia os próprios brutos enquanto ainda estava aberto); a trava de exclusão para contrato ou disputa aberta; e a correção automática do índice interno do MP4, que é a diferença entre 2 segundos e 90 segundos até o primeiro quadro.
+
+**Placar da entrega:** nenhuma função nova inventada. Três correções entraram, três custos entraram na conta, uma afirmação virou pergunta em aberto.

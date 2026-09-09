@@ -193,4 +193,23 @@ Não são escolha do produto — sem eles o usuário não recebe (SPEC §4.8).
 
 ---
 
+## 7. A tela de enviar a entrega — seis obrigações, nenhuma de enfeite 🔴
+
+**O número que manda nesta tela:** um vídeo de 250 MB pelo 4G brasileiro mediano leva **cerca de 4 minutos e 46 segundos**, e no pior caso quase 7 (SPEC §14.2.8). Isso não é uma barrinha — é tempo suficiente para a pessoa sair do app, atender uma ligação ou a tela bloquear. **Uma tela de envio mal feita transforma esse tempo em entrega abandonada.**
+
+| # | O que a tela mostra | Por quê |
+|---|---|---|
+| 1 | **Percentual e o número absoluto** — *"128 MB de 250 MB"* | Percentual sozinho parece travado |
+| 2 | **Tempo restante estimado**, recalculado enquanto envia | *"faltam cerca de 2 min"* é a diferença entre esperar e desistir |
+| 3 | **"Pode sair desta tela, o envio continua"** | 🔴 **Só pode ser escrito se o envio realmente continuar em segundo plano.** Se não continuar, a frase é *"mantenha o app aberto"* e a tela impede o bloqueio automático |
+| 4 | **Aviso de dados móveis, com a opção "enviar só no Wi‑Fi"** | 250 MB é fatia relevante de franquia. O arquivo fica na fila e sobe sozinho depois |
+| 5 | **Se falhar: "continuar de onde parou"** | Nunca *"tentar de novo do zero"*. O envio é em partes: uma queda aos 70% custa **9 segundos, não 3 minutos e meio** |
+| 6 | **Ao terminar: confirmação com data, hora e identificador do arquivo** | É isto que vira prova numa disputa |
+
+⚠️ **A borda que precisa aparecer na tela:** um envio interrompido é descartado pelo armazenamento em **7 dias**. A tela diz *"envio pausado — retome até dia X"*.
+
+✅ **O criador nunca precisa saber nada sobre formato de arquivo.** Se o vídeo vier num formato que faria a marca esperar um minuto e meio pelo primeiro quadro, **a plataforma corrige sozinha antes de disponibilizar** (SPEC §14.2.9). Nada é pedido a ele, e nada é recusado por isso.
+
+---
+
 *Detalhamento de produto. As regras de dinheiro estão na SPEC §4; os estados, na MÁQUINA DE ESTADOS.*
