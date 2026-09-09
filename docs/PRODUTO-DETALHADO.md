@@ -12,9 +12,9 @@ Um cliente leigo abre e fecha em dois minutos. Nada aqui é obrigatório de ente
 
 | # | Campo | Padrão |
 |---|---|---|
-| 1 | **O que você quer** | Vem preenchido pelo item da vitrine |
-| 2 | **Quantos** | 1 |
-| 3 | **Para quando** | Sugerido pelo prazo do item |
+| 1 | **O que você quer** — **seletor com todos os itens daquele criador** | O item de onde ela veio |
+| 2 | **Quantos** — mais e menos, **com o preço recalculando na hora** | 1 |
+| 3 | **Para quando** — **uma data real**, não um prazo em dias | Calculada a partir do aceite |
 | 4 | **Briefing** — o que a marca quer dizer, em texto livre, **com anexo de imagem** | vazio |
 | 5 | **Vai enviar produto?** | Não |
 | 6 | **Preço** | Vem do item da vitrine |
@@ -23,6 +23,49 @@ Um cliente leigo abre e fecha em dois minutos. Nada aqui é obrigatório de ente
 
 - **"Quem vai publicar?"** — a marca · o criador · os dois. *(Aparece só em material entregue.)*
 - **"A marca pode usar em anúncio pago?"** — já vem marcado conforme o tipo.
+
+### Trocar de item sem sair da tela
+
+**A marca troca de serviço ali mesmo.** Trocar de tela para comparar dois itens do mesmo criador é o imposto invisível da experiência ruim.
+
+Quando ela troca, **muda tudo o que é derivado** — preço, data prevista, tipo de prova, permanência, direitos padrão e as duas perguntas condicionais. **E o bloco *"o que libera o pagamento"* se reescreve na frente dela**, antes de confirmar. É isso que torna a troca segura em vez de armadilha: ela vê a consequência antes.
+
+⚠️ **Duas bordas que quebram o cliente legítimo se ninguém pensar nelas:**
+
+1. **O briefing e os anexos sobrevivem à troca.** Ela escreveu oito linhas, trocou de item e perdeu tudo — é abandono garantido.
+2. **O que ela ajustou em "opções avançadas" e não cabe no item novo** (data e endereço de presencial, ao trocar para um item remoto) **sai com aviso nomeado, nunca em silêncio.**
+
+### Quantidade — e a regra que resolve "3 Reels é um contrato ou três?"
+
+> 🔴 **Quantidade é o que cabe numa data de entrega. Se não cabe numa data, não é um contrato.**
+
+**Três Reels para a mesma data são um contrato, uma data, um pagamento.** A marca aprova peça por peça — isso já existe — mas o dinheiro não sai em três parcelas. **Série espalhada ao longo do mês é contrato recorrente**, que fica para depois do lançamento.
+
+❌ **Combo de itens diferentes no mesmo contrato não entra.** O criador publica *"1 Reels + 3 Stories — R$ 1.000"* como **item único da vitrine**. É como o Fiverr faz pacote, e custa zero de engenharia.
+
+### A data sobe livre, e não desce
+
+O campo deixa de dizer *"10 dias"* e passa a dizer **"quinta, 24/09"** — prazo em dias obriga o cliente a fazer conta; data não.
+
+| Direção | Regra |
+|---|---|
+| **Para frente** | **Livre.** 15 dias, 30 dias, o que ela precisar. Não há o que negociar: mais tempo nunca prejudica o criador |
+| **Para trás do prazo dele** | O campo trava e ela lê: *"para antes disso, envie uma proposta direta"* — caminho que já existe, e onde já se contrapõe |
+
+🟢 **Isso elimina um módulo inteiro de negociação de data com uma regra de uma linha.**
+
+### Disponibilidade é capacidade, não agenda
+
+❌ **Não existe calendário com vagas no v1.** É assim que o mercado resolve — o Fiverr não tem calendário, tem **limite de pedidos simultâneos**.
+
+| Regra | Valor |
+|---|---|
+| *"Quantos trabalhos aceito ao mesmo tempo"* | **Padrão 3.** Um campo no perfil do criador |
+| No limite | Os itens dele **saem da busca**. O perfil continua aberto |
+| Férias | *"Pausar até dd/mm"* — extensão do que já existe |
+| Ao aceitar | *"Você já tem 2 entregas nesta semana"* — **aviso, nunca bloqueio** |
+
+📌 **O aceite em 48 h já é a checagem de disponibilidade.** O criador vê a data e diz sim ou não. O que faltava não era mecanismo — era **a data estar visível** e existir um freio antes de ele lotar sozinho. Calendário com hora e vaga só faz sentido em trabalho presencial, que fica para depois.
 
 **A tela precisa dizer sozinha de onde ela veio.** Sem acrescentar campo:
 
@@ -74,7 +117,32 @@ Um cliente leigo abre e fecha em dois minutos. Nada aqui é obrigatório de ente
 
 🔴 **O buraco que nenhuma rede fecha:** a marca pode **baixar o vídeo e subir como anúncio dela mesma**. Entra como criativo próprio, sem o perfil do criador, e nenhuma API sabe que aquilo saiu daqui.
 
-✅ **A correção — sem tela nova.** Com a caixinha marcada, entra uma linha no bloco *"o que libera o pagamento"*: **o criador concede a permissão de parceria no Instagram, ou cola o código do TikTok, com validade de 12 meses.** Com a caixinha desmarcada, ele lê na entrega: *"este contrato não inclui anúncio pago — não gere código nem conceda permissão."*
+🔴 **E o buraco maior, que não é o reupload: a autorização pode ser desligada a qualquer momento.**
+
+| | O criador pode desligar? |
+|---|---|
+| **Instagram — permissão de parceria** | **Sim, quando quiser.** Os dois lados revogam a qualquer momento |
+| **TikTok — código de Spark Ads** | **Sim.** Revogável nas configurações; campanhas ativas param de rodar |
+| **Se o post for apagado** | A autorização morre junto — não existe anúncio sem publicação |
+
+**Portanto, "inclui a autorização por 12 meses" é uma promessa que a plataforma não consegue cumprir nem observar** — o estado da permissão aparece no gerenciador de anúncios **da marca**, não no nosso.
+
+✅ **O que se vende, e é o que dá para provar:**
+
+1. **A autorização concedida no ato** — que já é condição para o dinheiro ser liberado.
+2. **A obrigação contratual de mantê-la por 12 meses, com consequência nomeada.**
+
+> **É a diferença entre garantir e responsabilizar. E é honesto dizer qual das duas o cliente está comprando.**
+
+3. **No TikTok, o código só é aceito com validade de 365 dias** — é o único parâmetro que dá para conferir no ato, e é conferido.
+4. 🟢 **O monitoramento possível já está construído e é de graça:** a varredura que confere se o post continua no ar cobre a falha mais comum, porque **post fora do ar é anúncio fora do ar.**
+5. **O botão de reportar uso fora do contratado ganha o espelho do lado da marca** — hoje só o criador denunciava. Quem tem motivo para olhar, nos dois sentidos, é quem foi lesado.
+
+⚠️ **A devolução do valor quando a autorização cai antes do prazo vai para o `financeiro`; o texto da cláusula, para o `juridico-br`.** Está formulado, não decidido.
+
+**O que isso quebra para um cliente legítimo:** a agência que queria garantia de veiculação lê agora que a garantia não existe. **É melhor ela ler isso na tela de contratar do que descobrir no oitavo mês, com verba comprometida.** E nenhum concorrente entrega mais — nenhum consegue.
+
+✅ **Com a caixinha marcada**, entra uma linha no bloco *"o que libera o pagamento"*: **o criador concede a permissão no Instagram, ou cola o código do TikTok.** Com ela desmarcada, ele lê na entrega: *"este contrato não inclui anúncio pago — não gere código nem conceda permissão."*
 
 ❌ **Não se constrói detector de impulsionamento não autorizado.** Varrer biblioteca de anúncios custa engenharia contínua para um caso que aparece talvez uma vez por trimestre. No lugar: um botão **"reportar uso fora do contratado"** dentro do contrato, com o link da Biblioteca de Anúncios da Meta — que é pública — e a consequência escrita: **cobrança retroativa da diferença, mais registro**. Quem denuncia é o criador, que é quem tem motivo para olhar.
 

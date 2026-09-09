@@ -2,7 +2,7 @@
 
 > **Versão:** v3.0 · 08/09/2026
 > **O que é:** tudo o que a plataforma faz, organizado pela ordem em que a pessoa usa.
-> **97 funções no v1.** Se algo não está aqui, não existe no lançamento.
+> **98 funções no v1.** Se algo não está aqui, não existe no lançamento.
 
 **Prioridade:** **E** = sem isso não lança · **P** = entra no v1 se couber · **F** = depois do v1.
 
@@ -80,7 +80,8 @@ Duas regras que valem em toda tela onde aparece número:
 | 19 | Montar perfil: foto, bio, categorias | E |
 | 20 | Modalidade: remoto, presencial ou híbrido | E |
 | 21 | Montar item de vitrine | E |
-| 22 | Pausar ou arquivar item | E |
+| 22 | Pausar ou arquivar item, **e pausar tudo até uma data** (férias) | E |
+| 22.1 | **Limite de trabalhos ao mesmo tempo** — padrão 3. No limite, os itens saem da busca e o perfil continua aberto | E |
 | 23 | Portfólio de trabalhos anteriores | P |
 | 24 | Nota e histórico no perfil, com número de contratos concluídos | E |
 
