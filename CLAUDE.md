@@ -208,11 +208,17 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 | **O criador nunca espera mais que o prazo do meio de pagamento.** Proteção contra chargeback vem de teto por transação e fundo da plataforma, nunca de reter dinheiro do criador | SPEC §4.3 |
 | **Teto é só do cartão.** Pix e boleto nunca têm teto — chargeback só existe no cartão. Empresa verificada (KYB) entra em R$ 15.000 no dia 1, sem histórico | SPEC §4.3.1 |
 | 🟡 **Cartão só à vista no v1.** Parcelamento existe escrito e **desligado**: a antecipação exige 60 dias de histórico de cartão e a tabela de taxas do nosso plano não é pública. Liga por chave no Admin quando três respostas escritas do provedor chegarem | SPEC §4.2.4 |
-| **Comissão sai dos dois lados: 10% do criador + 5% da marca.** A marca vê o preço final desde a busca, com os 5% dentro. **Piso: comissão efetiva nunca abaixo do custo do meio de pagamento + 3 pontos** | SPEC §4.4.1 e §4.5 |
+| **Comissão sai dos dois lados: 10% do criador + 5% da marca.** A marca vê o preço final desde a busca, com os 5% dentro. **Piso: comissão efetiva nunca abaixo do custo do meio de pagamento + 5 pontos** — os 3 pontos anteriores só cobriam a taxa do provedor e esqueciam imposto, repasse e fundo | SPEC §4.4.1 e §4.5 |
+| **Comissão de lançamento: 9,5%**, não 7,5%. A 7,5% o ponto de equilíbrio seria 25 contratos/mês, acima da própria meta. **Promoção nunca desce abaixo do piso**, e por isso o desconto de recontratação de 8% não existe no cartão | SPEC §4.4 |
+| 🔴 **Valor mínimo de contrato: R$ 150** de preço do criador. O custo tem parte fixa de R$ 4,37 que não encolhe com o valor. O criador iniciante chega lá por quantidade, não por exceção | SPEC §4.5.1 |
+| 🔴 **Não existe carteira para ninguém — nem criador, nem marca.** Criador: "Meus recebimentos". Marca: "Meus pagamentos", sem saldo. **Saldo pré-pago da marca jogaria a plataforma dentro do Banco Central** e não entra em versão nenhuma. Palavras proibidas na interface: carteira · saldo · crédito · depositar | SPEC §4.9.1 |
+| **O fundo de contestação nasce com R$ 3.000 de aporte, e o teto de cartão da conta verificada só é liberado quando o fundo cobrir o dobro dele.** Fundo que começa em zero não é proteção, é intenção | SPEC §4.3.3 |
+| **Ponto de equilíbrio: 17 contratos/mês no lançamento, 9 em regime**, com ticket de R$ 1.200 e custo fixo de R$ 908/mês. **Aporte mínimo para abrir a operação: R$ 5.000** (fundo + capital de giro da retenção de 15 dias) | SPEC §14.2.3.1 e §14.2.3.2 |
+| **Estorno: Pix volta à conta de origem sem pedir dado; boleto pede conta de mesma titularidade; cartão leva até 60 dias e a tela diz isso.** Saldo negativo é sempre da plataforma, nunca do criador | SPEC §4.3.4 |
 | **Pix tem reversão por fraude (MED 2.0, desde 02/02/2026), com bloqueio de 72 h antes da análise.** Só o boleto é irreversível de verdade | SPEC §4.2.2 |
 | **Repasse é automático, varredura diária, piso de R$ 50, tarifa por conta da plataforma.** Nunca aprovação manual | SPEC §4.6.1 |
 | **O dinheiro é liberado na publicação confirmada por API, não na aprovação do arquivo.** Permanência mínima padrão: 90 dias | MAQUINA §8.0.1, SPEC §8.2 |
-| **Agência sai do v1. Pedido aberto fica no v1** | FEATURE-MATRIX |
+| **Agência sai do v1, e a superfície AGENCY WEB também.** Pedido aberto fica no v1 | FEATURE-MATRIX |
 | **Quantidade é o que cabe numa data de entrega.** Três Reels na mesma data são um contrato, uma data, um pagamento. Combo de itens diferentes não existe — vira item único da vitrine | PRODUTO §1 |
 | **A data sobe livre e não desce.** Para frente é livre; para antes do prazo do criador, o caminho é a proposta direta. **Não existe módulo de calendário com vagas no v1** — existe limite de trabalhos simultâneos, padrão 3 | PRODUTO §1 |
 | 🔴 **Não se vende garantia de veiculação de anúncio.** O criador pode desligar a autorização a qualquer momento, e a plataforma não consegue nem observar. Vende-se **a autorização concedida no ato** e a **obrigação contratual** de mantê-la — responsabilizar, não garantir | PRODUTO §2 |
@@ -226,13 +232,11 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 | ⚠️ **O "plano gratuito de 250 contas" do agregador não está publicado.** A decisão do fornecedor continua certa pelos outros motivos; o "R$ 0" é premissa. **A pergunta antes do preço: cobra por conta conectada ou por chamada?** | SPEC §9.1.1.1 e §14.2.5 |
 | 🟢 **O agregador de métricas é o caminho PRINCIPAL no v1, não a reserva.** Uma integração em vez de três, zero fila de aprovação, não exige CNPJ. A integração própria vira otimização de custo depois, com receita e sem prazo. Raspagem fora de cogitação | SPEC §9.1.1.1 |
 
-### ⚠️ Incoerências entre documentos — pendentes de decisão
+### O portão de entrega — a lista que roda antes de qualquer coisa chegar ao Marco 🔴
 
-Encontradas pelo `arquiteto-produto` em 09/09/2026. **Não são lacunas: é o mesmo assunto dito de duas formas em lugares diferentes.** Enquanto viverem, quem construir escolhe sozinho — e escolhe errado.
+Instituído em 09/09/2026, depois de ele dizer: *"Percebe que novamente eu que to tentando achar sempre algo? … so retorne quando tiver tudo q precisa."* **O portão do §6.1 revisa o pedaço; este verifica o todo.** As nove perguntas estão em `docs/METODO-DE-TRABALHO.md` §9, e a primeira é a que mais falhou: **"o assunto está inteiro, ou é uma fatia?"**
 
-1. 🔴 **Trabalho presencial está dentro e fora ao mesmo tempo.** A ordem de construção manda para depois do v1; a modalidade está marcada como essencial, "opções avançadas" tem bloco de presencial, e a máquina de estados detalha agendamento e cancelamento presencial. **Ou entra, ou sai.**
-2. **A SPEC §4.6 promete que "a plataforma sugere dividir em etapas automaticamente"** — mas marcos múltiplos ficaram para depois do v1. A SPEC promete função que o lançamento não tem.
-3. **O chat só abre depois do pagamento, e o criador aceita em 48 h sem poder perguntar nada.** O piso de data resolve boa parte, mas o botão de **pedir ajuste precisa estar visível para ele também na vitrine** — senão ele fica com sim ou não diante de uma dúvida legítima.
+🔴 **Entregar meio assunto não é entregar rápido: é terceirizar a costura para quem menos deveria costurar.** Se a entrega não declara quem revisou, não traz o placar de cortes, ou levanta pergunta que eu poderia responder pesquisando — **ele devolve sem ler**, e isso é o processo funcionando.
 
 ### Em aberto
 
