@@ -210,3 +210,15 @@ O `infra` nomeou o fornecedor de métricas, que estava decidido pela metade, e *
 **Corrigido:** removida a seção duplicada; a caixa vermelha do topo agora tem links reais (`<a href="#id">`) que pulam para a tela de contratar, para o pedido do fundo de contestação, e para a conta de dinheiro. A caixa amarela liga cada linha "antes → depois" à seção correspondente.
 
 **E a métrica direta tinha um problema real de comunicação, não de decisão.** O dono perguntou: integração direta não exige CNPJ, infraestrutura e aprovação que pode demorar ou ser recusada? Sim — mas eu não tinha separado quando cada coisa acontece. Pesquisa confirmou, com fonte: modo de desenvolvimento da Meta e sandbox do TikTok (até 50 contas) não passam por revisão nenhuma — a aprovação só é necessária para crescer além disso, com receita entrando. A decisão de usar API direta continua certa; o que faltava era a linha do tempo, agora em SPEC §9.1.4 e no painel.
+
+## 10/09/2026 (continuação 2) — O time de código, e a numeração de fases que se contradizia
+
+**O gatilho.** O dono comparou o projeto a uma empresa de desenvolvimento com setor por setor trabalhando com excelência, e pediu pesquisa em repositórios públicos de devs e na documentação da Anthropic antes de continuar — e que eu trouxesse pronto o que precisa ser instalado, sem ele ter que adivinhar termos técnicos.
+
+**O que a pesquisa confirmou:** a Anthropic não distribui pacote pronto de subagentes — o padrão é criar os próprios, exatamente o que já vínhamos fazendo. Dois repositórios públicos de qualidade (VoltAgent/awesome-claude-code-subagents, rohitg00/awesome-claude-code-toolkit) confirmaram o padrão de equipe de código de mercado. Criados quatro especialistas novos, só os que preenchiam lacuna real: `arquiteto-tecnico`, `qa-estrategia`, `devops`, `fullstack-dev` — `code-review` e `security-review` já existiam prontos, nativos, não precisaram ser recriados.
+
+**Nenhuma instalação foi necessária do dono.** São arquivos de texto no repositório.
+
+**E apareceu uma contradição real ao escrever isso:** `CLAUDE.md` §4 numerava a metodologia em 6 passos, `METODO-DE-TRABALHO.md` §2 numerava em 8 fases — para o mesmo processo. Corrigido: `METODO-DE-TRABALHO.md` §2 vira a única numeração oficial, e a tabela de estado das fases (que estava desatualizada, marcando Feature Matrix como "não feita" quando já existia em v3.2) foi atualizada para refletir a realidade.
+
+**Também corrigido nesta rodada:** eu tinha afirmado que o seletor de modelo mostraria um texto fixo do modo `opusplan`. O print do dono mostrou "Sonnet 5" puro — errado da minha parte. O mecanismo (`opusplan`) está confirmado ativo via ferramenta de sessão; o chip visual mostra o modelo que realmente serviu aquele turno, não um rótulo do modo.

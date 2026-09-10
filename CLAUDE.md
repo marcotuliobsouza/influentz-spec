@@ -79,14 +79,9 @@ O mesmo vale para features, telas e wireframes: conferir convenção de mercado 
 
 ## 4. Metodologia
 
-**Spec-Driven Development** — especificar antes de construir. Fluxo oficial, na ordem:
+**Spec-Driven Development** — especificar antes de construir. **A numeração oficial das fases vive em `docs/METODO-DE-TRABALHO.md` §2 — as 8 fases, de Descoberta a QA — e é a única que vale.** Resumo de onde cada peça mora:
 
-1. **SPEC** (`/docs/SPEC-INFLUENTZ.md`) — o que o produto faz e para quem
-2. **Sistema de design** — cores, tipografia, componentes
-3. **Telas / wireframes** — desenhadas no Claude Design
-4. **Modelo de dados** — Supabase, derivado da máquina de estados
-5. **Conexões** — GitHub, autenticação, pagamento
-6. **Código** — construído pelo Claude Code
+SPEC (`SPEC-INFLUENTZ.md`) → sistema de design (`DESIGN-SYSTEM.md`) → telas/wireframes (Claude Design) → modelo de dados (Supabase, derivado da máquina de estados) → conexões (GitHub, autenticação, pagamento) → **Fase 7: código**, construído pelo Claude Code com o time definido em `METODO-DE-TRABALHO.md` §5.2.
 
 Nenhuma etapa é pulada. Cada uma trava a ambiguidade da seguinte.
 
@@ -152,6 +147,17 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 | `antifraude` | Antes de escrever regra de entrega, de repasse, de cadastro ou de disputa. Pensa como o golpista antes dele |
 | 🔴 `arquiteto-produto` | **Coordena os outros.** Resolve conflito entre especialistas e é o único que responde *"o produto está coerente?"*. **Roda por último, antes de qualquer coisa chegar ao Marco** |
 | `infra` | Antes de prometer velocidade, armazenamento ou disponibilidade. **Todo número dele tem unidade e período** |
+
+**Time da Fase 6 (Código) — só entra em ação quando o produto estiver fechado, não antes:**
+
+| Especialista | Quando acionar |
+|---|---|
+| `arquiteto-tecnico` | Antes de qualquer linha de código. Decide estrutura de pastas, modelo de dados derivado da máquina de estados, e a camada de abstração de fornecedores |
+| `qa-estrategia` | Ao planejar cada fatia — decide **o que** testar e **quanto**, antes do código existir |
+| `devops` | Antes do primeiro deploy. Ambientes, variáveis de configuração, gatilho de sandbox → produção por fornecedor |
+| `fullstack-dev` | Implementa a fatia já decidida pelos anteriores. Não decide regra de negócio nem arquitetura |
+| `code-review` *(built-in do Claude Code)* | Revisão de um diff já escrito — correção, simplificação, eficiência |
+| `security-review` *(built-in do Claude Code)* | Revisão de segurança de um diff já escrito |
 
 ⚠️ **Regra:** quem escreve não revisa a própria prova. Toda entrega passa pelo especialista antes de chegar ao Marco.
 

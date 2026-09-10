@@ -22,17 +22,17 @@ Resultado: eu pulei da Fase 0 direto para a Fase 4. As fases que eu pulei são e
 
 | Fase | O que ela entrega | Estado real |
 |---|---|---|
-| **0 — Descoberta** | O que o produto é, quem usa, quais módulos, o que ele **não** é | 🟡 parcial (SPEC existe, mas não bate com a Constituição do Drive) |
-| **1 — Arquitetura** | Mapa das superfícies: Brand Web, Creator App, Agency Web, Admin Web. Que tela mora onde | 🔴 **não feita** |
-| **2 — Feature Matrix** | Inventário **completo** de funções, por papel e por módulo | 🔴 **não feita** |
-| **3 — Priorização** | O que entra agora, o que entra depois | 🟡 parcial |
-| **4 — Wireframes** | Estrutura das telas, sem visual final | 🟡 10 telas de ~40 |
-| **5 — Foundation** | Base visual: shell, sidebar, cards, botões, estados, tokens | 🟡 tokens sim, componentes não |
-| **6 — UI final** | Visual premium por tela | 🟡 2 telas |
-| **7 — Implementação** | Código | 🔴 não iniciada |
+| **0 — Descoberta** | O que o produto é, quem usa, quais módulos, o que ele **não** é | ✅ feita — `SPEC-INFLUENTZ.md` v0.5 |
+| **1 — Arquitetura** | Mapa das superfícies: Brand Web, Creator App, Admin Web. Que tela mora onde | ✅ feita — três superfícies, ver `CLAUDE.md` §7 |
+| **2 — Feature Matrix** | Inventário **completo** de funções, por papel e por módulo | ✅ feita — `FEATURE-MATRIX.md` v3.2, 91 funções, em três fatias de construção |
+| **3 — Priorização** | O que entra agora, o que entra depois | ✅ feita — junto com a Feature Matrix, §8 |
+| **4 — Wireframes** | Estrutura das telas, sem visual final | 🟡 9 telas de ~40 |
+| **5 — Foundation** | Base visual: shell, sidebar, cards, botões, estados, tokens | 🟡 tokens sim (`DESIGN-SYSTEM.md`), componentes ainda não |
+| **6 — UI final** | Visual premium por tela | 🟡 2 telas — bloqueado no aval do Marco para desenhar o resto |
+| **7 — Implementação** | Código — modelo de dados, conexões, backend, front | 🔴 não iniciada. Time definido em §5.2 |
 | **8 — QA** | Bugs, estados quebrados, acessibilidade, performance | 🔴 não iniciada |
 
-⚠️ **A Fase 2 é a que responde "não pode faltar nada".** Enquanto ela não existir, qualquer tela que eu desenhar é chute educado — e o Marco vai continuar, com razão, encontrando ausências.
+**Esta tabela é a única numeração de fases do projeto.** Se você vir "Fase 6" significando código em algum lugar, é referência velha — aqui, código é a **Fase 7**.
 
 ---
 
@@ -77,6 +77,25 @@ Herdado do documento do Marco, adaptado à realidade de hoje:
 | Decisão estratégica, visão de negócio, aprovação | **Marco** | Aprovar ou reprovar. Dar rumo. **Não precisa saber como se faz** |
 
 **O que isso significa na prática:** quando o Marco diz *"tem que ter calendário"*, isso é matéria-prima. Meu trabalho não é implementar a frase literal — é pesquisar como plataformas sérias resolvem gestão de agenda, decidir o formato certo, e trazer pronto. Se eu voltar perguntando *"que tipo de calendário você quer?"*, eu falhei.
+
+---
+
+## 5.2 O time da Fase 7 — código — definido antes de precisar dele 🟢
+
+Pesquisado em 10/09/2026, depois de o Marco perguntar se a metodologia usa o que existe de melhor em repositório público de desenvolvedores, em vez de reinventar. **Resposta: a Anthropic não distribui um pacote pronto de especialistas de código** ([documentação oficial de subagentes](https://code.claude.com/docs/en/sub-agents)) — o padrão recomendado é criar os próprios, e é isso que já fazíamos desde o time de produto (`arquiteto-produto`, `financeiro`, etc.).
+
+**O que a pesquisa em repositórios públicos trouxe de útil de verdade** — não uma pilha de 100+ agentes genéricos, só o que preenche uma lacuna real: [VoltAgent/awesome-claude-code-subagents](https://github.com/VoltAgent/awesome-claude-code-subagents) e [rohitg00/awesome-claude-code-toolkit](https://github.com/rohitg00/awesome-claude-code-toolkit) confirmam o padrão de mercado para equipe de código — arquiteto técnico, QA, DevOps, desenvolvedor — e o formato de arquivo (Markdown + YAML) é o mesmo que já usamos.
+
+| Especialista | Arquivo | Cobre o quê |
+|---|---|---|
+| `arquiteto-tecnico` | `.claude/agents/arquiteto-tecnico.md` | Estrutura de pastas, modelo de dados derivado da máquina de estados, camada de abstração de fornecedores |
+| `qa-estrategia` | `.claude/agents/qa-estrategia.md` | O que testar e quanto, **antes** do código existir |
+| `devops` | `.claude/agents/devops.md` | Ambientes, configuração, gatilho de sandbox → produção por fornecedor |
+| `fullstack-dev` | `.claude/agents/fullstack-dev.md` | Implementa a fatia já decidida pelos anteriores |
+| `code-review` | **built-in do Claude Code** | Revisão de um diff já escrito |
+| `security-review` | **built-in do Claude Code** | Revisão de segurança de um diff já escrito |
+
+🟢 **Nada disso exige instalação sua.** São arquivos de texto no repositório — custo zero até serem chamados, e eu que decido quando chamar (é arquitetura, categoria A do `CLAUDE.md` §2.1). **O único ponto em aberto, sem solução ainda:** gerar imagem realista de "empresa fictícia" ou "criador fictício" para mockup — pesquisei e não existe essa ferramenta pronta nesta sessão. Mockup usa avatar/ilustração (padrão de wireframe); foto real vem de banco de imagem quando chegar a hora do marketing, que não é agora.
 
 ---
 
