@@ -174,3 +174,19 @@ Não por causa do Drive — por mérito. Registro para não se perderem:
 2. **Criadores virtuais / gerados por IA.** É uma categoria que existe e cresce. Ser a plataforma que a regula com rótulo obrigatório e operador humano verificado — em vez de fingir que não existe — é posicionamento defensável.
 
 Nenhuma das duas está no escopo atual. Ficam aqui como memória.
+
+## 10/09/2026 — A entrega pela metade, e o portão que fecha isso
+
+**O gatilho, palavra do Marco:** *"Percebe que novamente eu que to tentando achar sempre algo? … so retorne quando tiver tudo q precisa."* Ele listou o que faltava — ponto de equilíbrio, valor mínimo de proposta, custo do repasse e quem paga, quem tem carteira, onde cai o estorno — e todos os cinco eram consequência direta de eu ter entregado **metade de um assunto**: o custo de operar sem a receita que o cobre.
+
+**O diagnóstico.** O portão do §5.1 revisava o pedaço; **ninguém verificava o todo antes de entregar.** Criado o portão do `METODO-DE-TRABALHO.md` §9, com nove perguntas, das quais a primeira é a que mais falhou: *o assunto está inteiro, ou é uma fatia?*
+
+**A pergunta dele — "não tem especialista pra isso? precisa de mais especialistas?" — merece a resposta honesta: não.** O `financeiro` existia e nunca tinha sido perguntado sobre o modelo de operação. Criar um especialista novo teria sido a resposta fácil para um problema de processo. **O que faltava era o portão, não mais gente.**
+
+**O que a rodada produziu:** o `financeiro` achou que a frase *"20 contratos por mês pagam o conjunto em qualquer cenário"* estava errada — foi calculada sem imposto, sem tarifa de repasse, sem taxa do meio de pagamento e sem fundo. A 7,5% de comissão de lançamento o equilíbrio era 25 contratos/mês, **acima da própria meta**. Comissão de lançamento corrigida para 9,5% e piso de comissão efetiva de +3 para +5 pontos.
+
+O `produto` varreu todos os documentos e devolveu **30 contradições** — a lista completa, de uma vez, para não aparecerem mais de surpresa. Entre elas, o inventário afirmava 98 funções, o painel 97, e a contagem real era 91.
+
+O `arquiteto-produto` arbitrou as cinco que eram decisão de escopo e achou uma que ninguém tinha visto: **o fundo de contestação nascia com R$ 3.000 e o próprio piso dele era R$ 5.000** — lido ao pé da letra, o cartão não poderia existir no dia 1. Aporte corrigido.
+
+O `infra` nomeou o fornecedor de métricas, que estava decidido pela metade, e **matou a maior bomba de custo do projeto**: a verificação de permanência chega por webhook, então as 90.000 consultas por mês nunca vão existir. E mostrou que eu vinha medindo a linha errada — **armazenamento é 2% do custo; o item caro sempre foi a métrica.**
