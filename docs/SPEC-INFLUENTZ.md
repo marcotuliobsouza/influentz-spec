@@ -211,8 +211,8 @@ A Resolução BCB 493/2025, obrigatória desde **02/02/2026**, mudou o Pix receb
 |---|---|---|
 | GMV | R$ 24.000 | R$ 1.200.000 |
 | Perda esperada após 3DS | R$ 23/mês | R$ 1.152/mês |
-| Receita de comissão | R$ 1.800 (7,5%) | R$ 180.000 (15%) |
-| **Perda ÷ comissão** | **1,3%** | **0,64%** |
+| Receita de comissão | R$ 2.280 (9,5%) | R$ 180.000 (15%) |
+| **Perda ÷ comissão** | **1,0%** | **0,64%** |
 
 🔴 **A conclusão que muda a medida certa: a perda média sempre coube na comissão. Ela nunca foi o problema.** O problema é **concentração**. Com 20 contratos por mês, um único chargeback de R$ 1.200 consome dois terços da comissão do mês, e um contrato de R$ 20.000 contestado apaga onze meses de receita. Não existe lei dos grandes números com 20 contratos. **Por isso a medida certa é teto de exposição por transação (camada 2), e não retenção no tempo** — segurar 90 dias protegia contra a média, que já cabia, e não protegia contra o caso isolado, que é o que mata.
 
@@ -230,12 +230,12 @@ A Resolução BCB 493/2025, obrigatória desde **02/02/2026**, mudou o Pix receb
 
 **E a pesquisa mostrou que ele estava ainda mais certo do que parecia: o contrato de R$ 30.000 nunca foi um problema de cartão.** Empresa grande no Brasil paga fornecedor por **boleto, TED ou Pix contra nota fiscal**, dentro do contas-a-pagar. O obstáculo real não era o teto — **era a SPEC não ter rota corporativa nenhuma.**
 
-**O número não foi escolhido, foi derivado.** Duas restrições, das premissas já registradas (ticket médio R$ 1.200; 20 contratos/mês; comissão de lançamento 7,5% = R$ 1.800/mês):
+**O número não foi escolhido, foi derivado.** Duas restrições, das premissas já registradas (ticket médio R$ 1.200; 20 contratos/mês; comissão de lançamento 9,5% = **R$ 2.280/mês**):
 
 - **Piso:** o teto não pode morder o caso normal. Dois tickets médios = **R$ 2.400**.
-- **Teto:** nenhuma perda isolada pode consumir mais de 1,5 mês de comissão = **R$ 2.700**.
+- **Teto:** nenhuma perda isolada pode consumir mais de 1,5 mês de comissão = **R$ 3.420**.
 
-A interseção é R$ 2.400–2.700. **R$ 2.500 cai dentro; R$ 3.000 cai fora** (1,67 mês) — a sugestão anterior estava alta.
+A interseção é R$ 2.400–3.420, e **R$ 2.500 continua sendo o número** — não porque seja o máximo possível, mas porque **subir o teto obriga a subir o fundo de contestação junto** (§4.3.3, o piso é o dobro do teto), e o fundo é caixa parado. Sobe quando o fundo crescer, sem nova decisão.
 
 **Frequência esperada:** com 0,6% de chargeback e 40% do GMV em cartão, é **um chargeback a cada ~20 meses**. Mesmo errando por 5×, um a cada 4 meses. R$ 2.500 a cada 4 meses é absorvível sem capital; **R$ 20.000 não é — e é essa que o teto impede.**
 

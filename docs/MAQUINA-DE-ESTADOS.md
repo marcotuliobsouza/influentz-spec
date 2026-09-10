@@ -298,15 +298,15 @@ A SPEC §8.1 dá reembolso total "até 24h após o aceite". Com boleto, a confir
 
 ### 7.2 🔴 Lacuna: a comissão precisa ser congelada no contrato
 
-A SPEC §4.4 tem três faixas de comissão (15%, 8% na recontratação, 7,5% no lançamento). Duas armadilhas:
+A SPEC §4.4 tem três faixas de comissão (15%, 8% na recontratação, 9,5% no lançamento). Duas armadilhas:
 
-1. **Se a comissão for calculada na hora do repasse**, um contrato assinado durante os 90 dias de lançamento a 7,5% viraria 15% se o repasse acontecesse depois — em cartão, o repasse é D+30, então isso aconteceria de verdade. A marca e o criador combinaram um número e receberiam outro.
+1. **Se a comissão for calculada na hora do repasse**, um contrato assinado durante os 90 dias de lançamento a 9,5% viraria 15% se o repasse acontecesse depois — em cartão, o repasse é D+30, então isso aconteceria de verdade. A marca e o criador combinaram um número e receberiam outro.
 2. **O contador de recontratação precisa contar contratos concluídos, não iniciados.** Se contar iniciados, qualquer um cria dois contratos de R$ 1, cancela, e destrava o desconto de 8% para sempre. É uma porta de fraude aberta.
 
 🔵 **Regras propostas:**
 - A alíquota é **congelada no contrato no momento da criação** e nunca recalculada.
 - O contador de recontratação conta contratos com estado `concluido` entre aquele par marca–criador.
-- Quando lançamento (7,5%) e recontratação (8%) se sobrepõem, **vale a menor**.
+- Quando lançamento (9,5%) e recontratação (8%) se sobrepõem, **vale a menor — mas nunca abaixo do piso de comissão efetiva da SPEC §4.4.1**. No cartão, onde o piso é 9,19%, isso significa que 8% não existe: o desconto para em 9,5%.
 - A unidade de contagem das "50 primeiras transações" é o **contrato**, não a cobrança. Um contrato de 5 marcos consome 1 das 50, não 5.
 
 ---
