@@ -22,42 +22,30 @@ Três coisas fazem a plataforma valer o que cobra:
 
 ---
 
-## Onde estamos
+## 🧭 Onde estamos agora
 
-**Fase: desenho do produto.** Nada de código ainda, e isso é de propósito — código antes de produto definido é dinheiro jogado fora.
+**Esta seção muda a cada entrega, e é sempre a primeira coisa a olhar.** As outras seções do painel são a explicação completa por trás; esta aqui é o resumo de "para onde meu olho vai primeiro".
 
-| | |
-|---|---|
-| ✅ **Pronto** | O que o produto faz, como o dinheiro anda, a identidade visual, e as 91 funções do lançamento |
-| ✂️ **Cortado** | O produto pedia coisa demais de quem usa. Tela de contratar de ~25 campos para **6**; direitos de 7 campos para **1**; dez tipos de trabalho para **4** |
-| 🔨 **Agora** | O dinheiro fechado de ponta a ponta, o fornecedor de métricas nomeado, e as 30 contradições entre documentos resolvidas |
-| ⏳ **Depois** | Banco de dados → conexões → código → testes |
+### 🔴 Precisa de você agora — só duas coisas, nada mais
 
----
-
-## O que eu preciso de você
-
-**Duas coisas, e nenhuma delas é técnica.**
-
-> ### 1. Olhe a tela de contratar, no painel publicado
-> **Se você fosse a marca, você fecharia nessa tela? O que te faria desistir?**
+> **1. Olhe a tela de contratar, no painel publicado.** Se você fosse a marca, fecharia nessa tela? O que te faria desistir?
 >
-> Você não precisa aprovar onze telas para dizer se o produto está de pé — precisa ver uma. Se estiver de pé, sigo para as outras. Se não, refaço agora, que é quando é barato.
+> **2. A lista de cold start.** Quantos criadores e quantas marcas atenderiam seu telefone hoje? É o único item que nem dinheiro nem engenharia resolvem.
 
-> ### 2. A lista de cold start
-> Quantos criadores e quantas marcas atenderiam o seu telefone hoje?
+**E um aviso, não pergunta:** separe **R$ 6.800** antes de abrir o CNPJ — R$ 5.000 do fundo de contestação + R$ 1.800 de capital de giro. Está detalhado mais abaixo, em "O dinheiro".
 
-> ### 3. Duas decisões que são legitimamente suas, com a recomendação já escrita
-> **(a) Trabalho presencial sai do lançamento?** Recomendo que sim: não existe API que confirme presença, e liberar dinheiro sem confirmação por API quebraria a regra que sustenta a retenção. Fica desenhado e volta depois.
-> **(b) Você separa R$ 5.000 para o fundo de contestação?** Recomendo que sim, antes da primeira cobrança real. Não é gasto, é caixa seu em conta separada — e é o que permite o cartão existir no dia 1.
+### 🟡 O que mudou nesta rodada — antes → depois
 
-**E um número que não é pergunta, é aviso:** abrir a operação pede **R$ 6.800 de caixa**, e eu devia ter te dado isso há semanas.
+| Assunto | Era | Passou a ser | Por quê |
+|---|---|---|---|
+| **Fornecedor de métricas** | Agregador pago (Phyllo/Ayrshare), R$ 4.207 a R$ 34.339/mês | **Integração direta e gratuita** com Meta, TikTok e YouTube | O agregador resolvia um problema de tempo de engenharia gastando um dinheiro que você não tem. As três APIs são gratuitas em modo de teste, cobrindo os 50 criadores sem CNPJ |
+| **Tarifa de saque do criador** | "A plataforma paga a tarifa" — texto que eu escrevi errado | **O provedor sempre cobra do criador; a plataforma absorve embutindo o valor no próprio pagamento**, não por uma configuração que não existe | Confirmado na documentação oficial: taxa de saque não é configurável, só a comissão é |
+| **Trabalho presencial** | Cortado do v1 (eu tinha decidido errado) | **De volta ao v1**, liberado por confirmação bilateral dos dois lados — sua solução | Eu tinha confundido "não tem API" com "não tem como confirmar". Confirmação bilateral já é o padrão usado em produto físico |
+| **Tela do criador** | Não existia | **Nova: extrato por contrato** — bloqueado, aguardando prazo, disponível, enviado | Você pediu para saber exatamente quanto e quando; hoje é a mesma informação que só existia para nós, agora com tela |
 
-Marketplace vazio não tem produto. É o único item que nem dinheiro nem engenharia resolvem.
+### 🟢 Decidido — histórico, não precisa reler
 
-**O que você não precisa fazer:** ler documento técnico, auditar especificação, procurar o que falta, escolher número. Se eu te mandar uma pergunta que eu conseguiria responder pesquisando, me corrija.
-
----
+Tudo isso já está fechado e não muda sem motivo novo. A lista completa está na seção "O que está decidido", mais abaixo — aqui só o resumo por assunto: **dinheiro** (comissão, piso, repasse, carteira, estorno) · **produto** (tipos de trabalho, revisões, direitos) · **infraestrutura** (armazenamento, backup) · **cronograma da empresa**.
 
 ## Uma data que você precisa saber
 
@@ -161,26 +149,21 @@ O fundo junta 5% da comissão — **R$ 114 por mês no lançamento**. Para acumu
 
 ---
 
-## O fornecedor de métricas, com nome
+## Métricas: revertido de agregador pago para integração gratuita 🔴
 
-Você disse que não sabia qual seria. A decisão estava pela metade — eu tinha escolhido *"um agregador"* sem nunca cravar qual. **Agora tem nome: Phyllo / InsightIQ.**
+Semana passada eu te disse: *"tem nome: Phyllo/InsightIQ, com Ayrshare de plano B"* — e o preço ficava entre **R$ 4.207 e R$ 34.339 por mês.** Você respondeu, com razão: **isso é surreal para uma startup micro, sem CNPJ, com orçamento escasso.** Eu estava resolvendo o problema errado — evitar três filas de aprovação, que é um custo de *tempo*, gastando um dinheiro que você não tem.
 
-**O que decidiu não foi preço, foi uma pergunta só:** *o fornecedor confirma que um post específico continua no ar?* É isso que libera o dinheiro do criador. A maioria dos concorrentes só entrega "número de seguidores" e cai nessa pergunta.
+**Corrigido: o v1 conecta direto em cada rede, de graça.**
 
-**E uma notícia grande: o maior risco de custo do projeto acabou.** Eu tinha te avisado que conferir se a publicação continua no ar geraria **90 mil consultas por mês** e poderia custar mais que toda a infraestrutura. **Não gera mais:** o fornecedor escolhido **avisa por conta própria** quando um post é removido, e o plano B verifica **100 posts por chamada** — as 90 mil viram 900.
+| Rede | O que confirma | Custo |
+|---|---|---|
+| Instagram/Facebook | Post existe e está no ar | **R$ 0** — a revisão do app da Meta é processo, não produto pago |
+| TikTok | Vídeo existe | **R$ 0** — sem plano pago publicado em lugar nenhum |
+| YouTube | Vídeo existe | **R$ 0**, dentro de 10 mil consultas grátis por dia — dá para mais de 300 criadores checados todo santo dia |
 
-**O preço não é publicado — e isso deixou de ser um problema**, porque o plano B (**Ayrshare**) publica o dele, e ele vira o nosso teto de negociação:
+**O preço que você paga por isso não é dinheiro — é tempo:** três aprovações em vez de uma, cada uma podendo demorar semanas e ter que ser refeita se for recusada. **Isso já estava mapeado como risco** (§9.1.4) e continua valendo — só que agora é o preço certo para o caixa que você tem.
 
-| Fase | Teto que aceitamos pagar |
-|---|---|
-| Lançamento (50 criadores) | **R$ 4.207 por mês** |
-| Operação (2.000 criadores) | **R$ 34.339 por mês** |
-
-**Regra já decidida, sem pergunta para você:** se o orçamento vier acima do teto, assinamos o plano B. Abaixo, o primeiro. A única coisa que chega até você é a assinatura do contrato.
-
-🔴 **E aqui está o que eu tinha medido errado o tempo todo:** armazenamento é **2% do custo no lançamento**. O item caro da INFLUENTZ nunca foi guardar vídeo — **é o fornecedor de métricas.** Eu estava medindo a linha errada com precisão e a linha certa não estava medida.
-
----
+**O agregador não sumiu, só foi guardado.** Quando a plataforma tiver receita e a dor de manter três integrações separadas custar mais que a assinatura, ele volta — trocar é trocar um adaptador, não reescrever o produto.
 
 ## O armazenamento aguenta? Testei contra o pior caso
 
@@ -215,13 +198,13 @@ Você pode derrubar qualquer uma destas a qualquer momento, sem justificar.
 - O dinheiro fica retido até a entrega ser confirmada
 - **Pix e boleto nunca têm limite.** Só o cartão tem — e o teto de R$ 15.000 da empresa verificada só liga quando o fundo de contestação cobrir R$ 30.000
 - 🟡 **Cartão só à vista no v1.** O parcelamento existe escrito e desligado — liga por uma chave quando o Pagar.me responder três perguntas por escrito
-- **O repasse é automático**, todo dia útil, com a tarifa por nossa conta — e junta por criador, não por contrato
+- **O repasse é automático**, todo dia útil, junta por criador (não por contrato). **O provedor sempre cobra a tarifa de saque do criador** — a plataforma absorve embutindo o valor no pagamento dele, não por configuração
 - **Não existe carteira para ninguém.** O criador vê "Meus recebimentos"; a marca vê "Meus pagamentos", sem saldo
 - **Nenhum usuário precisa de CNPJ.** Criador recebe com CPF; marca contrata com CPF ou CNPJ
 
 **Produto**
 - Métricas só por API oficial. Sem captura de tela, em lugar nenhum
-- **Um fornecedor único de métricas**, que já tem as aprovações das três redes — em vez de três integrações nossas com três filas de aprovação
+- **Integração direta e gratuita com Meta, TikTok e YouTube** — não um agregador pago. Custa tempo de engenharia (três aprovações em vez de uma), não dinheiro que você não tem
 - **Quatro tipos de trabalho**, e uma pergunta resolve todos: *quem vai publicar?* Três vão para o lançamento
 - **Seis campos na tela de contratar.** Direitos são uma frase, não um formulário
 - **Duas revisões incluídas, para todo mundo.** Fixo
@@ -230,7 +213,7 @@ Você pode derrubar qualquer uma destas a qualquer momento, sem justificar.
 - Criador precisa ter 18 anos — exigência legal, não escolha
 - Todo usuário tem web, iOS e Android, com função completa
 - **Agência fica para depois do lançamento — inteira.** No v1 ela não assinaria, não pagaria, não receberia e não aceitaria termos: sobraria olhar
-- 🟡 **Trabalho presencial fica para depois do lançamento** — não existe API que confirme presença, e liberar dinheiro sem isso quebraria a regra que sustenta a retenção. Você pode vetar
+- **Trabalho presencial entra no v1**, liberado por confirmação bilateral (os dois lados confirmam no app que o serviço aconteceu)
 - **Entrega em etapas fica para depois.** Ninguém fica sem saída: Pix e boleto não têm teto, e um contrato de R$ 4.800 é um Pix só
 - Contrato recorrente fica para depois do lançamento
 
@@ -248,12 +231,12 @@ Você pode derrubar qualquer uma destas a qualquer momento, sem justificar.
 | **A data do CNPJ escorregar** | 🟡 A conta regressiva está acima |
 | **Contador** — imposto, retenção, e o regime que muda 15,5% para 6% | 🟡 Antes do código de pagamento |
 | **Advogado** — termos, LGPD, publicidade, chargeback | 🟡 Antes do lançamento |
-| Instagram travar em fila da Meta | 🟢 Fornecedor de dados entra no dia 1 e não depende de aprovação nenhuma |
-| **Preço do fornecedor de métricas** | 🟡 Não publicado. É a maior incerteza da conta na operação — falta o número por escrito, e a unidade de cobrança |
+| **Meta/TikTok recusarem a revisão do app** | 🟡 É por isso que usamos o modo de teste (50 criadores) enquanto isso não é aprovado. Cabe recurso, mas cada rodada reinicia o relógio |
+| Preço do fornecedor de métricas | 🟢 Deixou de existir como risco — a rota do v1 agora é gratuita |
 | Plataforma pagar dinheiro que ainda não recebeu | 🟢 Impossível por desenho |
 | Produto grande demais para ser construído | 🟢 91 funções, em três fatias |
 | Produto complicado demais para um cliente leigo usar | 🟢 Cortado. Seis campos na tela de contratar |
-| Depender de resposta do Pagar.me ou da Meta para construir | 🟢 Não depende. Nenhuma taxa está no código, e as métricas vêm de fornecedor único |
+| Depender de resposta do Pagar.me ou da Meta para construir | 🟢 Não depende. Nenhuma taxa está no código, e a integração de métrica é nossa, direta com cada rede |
 
 ---
 

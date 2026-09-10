@@ -299,7 +299,7 @@ Funções: 1–16, 18–22, 24–36, 38–40, 42, **44, 45**, 47–51, 55, 58–
 
 **Fatia 3 — cartão parcelado, degraus e listas restritivas.** 41, 43, 64, 85, 87.
 
-**Depois do v1:** agência e a superfície AGENCY WEB · contrato recorrente · **marcos múltiplos** · **aditivo de escopo** · 🟡 **trabalho presencial** · comparador lado a lado · entrar com Google e Apple · autenticação em duas etapas · seletor de espaço de trabalho.
+**Depois do v1:** agência e a superfície AGENCY WEB · contrato recorrente · **marcos múltiplos** · **aditivo de escopo** · comparador lado a lado · entrar com Google e Apple · autenticação em duas etapas · seletor de espaço de trabalho.
 
 🔴 **Por que o aditivo de escopo saiu:** a marca que quer mais coisa **fecha um segundo contrato com o mesmo criador** — dois cliques, dentro da plataforma, com o dinheiro protegido igual. O aditivo traria seis regras (segunda cobrança no mesmo contrato, estado pendente, relógio congelado, prazo de 3 dias, um por vez, só para cima) para resolver o que "contratar de novo" já resolve.
 

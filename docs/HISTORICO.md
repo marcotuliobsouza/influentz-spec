@@ -190,3 +190,15 @@ O `produto` varreu todos os documentos e devolveu **30 contradições** — a li
 O `arquiteto-produto` arbitrou as cinco que eram decisão de escopo e achou uma que ninguém tinha visto: **o fundo de contestação nascia com R$ 3.000 e o próprio piso dele era R$ 5.000** — lido ao pé da letra, o cartão não poderia existir no dia 1. Aporte corrigido.
 
 O `infra` nomeou o fornecedor de métricas, que estava decidido pela metade, e **matou a maior bomba de custo do projeto**: a verificação de permanência chega por webhook, então as 90.000 consultas por mês nunca vão existir. E mostrou que eu vinha medindo a linha errada — **armazenamento é 2% do custo; o item caro sempre foi a métrica.**
+
+## 10/09/2026 — Três correções por parar e ouvir de verdade
+
+**O gatilho.** O dono pediu para eu parar antes de continuar, e listou o que estava errado com o processo: painel sem indicação de onde olhar, custos sem fonte, decisão de corte (presencial) sem propor solução antes, orçamento de métricas fora da realidade de uma startup sem CNPJ, e uma fatura de US$ 232 sem explicação. Confirmado, com a própria ferramenta de sessão: esta conversa gerou US$ 232,15 em uso — quase exatamente a fatura que ele recebeu — de rodar sete especialistas em Opus alto separadamente.
+
+**Correção 1 — presencial volta ao v1.** Eu tinha cortado a modalidade citando a regra "dinheiro só libera com API confirmando publicação". O dono apontou a solução óbvia que eu não vi: confirmação bilateral dos dois lados, o mesmo padrão já usado em produto físico. Eu tinha confundido "não tem API" com "não tem como confirmar" — são coisas diferentes. Corrigido em MAQUINA §8.5.
+
+**Correção 2 — fornecedor de métricas revertido de pago para gratuito.** A escolha anterior (Phyllo/Ayrshare, R$ 4.207 a R$ 34.339/mês) resolvia um problema de tempo de engenharia (três filas de aprovação) gastando um dinheiro que o dono não tem. Pesquisa confirmou: App Review da Meta é processo gratuito, TikTok e YouTube têm API oficial sem plano pago publicado, e o modo de teste de cada rede já cobre os 50 criadores sem CNPJ que já estavam na SPEC. O agregador pago vira otimização futura, não pré-requisito.
+
+**Correção 3 — a tarifa de saque não pode ser "por conta da plataforma" por configuração.** Fonte oficial do Pagar.me: a taxa de saque é sempre debitada de quem transfere — o criador — sem opção de redirecionar via configuração. A forma real de a plataforma absorver o custo é embutir o valor no split no momento da transação, não por uma chave que não existe. Corrigida em SPEC §4.6.1.1, com a tela de extrato do criador (bloqueado/aguardando prazo/disponível/enviado) que faltava.
+
+**Mudança de processo, permanente:** `/model opusplan` ativado — troca automática entre Opus (planejamento) e Sonnet (execução), sem precisar perguntar a cada resposta. E menos subagentes por rodada: pesquisa direta quando não precisa de uma "persona" especialista, evitando o padrão que gerou a fatura.

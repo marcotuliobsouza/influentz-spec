@@ -216,11 +216,11 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 | **Ponto de equilíbrio: 17 contratos/mês no lançamento, 9 em regime**, com ticket de R$ 1.200 e custo fixo de R$ 908/mês | SPEC §14.2.3.1 |
 | **Estorno: Pix volta à conta de origem sem pedir dado; boleto pede conta de mesma titularidade; cartão leva até 60 dias e a tela diz isso.** Saldo negativo é sempre da plataforma, nunca do criador | SPEC §4.3.4 |
 | **Pix tem reversão por fraude (MED 2.0, desde 02/02/2026), com bloqueio de 72 h antes da análise.** Só o boleto é irreversível de verdade | SPEC §4.2.2 |
-| **Repasse é automático, varredura diária, piso de R$ 50, tarifa por conta da plataforma.** Nunca aprovação manual | SPEC §4.6.1 |
+| **Repasse é automático, varredura diária, piso de R$ 50.** A tarifa de saque é sempre debitada do criador pelo provedor (fato confirmado, não é configurável) — a plataforma a absorve **embutindo-a no split no momento da transação**, não via configuração inexistente. Nunca aprovação manual | SPEC §4.6.1 e §4.6.1.1 |
 | **O dinheiro é liberado na publicação confirmada por API, não na aprovação do arquivo.** Permanência mínima padrão: 90 dias | MAQUINA §8.0.1, SPEC §8.2 |
 | **Agência sai do v1 inteira, com a superfície AGENCY WEB.** No v1 ela não assinaria, não pagaria, não receberia e não aceitaria termos — sobraria olhar. **Um pedido aberto contrata vários criadores, e o motivo é campanha de marca, nunca agência** | SPEC §2, MAQUINA §5.1 |
 | 🔴 **Marcos múltiplos ficam fora do v1, e a SPEC para de oferecê-los na tela.** Ninguém fica sem saída: Pix e boleto não têm teto, e um contrato de R$ 4.800 é um Pix. **O banco nasce com 1..N marcos**; ligar depois é tela, não é refazer o dinheiro | SPEC §4.6 |
-| 🟡 **Trabalho presencial sai do v1 — e o motivo é invariante, não escopo.** Não existe API que confirme presença, e liberar dinheiro sem confirmação por API quebra a regra que sustenta o escrow inteiro. Fica modelado, volta quando houver confirmação que não dependa da palavra de ninguém. **Decisão categoria C: o Marco veta se quiser** | MAQUINA §8.5 |
+| ✅ **Trabalho presencial ENTRA no v1.** Corrigido: a regra de liberação por API vale para publicação digital; presença física usa confirmação bilateral dos dois lados (mesmo padrão de produto físico sem rastreio), não é exceção ao escrow — é a mesma regra aplicada ao evento certo | MAQUINA §8.5 |
 | 🔴 **Aditivo de escopo sai do v1.** A marca que quer mais coisa fecha um segundo contrato com o mesmo criador — dois cliques, mesmo dinheiro protegido. O aditivo traria seis regras para resolver o que "contratar de novo" já resolve | FEATURE-MATRIX §8 |
 
 | **A agenda de recebíveis é fatia 1** — obrigação do BCB vencida desde 01/04/2024, não item de roadmap. **Conta verificada e Fatura INFLUENTZ sobem para a fatia 2**: com o teto de cartão travado, são a única rota do cliente grande no lançamento | FEATURE-MATRIX §8 |
@@ -235,8 +235,7 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 | **A tela de envio tem quatro obrigações, e "enviar só no Wi-Fi" não existe:** parece aviso e é uma função inteira, com um estado novo de "enviou mas não chegou" no dia do prazo | PRODUTO §7 |
 | **O relógio da retenção conta do marco do contrato, não do envio:** finais 24 meses da publicação confirmada; brutos 90 dias do fechamento. **Contrato ou disputa aberta congela a exclusão** | SPEC §14.5.1 e §14.5.2 |
 | **Backup do banco é nosso, não do plano.** O provedor guarda 7 dias; a janela de contestação chega a 540. Cópia diária cifrada, guardada 540 dias. **Para os arquivos, versionamento no R2 basta no v1** | SPEC §14.2.9 |
-| ⚠️ **O "plano gratuito de 250 contas" do agregador não está publicado.** A decisão do fornecedor continua certa pelos outros motivos; o "R$ 0" é premissa. **A pergunta antes do preço: cobra por conta conectada ou por chamada?** | SPEC §9.1.1.1 e §14.2.5 |
-| 🟢 **O agregador de métricas é o caminho PRINCIPAL no v1, não a reserva.** Uma integração em vez de três, zero fila de aprovação, não exige CNPJ. A integração própria vira otimização de custo depois, com receita e sem prazo. Raspagem fora de cogitação | SPEC §9.1.1.1 |
+| 🔴 **Revertido: o v1 usa integração DIRETA e gratuita com Meta, TikTok e YouTube — não um agregador pago.** O agregador (Phyllo/Ayrshare, R$ 4.207 a R$ 34.339/mês) resolvia o problema errado: evitava 3 filas de aprovação, mas isso é tempo, não dinheiro, e dinheiro é o que o fundador não tem. As três APIs oficiais são gratuitas; o modo de teste de cada rede cobre os 50 criadores sem CNPJ. Agregador vira otimização quando houver receita | SPEC §9.1.1.1 |
 
 ### O portão de entrega — a lista que roda antes de qualquer coisa chegar ao Marco 🔴
 

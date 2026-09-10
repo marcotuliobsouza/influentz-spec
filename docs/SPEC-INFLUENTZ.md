@@ -468,22 +468,46 @@ O criador cadastra o preço que quer receber pelo trabalho — R$ 1.200. **A vit
 |---|---|---|
 | Gatilho | Todo dia útil, saldo disponível **≥ R$ 50** → transferência criada | Dinheiro parado no provedor sem motivo é confundir "aprovado" com "disponível" |
 | Abaixo de R$ 50 | Acumula, e **varre obrigatoriamente no último dia útil do mês** | Nada fica preso por regra nossa |
-| Tarifa | **A plataforma paga** a do repasse programado | O criador ofertou olhando o líquido; tarifa surpresa é taxa somada no fim |
 | Saque fora do ciclo | Botão "receber agora", **com a tarifa exibida antes**, paga pelo criador | Escolha dele, custo dele, informado antes |
 | Aprovação manual | **Nunca**, para valor já disponível | Equipe de uma pessoa não pode ser gargalo de pagamento |
+| Agregação | Por criador, não por contrato — três contratos liberados no mesmo dia geram **uma** transferência | Evita transferência de R$ 12 pagando tarifa de alguns reais |
 
-**Por que varredura própria e não o saque automático nativo:** o nativo só aceita diário, semanal ou mensal, e **não tem piso de valor**. Diário nativo geraria transferência de R$ 12 pagando tarifa de alguns reais; semanal faria o criador esperar até 7 dias **além** do prazo do meio. A varredura com piso entrega o melhor dos dois. **Custo estimado:** ~R$ 73/mês no lançamento; na operação, cerca de 2% da comissão. Cabe.
+**Por que varredura própria e não o saque automático nativo:** o nativo só aceita diário, semanal ou mensal, e **não tem piso de valor**. Diário nativo geraria transferência de R$ 12 pagando tarifa de alguns reais; semanal faria o criador esperar até 7 dias **além** do prazo do meio. A varredura com piso entrega o melhor dos dois.
 
-📌 **Somos mais rápidos que Upwork (5 dias de segurança), Fiverr (14 dias para vendedor novo) e Mercado Pago (D0/D14/D30) — porque não inventamos período de segurança.**
+📌 **Somos mais rápidos que Upwork** (agenda semanal/quinzenal/mensal/trimestral, [Upwork Payment Schedule](https://support.upwork.com/hc/en-us/sections/360002707693-Payment-Schedule)) **e Fiverr** (14 dias de retenção, 7 para vendedores top, [Fiverr Help Center](https://help.fiverr.com/hc/en-us/articles/360010530058-Withdrawing-your-earnings-managing-payout-methods)) **— porque não inventamos período de segurança.**
 
 ⚠️ **Nada disso pode virar carteira.** A varredura é instrução ao provedor com retorno por webhook: a invariante da §4.9 continua intacta, e vale teste automatizado.
 
+### 4.6.1.1 Correção: quem paga a tarifa de saque, e como 🔴
 
-🔴 **A varredura agrega por criador, não por contrato.** Um criador com saldo de três contratos no mesmo dia recebe **uma** transferência, não três. Isso não é função nova — é a definição de "varrer o saldo disponível".
+🔴 **Uma versão anterior desta SPEC dizia "a plataforma paga a tarifa do repasse". Isso é tecnicamente impossível no Pagar.me, e a fonte é oficial:**
 
-**Quanto custa, e por que a plataforma paga:** a tarifa de transferência é de cerca de **R$ 3,67 por repasse** — **R$ 73 por mês** no lançamento (4% da comissão) e **R$ 3.670 por mês** na operação (2%). Fiverr, Upwork, Hotmart e Kiwify **todas cobram essa tarifa do prestador**. Absorver é decisão nossa, e ela protege a regra já travada: *o criador ofertou olhando o líquido; tarifa surpresa é taxa somada no fim.*
+> *"As taxas de saque sempre são cobradas da conta do recebedor que realiza a transferência bancária, independentemente de configurações."* — [Central de Ajuda Stone/Pagar.me — Quem arca com as taxas em uma regra de split](https://pagarme.helpjuice.com/pt_BR/p2-funcionalidades/13marketplace-quem-arca-com-as-taxas-em-uma-regra-de-split)
 
-⚠️ **Gatilho de revisão, e ele é de planilha, não de software:** se o custo de repasse passar de **3% da receita de comissão por três meses seguidos**, a regra migra para *um repasse por semana sem custo, saques adicionais pagos pelo criador*. **Com 20 contratos por mês essa conta se faz em cinco minutos**; construir relatório com gatilho para isso seria ferramenta interna para uma operação de uma pessoa.
+**Só as taxas percentuais podem ser divididas por configuração** (parâmetro `charge_processing_fee`). **A taxa de saque não** — o provedor debita direto da conta do recebedor que está transferindo, sem exceção configurável.
+
+✅ **O jeito real de a plataforma "absorver" o custo: pagar a tarifa antecipadamente, dentro do split.** No momento em que a transação é criada, o split do criador recebe um valor **maior** do que a comissão calculada indicaria — a diferença é exatamente a tarifa de saque estimada — e a nossa comissão recebe esse valor **a menos**. Quando o saque acontece e o provedor debita a tarifa da conta do criador, o valor que sobra bate com o que prometemos a ele. **O criador nunca vê o desconto; a plataforma é quem abre mão da fatia equivalente.**
+
+⚠️ **O valor exato da tarifa ainda não está confirmado.** A documentação pública diz apenas *"o valor acordado fica na aba Configurações > Taxas e Serviços"* ([Central de Ajuda — Saques](https://pagarme.helpjuice.com/pt_BR/p1-saques-recebimentos-e-antecipa%C3%A7%C3%A3o/saques-como-funciona-a-taxa-de-saque)) — depende do credenciamento. **R$ 3,67 continua como premissa** (mesma tarifa cobrada pela Kiwify), até a resposta escrita do Relacionamento (pergunta 16, §4.6.2). O valor vive em configuração — no dia em que a tarifa real chegar, é um número que muda, não uma regra que se reescreve.
+
+**Quanto isso custa à plataforma, com a tarifa-premissa:** ~R$ 73/mês no lançamento (4% da comissão) e ~R$ 3.670/mês na operação (2%). Fiverr, Upwork, Hotmart e Kiwify **todas cobram essa tarifa do prestador** — absorver é diferencial nosso, e protege a regra já travada: *o criador ofertou olhando o líquido; tarifa surpresa é taxa somada no fim.*
+
+⚠️ **Gatilho de revisão, e ele é de planilha, não de software:** se o custo de repasse passar de **3% da receita de comissão por três meses seguidos**, a regra migra para *um repasse por semana sem custo, saques adicionais pagos pelo criador*. Com 20 contratos por mês essa conta se faz em cinco minutos.
+
+### 4.6.1.2 A tela do criador — o extrato que ele precisa ver 🔴
+
+**O criador nunca deveria precisar perguntar "cadê meu dinheiro?".** A tela "Meus recebimentos" (§4.9.1) mostra, **por contrato**, quatro números — nunca um saldo único genérico:
+
+| Estado | O que significa | Exemplo na tela |
+|---|---|---|
+| **Bloqueado** | Contrato pago pela marca, entrega ainda não confirmada. Dinheiro retido no escrow | *"R$ 1.080 — bloqueado até a publicação ser confirmada"* |
+| **Liberado, aguardando prazo do meio de pagamento** | Publicação confirmada, mas o dinheiro em si ainda não existe na conta — caso do cartão (D+30) | *"R$ 1.080 — aprovado, disponível em 12/10"* |
+| **Disponível** | O dinheiro já está na conta digital do criador, esperando a próxima varredura | *"R$ 1.080 — disponível, será enviado no próximo dia útil"* |
+| **Enviado** | Já saiu para a conta bancária dele | *"R$ 1.080 — enviado em 05/10 às 14h"* |
+
+**E um resumo no topo da tela, sempre visível:** *total bloqueado · total aguardando prazo · total disponível · data do próximo repasse automático.* Isso não é tela nova — é a mesma distinção que já existe na máquina de estados (§9.2, `retido` / `liberado_aguardando_prazo` / `disponivel` / `sacado`), só que hoje ela só existia para nós; agora tem tela.
+
+*O que acontece se isso não existir:* o criador manda mensagem para o suporte perguntando "cadê meu Pix", com uma pessoa só para responder. A tela existir é o suporte não precisar existir para essa pergunta.
 
 ### 4.6.2 Perguntas ao Relacionamento do provedor — por escrito, no credenciamento ⚠️
 
@@ -504,7 +528,7 @@ Nenhuma é decisão do Marco; todas viram documento em `/docs` quando respondere
 10. 🔴 **Quem é debitado da taxa de antecipação — o marketplace ou o recebedor?** *(Se for o recebedor, o parcelamento não liga.)*
 11. Valor mínimo, máximo e limites de antecipação — por dia, por transação, por conta.
 12. 🔴 **A validação de mesma titularidade da conta bancária vale para recebedores criados por API**, ou só pela dashboard? **Se valer só pela dashboard, o desvio de repasse volta a ser possível e vira a prioridade número um.** Hoje estamos protegidos por uma regra que ainda não confirmamos.
-16. 🔴 **Qual a tarifa de saque/transferência ao recebedor, em R$, na nossa conta — e ela é debitada do marketplace ou do recebedor?** *(A tarifa não é publicada; toda a nossa conta usa R$ 3,67 como premissa.)*
+16. 🔴 **Qual a tarifa de saque/transferência ao recebedor, em R$, na nossa conta?** ✅ **Parcialmente respondida sem precisar perguntar:** a documentação pública já confirma que ela é **sempre debitada do recebedor**, nunca do marketplace, por desenho — não há opção de configuração (§4.6.1.1). O que falta é só o valor exato, para a nossa conta.
 17. **Boleto emitido e não pago gera custo?** Se sim, quanto por boleto.
 18. 🔴 **Qual a taxa de chargeback por ocorrência, e ela é cobrada mesmo quando a disputa é ganha?** *(Referência de mercado: R$ 25 a R$ 80. Num contrato de R$ 1.200, essa taxa sozinha come 28% da comissão.)*
 19. 🔴 **Como se retém o valor do recebedor secundário até a liberação?** Split com data futura, split executado no ato da liberação, ou conta de garantia? **É a única peça do escrow sem mecânica escrita, e é o coração do produto.**
@@ -775,65 +799,46 @@ O criador aceita um convite dentro do app da própria rede e autoriza. **A métr
 
 **Fase 3 — aprovado.** Vira Advanced Access / produção. **Os criadores da coorte não refazem nada** — o token deles continua válido, só muda o modo do app. Isso precisa estar previsto na modelagem de dados desde já.
 
-### 9.1.1.1 O agregador é o caminho principal, não a reserva 🟢
+### 9.1.1.1 Correção de rota: integração direta com cada rede, gratuita, é o caminho do v1 🔴
 
-🔴 **Decisão invertida, e ela tira três aprovações do caminho crítico do lançamento.**
+🔴 **Decisão revertida. A escolha anterior (agregador pago) resolvia o problema errado.** Ela evitava três filas de aprovação — um problema de tempo de engenharia. Ela ignorava o problema real: **a INFLUENTZ hoje é um fundador só, sem CNPJ, com orçamento próximo de zero**, e o agregador custava entre **R$ 4.207 e R$ 34.339 por mês** (§9.1.1.2 antiga). Isso não é uma decisão de arquitetura — é inviável, ponto.
 
-A versão anterior punha a INFLUENTZ construindo **três integrações próprias** — Meta, TikTok e Google —, cada uma com fila de aprovação, exigência de empresa verificada, prazo fora do nosso controle e risco de reprovação. Isso é três vezes o mesmo trabalho, três vezes o mesmo risco, e **três coisas que podem travar o lançamento por motivo que não é nosso.**
+✅ **A regra do v1: conectar direto na API oficial de cada rede, gratuita, em modo de desenvolvimento/teste, sem CNPJ.**
 
-✅ **A regra do v1: uma integração só, com um agregador que já tem as aprovações das três redes.**
+| Rede | O que confirma | Custo | Fonte |
+|---|---|---|---|
+| **Instagram/Facebook** (Meta Graph API) | Existência e alcance de um post específico por ID | **R$ 0.** App Review é processo de revisão, não produto pago — *"Meta's Graph API for Instagram/Facebook is free at the API level, with App Review as the gating cost"* | [Meta for Developers — App Review](https://developers.facebook.com/docs/development/release/) |
+| **TikTok** (Display API / Content Posting API) | Existência de vídeo por ID | **R$ 0.** *"TikTok publishes no paid tier, no per-call fee, and no subscription anywhere on the developer portal"* | [Blotato — TikTok API Pricing 2026](https://www.blotato.com/blog/tiktok-api-pricing) |
+| **YouTube** (Data API v3) | Existência de vídeo por ID | **R$ 0**, dentro de 10.000 unidades por dia — consultar um vídeo por ID custa ~1 unidade, ou seja, **até ~10.000 verificações por dia de graça** | [documentação oficial YouTube Data API](https://developers.google.com/youtube/v3) |
 
-| | Três integrações próprias | Um agregador |
+**E o modo de teste já resolve o cold start sem revisão nenhuma:** um app da Meta em modo Development funciona com os usuários que têm papel no app (os testers) **sem precisar de App Review** — é exatamente o limite de 50 criadores sem empresa verificada que já estava travado na SPEC (§9.1).
+
+**O que isso custa, dito sem maquiagem — porque toda decisão de dinheiro tem os dois lados:**
+
+| | Agregador pago | Integração direta (decisão do v1) |
 |---|---|---|
-| Aprovações a obter | 3, em série, com CNPJ | **0** |
-| Prazo fora do nosso controle | semanas a meses | **nenhum** |
-| Risco de reprovação | 3 pontos de falha | **0** |
-| Exige CNPJ para começar | **Sim** (Meta) | **Não** |
-| Custo no lançamento | R$ 0 | ⚠️ **Não confirmado** — ver o aviso abaixo |
-| Trabalho de engenharia | 3× | **1×** |
+| Custo mensal | R$ 4.207 a R$ 34.339 | **R$ 0** |
+| Aprovações a obter | 0 | **3, em série** (Meta, TikTok, Google), cada uma com prazo fora do nosso controle e risco de reprovação — ver §9.1.4 |
+| Trabalho de engenharia | 1× | **3×** — três integrações, três formatos de resposta |
+| Exige CNPJ | Não | **Não** (modo de teste cobre até 50 criadores) |
 
-**O criador não percebe diferença nenhuma:** ele autentica na tela da própria rede, com o login oficial dela. É dado consentido por OAuth, exatamente como seria na integração própria — **não é raspagem, não é print, não é estimativa.** A regra travada continua valendo ao pé da letra: *métrica só por API oficial.*
+**Por que aceitar o lado mais caro em engenharia, e não o mais caro em dinheiro:** tempo de desenvolvimento é o único recurso que o fundador ainda tem de graça. Dinheiro mensal recorrente, ele não tem — e é isso que decide.
 
-### 9.1.1.2 O fornecedor, com nome: **Phyllo / InsightIQ**. Plano B: **Ayrshare** 🟢
+✅ **A camada de abstração já prevista (`CLAUDE.md` §5) continua sendo o que protege o futuro:** cada rede vira um adaptador atrás da mesma interface interna. **Quando houver receita e a dor de manter três integrações separadas justificar o custo, troca-se por um agregador sem reescrever a regra de negócio** — troca-se um adaptador, não o produto.
 
-**O critério que decidiu não foi preço, foi uma pergunta só:** *o fornecedor confirma que um post específico existe e continua no ar?* É isso que libera o dinheiro do criador (§8.2), e é isso que elimina a maioria.
+**O checklist de ferramenta nova (`CLAUDE.md` §3), respondido para a rota direta:**
 
-| Fornecedor | Veredito | Motivo |
-|---|---|---|
-| **Phyllo / InsightIQ** | ✅ **Escolhido** | Único que junta consentimento do criador por OAuth oficial + item de conteúdo individual por identificador + **webhook** que avisa quando um conteúdo é adicionado, atualizado ou **removido** + ambiente de teste grátis sem CNPJ |
-| **Ayrshare** | 🟡 **Plano B, e é o nosso teto de negociação** | Faz tudo o que precisamos e **tem preço publicado**. Verifica post publicado fora dele, **até 100 posts por chamada**, e devolve erro específico quando o post sumiu |
-| Modash | ❌ | Base de descoberta por perfil público, sem consentimento do criador |
-| HypeAuditor | ❌ | Análise de audiência com estimativa. **Não confirma que um post continua no ar** |
-| Creable · Lefty | ❌ | São plataformas de campanha com tela própria, não API para embutir. Comprá-las é comprar um concorrente parcial |
+1. **Como funciona por dentro.** O criador autentica na tela oficial de cada rede (OAuth). O token de acesso fica guardado por nós, cifrado, com escopo mínimo (leitura de mídia e insights, nunca postar em nome dele sem ele pedir). **Nunca vemos a senha.**
+2. **Dá para testar sem custo e sem CNPJ?** **Sim** — é o ponto central desta decisão. Modo de desenvolvimento de cada plataforma, com os próprios criadores fundadores como testers.
+3. **Prazos reais.** Conectar: segundos. **App Review de cada rede: semanas, e cada rodada reprovada reinicia o relógio** (já documentado em §9.1.4, e continua valendo).
+4. **Quanto custa.** R$ 0 até os limites de quota diária de cada API — muito acima do volume do lançamento.
+5. **É legal e viável no Brasil?** Sim — LGPD exige base legal de consentimento no Termo e definição do que acontece com a métrica quando o criador desconecta, isso já estava anotado para o `juridico-br` e continua valendo.
 
-> 🔴 **A bomba das 90.000 consultas por mês deixou de existir.** No Phyllo, a permanência chega **por webhook** — eles avisam, nós não perguntamos. No Ayrshare, **100 posts por chamada** transformam 90.000 consultas em **900 requisições por mês**. A linha que "podia custar mais que toda a infraestrutura" morreu nas duas opções.
+📌 **O agregador não morreu — foi arquivado com o número certo.** Phyllo/InsightIQ e Ayrshare (§9.1.1.2, mantida abaixo como referência) voltam a ser avaliados **quando o custo de manter três integrações separadas, em horas de manutenção, ultrapassar o preço deles — com receita entrando.** Antes disso, gastar R$ 4 mil por mês para economizar código é o oposto do que uma micro-startup sem CNPJ pode fazer.
 
-**O preço, e como ele deixa de ser risco.** O Phyllo **não publica preço** — só orçamento sob medida. **O teto vem do plano B, que é público:**
+### 9.1.1.2 Referência arquivada — o agregador, para quando houver receita 🔵
 
-| Estágio | Teto que aceitamos pagar | De onde vem |
-|---|---|---|
-| Lançamento (50 criadores) | **R$ 4.207 por mês** | Ayrshare: US$ 599/mês por 30 perfis + 20 extras a US$ 8,99 por perfil por mês |
-| Operação (2.000 criadores) | **R$ 34.339 por mês** | Ayrshare, mesma tabela por faixa |
-
-> ✅ **Regra de negociação, já decidida:** se o orçamento do Phyllo vier **acima do teto da linha correspondente, assina-se o Ayrshare**. Abaixo, Phyllo. Não há terceira hipótese e não há pergunta a fazer ao dono.
-
-🔴 **Cláusula obrigatória no contrato: cobrança por conta conectada por mês, com o volume de chamadas incluído e declarado. Proposta "por chamada" é recusada na hora** — não pelo valor, mas porque um custo que cresce com a verificação de permanência pune exatamente o comportamento que o produto precisa ter.
-
-**O checklist de ferramenta nova (`CLAUDE.md` §3), respondido:**
-
-1. **Como funciona por dentro.** O criador toca em "conectar Instagram" dentro do nosso app e cai na **tela oficial da própria rede**. O token fica com o fornecedor, que já tem as aprovações de app da Meta, do TikTok e do Google. **Nós nunca guardamos senha nem token de rede social.**
-2. **Dá para testar sem custo e sem CNPJ?** **Sim** — ambiente de teste gratuito, sem cartão e sem empresa aberta. É isto que tira o CNPJ do caminho crítico da métrica.
-3. **Prazos reais.** Conectar a conta: segundos. ⚠️ **Primeira carga do histórico, atualização de métrica e detecção de post removido não têm prazo publicado** — premissa de até 24 h. **Consequência de produto, já adotada: a tela do criador diz "métrica lida em [data e hora]", nunca "ao vivo".**
-4. **Quanto custa.** Não publicado. Ver o teto acima.
-5. **É legal e viável no Brasil?** Sim, com duas travas contratuais antes da assinatura, ambas já listadas abaixo.
-
-🔵 **Criador conectado que nunca fechou contrato continua custando**, porque a cobrança é por conta conectada. **A desconexão automática por inatividade fica para depois do v1:** os US$ 2.697 por mês de "criadores fantasma" são número da fase de operação — **no lançamento são 50 criadores dentro de um plano que cobre 50, e a economia real é zero**. **Volta quando contas conectadas sem contrato passarem de 20% do plano contratado**; até lá o operador desconecta na mão, e são cliques.
-
-📌 **Quando a integração própria passa a valer a pena:** quando o custo do fornecedor justificar o trabalho, **já com receita**, empresa aberta e sem prazo apertado. Vira otimização de custo, nunca pré-requisito de lançamento. **A camada de abstração já prevista faz a troca ser um adaptador, não uma reescrita.**
-
-❌ **Raspagem continua fora de cogitação.** Fornecedores que entregam dado raspado de perfil público violam os termos das redes e a regra da §9.
-
-⚠️ **Antes de assinar, duas exigências que vão para o `juridico-br`:** o contrato precisa **declarar por escrito que a aprovação do fornecedor junto às redes cobre o uso pelo cliente final**; e, como o acesso fica com ele, ele é **operador de dado pessoal** — exige contrato de tratamento e menção nominal na Política de Privacidade.
+Mantido como registro técnico, não como decisão ativa do v1: **Phyllo/InsightIQ** (não publica preço, orçamento sob medida) e **Ayrshare** (preço público, US$ 599/mês por 30 perfis + US$ 8,99 por perfil extra) seguem sendo os dois candidatos válidos quando a integração própria virar otimização de custo. O motivo de escolha continua o mesmo: confirmam por webhook ou por chamada em lote que um post específico existe e continua no ar — é isso que libera o dinheiro do criador (§8.2), e é o que elimina concorrentes como Modash e HypeAuditor, que só entregam estimativa de audiência.
 
 ### 9.1.4 Riscos, sem maquiagem
 

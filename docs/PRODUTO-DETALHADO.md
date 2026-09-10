@@ -65,7 +65,7 @@ O campo deixa de dizer *"10 dias"* e passa a dizer **"quinta, 24/09"** — prazo
 | Férias | *"Pausar até dd/mm"* — extensão do que já existe |
 | Ao aceitar | *"Você já tem 2 entregas nesta semana"* — **aviso, nunca bloqueio** |
 
-📌 **O aceite em 48 h já é a checagem de disponibilidade.** O criador vê a data e diz sim ou não. O que faltava não era mecanismo — era **a data estar visível** e existir um freio antes de ele lotar sozinho. Calendário com hora e vaga só faz sentido em trabalho presencial, que fica para depois.
+📌 **O aceite em 48 h já é a checagem de disponibilidade.** O criador vê a data e diz sim ou não. O que faltava não era mecanismo — era **a data estar visível** e existir um freio antes de ele lotar sozinho. Calendário com hora e vaga completo (agenda tipo Google Calendar) continua fora do v1 mesmo com presencial dentro — o que existe é o campo data e hora dentro do próprio contrato, confirmado bilateralmente (MAQUINA §8.5), não uma agenda visual de disponibilidade.
 
 **A tela precisa dizer sozinha de onde ela veio.** Sem acrescentar campo:
 
@@ -90,7 +90,7 @@ O campo deixa de dizer *"10 dias"* e passa a dizer **"quinta, 24/09"** — prazo
 **Direitos e uso:** prazo de uso (12 meses) · onde a marca pode usar (todos os canais dela) · exclusividade (nenhuma).
 **Entrega:** aprovação prévia do roteiro (não) · menções obrigatórias · palavras e temas proibidos · formato e duração (o do item) · rede onde publica (a que o criador tem conectada).
 **Produto físico**, só se houver envio: o criador fica com o produto (sim) · valor declarado · entrega sem rastreio (não).
-**Presencial**, só no tipo 4: data e hora · endereço · ~~Despesas de deslocamento~~ — 🔵 sai junto com o trabalho presencial, que fica para depois do v1.
+**Presencial**, só no tipo 4: data e hora · endereço · **despesas de deslocamento incluídas no preço, combinadas antes e financiadas junto com o contrato** — nunca reembolso por fora, que seria dinheiro fora do escrow e sem prova.
 
 ❌ **Três saíram de lá:** *quem paga o frete* (já é regra fixa — quem envia paga, e o campo contradizia a regra) · *permanência editável* (não retém dinheiro; editá-la criava promessa que a plataforma não executa — virou cláusula por tipo) · *territorialidade* (ninguém no lançamento contrata conteúdo em português para usar só na Argentina — virou cláusula: Brasil).
 
