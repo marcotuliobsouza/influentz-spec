@@ -58,7 +58,7 @@ A SPEC §3 define dois caminhos de entrada. Cruzando com a estrutura de entrega 
 | **B** | Pedido aberto | Única, remota | Igual ao A, com proposta antes |
 | **C** | Pedido aberto | Em marcos, remota | Cada marco tem vida própria |
 | **D** | Vitrine ou pedido aberto | **Presencial ou híbrida** | Estados extras de agendamento e falta |
-| **E** | Qualquer um, **intermediado por agência** | Qualquer | Mesmos estados, com autoria registrada |
+| **E** | Qualquer um, **intermediado por agência** | Qualquer | ⚠️ **Modelado, fora do v1.** A agência não assina, não paga, não recebe e não aceita termos — o aceite é sempre do titular. No v1 ela opera com o login da própria marca |
 
 ### 2.1 Tipo F — contrato recorrente 🔵
 
@@ -188,7 +188,11 @@ stateDiagram-v2
 
 Uma campanha real contrata 3, 5, 10 criadores do mesmo briefing. A marca seleciona quantas propostas quiser, e **cada seleção cria um contrato independente** — com seu próprio escrow, seus próprios marcos, sua própria disputa.
 
-⚠️ **Isto reverte a recomendação anterior deste documento**, que sugeria adiar. O motivo da reversão é uma contradição com a SPEC §2: agências entram no v1 justamente porque hoje sofrem com gestão manual. **A agência rodando uma campanha com vários criadores é o caso de uso que faz a agência existir no produto.** Adiar multi-contrato esvaziaria a razão pela qual as agências foram incluídas.
+🔴 **Por que um pedido aberto contrata vários criadores já no v1 — e a agência não é o motivo.**
+
+**Campanha de influência é uma marca contratando vários criadores do mesmo briefing, não uma agência.** O formato padrão no Brasil é de 3 a 10 nano e micro criadores por lançamento de produto. Com ticket médio de R$ 1.200 e ponto de equilíbrio em 17 contratos por mês, **um único pedido aberto produz de 3 a 10 dos 17 contratos do mês** — é o caminho mais curto que existe para o zero a zero.
+
+Sem um-para-vários, a marca repete o mesmo trabalho cinco vezes, e cada repetição é uma chance de abandono. O custo continua sendo o que já foi medido: a relação um-para-muitos no banco é barata; o caro é o painel agregado, que segue fora do v1.
 
 **O que entra no v1 e o que não entra:**
 
@@ -676,7 +680,7 @@ As três decisões que a v0.1 deixou em aberto foram fechadas. Todas com o mesmo
 
 ### 13.1 Um pedido contrata vários criadores — **sim, no v1**
 
-Decidido e detalhado em §5.1. Reverte a recomendação da v0.1, porque adiar contradizia a razão pela qual a SPEC §2 colocou agências no lançamento.
+Decidido e detalhado em §5.1: campanha de marca com vários criadores é o caso, e é o caminho mais curto para o ponto de equilíbrio.
 
 ### 13.2 Cancelamento de trabalho presencial — **escala por proximidade da data**
 

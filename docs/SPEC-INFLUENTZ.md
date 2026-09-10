@@ -33,19 +33,17 @@ A plataforma existe para que uma marca encontre o criador certo por categoria/ni
 
 ---
 
-## 2. Papel da agência 🟢
+## 2. Papel da agência 🔵
 
-A agência **gerencia**, mas quem assina e quem recebe/paga é sempre a marca ou o criador. **A agência nunca toca no dinheiro.**
+🔵 **A agência fica para depois do lançamento — inteira, inclusive a superfície própria.**
 
-Motivo: se a agência recebesse e repassasse valores de terceiros, ela passaria a exercer atividade de instituição de pagamento perante o Banco Central — obrigação regulatória que não faz sentido impor a um cliente da plataforma.
+**O motivo não é escopo, é contradição interna.** A versão enxuta que se cogitou era *"um espaço para agrupar criadores e marcas sob um login"* — mas o seletor de espaço de trabalho já estava fora do v1, e duas regras travadas esvaziam a agência por completo: **o aceite de Termos é sempre do próprio titular** e **dado financeiro nunca entra por mão de operador**. Somando: no v1 a agência **não assina, não paga, não recebe e não aceita termos.** Sobra olhar — um login a mais para ler.
 
-🔵 **Autonegociação:** se o mesmo CPF/CNPJ aparecer do lado da agência **e** do criador/marca representado, o sistema sinaliza para revisão manual antes de liberar qualquer benefício.
+*O que acontece se não existir?* A agência faz o que já faz hoje em qualquer ferramenta: entra com o login de cada marca que atende.
 
-**Escopo de agência no lançamento** (decisão 7): a agência já entra no v1 em versão enxuta — espaço próprio para agrupar seus criadores e marcas sob um login. Fica para depois: permissões refinadas por membro da equipe da agência e faturamento consolidado entre várias marcas representadas.
+✅ **O papel continua modelado no banco de dados**, com autoria registrada em cada ação. Abrir a porta depois não exige reescrever nada.
 
-*Justificativa da mudança:* a hipótese anterior era adiar agências inteiras. Foi revertida porque agências são justamente o público que hoje sofre com gestão manual e sem workspace — sem um motivo para entrar no dia 1, elas permanecem com seus grupos próprios de criadores fora da plataforma.
-
----
+⚠️ **E um pedido aberto continua contratando vários criadores no v1** — mas o motivo nunca foi a agência: é a campanha de marca com 3 a 10 criadores do mesmo briefing, que é o caminho mais curto para o ponto de equilíbrio. Ver `MAQUINA-DE-ESTADOS.md` §5.1.
 
 ## 3. Como a contratação é estruturada 🟢
 
@@ -135,7 +133,7 @@ Quando ligada: cartão 2× a 12×, parcela mínima R$ 200, **juros de 1,99% ao m
 
 **A arquitetura que faz as duas conviverem:** duas chaves no Admin (`parcelamento_habilitado` e `data_unica_confirmada`), ambas nascendo desligadas, e **um único ponto no código** que decide quantas parcelas mostrar. Ligar é um clique, não um lançamento de versão.
 
-🔴 **O que a Regra B quebra para um cliente legítimo, dito sem maquiar:** a marca média — R$ 3.000 a R$ 8.000, agência pequena, e-commerce em crescimento — que queria dividir em 3× **não vai poder**. É cliente bom, e alguns vão embora. **A compensação é real e precisa estar na tela:** marcos com Pix resolvem o mesmo problema de caixa, espaçados pela entrega, com **custo zero** contra 6% a 13% de juros; e o boleto de 30 dias dá o mesmo fôlego. O cliente grande não é afetado — ele já ia por boleto.
+🔴 **O que a Regra B quebra para um cliente legítimo, dito sem maquiar:** a marca média — R$ 3.000 a R$ 8.000, agência pequena, e-commerce em crescimento — que queria dividir em 3× **não vai poder**. É cliente bom, e alguns vão embora. **A compensação é real e precisa estar na tela:** o Pix não tem teto nenhum e sai com custo zero contra 6% a 13% de juros; e o boleto de 30 dias dá o fôlego de caixa que o parcelamento daria. O cliente grande não é afetado — ele já ia por boleto.
 
 ⚠️ **Regra de ouro contra risco de falência:** a plataforma **nunca adianta dinheiro que ainda não recebeu do provedor.** Uber e iFood adiantam ao motorista/restaurante com capital de giro próprio — copiar isso sem caixa é emprestar dinheiro inexistente. O criador vê no app a data exata em que cada valor vira saldo disponível.
 
@@ -314,7 +312,7 @@ O mercado não resolve o cliente grande com **espera**; resolve com **verificaç
 > **A palavra "limite" não aparece.**
 
 > **Contrato R$ 30.000, marca verificada (KYB):**
-> *"Cartão até R$ 15.000 por cobrança · Boleto e Pix sem limite"* · `[Dividir em 2 marcos]` · `[Pedir análise para pagar tudo no cartão — resposta em 1 dia útil]`
+> *"Cartão até R$ 15.000 por cobrança · Boleto e Pix sem limite"* · `[Pagar por Pix — sem limite]` · `[Pedir análise para pagar tudo no cartão — resposta em 1 dia útil]`
 
 **Precedentes de mercado:** Banco Central (Res. BCB 142/2021 — dispositivo novo: R$ 200 por operação, R$ 1.000/dia, aumento não automático) · PayPal (conta nova retida até 21 dias, revisão a cada 30 dias) · Upwork (conta bancária só após US$ 1.000 gastos em 12 meses) · Mercado Pago (análise mensal recorrente) · [Stripe Radar](https://docs.stripe.com/radar/rules) (revisar acima de US$ 1.000 em pré-pago; 3DS para cliente novo). **O padrão é unânime: teto duro sem histórico, subida por comportamento provado, revisão periódica e porta manual.**
 
@@ -323,7 +321,7 @@ O mercado não resolve o cliente grande com **espera**; resolve com **verificaç
 O fundo é alimentado por **5% da comissão** de cada contrato. Isso, sozinho, é **R$ 114 por mês** no lançamento — e levaria **22 a 28 meses** para acumular o valor de um único chargeback de R$ 2.500. **Um fundo que começa em zero não é proteção: é uma intenção.**
 
 **1. O fundo nasce capitalizado.**
-> **Aporte inicial de R$ 3.000** em conta bancária separada do CNPJ, **antes da primeira cobrança real.** É a maior exposição isolada do primeiro degrau (R$ 2.500) mais a taxa de chargeback (até R$ 80) e uma folga.
+> **Aporte inicial de R$ 5.000** em conta bancária separada do CNPJ, **antes da primeira cobrança real.** É exatamente o piso de cobertura do primeiro degrau — o dobro do teto de R$ 2.500. **Um aporte menor faria o fundo nascer abaixo do piso que ele mesmo define, e o cartão não poderia existir no dia 1.** Não é gasto: é caixa próprio segregado.
 
 **2. O piso de cobertura é o dobro do maior teto de cartão ativo.**
 
@@ -361,7 +359,7 @@ Contrato de R$ 4.800, marca no degrau 0:
 > **Cartão de crédito** — até R$ 2.500 por cobrança nesta conta
 > Seu contrato é de R$ 4.800. Dois caminhos:
 >
-> **[Dividir em 2 marcos de R$ 2.400]** — você paga cada etapa quando ela for entregue. É o formato que a maioria usa.
+> **[Pagar por Pix — sem limite]** — você paga cada etapa quando ela for entregue. É o formato que a maioria usa.
 > **[Pagar por Pix — R$ 4.800]** — sem limite, e o criador recebe na hora.
 >
 > *Seu limite no cartão sobe sozinho conforme você contrata. Depois de 2 contratos concluídos, ele vai para R$ 6.000.*
@@ -457,7 +455,8 @@ O criador cadastra o preço que quer receber pelo trabalho — R$ 1.200. **A vit
 ### 4.6 Escrow e marcos 🟢
 
 - **Escrow sempre ativo:** o dinheiro fica retido até a entrega ser aprovada. Inegociável — é o que sustenta a confiança dos dois lados.
-- **Marcos (entrega em etapas):** contrato simples = uma entrega, um pagamento — e é o que a maioria vê. **Acima do teto de cartão da conta (§4.3.1), o checkout oferece dividir em marcos.** Oferece, nunca decide sozinho: sugestão automática exigiria uma regra de "quando" que não existe e que ninguém pediu. Abaixo do teto, a palavra "etapa" não aparece em lugar nenhum da tela.
+- 🔴 **No v1, um contrato é um marco.** A palavra "etapa" não aparece em tela nenhuma. **Marcos múltiplos ficam para depois do lançamento** — e não deixam ninguém sem saída, porque **Pix e boleto não têm teto**: um contrato de R$ 4.800 é um Pix, um clique, e o criador recebe na hora. Dois marcos de R$ 2.400 seriam duas cobranças, dois escrows, duas esperas e duas aprovações para resolver o que um Pix resolve.
+- ⚠️ **O banco de dados nasce com 1..N marcos por contrato**, ainda que a tela mostre um só. Não é folga gratuita: o aditivo de escopo (§8.4.1) já exige uma segunda cobrança dentro do mesmo contrato. **Ligar marcos depois é trabalho de tela, não é refazer o dinheiro.**
 
 ### 4.6.1 Liberação do repasse — decidido, não perguntado 🎯
 
@@ -1020,9 +1019,9 @@ Um marketplace vazio não tem produto. Isso não é marketing, é viabilidade.
 ### 14.2.3.2 As duas linhas de caixa que ninguém tinha somado 🔴
 
 1. **Retenção de 15 dias em conta nova.** O provedor retém o repasse de vendedores novos por até 15 dias. **No primeiro mês e meio a plataforma paga custo fixo sem receber comissão.** Capital de giro necessário: cerca de **R$ 1.800**.
-2. **Aporte inicial do fundo de contestação: R$ 3.000** (§4.3.3).
+2. **Aporte inicial do fundo de contestação: R$ 5.000** (§4.3.3) — é o piso de cobertura do primeiro degrau, e sem ele o cartão não pode existir no dia 1.
 
-> 🔴 **Aporte mínimo para abrir a operação com honestidade: R$ 5.000.** Não é opinião sobre risco — é a soma de duas linhas que já estavam nos documentos e nunca tinham sido somadas.
+> 🔴 **Aporte mínimo para abrir a operação com honestidade: R$ 6.800.** Não é opinião sobre risco — é a soma de duas linhas que já estavam nos documentos e nunca tinham sido somadas.
 
 ### 14.2.4 Quando cada plano gratuito estoura — com o número que dispara
 

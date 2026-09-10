@@ -2,7 +2,7 @@
 
 > **Versão:** v3.1 · 09/09/2026
 > **O que é:** tudo o que a plataforma faz, organizado pela ordem em que a pessoa usa.
-> **91 funções no v1.** Se algo não está aqui, não existe no lançamento.
+> **93 funções no v1.** Se algo não está aqui, não existe no lançamento.
 
 **Prioridade:** **E** = sem isso não lança · **P** = entra no v1 se couber · **F** = depois do v1.
 
@@ -177,6 +177,8 @@ O relógio de entrega do criador **só começa a correr quando ele confirma o re
 | 60 | Pedir ajuste referenciado ao ponto exato do briefing | E |
 | 61 | Lançar código de rastreio do produto enviado | E |
 | 62 | Cancelar dentro da janela | E |
+| 92 | **Aditivo de escopo:** a marca propõe preço e data novos sobre um contrato aberto; o criador aceita ou recusa em 3 dias, com o relógio da entrega congelado. **Um aditivo por vez, e só para cima** — reduzir valor já financiado é estorno, não aditivo | E |
+| 93 | **Prazo vencido: cancelar e receber de volta, ou abrir disputa.** Abre depois do prazo de entrega mais 3 dias de tolerância | E |
 
 ### 3.4 Pagar
 
@@ -282,17 +284,23 @@ Seis números. Sem gráfico, sem filtro.
 
 ## 8. Ordem de construção
 
-**Fatia 1 — o ciclo completo, remoto, vitrine, um marco, Pix.** É a fatia que prova que a plataforma funciona de ponta a ponta.
+**Fatia 1 — o ciclo completo, remoto, vitrine, um contrato, Pix.** É a fatia que prova que a plataforma funciona de ponta a ponta, **e que já tem saída para quando dá errado**.
 
 > criador se cadastra → conecta rede → monta vitrine → marca busca → contrata → paga → criador entrega → publica → marca aprova → criador recebe → os dois se avaliam
 
-Funções: 1–16, 18–22, 24–36, 38–40, 42, 47–51, 55, 58–60, 63, 67, 70–76, 80–84, 86, 88, 89.
+Funções: 1–16, 18–22, 24–36, 38–40, 42, **44, 45**, 47–51, 55, 58–60, **62, 63**, 67, 70–76, 80–84, 86, 88, 89, **92, 93**.
 
-**Fatia 2 — pedido aberto e produto físico.** 31, 37, 52–54, 61, 68, 69.
+🔴 **Por que a agenda de recebíveis (44 e 45) está na fatia 1 e não na última:** é obrigação do Banco Central (Res. 264/349) com **prazo vencido desde 01/04/2024**. Lei não é item de roadmap. E há razão de produto: o repasse ao criador existe desde a fatia 1, e mostrar valor bruto e deduções discriminadas desde o começo é a diferença entre extrato e caixa-preta.
 
-**Fatia 3 — cartão, conta empresarial e cliente grande.** 41, 43–46, 62, 64–66, 85, 87.
+🔴 **Por que 62, 92 e 93 estão na fatia 1:** sem elas a fatia 1 **não tem saída de cancelamento nenhuma**. O criador some, o prazo vence, e o dinheiro da marca fica preso para sempre esperando alguém do suporte. É o espelho exato da aprovação automática em 7 dias, que já estava aqui.
 
-**Depois do v1:** agência, contrato recorrente, trabalho presencial, marcos múltiplos, comparador lado a lado, aditivo de escopo, entrar com Google e Apple, autenticação em duas etapas, seletor de espaço de trabalho.
+**Fatia 2 — pedido aberto, produto físico, trabalho presencial e o cliente grande.** 31, 37, 46, 52–54, 61, 65, 66, 68, 69, e as funções de agendamento presencial.
+
+🔴 **Por que a conta verificada (65) e a Fatura INFLUENTZ (66) subiram para cá:** com o teto de cartão travado até o fundo de contestação chegar a R$ 30.000 (SPEC §4.3.3), **a Fatura e o boleto são a única rota do cliente grande durante o lançamento inteiro.** Deixá-las na última fatia é anunciar uma porta que não existe. E a aritmética fecha: **um contrato de R$ 30.000 por Fatura rende mais comissão que os 17 contratos do ponto de equilíbrio.**
+
+**Fatia 3 — cartão parcelado, degraus e listas restritivas.** 41, 43, 64, 85, 87.
+
+**Depois do v1:** agência e a superfície AGENCY WEB · contrato recorrente · **marcos múltiplos** · comparador lado a lado · entrar com Google e Apple · autenticação em duas etapas · seletor de espaço de trabalho.
 
 ---
 
