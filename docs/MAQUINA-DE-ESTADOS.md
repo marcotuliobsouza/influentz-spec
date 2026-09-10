@@ -57,7 +57,7 @@ A SPEC §3 define dois caminhos de entrada. Cruzando com a estrutura de entrega 
 | **A** | Vitrine (preço fixo) | Única, remota | O caminho mais simples. É o do lançamento. |
 | **B** | Pedido aberto | Única, remota | Igual ao A, com proposta antes |
 | **C** | Pedido aberto | Em marcos, remota | Cada marco tem vida própria |
-| **D** | Vitrine ou pedido aberto | **Presencial ou híbrida** | Estados extras de agendamento e falta |
+| **D** | Vitrine ou pedido aberto | **Presencial ou híbrida** | 🔵 **Modelado, fora do v1** — ver §8.5. Estados extras de agendamento e falta |
 | **E** | Qualquer um, **intermediado por agência** | Qualquer | ⚠️ **Modelado, fora do v1.** A agência não assina, não paga, não recebe e não aceita termos — o aceite é sempre do titular. No v1 ela opera com o login da própria marca |
 
 ### 2.1 Tipo F — contrato recorrente 🔵
@@ -364,6 +364,8 @@ stateDiagram-v2
 
 ### 8.0.1 Os quatro tipos de trabalho 🟢
 
+⚠️ **Três deles vão para o lançamento. O quarto — compromisso com hora marcada — fica modelado e sai do v1** (§8.5): não existe API que confirme presença, e liberar dinheiro sem confirmação por API quebraria a regra que sustenta o escrow.
+
 **A regra geral:** *o dinheiro é liberado no evento comprovável mais próximo daquilo que a marca comprou* — e esse evento é escrito na tela, em português, **antes de qualquer um aceitar**.
 
 | Tipo de trabalho | Quem publica | O que a marca recebe | O que prova que acabou | Direitos padrão |
@@ -371,7 +373,7 @@ stateDiagram-v2
 | **1. Publicação no perfil do criador** — Reels, TikTok, vídeo no YouTube, post | **criador** | A publicação no ar, no perfil dele | O criador cola o link. A plataforma confere na API que está no ar | Fica no ar **90 dias**. A marca reposta nos canais dela por **12 meses**. Anúncio pago: **não**, salvo se contratado |
 | **2. Stories** | **criador** | A sequência no ar | Mesma conferência por API, **enquanto está no ar** | Fica no ar **24 h**. Repost por 12 meses |
 | **3. Material entregue para a marca usar** — UGC, foto de produto, vídeo de anúncio, locução, roteiro | **marca** *(ou criador, ou os dois)* | Os arquivos, em alta | Arquivo entregue + aprovação da marca. **Sem resposta em 7 dias, aprova sozinho e o criador recebe** | **12 meses, já incluindo anúncio pago** nas contas da própria marca — é para isso que ela compra |
-| **4. Compromisso com hora marcada** — evento, palestra, live, gravação presencial | **ninguém** *(se ele também postar, soma-se a linha 1)* | A presença dele, na data e hora combinadas | Os dois confirmam no app. **Se um não confirmar em 7 dias, vale a confirmação do outro** | A marca usa o registro do evento por **12 meses** |
+| 🔵 **4. Compromisso com hora marcada** *(fora do v1)* — evento, palestra, live, gravação presencial | **ninguém** *(se ele também postar, soma-se a linha 1)* | A presença dele, na data e hora combinadas | Os dois confirmam no app. **Se um não confirmar em 7 dias, vale a confirmação do outro** | A marca usa o registro do evento por **12 meses** |
 
 🔴 **A pergunta que resolve tudo é uma só, e ela está na tela:** *"Quem vai publicar? A marca · O criador · Os dois."* O caso de material entregue em que a marca **também** quer que o criador poste é a **linha 3 com a resposta trocada** — ou as linhas 3 e 1 no mesmo pedido. **Não existe categoria nova.**
 
@@ -516,7 +518,17 @@ O criador decide primeiro porque carrega o custo e porque a alegação dele é *
 
 **O efeito esperado com 20 contratos por mês** (premissas declaradas: 15% pedem ajuste, 1 em 4 desses esgota as revisões): sem limite e sem aditivo, 2 a 3 casos abertos por mês, sem prazo, nenhum fechando sozinho. Com a regra, **0,5 a 0,8 disputa por mês**. E o ganho maior não é o número — é que **o caso que sobra já chega com a prova pronta**, então mediar leva minutos.
 
-### 8.5 Tipo D (presencial e híbrido) — estados extras 🔴
+### 8.5 Tipo D (presencial e híbrido) — modelado, fora do v1 🔵
+
+> 🔴 **Por que o presencial saiu do lançamento, e o motivo não é escopo — é invariante.**
+>
+> Duas decisões travadas do projeto dizem: *"o dinheiro é liberado na publicação confirmada por API, não na aprovação do arquivo"* e *"métrica só por API oficial: não existe captura de tela, número digitado nem aprovação manual"*.
+>
+> **Trabalho presencial não tem publicação confirmada por API.** Não existe evento que diga "o criador esteve na loja". A liberação do dinheiro presencial só poderia ser: aprovação manual da marca, foto enviada, ou a palavra do criador — **e os três estão proibidos por decisão travada.** Presencial no v1 não seria uma modalidade a mais: seria **uma exceção na única regra que sustenta o escrow inteiro.**
+>
+> **Tudo abaixo continua modelado e correto** — a escala de cancelamento, os estados de agendamento e falta, o não-comparecimento dos dois lados. **É trabalho que não se perde**, e volta quando houver uma forma de confirmar presença que não dependa da palavra de ninguém.
+
+
 
 A SPEC §1 inclui presença física ("remoto, presencial ou híbrido") e o guia da marca de 2020 já trazia o campo "necessário visita técnica". Mas **todos os estados de entrega da SPEC pressupõem arquivo enviado pelo sistema**, e presença física não é arquivo.
 

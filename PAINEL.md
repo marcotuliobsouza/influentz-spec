@@ -28,7 +28,7 @@ Três coisas fazem a plataforma valer o que cobra:
 
 | | |
 |---|---|
-| ✅ **Pronto** | O que o produto faz, como o dinheiro anda, a identidade visual, e as 93 funções do lançamento |
+| ✅ **Pronto** | O que o produto faz, como o dinheiro anda, a identidade visual, e as 91 funções do lançamento |
 | ✂️ **Cortado** | O produto pedia coisa demais de quem usa. Tela de contratar de ~25 campos para **6**; direitos de 7 campos para **1**; dez tipos de trabalho para **4** |
 | 🔨 **Agora** | O dinheiro fechado de ponta a ponta, o fornecedor de métricas nomeado, e as 30 contradições entre documentos resolvidas |
 | ⏳ **Depois** | Banco de dados → conexões → código → testes |
@@ -219,7 +219,7 @@ Você pode derrubar qualquer uma destas a qualquer momento, sem justificar.
 **Produto**
 - Métricas só por API oficial. Sem captura de tela, em lugar nenhum
 - **Um fornecedor único de métricas**, que já tem as aprovações das três redes — em vez de três integrações nossas com três filas de aprovação
-- **Quatro tipos de trabalho**, e uma pergunta resolve todos: *quem vai publicar?*
+- **Quatro tipos de trabalho**, e uma pergunta resolve todos: *quem vai publicar?* Três vão para o lançamento
 - **Seis campos na tela de contratar.** Direitos são uma frase, não um formulário
 - **Duas revisões incluídas, para todo mundo.** Fixo
 - **A foto do produto entra no briefing** — o criador precisa ver a embalagem, e é daí que nasce quase todo pedido de ajuste
@@ -227,7 +227,7 @@ Você pode derrubar qualquer uma destas a qualquer momento, sem justificar.
 - Criador precisa ter 18 anos — exigência legal, não escolha
 - Todo usuário tem web, iOS e Android, com função completa
 - **Agência fica para depois do lançamento — inteira.** No v1 ela não assinaria, não pagaria, não receberia e não aceitaria termos: sobraria olhar
-- **Trabalho presencial entra no v1.** É um dos quatro tipos de trabalho — cortá-lo derrubaria o tipo inteiro. Despesa de deslocamento vai no preço, nunca reembolsada por fora
+- 🟡 **Trabalho presencial fica para depois do lançamento** — não existe API que confirme presença, e liberar dinheiro sem isso quebraria a regra que sustenta a retenção. Você pode vetar
 - **Entrega em etapas fica para depois.** Ninguém fica sem saída: Pix e boleto não têm teto, e um contrato de R$ 4.800 é um Pix só
 - Contrato recorrente fica para depois do lançamento
 
@@ -248,7 +248,7 @@ Você pode derrubar qualquer uma destas a qualquer momento, sem justificar.
 | Instagram travar em fila da Meta | 🟢 Fornecedor de dados entra no dia 1 e não depende de aprovação nenhuma |
 | **Preço do fornecedor de métricas** | 🟡 Não publicado. É a maior incerteza da conta na operação — falta o número por escrito, e a unidade de cobrança |
 | Plataforma pagar dinheiro que ainda não recebeu | 🟢 Impossível por desenho |
-| Produto grande demais para ser construído | 🟢 93 funções, em três fatias |
+| Produto grande demais para ser construído | 🟢 91 funções, em três fatias |
 | Produto complicado demais para um cliente leigo usar | 🟢 Cortado. Seis campos na tela de contratar |
 | Depender de resposta do Pagar.me ou da Meta para construir | 🟢 Não depende. Nenhuma taxa está no código, e as métricas vêm de fornecedor único |
 
@@ -280,7 +280,7 @@ Você não precisa ler nenhum. Estão aqui para eu não perder decisão.
 | Arquivo | É o quê |
 |---|---|
 | `docs/SPEC-INFLUENTZ.md` | O que o produto faz |
-| `docs/FEATURE-MATRIX.md` | As 93 funções do lançamento |
+| `docs/FEATURE-MATRIX.md` | As 91 funções do lançamento |
 | `docs/MAQUINA-DE-ESTADOS.md` | Como cada coisa muda de situação |
 | `docs/PRODUTO-DETALHADO.md` | Campos, métricas e tipos de proposta |
 | `docs/DESIGN-SYSTEM.md` | Cor, tipo, componente |

@@ -75,7 +75,7 @@ O campo deixa de dizer *"10 dias"* e passa a dizer **"quinta, 24/09"** — prazo
 
 📌 **A proposta direta não é outro formulário.** É a mesma tela, com três campos destravados — o que você quer, o preço e o prazo nascem vazios — e o botão vira *"Enviar proposta"*.
 
-📌 **O criador vê de onde veio, numa etiqueta:** *Da sua vitrine* · *Proposta direta* · *Do seu envio ao pedido aberto*. Isso importa porque as regras diferem: na vitrine ele aceita, recusa **ou pede ajuste** — pedir ajuste devolve à marca sem virar negociação de preço. 🔴 **No trabalho presencial, pedir ajuste inclui contrapor data, hora e local** — "consigo estar na Paulista dia 14 às 19h?" é pergunta legítima, e o piso de data que resolve o remoto não resolve endereço; nos outros dois ele pode contrapor. Sem a etiqueta, ele procura um botão de negociar que não existe.
+📌 **O criador vê de onde veio, numa etiqueta:** *Da sua vitrine* · *Proposta direta* · *Do seu envio ao pedido aberto*. Isso importa porque as regras diferem: na vitrine ele aceita, recusa **ou pede ajuste** — pedir ajuste devolve à marca sem virar negociação de preço; nos outros dois ele pode contrapor. Sem a etiqueta, ele procura um botão de negociar que não existe.
 
 ### Anexo de imagem no briefing
 
@@ -90,7 +90,7 @@ O campo deixa de dizer *"10 dias"* e passa a dizer **"quinta, 24/09"** — prazo
 **Direitos e uso:** prazo de uso (12 meses) · onde a marca pode usar (todos os canais dela) · exclusividade (nenhuma).
 **Entrega:** aprovação prévia do roteiro (não) · menções obrigatórias · palavras e temas proibidos · formato e duração (o do item) · rede onde publica (a que o criador tem conectada).
 **Produto físico**, só se houver envio: o criador fica com o produto (sim) · valor declarado · entrega sem rastreio (não).
-**Presencial**, só no tipo 4: data e hora · endereço · Despesas incluídas no preço.
+**Presencial**, só no tipo 4: data e hora · endereço · ~~Despesas de deslocamento~~ — 🔵 sai junto com o trabalho presencial, que fica para depois do v1.
 
 ❌ **Três saíram de lá:** *quem paga o frete* (já é regra fixa — quem envia paga, e o campo contradizia a regra) · *permanência editável* (não retém dinheiro; editá-la criava promessa que a plataforma não executa — virou cláusula por tipo) · *territorialidade* (ninguém no lançamento contrata conteúdo em português para usar só na Argentina — virou cláusula: Brasil).
 

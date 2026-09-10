@@ -330,7 +330,7 @@ O fundo é alimentado por **5% da comissão** de cada contrato. Isso, sozinho, �
 | Só os degraus 0 e 1 ativos (teto de R$ 2.500) | **R$ 5.000** |
 | Degrau 2 ou conta verificada em R$ 15.000 | **R$ 30.000** |
 
-**3. Acima do piso, a retenção de 5% pausa** — e volta a ligar sozinha se o saldo cair. É uma linha de configuração, e evita imobilizar caixa sem motivo.
+**3. A retenção de 5% não pausa nunca.** Modular isso seria lógica condicional, estado novo e teste para administrar **R$ 114 por mês** — e o fundo só encosta no piso do segundo degrau daqui a anos. Se um dia sobrar, o dinheiro sai de uma conta bancária que é do próprio dono. **Isso não precisa de código.**
 
 ### 4.3.4 Estorno: para onde o dinheiro volta, nos três casos 🔴
 
@@ -433,7 +433,9 @@ O criador cadastra o preço que quer receber pelo trabalho — R$ 1.200. **A vit
 
 ### 4.5.1 Valor mínimo de contrato: R$ 150 🔴
 
-> **Nenhum contrato é criado abaixo de R$ 150 de preço do criador** — nem pela vitrine, nem por proposta em pedido aberto. O valor vive na configuração do Admin, nunca no código.
+> **Nenhum contrato é criado abaixo de R$ 150 de preço do criador** — nem pela vitrine, nem por proposta em pedido aberto.
+>
+> ⚠️ **E isso não vira campo de configuração no Admin.** É constante: mexe-se nela talvez uma vez em três anos, e uma tela para isso seria campo, migração e uma decisão que o operador não quer tomar.
 
 **Por que existe um piso.** O custo de um contrato não é só percentual: há uma **parte fixa de R$ 4,37** (tarifa de repasse ao criador + armazenamento dos arquivos pela vida do contrato) que não encolhe com o valor. Num contrato de R$ 20, a plataforma paga R$ 4,37 para ganhar R$ 3,00.
 
@@ -456,7 +458,7 @@ O criador cadastra o preço que quer receber pelo trabalho — R$ 1.200. **A vit
 
 - **Escrow sempre ativo:** o dinheiro fica retido até a entrega ser aprovada. Inegociável — é o que sustenta a confiança dos dois lados.
 - 🔴 **No v1, um contrato é um marco.** A palavra "etapa" não aparece em tela nenhuma. **Marcos múltiplos ficam para depois do lançamento** — e não deixam ninguém sem saída, porque **Pix e boleto não têm teto**: um contrato de R$ 4.800 é um Pix, um clique, e o criador recebe na hora. Dois marcos de R$ 2.400 seriam duas cobranças, dois escrows, duas esperas e duas aprovações para resolver o que um Pix resolve.
-- ⚠️ **O banco de dados nasce com 1..N marcos por contrato**, ainda que a tela mostre um só. Não é folga gratuita: o aditivo de escopo (§8.4.1) já exige uma segunda cobrança dentro do mesmo contrato. **Ligar marcos depois é trabalho de tela, não é refazer o dinheiro.**
+- ✅ **No v1 é honestamente um contrato = um marco = um pagamento**, em tela e no banco. Sem aditivo de escopo, não existe segunda cobrança dentro do mesmo contrato — e modelar 1..N sem uso é folga gratuita.
 
 ### 4.6.1 Liberação do repasse — decidido, não perguntado 🎯
 
@@ -481,7 +483,7 @@ O criador cadastra o preço que quer receber pelo trabalho — R$ 1.200. **A vit
 
 **Quanto custa, e por que a plataforma paga:** a tarifa de transferência é de cerca de **R$ 3,67 por repasse** — **R$ 73 por mês** no lançamento (4% da comissão) e **R$ 3.670 por mês** na operação (2%). Fiverr, Upwork, Hotmart e Kiwify **todas cobram essa tarifa do prestador**. Absorver é decisão nossa, e ela protege a regra já travada: *o criador ofertou olhando o líquido; tarifa surpresa é taxa somada no fim.*
 
-⚠️ **Gatilho de revisão, para não virar problema calado:** se o custo de repasse passar de **3% da receita de comissão por três meses seguidos**, a regra migra para *um repasse por semana sem custo, saques adicionais pagos pelo criador*. É troca de parâmetro em configuração, não código novo.
+⚠️ **Gatilho de revisão, e ele é de planilha, não de software:** se o custo de repasse passar de **3% da receita de comissão por três meses seguidos**, a regra migra para *um repasse por semana sem custo, saques adicionais pagos pelo criador*. **Com 20 contratos por mês essa conta se faz em cinco minutos**; construir relatório com gatilho para isso seria ferramenta interna para uma operação de uma pessoa.
 
 ### 4.6.2 Perguntas ao Relacionamento do provedor — por escrito, no credenciamento ⚠️
 
@@ -825,7 +827,7 @@ A versão anterior punha a INFLUENTZ construindo **três integrações próprias
 4. **Quanto custa.** Não publicado. Ver o teto acima.
 5. **É legal e viável no Brasil?** Sim, com duas travas contratuais antes da assinatura, ambas já listadas abaixo.
 
-⚠️ **Consequência operacional que ninguém pediu e é obrigatória: criador conectado que nunca fechou contrato continua custando**, porque a cobrança é por conta conectada. **Regra: a conta de criador sem contrato ativo e sem login há 180 dias é desconectada automaticamente**, com aviso por e-mail 7 dias antes e reconexão em um toque. *O que protege:* 300 criadores fantasma a US$ 8,99 por perfil por mês são US$ 2.697 por mês jogados fora. *O que quebra para o cliente bom:* o criador sazonal que volta em campanha de fim de ano — por isso o aviso prévio e a reconexão sem refazer cadastro. **A métrica histórica dele nunca é apagada.**
+🔵 **Criador conectado que nunca fechou contrato continua custando**, porque a cobrança é por conta conectada. **A desconexão automática por inatividade fica para depois do v1:** os US$ 2.697 por mês de "criadores fantasma" são número da fase de operação — **no lançamento são 50 criadores dentro de um plano que cobre 50, e a economia real é zero**. **Volta quando contas conectadas sem contrato passarem de 20% do plano contratado**; até lá o operador desconecta na mão, e são cliques.
 
 📌 **Quando a integração própria passa a valer a pena:** quando o custo do fornecedor justificar o trabalho, **já com receita**, empresa aberta e sem prazo apertado. Vira otimização de custo, nunca pré-requisito de lançamento. **A camada de abstração já prevista faz a troca ser um adaptador, não uma reescrita.**
 
@@ -991,9 +993,7 @@ Um marketplace vazio não tem produto. Isso não é marketing, é viabilidade.
 
 🔴 **O armazenamento nunca chega antes da receita, porque cresce 82× mais devagar que ela.** Custo de armazenar um contrato pela vida inteira: **R$ 1,46**. Receita daquele contrato: **R$ 120**. Para o armazenamento custar R$ 500 por mês seriam necessários **343 contratos por mês — que trazem R$ 41 mil de comissão.**
 
-**O que pode explodir é outra coisa: arquivo sem contrato.** ✅ **Trava que vale no dia 1: só existe envio de arquivo dentro de um contrato pago.** Sem contrato não há endereço de envio — o link é emitido pelo contrato e vale 24 horas. *O que quebra para o cliente bom:* nada. Criador nenhum quer subir vídeo antes de ter contrato fechado.
-
-⚠️ **Alarme com número, não com sensação:** avisar o operador quando o acervo passar de **contratos do mês × 25 GB**.
+**O que pode explodir é outra coisa: arquivo sem contrato.** ✅ **Trava que vale no dia 1: só existe envio de arquivo dentro de um contrato pago.** Sem contrato não há endereço de envio. ⚠️ **E o link não expira em horas:** ele vale enquanto o contrato estiver na fase de entrega. Link com relógio próprio não protege de nada e trava o criador que voltou no dia seguinte, às 23h do prazo. *O que quebra para o cliente bom:* nada. Criador nenhum quer subir vídeo antes de ter contrato fechado.
 
 ### 14.2.1.1 O arquivo final nunca é recomprimido 🔴
 
@@ -1001,7 +1001,7 @@ Recomprimir 500 MB para 150 MB economizaria **R$ 1.021 por mês na operação** 
 
 ✅ **O que se faz no lugar, e é melhor para os dois lados:** a plataforma gera automaticamente **uma miniatura e uma cópia de revisão em 720p (~5 MB por minuto)**, e é essa que toca dentro do app. **A marca revisa a entrega em segundos gastando 5 MB, em vez de baixar 500 MB.** O original fica atrás de um botão com o tamanho escrito ao lado — *"baixar original — 512 MB"*.
 
-✅ **A economia real, sem perda nenhuma:** mover o arquivo final para **armazenamento de acesso pouco frequente 30 dias após a publicação confirmada**. Mesmo arquivo, mesma qualidade, US$ 0,010 em vez de US$ 0,015 por GB por mês. **R$ 324 por mês de economia na operação.**
+🔵 **Mover o arquivo final para armazenamento de acesso pouco frequente fica para depois.** Economiza R$ 324 por mês **na operação** e centavos no lançamento — e cobra taxa de recuperação justamente no arquivo que é a prova numa disputa, que é quando se quer baixá-lo. **É regra de ciclo de vida do armazenamento, configurada em dois minutos no painel do fornecedor, no dia em que o acervo passar de 1 TB.** Não é linha de especificação do v1.
 
 ❌ **E a ideia de apagar o arquivo final depois da publicação, guardando só o link, é a pior troca do documento.** Economizaria R$ 607 por mês na operação — e **o link não é prova: o criador apaga o post com um toque e a prova evapora.** Numa disputa em que a marca alega *"aprovei o vídeo A e ele publicou o vídeo B"*, o arquivo aprovado é a única evidência sob o nosso controle. A janela de contestação chega a 540 dias. **Trocar a prova por 0,5% da receita é comprar mediação com advogado.** **Sem a regra de retenção** seriam 17,6 TB → **R$ 1.485 por mês**. 🔴 **A regra de retenção vale R$ 867 por mês.** Ela não é higiene: é o segundo maior item da conta.
 

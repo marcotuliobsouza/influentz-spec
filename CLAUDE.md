@@ -181,7 +181,7 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 |---|---|
 | `/docs/METODO-DE-TRABALHO.md` | v1.0 ✅ — as 8 fases e o contrato de entrega |
 | `/docs/SPEC-INFLUENTZ.md` | v0.5 ✅ |
-| `/docs/FEATURE-MATRIX.md` | v3.2 ✅ — **93 funções**, organizadas pela jornada |
+| `/docs/FEATURE-MATRIX.md` | v3.2 ✅ — **91 funções**, organizadas pela jornada |
 | `/docs/PRODUTO-DETALHADO.md` | v0.1 ✅ — campos, métricas, tipos de proposta |
 | `/docs/MAQUINA-DE-ESTADOS.md` | v0.3 ✅ |
 | `/docs/HISTORICO.md` | ✅ — o rastro das decisões. Existe para o registro, não para leitura |
@@ -220,8 +220,9 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 | **O dinheiro é liberado na publicação confirmada por API, não na aprovação do arquivo.** Permanência mínima padrão: 90 dias | MAQUINA §8.0.1, SPEC §8.2 |
 | **Agência sai do v1 inteira, com a superfície AGENCY WEB.** No v1 ela não assinaria, não pagaria, não receberia e não aceitaria termos — sobraria olhar. **Um pedido aberto contrata vários criadores, e o motivo é campanha de marca, nunca agência** | SPEC §2, MAQUINA §5.1 |
 | 🔴 **Marcos múltiplos ficam fora do v1, e a SPEC para de oferecê-los na tela.** Ninguém fica sem saída: Pix e boleto não têm teto, e um contrato de R$ 4.800 é um Pix. **O banco nasce com 1..N marcos**; ligar depois é tela, não é refazer o dinheiro | SPEC §4.6 |
-| **Trabalho presencial entra no v1, na fatia 2.** Cortá-lo derrubaria um dos quatro tipos de trabalho. **Despesa de deslocamento é item do preço, financiada junto — nunca reembolso por fora**, que seria dinheiro fora do escrow e sem prova | FEATURE-MATRIX §8 |
-| **Aditivo de escopo entra na fatia 1.** Sem ele, o botão "isso muda o escopo" aponta para o vazio e a única saída da marca é disputa. Um por vez, só para cima, 3 dias com o relógio congelado | FEATURE-MATRIX função 92 |
+| 🟡 **Trabalho presencial sai do v1 — e o motivo é invariante, não escopo.** Não existe API que confirme presença, e liberar dinheiro sem confirmação por API quebra a regra que sustenta o escrow inteiro. Fica modelado, volta quando houver confirmação que não dependa da palavra de ninguém. **Decisão categoria C: o Marco veta se quiser** | MAQUINA §8.5 |
+| 🔴 **Aditivo de escopo sai do v1.** A marca que quer mais coisa fecha um segundo contrato com o mesmo criador — dois cliques, mesmo dinheiro protegido. O aditivo traria seis regras para resolver o que "contratar de novo" já resolve | FEATURE-MATRIX §8 |
+
 | **A agenda de recebíveis é fatia 1** — obrigação do BCB vencida desde 01/04/2024, não item de roadmap. **Conta verificada e Fatura INFLUENTZ sobem para a fatia 2**: com o teto de cartão travado, são a única rota do cliente grande no lançamento | FEATURE-MATRIX §8 |
 | **Aporte para abrir a operação: R$ 6.800** — R$ 5.000 de fundo (é o piso do primeiro degrau; a R$ 3.000 o fundo nasceria abaixo dele) + R$ 1.800 de giro | SPEC §4.3.3 e §14.2.3.2 |
 | **Quantidade é o que cabe numa data de entrega.** Três Reels na mesma data são um contrato, uma data, um pagamento. Combo de itens diferentes não existe — vira item único da vitrine | PRODUTO §1 |
