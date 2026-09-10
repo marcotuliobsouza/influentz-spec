@@ -28,7 +28,7 @@ Três coisas fazem a plataforma valer o que cobra:
 
 | | |
 |---|---|
-| ✅ **Pronto** | O que o produto faz, como o dinheiro anda, a identidade visual, e as 97 funções do lançamento |
+| ✅ **Pronto** | O que o produto faz, como o dinheiro anda, a identidade visual, e as 91 funções do lançamento |
 | ✂️ **Cortado** | O produto pedia coisa demais de quem usa. Tela de contratar de ~25 campos para **6**; direitos de 7 campos para **1**; dez tipos de trabalho para **4** |
 | 🔨 **Agora** | **A tela de contratar**, publicada e revisada, esperando o julgamento do Marco antes de autorizar o resto |
 | ⏳ **Depois** | Banco de dados → conexões → código → testes |
@@ -140,7 +140,7 @@ Você pode derrubar qualquer uma destas a qualquer momento, sem justificar.
 | Instagram travar em fila da Meta | 🟢 Fornecedor de dados entra no dia 1 e não depende de aprovação nenhuma |
 | **Preço do fornecedor de métricas** | 🟡 Não publicado. É a maior incerteza da conta na operação — falta o número por escrito, e a unidade de cobrança |
 | Plataforma pagar dinheiro que ainda não recebeu | 🟢 Impossível por desenho |
-| Produto grande demais para ser construído | 🟢 97 funções, em três fatias |
+| Produto grande demais para ser construído | 🟢 91 funções, em três fatias |
 | Produto complicado demais para um cliente leigo usar | 🟢 Cortado. Seis campos na tela de contratar |
 | Depender de resposta do Pagar.me ou da Meta para construir | 🟢 Não depende. Nenhuma taxa está no código, e as métricas vêm de fornecedor único |
 
@@ -170,7 +170,7 @@ Você não precisa ler nenhum. Estão aqui para eu não perder decisão.
 | Arquivo | É o quê |
 |---|---|
 | `docs/SPEC-INFLUENTZ.md` | O que o produto faz |
-| `docs/FEATURE-MATRIX.md` | As 97 funções do lançamento |
+| `docs/FEATURE-MATRIX.md` | As 91 funções do lançamento |
 | `docs/MAQUINA-DE-ESTADOS.md` | Como cada coisa muda de situação |
 | `docs/PRODUTO-DETALHADO.md` | Campos, métricas e tipos de proposta |
 | `docs/DESIGN-SYSTEM.md` | Cor, tipo, componente |

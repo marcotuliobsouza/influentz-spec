@@ -434,7 +434,7 @@ E a página 12 mostra os dois caminhos de entrada da marca: **"seja um influentz
 
 ### 10.1 ⚠️ Divergência 3: a SPEC e o guia usam palavras diferentes para as mesmas pessoas
 
-| Papel | Guia da marca (2020) | SPEC v0.4 (2026) |
+| Papel | Guia da marca (2020) | SPEC v0.5 (2026) |
 |---|---|---|
 | Quem contrata | cliente | **marca** |
 | Quem executa | influencer / influentz | **criador** |

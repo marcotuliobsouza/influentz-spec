@@ -1084,12 +1084,4 @@ Com 20 contratos/mês, o volume esperado é de **três a seis chamados por mês*
 
 ---
 
-## 16. Nota de reconstrução
-
-Esta v0.4 foi reconstruída a partir do histórico de conversas do projeto, porque o arquivo original da v0.3 vivia apenas em uma conversa avulsa — falha estrutural corrigida com a adoção deste repositório e do `CLAUDE.md`.
-
-Se ao ler alguma seção o Marco reconhecer algo que ficou de fora da v0.3, basta apontar: o Git preserva o histórico e a correção entra como uma nova versão, sem retrabalho.
-
----
-
 *As referências a legislação e a comportamento de plataformas de pagamento são levantamento de arquitetura, não parecer jurídico ou contábil.*

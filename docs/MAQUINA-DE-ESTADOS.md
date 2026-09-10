@@ -2,10 +2,9 @@
 
 > **O que é este documento.** A tradução da SPEC em regras de funcionamento: cada coisa que existe no produto (um contrato, um pagamento, uma disputa) só pode estar em uma situação por vez, e só pode ir de uma situação para outra por caminhos permitidos. É o documento que a etapa 3 (telas) e a etapa 4 (modelo de dados) leem para não inventar.
 >
-> **Versão:** v0.2
+> **Versão:** v0.3
 > **Base:** `SPEC-INFLUENTZ.md` v0.5 e `DESIGN-SYSTEM.md` v0.4.
 >
-> **O que mudou da v0.1:** as três decisões que estavam em aberto foram fechadas (§13). Duas mudaram de figura na pesquisa: o pedido aberto **passa** a contratar vários criadores no v1 (§5.1, reverte a recomendação anterior), e o criador menor de idade **deixa de ser questão de escopo e vira questão de legalidade** (§13.3, com correção na SPEC §8.3.1).
 >
 > **Legenda:** 🟢 definido · 🟡 em aberto · 🔵 proposta de Claude além do pedido · 🔴 lacuna encontrada na SPEC · ⚠️ risco ou correção
 

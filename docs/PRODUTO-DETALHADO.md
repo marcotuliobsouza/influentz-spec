@@ -1,6 +1,6 @@
 # PRODUTO DETALHADO — INFLUENTZ
 
-> **Versão:** v1.0 · 08/09/2026
+> **Versão:** v1.0 · 09/09/2026
 > Campos, métricas e formulários. O princípio que rege este documento inteiro:
 > **a tela padrão pede o mínimo; tudo o mais tem padrão pronto e vive em "opções avançadas".**
 

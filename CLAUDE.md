@@ -181,12 +181,12 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 |---|---|
 | `/docs/METODO-DE-TRABALHO.md` | v1.0 ✅ — as 8 fases e o contrato de entrega |
 | `/docs/SPEC-INFLUENTZ.md` | v0.5 ✅ |
-| `/docs/FEATURE-MATRIX.md` | v3.0 ✅ — **97 funções**, organizadas pela jornada |
+| `/docs/FEATURE-MATRIX.md` | v3.0 ✅ — **91 funções**, organizadas pela jornada |
 | `/docs/PRODUTO-DETALHADO.md` | v0.1 ✅ — campos, métricas, tipos de proposta |
 | `/docs/MAQUINA-DE-ESTADOS.md` | v0.3 ✅ |
 | `/docs/HISTORICO.md` | ✅ — o rastro das decisões. Existe para o registro, não para leitura |
 | `/docs/DESIGN-SYSTEM.md` | v0.4 ✅ |
-| Telas | 10 wireframes, 2 em alta fidelidade — de ~40 |
+| Telas | 9 wireframes, 2 em alta fidelidade — de ~40 |
 | Modelo de dados, conexões, código | não iniciados |
 
 **As quatro superfícies:** CREATOR APP (celular) · BRAND WEB · AGENCY WEB · ADMIN WEB. Toda tela declara a qual pertence.
