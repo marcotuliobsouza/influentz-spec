@@ -246,13 +246,17 @@ A interseção é R$ 2.400–2.700. **R$ 2.500 cai dentro; R$ 3.000 cai fora** (
 |---|---|---|---|---|
 | **0 — marca nova** | Identidade verificada (CPF ou CNPJ) + 3DS autenticado | **R$ 2.500** | R$ 5.000 | R$ 10.000 |
 | 🟢 **V — Verificada (KYB)** | **Sem histórico, sem espera** — ver §4.3.1.1 | **R$ 15.000** | R$ 30.000 | R$ 60.000 |
+
+🔴 **O teto de cartão da conta verificada só é liberado quando o fundo de contestação (§4.3.3) cobrir o dobro dele.** Enquanto o fundo estiver abaixo, a conta KYB é verificada normalmente e paga por **Fatura INFLUENTZ, boleto ou Pix, sem limite nenhum** — onde chargeback não existe. **O que isso protege:** hoje um único chargeback de R$ 15.000 contra um fundo de R$ 114 apagaria treze meses de receita e travaria o saque de todos os criadores. É o único cenário do produto inteiro capaz de matar a plataforma num evento. **O que quebra para o cliente bom:** a empresa verificada que quer pagar R$ 15.000 no cartão no primeiro dia paga R$ 2.500 no cartão e o restante por boleto ou Pix — **que é exatamente a rota que a pesquisa mostrou que ela já usa naturalmente**. A tela dela não muda: continua abrindo por *"Boleto e Pix, sem limite"*, e a palavra "limite" nunca aparece antes da solução. **E o teto sobe sozinho conforme o fundo cresce**, sem nova decisão e sem novo lançamento.
 | **1** | 2 contratos concluídos sem incidente **e** 30 dias | R$ 6.000 | R$ 12.000 | R$ 24.000 |
 
 🔴 **A escada tem um piso de valor, senão ela é escalada com contratos de fachada.** Dois contratos de R$ 100 não podem subir uma marca de R$ 2.500 para R$ 6.000. **Um contrato só conta para subir de degrau se valer pelo menos 20% do teto do degrau seguinte** — e **contrato entre partes relacionadas não conta nunca**, para nada: nem degrau, nem recontratação de 8%, nem avaliação pública.
 
 | **2** | 5 contratos concluídos sem incidente **e** 90 dias | R$ 15.000 | R$ 30.000 | R$ 60.000 |
 | **3** | 10 contratos, 180 dias, **e ≥5 deles já fora da janela de 120 dias de contestação** | sem teto automático | — | — |
-| **Sempre** | qualquer cobrança acima de **R$ 30.000** | revisão humana, resposta em 1 dia útil | — | — |
+| **Sempre** | qualquer cobrança **no cartão** acima de **R$ 30.000** | revisão humana, resposta em 1 dia útil | — | — |
+
+⚠️ **A linha acima é do cartão e só do cartão.** Pix e boleto não têm teto em degrau nenhum, e um Pix de R$ 40.000 **não passa por revisão** — chargeback não existe fora do cartão.
 
 🔴 **Por que a contagem é dupla — contratos E dias.** A MAQUINA §7.2 já achou que contador de contratos sozinho é porta de fraude: dois contratos de R$ 1 destravariam o degrau. **Tempo não se falsifica** — e tempo é a dimensão certa do risco, porque a contestação por serviço não recebido conta 120 dias da data prevista de entrega. **Uma marca só está realmente provada quando os contratos antigos dela passaram da janela de disputa** — por isso o degrau 3, o único sem teto, exige exatamente isso.
 
@@ -315,6 +319,42 @@ O mercado não resolve o cliente grande com **espera**; resolve com **verificaç
 
 **Precedentes de mercado:** Banco Central (Res. BCB 142/2021 — dispositivo novo: R$ 200 por operação, R$ 1.000/dia, aumento não automático) · PayPal (conta nova retida até 21 dias, revisão a cada 30 dias) · Upwork (conta bancária só após US$ 1.000 gastos em 12 meses) · Mercado Pago (análise mensal recorrente) · [Stripe Radar](https://docs.stripe.com/radar/rules) (revisar acima de US$ 1.000 em pré-pago; 3DS para cliente novo). **O padrão é unânime: teto duro sem histórico, subida por comportamento provado, revisão periódica e porta manual.**
 
+### 4.3.3 O fundo de contestação — os três números 🔴
+
+O fundo é alimentado por **5% da comissão** de cada contrato. Isso, sozinho, é **R$ 114 por mês** no lançamento — e levaria **22 a 28 meses** para acumular o valor de um único chargeback de R$ 2.500. **Um fundo que começa em zero não é proteção: é uma intenção.**
+
+**1. O fundo nasce capitalizado.**
+> **Aporte inicial de R$ 3.000** em conta bancária separada do CNPJ, **antes da primeira cobrança real.** É a maior exposição isolada do primeiro degrau (R$ 2.500) mais a taxa de chargeback (até R$ 80) e uma folga.
+
+**2. O piso de cobertura é o dobro do maior teto de cartão ativo.**
+
+| Situação | Piso do fundo |
+|---|---|
+| Só os degraus 0 e 1 ativos (teto de R$ 2.500) | **R$ 5.000** |
+| Degrau 2 ou conta verificada em R$ 15.000 | **R$ 30.000** |
+
+**3. Acima do piso, a retenção de 5% pausa** — e volta a ligar sozinha se o saldo cair. É uma linha de configuração, e evita imobilizar caixa sem motivo.
+
+### 4.3.4 Estorno: para onde o dinheiro volta, nos três casos 🔴
+
+**(a) Cancelamento antes de o criador começar.** O dinheiro ainda está retido, ninguém sacou nada. Estorno integral, **e a comissão volta inteira** — não houve serviço, não há receita.
+
+| Meio | Por onde volta | Prazo | Pede dado ao usuário? |
+|---|---|---|---|
+| Pix, até 90 dias | **Conta de origem, obrigatoriamente** (§4.2.3) | minutos | **Não** |
+| Boleto | Conta informada, **mesma titularidade do pagador** | 1 a 2 dias úteis | Sim |
+| Cartão | O próprio cartão | 🔴 **1 a 2 faturas — até 60 dias** | Não |
+
+**Quem fica no prejuízo:** a plataforma, pela taxa do meio de pagamento, **que não volta** — cerca de R$ 12,47 num Pix de R$ 1.260. É custo afundado e aceitável.
+
+🔴 **A frase que precisa estar na tela do cartão, senão o suporte responde a mesma pergunta trinta vezes:** *"O estorno já foi feito. No cartão ele aparece na sua fatura em até 60 dias — esse prazo é do banco emissor do cartão, não nosso."*
+
+**(b) Devolução depois de o repasse já ter saído.** O dinheiro não está mais na conta do criador. **A plataforma não debita o criador** (§4.3, camada 6): paga o fundo de contestação; se o fundo não cobrir, sai do caixa e o alarme dispara. Cobrança do criador só existe em conluio comprovado ou entrega inexistente, com decisão humana registrada — e **ainda depende de parecer jurídico** (§15).
+
+**(c) Chargeback de cartão ganho pela marca.** O provedor debita a transação inteira da conta da INFLUENTZ, porque a responsabilidade final é nossa por desenho (§4.3, camada 4). Isso produz **saldo negativo na conta-mãe**, que pode travar o saque de criadores que não têm nada a ver com o caso — por isso **o fundo repõe no mesmo dia útil, automaticamente**. ⚠️ **Além do valor, o adquirente cobra taxa de chargeback por ocorrência — referência de mercado de R$ 25 a R$ 80, cobrada mesmo quando a disputa é ganha.** Num contrato de R$ 1.200 ela come 28% da comissão. Não é publicada pelo Pagar.me: é a pergunta 18 da §4.6.2.
+
+**Saldo negativo é sempre da plataforma, nunca do criador.** É consequência direta da responsabilidade final ser nossa, e o remédio real não é cobrança: é o teto de cartão da §4.3.1.
+
 ### 4.3.2 O que a marca vê — e a palavra "recusado" nunca aparece
 
 Contrato de R$ 4.800, marca no degrau 0:
@@ -342,16 +382,16 @@ Quatro coisas fazem isso funcionar:
 |---|---|
 | Comissão total | **15%** — 10% do criador + 5% da marca |
 | Recontratação | Cai para **8%** a partir da 3ª contratação entre a mesma marca e o mesmo criador |
-| Lançamento | **7,5%** nos primeiros 90 dias **ou** nas primeiras 50 transações (o que vier primeiro) |
+| Lançamento | **9,5%** nos primeiros 90 dias **ou** nas primeiras 50 transações (o que vier primeiro). 🔴 **É o menor número que sobrevive ao piso da §4.4.1 em qualquer meio de pagamento** |
 | Configuração | Ajustável no painel administrativo, **nunca fixa no código** |
+
+🔴 **A promoção nunca desce abaixo do piso.** Se a taxa real do provedor fizer o piso da §4.4.1 subir acima de 9,5%, **o contrato sai com o piso** — a comissão de lançamento é um desconto, não uma autorização para vender no prejuízo. Vale igual para o desconto de recontratação: **8% não existe no cartão**, onde o piso hoje é 9,19%; lá o desconto para em 9,5%.
 
 *Referência de mercado:* Workana cobra do freelancer comissão escalonada de 20% caindo até 5% conforme recompra, mais 4,5% do contratante; 99Freelas cobra de 5% a 20% do freelancer. Marketplaces brasileiros em geral operam entre 10% e 20%. 15% posiciona a INFLUENTZ no meio da faixa, com desconto por fidelização — que é o mecanismo que a Workana usa e funciona.
 
 ### 4.4.1 De quem sai a comissão, e o piso que impede prejuízo 🔴
 
 **A comissão sai dos dois lados, na proporção 2 para 1: 10% do criador, 5% da marca.**
-
-⚠️ Isto resolve uma **contradição** que existia entre duas seções: uma dizia 10% + 5%, a outra dizia que a comissão saía só do criador. Eram duas contas diferentes, e o código escolheria sozinho.
 
 **Por que dividida, e por que nessa proporção:**
 
@@ -365,7 +405,9 @@ Isso parece argumentar por cobrar mais da marca — e argumenta, até certo pont
 
 📌 **Nenhuma plataforma consolidada cobra de um lado só.** Fiverr: 20% do vendedor + 5,5% do comprador. Upwork: até 15% do freelancer + 5% do cliente. Workana: 20% regressivo + 4,5%. O único caso de lado único é o Airbnb — que migrou **na direção contrária**, e pôde fazer isso porque já tem demanda de sobra. Marketplace em lançamento não tem.
 
-> 🔴 **PISO DE COMISSÃO EFETIVA.** Nenhum contrato é criado com comissão efetiva menor que **o custo do meio de pagamento mais 3 pontos percentuais.** A verificação é automática, roda **na criação do contrato**, e usa a taxa real do provedor gravada na configuração — nunca um número escrito no código.
+> 🔴 **PISO DE COMISSÃO EFETIVA.** Nenhum contrato é criado com comissão efetiva menor que **o custo do meio de pagamento daquela cobrança mais 5 pontos percentuais.** A verificação é automática, roda **na criação do contrato**, e usa a taxa real do provedor gravada na configuração — nunca um número escrito no código.
+>
+> **O que os 5 pontos cobrem, e por que 3 não bastavam:** imposto sobre a comissão (1,16 p.p.) · tarifa de repasse ao criador (0,29 p.p.) · formação do fundo de contestação (0,38 p.p.) · armazenamento (0,06 p.p.) · margem mínima real (3,1 p.p.). **Um piso que só cobre a taxa do meio de pagamento não é piso: é a ilusão de um.**
 
 **Por que isso existe:** a recontratação de 8% no cartão à vista deixa uma margem de 3,7%, e ela ainda precisa pagar a tarifa de repasse, os 5% do fundo de contestação e a infraestrutura — sobrando perto de **2,9% num contrato de R$ 1.200**, no meio de pagamento que carrega 100% do risco de contestação. **E os 8% viram prejuízo se a taxa do provedor passar de 7,79%** — número que, como o plano Flex não é público, ainda não sabemos.
 
@@ -392,10 +434,31 @@ O criador cadastra o preço que quer receber pelo trabalho — R$ 1.200. **A vit
 
 ⚠️ **O criador pode simplesmente precificar o trabalho considerando a comissão, e a tela precisa deixar isso óbvio em vez de escondido.**
 
+### 4.5.1 Valor mínimo de contrato: R$ 150 🔴
+
+> **Nenhum contrato é criado abaixo de R$ 150 de preço do criador** — nem pela vitrine, nem por proposta em pedido aberto. O valor vive na configuração do Admin, nunca no código.
+
+**Por que existe um piso.** O custo de um contrato não é só percentual: há uma **parte fixa de R$ 4,37** (tarifa de repasse ao criador + armazenamento dos arquivos pela vida do contrato) que não encolhe com o valor. Num contrato de R$ 20, a plataforma paga R$ 4,37 para ganhar R$ 3,00.
+
+| Cenário | Onde a margem cruza o zero |
+|---|---|
+| Comissão cheia de 15%, mix de meios de pagamento | R$ 48 |
+| Comissão cheia de 15%, cartão | R$ 64 |
+| Comissão de lançamento de 9,5%, mix | R$ 89 |
+| **Comissão de lançamento de 9,5%, cartão — o pior caso** | **R$ 161** |
+
+**R$ 150 é o número escolhido** porque coincide com o piso que o próprio mercado brasileiro publica para nano influenciador (R$ 150 por 3 Stories), fica acima do piso técnico em todos os cenários menos o mais extremo, e — o que mais importa — **é um número só**. Um mínimo que mudasse conforme o meio de pagamento seria uma função nova e uma tela confusa.
+
+*Referência:* 99Freelas pratica mínimo por categoria de R$ 30 a R$ 100; Fiverr, US$ 5.
+
+**O que isso protege:** contrato de R$ 1 usado para inflar contador de recontratação ou escalar degrau de cartão; e a plataforma pagando custo fixo para ganhar centavos.
+
+🔴 **O que quebra para um cliente legítimo, e como resolvemos sem função nova:** o criador iniciante que quer cobrar **R$ 50 por um Story** para conseguir a primeira avaliação. Ele existe e é bom cliente. A regra *"quantidade é o que cabe numa data de entrega"* (`PRODUTO-DETALHADO.md` §1) já resolve: ele publica **3 Stories por R$ 150** em vez de 1 por R$ 50 — mesmo preço unitário, contrato viável. **A tela de cadastro do item diz isso no momento em que ele digita o valor**, nunca depois de ele ter escrito o item inteiro: *"o valor mínimo de um contrato é R$ 150 — aumente a quantidade para chegar lá."*
+
 ### 4.6 Escrow e marcos 🟢
 
 - **Escrow sempre ativo:** o dinheiro fica retido até a entrega ser aprovada. Inegociável — é o que sustenta a confiança dos dois lados.
-- **Marcos (entrega em etapas):** contrato simples e de valor baixo = uma entrega, um pagamento. Contrato maior ou mais longo = a plataforma sugere dividir em etapas automaticamente. Proteção sempre ligada; complexidade proporcional ao risco.
+- **Marcos (entrega em etapas):** contrato simples = uma entrega, um pagamento — e é o que a maioria vê. **Acima do teto de cartão da conta (§4.3.1), o checkout oferece dividir em marcos.** Oferece, nunca decide sozinho: sugestão automática exigiria uma regra de "quando" que não existe e que ninguém pediu. Abaixo do teto, a palavra "etapa" não aparece em lugar nenhum da tela.
 
 ### 4.6.1 Liberação do repasse — decidido, não perguntado 🎯
 
@@ -414,6 +477,13 @@ O criador cadastra o preço que quer receber pelo trabalho — R$ 1.200. **A vit
 📌 **Somos mais rápidos que Upwork (5 dias de segurança), Fiverr (14 dias para vendedor novo) e Mercado Pago (D0/D14/D30) — porque não inventamos período de segurança.**
 
 ⚠️ **Nada disso pode virar carteira.** A varredura é instrução ao provedor com retorno por webhook: a invariante da §4.9 continua intacta, e vale teste automatizado.
+
+
+🔴 **A varredura agrega por criador, não por contrato.** Um criador com saldo de três contratos no mesmo dia recebe **uma** transferência, não três. Isso não é função nova — é a definição de "varrer o saldo disponível".
+
+**Quanto custa, e por que a plataforma paga:** a tarifa de transferência é de cerca de **R$ 3,67 por repasse** — **R$ 73 por mês** no lançamento (4% da comissão) e **R$ 3.670 por mês** na operação (2%). Fiverr, Upwork, Hotmart e Kiwify **todas cobram essa tarifa do prestador**. Absorver é decisão nossa, e ela protege a regra já travada: *o criador ofertou olhando o líquido; tarifa surpresa é taxa somada no fim.*
+
+⚠️ **Gatilho de revisão, para não virar problema calado:** se o custo de repasse passar de **3% da receita de comissão por três meses seguidos**, a regra migra para *um repasse por semana sem custo, saques adicionais pagos pelo criador*. É troca de parâmetro em configuração, não código novo.
 
 ### 4.6.2 Perguntas ao Relacionamento do provedor — por escrito, no credenciamento ⚠️
 
@@ -434,6 +504,10 @@ Nenhuma é decisão do Marco; todas viram documento em `/docs` quando respondere
 10. 🔴 **Quem é debitado da taxa de antecipação — o marketplace ou o recebedor?** *(Se for o recebedor, o parcelamento não liga.)*
 11. Valor mínimo, máximo e limites de antecipação — por dia, por transação, por conta.
 12. 🔴 **A validação de mesma titularidade da conta bancária vale para recebedores criados por API**, ou só pela dashboard? **Se valer só pela dashboard, o desvio de repasse volta a ser possível e vira a prioridade número um.** Hoje estamos protegidos por uma regra que ainda não confirmamos.
+16. 🔴 **Qual a tarifa de saque/transferência ao recebedor, em R$, na nossa conta — e ela é debitada do marketplace ou do recebedor?** *(A tarifa não é publicada; toda a nossa conta usa R$ 3,67 como premissa.)*
+17. **Boleto emitido e não pago gera custo?** Se sim, quanto por boleto.
+18. 🔴 **Qual a taxa de chargeback por ocorrência, e ela é cobrada mesmo quando a disputa é ganha?** *(Referência de mercado: R$ 25 a R$ 80. Num contrato de R$ 1.200, essa taxa sozinha come 28% da comissão.)*
+19. 🔴 **Como se retém o valor do recebedor secundário até a liberação?** Split com data futura, split executado no ato da liberação, ou conta de garantia? **É a única peça do escrow sem mecânica escrita, e é o coração do produto.**
 
 ### 4.7 Cadastro fiscal do criador
 
@@ -473,6 +547,19 @@ Três consequências, e nenhuma é pequena:
 
 No dia em que a plataforma receber bruto para repassar depois, ela vira instituição de pagamento não autorizada **independentemente do volume**.
 
+#### 4.9.1 Então o que existe, e como se chama na tela 🔴
+
+**Não existe carteira para ninguém — nem criador, nem marca.** O criador tem uma **conta digital vinculada ao provedor e regulada pelo Banco Central**, criada quando ele vira recebedor (§4.8). A conta é **dele**. O aplicativo apenas **lê** essa conta.
+
+| Superfície | Nome da área | O que lista |
+|---|---|---|
+| CREATOR APP | **"Meus recebimentos"** | *A receber*, com a data exata de cada valor · *Disponível na sua conta* · *Enviado para o banco* |
+| BRAND WEB | **"Meus pagamentos"** | Contratos pagos, contratos a pagar, faturas e estornos em andamento. **Não existe linha de saldo** |
+
+🔴 **A marca nunca tem saldo, e isso é decisão, não esquecimento.** Saldo pré-pago — *"deposite R$ 5.000 e contrate depois"* — é captação de recurso de terceiro com emissão de moeda eletrônica, e joga a INFLUENTZ dentro da regulação do Banco Central **independentemente de volume**. É exatamente o que a invariante acima existe para impedir. **Não existe no v1 e não entra em versão nenhuma.**
+
+> ⚠️ **Palavras proibidas na interface, e isso vale teste automatizado:** *carteira · saldo INFLUENTZ · crédito · depositar.* Elas descrevem um produto que não temos e que, se tivéssemos, exigiria autorização do Banco Central.
+
 ⚠️ **PLD-FT e comunicação ao COAF são do Pagar.me**, porque a Circular BCB 3.978/2020 alcança instituições autorizadas pelo BCB — e a INFLUENTZ não é uma. **Ressalva honesta:** o art. 9º da Lei 9.613/98 alcança quem faz *"intermediação... de recursos financeiros de terceiros"*, e a palavra é larga o bastante para que **só um advogado diga sim ou não**. Premissa de trabalho: tratar como **não obrigada**, mas **construir os controles do mesmo jeito** — são baratos e são os mesmos que as regras antifraude já exigem.
 
 ### 4.10 Agenda de recebíveis — Resolução BCB 264/349
@@ -481,7 +568,9 @@ No dia em que a plataforma receber bruto para repassar depois, ela vira institui
 
 **Prazo:** era 06/11/2023, prorrogado para **01/04/2024**. **Já vencido.** Não é item de roadmap: é condição para operar.
 
-⚠️ **Lacuna aberta.** A carteira e o extrato desenhados **não são agenda de recebíveis por UR**, e não existe nada sobre contratos que gravam a agenda nem sobre contestação. Vale para criador **e** marca, porque ambos são recebedores no split.
+🔴 **A agenda é do criador e da INFLUENTZ — nunca da marca.** A marca é a **pagadora**: ela só recebe dinheiro em devolução, e devolução não constitui unidade de recebíveis. Construir a tela dela seria construir uma tela sem dado para preencher.
+
+⚠️ **O que ainda falta construir:** a tela de recebimentos do criador (§4.9.1) **não é agenda de recebíveis por UR**, e não existe nada sobre contratos que gravam a agenda nem sobre contestação desses efeitos. **É construção da primeira fatia, não da última** — obrigação com prazo vencido não é item de roadmap.
 
 ### 4.11 Trilha de auditoria
 
@@ -902,7 +991,41 @@ Um marketplace vazio não tem produto. Isso não é marketing, é viabilidade.
 
 ⚠️ **Isto é só tecnologia.** Não inclui contador (R$ 195 a R$ 600 por mês), advogado, marketing, salário de ninguém, nem a formação do fundo de contestação. **Com o contador, o lançamento fica entre R$ 503 e R$ 908 por mês.**
 
-> ✅ **Em quantos contratos a plataforma paga a própria tecnologia.** Com a comissão efetiva de 15% (§4.4.1) e ticket médio entre R$ 500 e R$ 1.500, **de 2 a 5 contratos por mês pagam a tecnologia e de 5 a 13 pagam tudo, contador incluído. A meta de 20 contratos por mês paga o conjunto em qualquer cenário de preço.**
+### 14.2.3.1 O ponto de equilíbrio de verdade 🔴
+
+**Custo por contrato não existia em lugar nenhum, e é ele que decide.** Contrato de R$ 1.200 (a marca paga R$ 1.260), comissão cheia de 15% = R$ 180.
+
+| Linha de custo | Pix | Boleto | Cartão à vista |
+|---|---|---|---|
+| Taxa do meio de pagamento | 12,47 | 3,49 | 52,79 |
+| Tarifa de repasse ao criador | 3,67 | 3,67 | 3,67 |
+| Armazenamento pela vida do contrato | 0,70 | 0,70 | 0,70 |
+| Rateio de tecnologia (R$ 307,76 ÷ 20) | 15,39 | 15,39 | 15,39 |
+| Rateio de contador (R$ 600 ÷ 20) | 30,00 | 30,00 | 30,00 |
+| Imposto sobre a comissão (15,5%) | 27,90 | 27,90 | 27,90 |
+| Perda esperada de chargeback + taxa por ocorrência | 0,00 | 0,00 | 3,32 |
+| Formação do fundo de contestação (5% da comissão) | 9,00 | 9,00 | 9,00 |
+| **Custo total por contrato** | **R$ 99,13** | **R$ 90,15** | **R$ 142,77** |
+| **Margem sobre R$ 180 de comissão** | **R$ 80,87** | **R$ 89,85** | **R$ 37,23** |
+
+🔴 **De cada R$ 180 que a plataforma cobra num contrato de R$ 1.200, sobram R$ 37 se a marca pagar no cartão e R$ 90 se pagar no boleto.** Não é a mesma venda — e isso justifica sozinho colocar o Pix em destaque no checkout.
+
+**Ponto de equilíbrio**, com custo fixo de R$ 908 por mês (tecnologia + contador no pior caso) e mix de 60% Pix-boleto / 40% cartão:
+
+| Fase | Comissão | Margem por contrato | **Contratos/mês para o zero a zero** |
+|---|---|---|---|
+| **Lançamento** (primeiros 90 dias) | 9,5% | R$ 56,33 | **17** |
+| Regime | 15% | R$ 108,81 | **9** |
+| Regime, ticket de R$ 600 | 15% | ~R$ 50 | **18** |
+
+⚠️ **A meta de 20 contratos por mês cobre o lançamento — mas com folga de três contratos, não com folga confortável.** É por isso que a comissão de lançamento é 9,5% e não menos: **a 7,5% o ponto de equilíbrio seria 25 contratos por mês, acima da meta**, e no cartão a plataforma trabalharia por R$ 11 por contrato.
+
+### 14.2.3.2 As duas linhas de caixa que ninguém tinha somado 🔴
+
+1. **Retenção de 15 dias em conta nova.** O provedor retém o repasse de vendedores novos por até 15 dias. **No primeiro mês e meio a plataforma paga custo fixo sem receber comissão.** Capital de giro necessário: cerca de **R$ 1.800**.
+2. **Aporte inicial do fundo de contestação: R$ 3.000** (§4.3.3).
+
+> 🔴 **Aporte mínimo para abrir a operação com honestidade: R$ 5.000.** Não é opinião sobre risco — é a soma de duas linhas que já estavam nos documentos e nunca tinham sido somadas.
 
 ### 14.2.4 Quando cada plano gratuito estoura — com o número que dispara
 
@@ -1079,6 +1202,15 @@ Com 20 contratos/mês, o volume esperado é de **três a seis chamados por mês*
 | 🔴 **Quando a plataforma suspende um contrato por suspeita de lavagem, o que ela faz com o dinheiro?** Devolver ao pagador pode ser completar a lavagem; reter sem cláusula é apropriação. **É a única pergunta desta lista que não tem resposta boa improvisada no dia** | Advogado | Lançamento |
 | Contrato de operador de dados com o agregador de métricas, e menção nominal na Política de Privacidade | Advogado | Contratar o agregador |
 | Declaração escrita do agregador de que a aprovação da Meta dele cobre o uso pelo cliente final | Advogado | Contratar o agregador |
+
+**Itens novos para o contador, com o preço da decisão medido:**
+
+| Tema | Por que importa, em número |
+|---|---|
+| 🔴 **Fator R — Anexo III (6%) ou Anexo V (15,5%)** | **A diferença vale R$ 17 por contrato, ou 9,4% da comissão. É a decisão contábil mais cara do projeto** |
+| A taxa do meio de pagamento e a tarifa de repasse são despesa dedutível da base da comissão, ou a base é o valor bruto? | Muda a base de cálculo de todo imposto |
+| **O aporte inicial do fundo de contestação é integralização de capital, mútuo do sócio ou reserva?** | Muda o tratamento fiscal do que sai dele quando um chargeback é absorvido |
+| Retenção de 15 dias em conta nova: receita reconhecida na venda ou na liquidação? | Efeito de caixa medido: R$ 1.800 de capital de giro |
 
 📌 **A pergunta mais estruturante da lista é a primeira.** Enquanto não houver resposta de advogado, **tratamos a relação como de consumo** — é o cenário mais caro, e preparar-se para ele não custa nada se a resposta vier ao contrário. O STJ aplica o finalismo mitigado, e criador pessoa física costuma ser reconhecido como vulnerável, mesmo prestando serviço profissional.
 
