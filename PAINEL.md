@@ -264,7 +264,18 @@ Você pode derrubar qualquer uma destas a qualquer momento, sem justificar.
 
 Eles revisam meu trabalho **antes** de chegar em você. Quem escreve não corrige a própria prova — e o cortador existe porque os outros só sabiam acrescentar.
 
-🔴 **Você perguntou se eu precisava de mais especialistas. A resposta honesta é não.** O especialista financeiro já existia — e nunca tinha sido perguntado sobre o modelo de operação. Criar mais um seria a resposta fácil para um problema que era de processo. **O que faltava era o portão de entrega**, e ele agora existe: nove perguntas que toda entrega precisa responder antes de chegar em você, começando por *"o assunto está inteiro, ou é uma fatia?"*. Se eu falhar nele, **você devolve sem ler** — e isso é o processo funcionando, não grosseria.
+**O time acima cuida do produto. Faltava o time de código — e esse eu criei agora, antes de precisar dele:**
+
+| Especialista novo | Para quê | Quando entra |
+|---|---|---|
+| **Arquiteto técnico** | Estrutura de pastas, modelo de dados, como trocar de fornecedor sem reescrever tudo | Antes da primeira linha de código |
+| **QA — estratégia** | Decide o que precisa de teste automatizado (tudo que mexe em dinheiro) e o que não precisa | Antes de cada fatia ser construída |
+| **DevOps** | Ambiente de teste, ambiente de produção, e quando trocar um pelo outro em cada fornecedor | Antes do primeiro deploy |
+| **Desenvolvedor fullstack** | Implementa o que os anteriores já decidiram | Fase de código |
+
+**Nenhum desses exigiu você instalar nada.** São arquivos de texto no repositório — pesquisados na documentação oficial da Anthropic e em dois repositórios públicos de referência para saber o padrão certo, não inventados por mim sozinho.
+
+🟡 **A resposta sobre "mais especialista" mudou de figura.** Para o produto, a resposta continua sendo não — faltava processo, não gente. Para o código, que ainda nem começou, **sim, faltava**, e agora está pronto antes de precisar. Continua valendo o portão de entrega: nove perguntas antes de qualquer coisa chegar em você, começando por *"o assunto está inteiro, ou é uma fatia?"*. Se eu falhar, **você devolve sem ler**.
 
 ---
 
