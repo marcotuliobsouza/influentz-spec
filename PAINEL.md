@@ -47,8 +47,11 @@ Três coisas fazem a plataforma valer o que cobra:
 > ### 2. A lista de cold start
 > Quantos criadores e quantas marcas atenderiam o seu telefone hoje?
 
-> ### 3. Saber que abrir a operação pede R$ 6.800 de caixa
-> Não é uma pergunta — é um número que você precisa ter antes de abrir a empresa, e que eu devia ter te dado há semanas.
+> ### 3. Duas decisões que são legitimamente suas, com a recomendação já escrita
+> **(a) Trabalho presencial sai do lançamento?** Recomendo que sim: não existe API que confirme presença, e liberar dinheiro sem confirmação por API quebraria a regra que sustenta a retenção. Fica desenhado e volta depois.
+> **(b) Você separa R$ 5.000 para o fundo de contestação?** Recomendo que sim, antes da primeira cobrança real. Não é gasto, é caixa seu em conta separada — e é o que permite o cartão existir no dia 1.
+
+**E um número que não é pergunta, é aviso:** abrir a operação pede **R$ 6.800 de caixa**, e eu devia ter te dado isso há semanas.
 
 Marketplace vazio não tem produto. É o único item que nem dinheiro nem engenharia resolvem.
 
