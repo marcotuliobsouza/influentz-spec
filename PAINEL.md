@@ -47,6 +47,9 @@ Três coisas fazem a plataforma valer o que cobra:
 > ### 2. A lista de cold start
 > Quantos criadores e quantas marcas atenderiam o seu telefone hoje?
 
+> ### 3. Saber que abrir a operação pede R$ 5.000 de caixa
+> Não é uma pergunta — é um número que você precisa ter antes de abrir a empresa, e que eu devia ter te dado há semanas.
+
 Marketplace vazio não tem produto. É o único item que nem dinheiro nem engenharia resolvem.
 
 **O que você não precisa fazer:** ler documento técnico, auditar especificação, procurar o que falta, escolher número. Se eu te mandar uma pergunta que eu conseguiria responder pesquisando, me corrija.
@@ -71,30 +74,87 @@ Contando para trás a partir do primeiro contrato pago:
 
 ---
 
-## Quanto custa manter a plataforma no ar
+## O dinheiro: quanto custa, quanto precisa entrar, e a partir de que valor vale a pena
 
-**Você perguntou se os valores de armazenamento eram por mês, por ano ou por giga. A pergunta era justa — os números saíam sem unidade, o que é o mesmo que não sair. Refiz a conta inteira. Agora toda linha tem unidade e período.**
+**Você estava certo: a conta não estava completa.** Eu tinha te dado o custo de manter a plataforma no ar sem te dar o outro lado — quanto precisa entrar. Refeito inteiro.
+
+### Quanto custa
 
 | Fase | **Por mês** | Uma vez só |
 |---|---|---|
-| Enquanto só existe desenvolvimento (nenhuma cobrança real) | **R$ 3,33** — é o domínio, diluído em 12 meses | — |
+| Enquanto só existe desenvolvimento | **R$ 3,33** | — |
 | Primeiro contrato de verdade (o seu, no teste) | **R$ 296,21** | R$ 137,50 na Google Play |
-| **Lançamento** — 20 contratos por mês | **R$ 307,76** | — |
-| Operação — 1.000 contratos por mês | **R$ 1.607,13** (sem o fornecedor de métricas) | — |
+| **Lançamento** — 20 contratos/mês | **R$ 307,76** de tecnologia · **até R$ 908 com contador** | — |
+| Operação — 1.000 contratos/mês | **R$ 1.607,13** (sem o fornecedor de métricas) | — |
 
-**Isso é só tecnologia.** Com o contador, o lançamento fica entre **R$ 503 e R$ 908 por mês**. **De 2 a 5 contratos por mês pagam a tecnologia** e de 5 a 13 pagam tudo, dependendo do ticket. A meta de 20 paga o conjunto em qualquer cenário.
+### Quanto precisa entrar — e aqui eu preciso corrigir um número que te dei
 
-**Duas coisas que eu preciso corrigir para você:**
+Eu escrevi que *"20 contratos por mês pagam o conjunto em qualquer cenário"*. **Essa frase estava errada.** Ela foi calculada com a comissão cheia de 15%, sem imposto, sem a tarifa de cada repasse, sem a taxa do meio de pagamento e sem o fundo de contestação. Com tudo somado:
 
-1. 🔴 **Eu te disse que o fornecedor de métricas tem plano gratuito de 250 contas. Isso não está publicado em lugar nenhum.** Fui à página oficial de preços e ela só oferece orçamento sob medida. **A escolha do fornecedor continua certa** — uma integração em vez de três, sem fila de aprovação, sem exigir CNPJ. **O que não está provado é o "R$ 0".** Falta um e-mail pedindo o número por escrito, não uma decisão nova.
+| Fase | Comissão | **Contratos/mês para o zero a zero** |
+|---|---|---|
+| **Lançamento** (primeiros 90 dias) | 9,5% | **17** |
+| Em regime | 15% | **9** |
 
-2. 🔴 **E a pergunta a fazer antes do preço é maior que o preço:** *a cobrança é por conta conectada ou por consulta?* Conferir que a publicação continua no ar gera cerca de **90 mil consultas por mês** na fase de operação. **Se for por consulta, essa linha sozinha custa mais que toda a infraestrutura junta.** Já cortei 79% dessas consultas mudando a frequência da checagem, sem perder nada.
+🔴 **E foi por isso que a comissão de lançamento mudou de 7,5% para 9,5%.** A 7,5%, o ponto de equilíbrio seria **25 contratos por mês — acima da sua própria meta de 20**. Você estaria trabalhando no vermelho durante os 90 dias em que tem menos caixa. No cartão, a plataforma ganharia R$ 11 por contrato.
 
-**O que eu descobri e não estava na conta:** conta de desenvolvedor da Apple (US$ 99 por ano), Google Play (US$ 25, uma vez), e **cópia de segurança de verdade do banco de dados** — o plano guarda backup por 7 dias, e a janela em que uma marca pode contestar uma compra chega a **540 dias**. Aqui a régua não é "o site saiu do ar", é **"a prova sumiu"**. Cópia própria, diária e cifrada, cabe no plano gratuito e passa a ser obrigatória.
+**O que isso custa ao criador fundador:** num contrato de R$ 1.200, ele recebe R$ 1.086 em vez de R$ 1.110. **R$ 24.** E continua sendo quase metade do que Fiverr, Workana e 99Freelas cobram. **Ninguém vai embora por R$ 24; a plataforma quebra por R$ 163 por mês.**
 
-**E o plano gratuito da Vercel proíbe uso comercial** — a definição inclui "qualquer método de solicitar ou processar pagamento". **O seu primeiro Pix de teste já dispara isso.** Não é volume, é cláusula.
+### De cada R$ 180 de comissão, quanto sobra
 
-**Uma coisa que o criador vai sentir:** subir um vídeo de 250 MB pelo 4G leva **quase 5 minutos**. A tela de envio tem quatro obrigações: mostrar MB de MB, deixar sair da tela sem cancelar, **retomar de onde parou** em vez de recomeçar do zero, e confirmar no fim com data, hora e identificador — que é o que vira prova.
+| A marca paga por | Custo do contrato | **Sobra** |
+|---|---|---|
+| Boleto | R$ 90,15 | **R$ 89,85** |
+| Pix | R$ 99,13 | **R$ 80,87** |
+| Cartão | R$ 142,77 | **R$ 37,23** |
+
+**Não é a mesma venda.** É isso que justifica colocar o Pix em destaque no checkout.
+
+### Valor mínimo de proposta: **R$ 150**
+
+Você perguntou se pode alguém oferecer R$ 1,00. Não pode, e o motivo tem número: **cada contrato tem um custo fixo de R$ 4,37** — a tarifa do repasse ao criador e o armazenamento dos arquivos — que não encolhe. Num contrato de R$ 20, a plataforma paga R$ 4,37 para ganhar R$ 3,00.
+
+**R$ 150** é onde o mercado brasileiro já começa (é o piso publicado para 3 Stories de nano influenciador) e cobre o custo em qualquer meio de pagamento.
+
+**E o criador iniciante que quer cobrar R$ 50 por um Story?** Ele não fica de fora: publica **3 Stories por R$ 150** — mesmo preço por peça, contrato viável. A tela avisa isso no momento em que ele digita o valor, não depois.
+
+### Repasse: quem paga a tarifa
+
+**A plataforma.** Cada repasse custa cerca de **R$ 3,67** — R$ 73 por mês no lançamento. Fiverr, Upwork, Hotmart e Kiwify **todas cobram isso do prestador**; nós absorvemos, porque o criador ofertou olhando o líquido e tarifa surpresa é taxa somada no fim.
+
+**Um ajuste:** a varredura junta por criador, não por contrato. Três entregas no mesmo dia = **uma** transferência, não três.
+
+### Carteira: **não existe, para ninguém**
+
+Nem criador, nem marca. O criador tem uma **conta digital regulada pelo Banco Central**, que é dele — o aplicativo só lê. Ele vê **"Meus recebimentos"**; a marca vê **"Meus pagamentos"**, sem nenhuma linha de saldo.
+
+🔴 **E marca com saldo pré-pago — "deposite R$ 5.000 e contrate depois" — nunca vai existir.** Isso é guardar dinheiro de terceiro, e joga a INFLUENTZ dentro da regulação do Banco Central **independentemente do tamanho**. As palavras *carteira*, *saldo*, *crédito* e *depositar* ficam proibidas na interface.
+
+### Estorno: onde o dinheiro cai
+
+| Como a marca pagou | Por onde volta | Prazo |
+|---|---|---|
+| Pix | **A conta de origem, obrigatoriamente** — o Banco Central não deixa ser outra | minutos |
+| Boleto | Conta informada, com o mesmo CPF/CNPJ do pagador | 1 a 2 dias úteis |
+| Cartão | O próprio cartão | 🔴 **até 60 dias — prazo do banco, não nosso** |
+
+**Se o repasse já saiu**, a plataforma **não cobra do criador**: paga o fundo de contestação. **Saldo negativo é sempre nosso, nunca dele.**
+
+### O fundo de contestação, e a regra que mais protege você
+
+O fundo junta 5% da comissão — **R$ 114 por mês no lançamento**. Para acumular um único chargeback de R$ 2.500, levaria **dois anos**. Fundo que começa em zero não é proteção, é intenção.
+
+**Decidido:** o fundo **nasce com R$ 3.000** em conta separada, antes da primeira cobrança real. E — a regra mais importante desta entrega — **o teto de R$ 15.000 no cartão para empresa verificada só liga quando o fundo cobrir R$ 30.000.** Até lá, ela paga por boleto e Pix, sem limite nenhum, que é a rota que empresa grande já usa naturalmente.
+
+**Por quê:** hoje um único chargeback de R$ 15.000 contra um fundo de R$ 114 apagaria treze meses de receita e travaria o saque de todos os criadores. **É o único cenário do produto inteiro capaz de matar a plataforma num evento só.**
+
+### O número que você precisa saber antes de abrir a empresa
+
+> ## Aporte mínimo para abrir a operação: **R$ 5.000**
+>
+> R$ 3.000 do fundo de contestação + cerca de R$ 1.800 de capital de giro, porque **o provedor retém o repasse de conta nova por até 15 dias** — no primeiro mês e meio a plataforma paga custo fixo sem receber comissão.
+>
+> Não é opinião sobre risco. **É a soma de duas linhas que já estavam nos documentos e que eu nunca tinha somado.**
 
 ---
 
@@ -105,10 +165,12 @@ Você pode derrubar qualquer uma destas a qualquer momento, sem justificar.
 **Dinheiro**
 - Pagamento por Pix, boleto e cartão, pelo Pagar.me
 - **Comissão sai dos dois lados: 10% do criador + 5% da marca.** A marca vê o preço final desde a busca, com os 5% dentro — nunca taxa somada no checkout
+- **Comissão de lançamento: 9,5%** nos primeiros 90 dias. Nenhum contrato existe abaixo de **R$ 150**
 - O dinheiro fica retido até a entrega ser confirmada
-- **Pix e boleto nunca têm limite.** Só o cartão tem, e empresa verificada entra em R$ 15.000 no primeiro dia
+- **Pix e boleto nunca têm limite.** Só o cartão tem — e o teto de R$ 15.000 da empresa verificada só liga quando o fundo de contestação cobrir R$ 30.000
 - 🟡 **Cartão só à vista no v1.** O parcelamento existe escrito e desligado — liga por uma chave quando o Pagar.me responder três perguntas por escrito
-- **O repasse é automático**, todo dia útil, com a tarifa por nossa conta
+- **O repasse é automático**, todo dia útil, com a tarifa por nossa conta — e junta por criador, não por contrato
+- **Não existe carteira para ninguém.** O criador vê "Meus recebimentos"; a marca vê "Meus pagamentos", sem saldo
 - **Nenhum usuário precisa de CNPJ.** Criador recebe com CPF; marca contrata com CPF ou CNPJ
 
 **Produto**
