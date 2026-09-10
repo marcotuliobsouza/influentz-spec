@@ -158,6 +158,48 @@ O fundo junta 5% da comissão — **R$ 114 por mês no lançamento**. Para acumu
 
 ---
 
+## O fornecedor de métricas, com nome
+
+Você disse que não sabia qual seria. A decisão estava pela metade — eu tinha escolhido *"um agregador"* sem nunca cravar qual. **Agora tem nome: Phyllo / InsightIQ.**
+
+**O que decidiu não foi preço, foi uma pergunta só:** *o fornecedor confirma que um post específico continua no ar?* É isso que libera o dinheiro do criador. A maioria dos concorrentes só entrega "número de seguidores" e cai nessa pergunta.
+
+**E uma notícia grande: o maior risco de custo do projeto acabou.** Eu tinha te avisado que conferir se a publicação continua no ar geraria **90 mil consultas por mês** e poderia custar mais que toda a infraestrutura. **Não gera mais:** o fornecedor escolhido **avisa por conta própria** quando um post é removido, e o plano B verifica **100 posts por chamada** — as 90 mil viram 900.
+
+**O preço não é publicado — e isso deixou de ser um problema**, porque o plano B (**Ayrshare**) publica o dele, e ele vira o nosso teto de negociação:
+
+| Fase | Teto que aceitamos pagar |
+|---|---|
+| Lançamento (50 criadores) | **R$ 4.207 por mês** |
+| Operação (2.000 criadores) | **R$ 34.339 por mês** |
+
+**Regra já decidida, sem pergunta para você:** se o orçamento vier acima do teto, assinamos o plano B. Abaixo, o primeiro. A única coisa que chega até você é a assinatura do contrato.
+
+🔴 **E aqui está o que eu tinha medido errado o tempo todo:** armazenamento é **2% do custo no lançamento**. O item caro da INFLUENTZ nunca foi guardar vídeo — **é o fornecedor de métricas.** Eu estava medindo a linha errada com precisão e a linha certa não estava medida.
+
+---
+
+## O armazenamento aguenta? Testei contra o pior caso
+
+Você perguntou se não vai ser alto "com tanto upload pesado". **Refiz a conta com o dobro do tamanho de arquivo e quase o dobro da quantidade** — 500 MB por arquivo, 5 arquivos por contrato:
+
+| | Lançamento (20 contratos/mês) | Operação (1.000/mês) |
+|---|---|---|
+| Custo por mês | **R$ 28** | **R$ 1.134** |
+
+**A premissa triplicou e o número saiu de R$ 9 para R$ 28 por mês.** É por isso que eu não me preocupo com essa linha.
+
+**A conta que você pode fazer sozinho, sem me perguntar:**
+> contratos por mês × 18 = o acervo em gigas · acervo × 0,081 = o custo em reais por mês
+
+**E o motivo pelo qual isso nunca vira problema:** armazenar um contrato pela vida inteira custa **R$ 1,46**. Aquele contrato rende **R$ 120**. O custo cresce **82 vezes mais devagar** que a receita.
+
+**O que pode explodir é outra coisa, e já está travado:** arquivo sem contrato. **Só existe envio de arquivo dentro de um contrato pago** — sem contrato, não há para onde enviar.
+
+**Uma coisa que eu recusei, e você precisa saber por quê:** comprimir o vídeo entregue economizaria R$ 1.021 por mês na operação — **e entregaria à marca um arquivo pior do que ela comprou.** Em vez disso, a plataforma gera uma **cópia leve só para revisão**: a marca revisa a entrega em segundos gastando 5 MB, e baixa o original só se quiser.
+
+---
+
 ## O que está decidido
 
 Você pode derrubar qualquer uma destas a qualquer momento, sem justificar.
