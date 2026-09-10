@@ -792,13 +792,42 @@ A versão anterior punha a INFLUENTZ construindo **três integrações próprias
 
 **O criador não percebe diferença nenhuma:** ele autentica na tela da própria rede, com o login oficial dela. É dado consentido por OAuth, exatamente como seria na integração própria — **não é raspagem, não é print, não é estimativa.** A regra travada continua valendo ao pé da letra: *métrica só por API oficial.*
 
-🔴 **Correção importante: o "plano gratuito de 250 contas" não foi confirmado.** A página oficial de preços do fornecedor diz apenas *"depending on your exact use case, we offer customized plans"*, com botão de orçamento e **nenhum número publicado**. Isso não prova que o plano gratuito não existe — prova que **ele não está publicado**, e portanto **não é fato: é premissa.**
+### 9.1.1.2 O fornecedor, com nome: **Phyllo / InsightIQ**. Plano B: **Ayrshare** 🟢
 
-**A decisão de arquitetura continua certa pelos outros motivos** — uma integração em vez de três, zero fila de aprovação, não exige CNPJ, e nenhum ponto de reprovação. **O que falta é um e-mail ao fornecedor com o número por escrito**, não uma escolha nova.
+**O critério que decidiu não foi preço, foi uma pergunta só:** *o fornecedor confirma que um post específico existe e continua no ar?* É isso que libera o dinheiro do criador (§8.2), e é isso que elimina a maioria.
 
-⚠️ **E a pergunta a fazer antes do preço é outra, e é maior:** *a cobrança é por conta conectada ou por chamada?* A verificação de permanência da publicação gera, na fase de operação, cerca de **90.000 consultas por mês** — noventa vezes o número de criadores conectados. **Se for por chamada, essa linha sozinha pode custar mais que toda a infraestrutura somada.** Mitigação já disponível e de graça: verificar uma vez por dia nos primeiros 7 dias e uma vez por semana depois — **corta 79% das chamadas** sem perder a capacidade de detectar remoção.
+| Fornecedor | Veredito | Motivo |
+|---|---|---|
+| **Phyllo / InsightIQ** | ✅ **Escolhido** | Único que junta consentimento do criador por OAuth oficial + item de conteúdo individual por identificador + **webhook** que avisa quando um conteúdo é adicionado, atualizado ou **removido** + ambiente de teste grátis sem CNPJ |
+| **Ayrshare** | 🟡 **Plano B, e é o nosso teto de negociação** | Faz tudo o que precisamos e **tem preço publicado**. Verifica post publicado fora dele, **até 100 posts por chamada**, e devolve erro específico quando o post sumiu |
+| Modash | ❌ | Base de descoberta por perfil público, sem consentimento do criador |
+| HypeAuditor | ❌ | Análise de audiência com estimativa. **Não confirma que um post continua no ar** |
+| Creable · Lefty | ❌ | São plataformas de campanha com tela própria, não API para embutir. Comprá-las é comprar um concorrente parcial |
 
-📌 **Quando a integração própria passa a valer a pena:** depois de 250 criadores conectados, quando o plano gratuito acaba **e já existe receita**. Aí ela vira **otimização de custo**, feita com calma, com a empresa aberta e sem prazo apertado — e não pré-requisito de lançamento. **A camada de abstração já prevista faz a troca ser um adaptador, não uma reescrita.**
+> 🔴 **A bomba das 90.000 consultas por mês deixou de existir.** No Phyllo, a permanência chega **por webhook** — eles avisam, nós não perguntamos. No Ayrshare, **100 posts por chamada** transformam 90.000 consultas em **900 requisições por mês**. A linha que "podia custar mais que toda a infraestrutura" morreu nas duas opções.
+
+**O preço, e como ele deixa de ser risco.** O Phyllo **não publica preço** — só orçamento sob medida. **O teto vem do plano B, que é público:**
+
+| Estágio | Teto que aceitamos pagar | De onde vem |
+|---|---|---|
+| Lançamento (50 criadores) | **R$ 4.207 por mês** | Ayrshare: US$ 599/mês por 30 perfis + 20 extras a US$ 8,99 por perfil por mês |
+| Operação (2.000 criadores) | **R$ 34.339 por mês** | Ayrshare, mesma tabela por faixa |
+
+> ✅ **Regra de negociação, já decidida:** se o orçamento do Phyllo vier **acima do teto da linha correspondente, assina-se o Ayrshare**. Abaixo, Phyllo. Não há terceira hipótese e não há pergunta a fazer ao dono.
+
+🔴 **Cláusula obrigatória no contrato: cobrança por conta conectada por mês, com o volume de chamadas incluído e declarado. Proposta "por chamada" é recusada na hora** — não pelo valor, mas porque um custo que cresce com a verificação de permanência pune exatamente o comportamento que o produto precisa ter.
+
+**O checklist de ferramenta nova (`CLAUDE.md` §3), respondido:**
+
+1. **Como funciona por dentro.** O criador toca em "conectar Instagram" dentro do nosso app e cai na **tela oficial da própria rede**. O token fica com o fornecedor, que já tem as aprovações de app da Meta, do TikTok e do Google. **Nós nunca guardamos senha nem token de rede social.**
+2. **Dá para testar sem custo e sem CNPJ?** **Sim** — ambiente de teste gratuito, sem cartão e sem empresa aberta. É isto que tira o CNPJ do caminho crítico da métrica.
+3. **Prazos reais.** Conectar a conta: segundos. ⚠️ **Primeira carga do histórico, atualização de métrica e detecção de post removido não têm prazo publicado** — premissa de até 24 h. **Consequência de produto, já adotada: a tela do criador diz "métrica lida em [data e hora]", nunca "ao vivo".**
+4. **Quanto custa.** Não publicado. Ver o teto acima.
+5. **É legal e viável no Brasil?** Sim, com duas travas contratuais antes da assinatura, ambas já listadas abaixo.
+
+⚠️ **Consequência operacional que ninguém pediu e é obrigatória: criador conectado que nunca fechou contrato continua custando**, porque a cobrança é por conta conectada. **Regra: a conta de criador sem contrato ativo e sem login há 180 dias é desconectada automaticamente**, com aviso por e-mail 7 dias antes e reconexão em um toque. *O que protege:* 300 criadores fantasma a US$ 8,99 por perfil por mês são US$ 2.697 por mês jogados fora. *O que quebra para o cliente bom:* o criador sazonal que volta em campanha de fim de ano — por isso o aviso prévio e a reconexão sem refazer cadastro. **A métrica histórica dele nunca é apagada.**
+
+📌 **Quando a integração própria passa a valer a pena:** quando o custo do fornecedor justificar o trabalho, **já com receita**, empresa aberta e sem prazo apertado. Vira otimização de custo, nunca pré-requisito de lançamento. **A camada de abstração já prevista faz a troca ser um adaptador, não uma reescrita.**
 
 ❌ **Raspagem continua fora de cogitação.** Fornecedores que entregam dado raspado de perfil público violam os termos das redes e a regra da §9.
 
@@ -947,7 +976,34 @@ Um marketplace vazio não tem produto. Isso não é marketing, é viabilidade.
 | 12 | 90 GB | R$ 6,60 |
 | **25 em diante** | **150 GB — estabiliza de vez** | **R$ 11,55** |
 
-**Na operação (1.000 contratos/mês):** finais 6.000 GB + brutos 1.500 GB = **7,3 TB → R$ 617,92 por mês**. **Sem a regra de retenção** seriam 17,6 TB → **R$ 1.485 por mês**. 🔴 **A regra de retenção vale R$ 867 por mês.** Ela não é higiene: é o segundo maior item da conta.
+**Na operação (1.000 contratos/mês):** finais 6.000 GB + brutos 1.500 GB = **7,3 TB → R$ 617,92 por mês**.
+
+🔴 **E se a premissa estiver errada?** Refeita a conta com **arquivo de 500 MB e 5 arquivos por contrato** — 3,3× a premissa original:
+
+| | Lançamento (20 contratos/mês) | Operação (1.000 contratos/mês) |
+|---|---|---|
+| Acervo no platô | 360 GB | 18.000 GB (18 TB) |
+| **Custo por mês** | **R$ 28** | **R$ 1.458** — ou **R$ 1.134** com os finais em armazenamento de acesso pouco frequente |
+
+**A premissa triplicou e o número saiu de R$ 9 para R$ 28 por mês no lançamento. A decisão não muda — é a definição de decisão robusta.**
+
+> **A fórmula, para conferir sem depender de mim:** *acervo em GB no platô = contratos por mês × 18* · *custo em R$ por mês = acervo em GB × 0,081*
+
+🔴 **O armazenamento nunca chega antes da receita, porque cresce 82× mais devagar que ela.** Custo de armazenar um contrato pela vida inteira: **R$ 1,46**. Receita daquele contrato: **R$ 120**. Para o armazenamento custar R$ 500 por mês seriam necessários **343 contratos por mês — que trazem R$ 41 mil de comissão.**
+
+**O que pode explodir é outra coisa: arquivo sem contrato.** ✅ **Trava que vale no dia 1: só existe envio de arquivo dentro de um contrato pago.** Sem contrato não há endereço de envio — o link é emitido pelo contrato e vale 24 horas. *O que quebra para o cliente bom:* nada. Criador nenhum quer subir vídeo antes de ter contrato fechado.
+
+⚠️ **Alarme com número, não com sensação:** avisar o operador quando o acervo passar de **contratos do mês × 25 GB**.
+
+### 14.2.1.1 O arquivo final nunca é recomprimido 🔴
+
+Recomprimir 500 MB para 150 MB economizaria **R$ 1.021 por mês na operação** — 0,8% da receita daquele estágio. **E entregaria à marca um arquivo pior do que ela comprou**, porque recomprimir vídeo já comprimido perde qualidade de forma irreversível, e a rede social comprime de novo por cima. Perda em cima de perda. **É exatamente a "opção mais fácil" que este projeto proíbe.**
+
+✅ **O que se faz no lugar, e é melhor para os dois lados:** a plataforma gera automaticamente **uma miniatura e uma cópia de revisão em 720p (~5 MB por minuto)**, e é essa que toca dentro do app. **A marca revisa a entrega em segundos gastando 5 MB, em vez de baixar 500 MB.** O original fica atrás de um botão com o tamanho escrito ao lado — *"baixar original — 512 MB"*.
+
+✅ **A economia real, sem perda nenhuma:** mover o arquivo final para **armazenamento de acesso pouco frequente 30 dias após a publicação confirmada**. Mesmo arquivo, mesma qualidade, US$ 0,010 em vez de US$ 0,015 por GB por mês. **R$ 324 por mês de economia na operação.**
+
+❌ **E a ideia de apagar o arquivo final depois da publicação, guardando só o link, é a pior troca do documento.** Economizaria R$ 607 por mês na operação — e **o link não é prova: o criador apaga o post com um toque e a prova evapora.** Numa disputa em que a marca alega *"aprovei o vídeo A e ele publicou o vídeo B"*, o arquivo aprovado é a única evidência sob o nosso controle. A janela de contestação chega a 540 dias. **Trocar a prova por 0,5% da receita é comprar mediação com advogado.** **Sem a regra de retenção** seriam 17,6 TB → **R$ 1.485 por mês**. 🔴 **A regra de retenção vale R$ 867 por mês.** Ela não é higiene: é o segundo maior item da conta.
 
 ### 14.2.2 Quanto custa cada visualização — e por que o vídeo mora no R2
 

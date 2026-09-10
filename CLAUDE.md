@@ -181,7 +181,7 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 |---|---|
 | `/docs/METODO-DE-TRABALHO.md` | v1.0 ✅ — as 8 fases e o contrato de entrega |
 | `/docs/SPEC-INFLUENTZ.md` | v0.5 ✅ |
-| `/docs/FEATURE-MATRIX.md` | v3.0 ✅ — **91 funções**, organizadas pela jornada |
+| `/docs/FEATURE-MATRIX.md` | v3.2 ✅ — **93 funções**, organizadas pela jornada |
 | `/docs/PRODUTO-DETALHADO.md` | v0.1 ✅ — campos, métricas, tipos de proposta |
 | `/docs/MAQUINA-DE-ESTADOS.md` | v0.3 ✅ |
 | `/docs/HISTORICO.md` | ✅ — o rastro das decisões. Existe para o registro, não para leitura |
@@ -212,13 +212,18 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 | **Comissão de lançamento: 9,5%**, não 7,5%. A 7,5% o ponto de equilíbrio seria 25 contratos/mês, acima da própria meta. **Promoção nunca desce abaixo do piso**, e por isso o desconto de recontratação de 8% não existe no cartão | SPEC §4.4 |
 | 🔴 **Valor mínimo de contrato: R$ 150** de preço do criador. O custo tem parte fixa de R$ 4,37 que não encolhe com o valor. O criador iniciante chega lá por quantidade, não por exceção | SPEC §4.5.1 |
 | 🔴 **Não existe carteira para ninguém — nem criador, nem marca.** Criador: "Meus recebimentos". Marca: "Meus pagamentos", sem saldo. **Saldo pré-pago da marca jogaria a plataforma dentro do Banco Central** e não entra em versão nenhuma. Palavras proibidas na interface: carteira · saldo · crédito · depositar | SPEC §4.9.1 |
-| **O fundo de contestação nasce com R$ 3.000 de aporte, e o teto de cartão da conta verificada só é liberado quando o fundo cobrir o dobro dele.** Fundo que começa em zero não é proteção, é intenção | SPEC §4.3.3 |
-| **Ponto de equilíbrio: 17 contratos/mês no lançamento, 9 em regime**, com ticket de R$ 1.200 e custo fixo de R$ 908/mês. **Aporte mínimo para abrir a operação: R$ 5.000** (fundo + capital de giro da retenção de 15 dias) | SPEC §14.2.3.1 e §14.2.3.2 |
+| **O fundo de contestação nasce com R$ 5.000 de aporte, e o teto de cartão da conta verificada só é liberado quando o fundo cobrir o dobro dele.** Fundo que começa em zero não é proteção, é intenção | SPEC §4.3.3 |
+| **Ponto de equilíbrio: 17 contratos/mês no lançamento, 9 em regime**, com ticket de R$ 1.200 e custo fixo de R$ 908/mês | SPEC §14.2.3.1 |
 | **Estorno: Pix volta à conta de origem sem pedir dado; boleto pede conta de mesma titularidade; cartão leva até 60 dias e a tela diz isso.** Saldo negativo é sempre da plataforma, nunca do criador | SPEC §4.3.4 |
 | **Pix tem reversão por fraude (MED 2.0, desde 02/02/2026), com bloqueio de 72 h antes da análise.** Só o boleto é irreversível de verdade | SPEC §4.2.2 |
 | **Repasse é automático, varredura diária, piso de R$ 50, tarifa por conta da plataforma.** Nunca aprovação manual | SPEC §4.6.1 |
 | **O dinheiro é liberado na publicação confirmada por API, não na aprovação do arquivo.** Permanência mínima padrão: 90 dias | MAQUINA §8.0.1, SPEC §8.2 |
-| **Agência sai do v1, e a superfície AGENCY WEB também.** Pedido aberto fica no v1 | FEATURE-MATRIX |
+| **Agência sai do v1 inteira, com a superfície AGENCY WEB.** No v1 ela não assinaria, não pagaria, não receberia e não aceitaria termos — sobraria olhar. **Um pedido aberto contrata vários criadores, e o motivo é campanha de marca, nunca agência** | SPEC §2, MAQUINA §5.1 |
+| 🔴 **Marcos múltiplos ficam fora do v1, e a SPEC para de oferecê-los na tela.** Ninguém fica sem saída: Pix e boleto não têm teto, e um contrato de R$ 4.800 é um Pix. **O banco nasce com 1..N marcos**; ligar depois é tela, não é refazer o dinheiro | SPEC §4.6 |
+| **Trabalho presencial entra no v1, na fatia 2.** Cortá-lo derrubaria um dos quatro tipos de trabalho. **Despesa de deslocamento é item do preço, financiada junto — nunca reembolso por fora**, que seria dinheiro fora do escrow e sem prova | FEATURE-MATRIX §8 |
+| **Aditivo de escopo entra na fatia 1.** Sem ele, o botão "isso muda o escopo" aponta para o vazio e a única saída da marca é disputa. Um por vez, só para cima, 3 dias com o relógio congelado | FEATURE-MATRIX função 92 |
+| **A agenda de recebíveis é fatia 1** — obrigação do BCB vencida desde 01/04/2024, não item de roadmap. **Conta verificada e Fatura INFLUENTZ sobem para a fatia 2**: com o teto de cartão travado, são a única rota do cliente grande no lançamento | FEATURE-MATRIX §8 |
+| **Aporte para abrir a operação: R$ 6.800** — R$ 5.000 de fundo (é o piso do primeiro degrau; a R$ 3.000 o fundo nasceria abaixo dele) + R$ 1.800 de giro | SPEC §4.3.3 e §14.2.3.2 |
 | **Quantidade é o que cabe numa data de entrega.** Três Reels na mesma data são um contrato, uma data, um pagamento. Combo de itens diferentes não existe — vira item único da vitrine | PRODUTO §1 |
 | **A data sobe livre e não desce.** Para frente é livre; para antes do prazo do criador, o caminho é a proposta direta. **Não existe módulo de calendário com vagas no v1** — existe limite de trabalhos simultâneos, padrão 3 | PRODUTO §1 |
 | 🔴 **Não se vende garantia de veiculação de anúncio.** O criador pode desligar a autorização a qualquer momento, e a plataforma não consegue nem observar. Vende-se **a autorização concedida no ato** e a **obrigação contratual** de mantê-la — responsabilizar, não garantir | PRODUTO §2 |

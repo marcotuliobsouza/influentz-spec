@@ -1,6 +1,6 @@
 # INVENTÁRIO DE FUNÇÕES — INFLUENTZ
 
-> **Versão:** v3.1 · 09/09/2026
+> **Versão:** v3.2 · 10/09/2026
 > **O que é:** tudo o que a plataforma faz, organizado pela ordem em que a pessoa usa.
 > **93 funções no v1.** Se algo não está aqui, não existe no lançamento.
 

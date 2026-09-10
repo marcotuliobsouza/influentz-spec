@@ -28,7 +28,7 @@ Três coisas fazem a plataforma valer o que cobra:
 
 | | |
 |---|---|
-| ✅ **Pronto** | O que o produto faz, como o dinheiro anda, a identidade visual, e as 91 funções do lançamento |
+| ✅ **Pronto** | O que o produto faz, como o dinheiro anda, a identidade visual, e as 93 funções do lançamento |
 | ✂️ **Cortado** | O produto pedia coisa demais de quem usa. Tela de contratar de ~25 campos para **6**; direitos de 7 campos para **1**; dez tipos de trabalho para **4** |
 | 🔨 **Agora** | **A tela de contratar**, publicada e revisada, esperando o julgamento do Marco antes de autorizar o resto |
 | ⏳ **Depois** | Banco de dados → conexões → código → testes |
@@ -47,7 +47,7 @@ Três coisas fazem a plataforma valer o que cobra:
 > ### 2. A lista de cold start
 > Quantos criadores e quantas marcas atenderiam o seu telefone hoje?
 
-> ### 3. Saber que abrir a operação pede R$ 5.000 de caixa
+> ### 3. Saber que abrir a operação pede R$ 6.800 de caixa
 > Não é uma pergunta — é um número que você precisa ter antes de abrir a empresa, e que eu devia ter te dado há semanas.
 
 Marketplace vazio não tem produto. É o único item que nem dinheiro nem engenharia resolvem.
@@ -144,15 +144,15 @@ Nem criador, nem marca. O criador tem uma **conta digital regulada pelo Banco Ce
 
 O fundo junta 5% da comissão — **R$ 114 por mês no lançamento**. Para acumular um único chargeback de R$ 2.500, levaria **dois anos**. Fundo que começa em zero não é proteção, é intenção.
 
-**Decidido:** o fundo **nasce com R$ 3.000** em conta separada, antes da primeira cobrança real. E — a regra mais importante desta entrega — **o teto de R$ 15.000 no cartão para empresa verificada só liga quando o fundo cobrir R$ 30.000.** Até lá, ela paga por boleto e Pix, sem limite nenhum, que é a rota que empresa grande já usa naturalmente.
+**Decidido:** o fundo **nasce com R$ 5.000** em conta separada, antes da primeira cobrança real — é o dobro do teto de cartão do primeiro degrau. A R$ 3.000 ele nasceria abaixo do próprio piso, e o cartão não poderia existir no dia 1. E — a regra mais importante desta entrega — **o teto de R$ 15.000 no cartão para empresa verificada só liga quando o fundo cobrir R$ 30.000.** Até lá, ela paga por boleto e Pix, sem limite nenhum, que é a rota que empresa grande já usa naturalmente.
 
 **Por quê:** hoje um único chargeback de R$ 15.000 contra um fundo de R$ 114 apagaria treze meses de receita e travaria o saque de todos os criadores. **É o único cenário do produto inteiro capaz de matar a plataforma num evento só.**
 
 ### O número que você precisa saber antes de abrir a empresa
 
-> ## Aporte mínimo para abrir a operação: **R$ 5.000**
+> ## Aporte mínimo para abrir a operação: **R$ 6.800**
 >
-> R$ 3.000 do fundo de contestação + cerca de R$ 1.800 de capital de giro, porque **o provedor retém o repasse de conta nova por até 15 dias** — no primeiro mês e meio a plataforma paga custo fixo sem receber comissão.
+> **R$ 5.000 do fundo de contestação** — que é exatamente o dobro do teto de cartão do primeiro degrau — mais cerca de **R$ 1.800 de capital de giro**, porque **o provedor retém o repasse de conta nova por até 15 dias**: no primeiro mês e meio a plataforma paga custo fixo sem receber comissão.
 >
 > Não é opinião sobre risco. **É a soma de duas linhas que já estavam nos documentos e que eu nunca tinha somado.**
 
@@ -166,6 +166,7 @@ Você pode derrubar qualquer uma destas a qualquer momento, sem justificar.
 - Pagamento por Pix, boleto e cartão, pelo Pagar.me
 - **Comissão sai dos dois lados: 10% do criador + 5% da marca.** A marca vê o preço final desde a busca, com os 5% dentro — nunca taxa somada no checkout
 - **Comissão de lançamento: 9,5%** nos primeiros 90 dias. Nenhum contrato existe abaixo de **R$ 150**
+- **O fundo de contestação nasce com R$ 5.000.** Aporte total para abrir a operação: **R$ 6.800**
 - O dinheiro fica retido até a entrega ser confirmada
 - **Pix e boleto nunca têm limite.** Só o cartão tem — e o teto de R$ 15.000 da empresa verificada só liga quando o fundo de contestação cobrir R$ 30.000
 - 🟡 **Cartão só à vista no v1.** O parcelamento existe escrito e desligado — liga por uma chave quando o Pagar.me responder três perguntas por escrito
@@ -183,7 +184,10 @@ Você pode derrubar qualquer uma destas a qualquer momento, sem justificar.
 - **A caixinha de anúncio pago entrega a chave, não só cobra:** conceder a autorização no Instagram e no TikTok vira condição para o criador receber
 - Criador precisa ter 18 anos — exigência legal, não escolha
 - Todo usuário tem web, iOS e Android, com função completa
-- Agência e contrato recorrente ficam para depois do lançamento
+- **Agência fica para depois do lançamento — inteira.** No v1 ela não assinaria, não pagaria, não receberia e não aceitaria termos: sobraria olhar
+- **Trabalho presencial entra no v1.** É um dos quatro tipos de trabalho — cortá-lo derrubaria o tipo inteiro. Despesa de deslocamento vai no preço, nunca reembolsada por fora
+- **Entrega em etapas fica para depois.** Ninguém fica sem saída: Pix e boleto não têm teto, e um contrato de R$ 4.800 é um Pix só
+- Contrato recorrente fica para depois do lançamento
 
 **Marca**
 - Logotipo, símbolo e cores são intocáveis
@@ -202,7 +206,7 @@ Você pode derrubar qualquer uma destas a qualquer momento, sem justificar.
 | Instagram travar em fila da Meta | 🟢 Fornecedor de dados entra no dia 1 e não depende de aprovação nenhuma |
 | **Preço do fornecedor de métricas** | 🟡 Não publicado. É a maior incerteza da conta na operação — falta o número por escrito, e a unidade de cobrança |
 | Plataforma pagar dinheiro que ainda não recebeu | 🟢 Impossível por desenho |
-| Produto grande demais para ser construído | 🟢 91 funções, em três fatias |
+| Produto grande demais para ser construído | 🟢 93 funções, em três fatias |
 | Produto complicado demais para um cliente leigo usar | 🟢 Cortado. Seis campos na tela de contratar |
 | Depender de resposta do Pagar.me ou da Meta para construir | 🟢 Não depende. Nenhuma taxa está no código, e as métricas vêm de fornecedor único |
 
@@ -232,7 +236,7 @@ Você não precisa ler nenhum. Estão aqui para eu não perder decisão.
 | Arquivo | É o quê |
 |---|---|
 | `docs/SPEC-INFLUENTZ.md` | O que o produto faz |
-| `docs/FEATURE-MATRIX.md` | As 91 funções do lançamento |
+| `docs/FEATURE-MATRIX.md` | As 93 funções do lançamento |
 | `docs/MAQUINA-DE-ESTADOS.md` | Como cada coisa muda de situação |
 | `docs/PRODUTO-DETALHADO.md` | Campos, métricas e tipos de proposta |
 | `docs/DESIGN-SYSTEM.md` | Cor, tipo, componente |
