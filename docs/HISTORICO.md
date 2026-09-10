@@ -222,3 +222,19 @@ O `infra` nomeou o fornecedor de métricas, que estava decidido pela metade, e *
 **E apareceu uma contradição real ao escrever isso:** `CLAUDE.md` §4 numerava a metodologia em 6 passos, `METODO-DE-TRABALHO.md` §2 numerava em 8 fases — para o mesmo processo. Corrigido: `METODO-DE-TRABALHO.md` §2 vira a única numeração oficial, e a tabela de estado das fases (que estava desatualizada, marcando Feature Matrix como "não feita" quando já existia em v3.2) foi atualizada para refletir a realidade.
 
 **Também corrigido nesta rodada:** eu tinha afirmado que o seletor de modelo mostraria um texto fixo do modo `opusplan`. O print do dono mostrou "Sonnet 5" puro — errado da minha parte. O mecanismo (`opusplan`) está confirmado ativo via ferramenta de sessão; o chip visual mostra o modelo que realmente serviu aquele turno, não um rótulo do modo.
+
+## 10/09/2026 (continuação 3) — A causa técnica de dez dias de correção manual: CLAUDE.md é conselho, hook é lei
+
+**O gatilho.** O dono, depois de dez dias corrigindo na mão o mesmo tipo de falha (número divergente entre documentos, palavra proibida na interface, autocrítica dentro de documento de produto): *"estamos 10 dias so com conversa fiada"* e *"preciso que vc faca tudo certo, e nao erre mais"*.
+
+**A causa, e ela é mecânica, não de esforço.** A documentação da Anthropic é explícita: o conteúdo de `CLAUDE.md` é entregue como mensagem, e o modelo *"lê e tenta seguir, sem garantia de cumprimento estrito"* — a aderência cai conforme o arquivo cresce, e o nosso passou muito de 200 linhas. **Hook é o oposto:** roda como script, sempre, independentemente do que o modelo lembra ou deixa de lembrar. Um era conselho; o outro é lei.
+
+**O que passou a existir:**
+
+- `.claude/numeros-travados.json` — a lista dos números travados do projeto, com fonte de cada um. Quando uma decisão muda de verdade, muda-se aqui primeiro.
+- `.claude/hooks/guarda-documentos.py` — roda automaticamente depois de toda escrita em `.md`. Confere três classes de erro: número divergente do travado; palavra proibida na interface (carteira · saldo · crédito · depositar) dentro de rótulo de tela; autocrítica dentro de documento de produto (§2.4).
+- `.claude/hooks/guarda-painel.py` — roda quando a sessão termina. Avisa se documento de produto mudou e o `PAINEL.md` não acompanhou.
+
+**Calibragem, porque guarda barulhento é guarda ignorado.** A primeira versão gerou 30 avisos falsos só na SPEC. Três regras entraram para matar o ruído: número só é comparado por captura direta do padrão (não por "qualquer número na linha"); linha contrafactual ("a 7,5% o equilíbrio *seria* 25") é ignorada; palavra proibida só conta dentro de rótulo entre aspas ou linha marcada como tela/botão/campo — descrever a mecânica do banco não é escrever na interface. Critério de aceite aplicado: **zero avisos nos oito documentos corretos.**
+
+**O que o guarda encontrou de verdade na primeira varredura — cinco violações do §2.4 que estavam publicadas:** autocrítica no `PAINEL.md` (a seção que o dono lê), na SPEC §4.6.1.1, em dois pontos da máquina de estados e no sistema de design. Todas reescritas para descrever o que o produto **é**; o rastro ficou aqui.

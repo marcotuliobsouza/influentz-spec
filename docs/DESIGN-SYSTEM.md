@@ -80,7 +80,7 @@ Na página 8 do guia original, uma chamada aponta explicitamente para o rosa mai
 | **Destaque de marca** | **`#fcd8e3`** | Topo de página pública, faixa de onboarding, estado vazio, bloco promocional, cartão em destaque |
 | Destaque institucional | `#620073` roxo / `#4f2e3c` vinho | Rodapé, faixa de credibilidade, painel institucional |
 
-**Por que esta decisão e não a que eu mesmo tinha recomendado antes.** A versão anterior deste documento propunha rosa nas telas de marca e branco nas telas de produto. Está errada por dois motivos que só ficam visíveis quando se pergunta "o que é premium":
+**Por que um fundo só, e não rosa nas telas de marca com branco nas telas de produto.** Dois motivos, e os dois só ficam visíveis quando se pergunta "o que é premium":
 
 1. **Fundo saturado envelhece rápido e lê como categoria, não como qualidade.** Rosa forte de página inteira comunica "aplicativo de beleza, 2020". Produto que precisa parecer infraestrutura financeira — e é isso que a INFLUENTZ é: escrow, split, nota fiscal — usa superfície quase neutra e gasta o orçamento de cor em momentos escolhidos. É o que Stripe, Shopify e o próprio app do Nubank fazem: a cor da marca é intensa na comunicação e contida na interface, onde ela concorre com botão, alerta e selo de estado.
 2. **Duas cores de página partem o produto em dois.** A regra das duas vozes (§2.1) é sobre *texto* — a pessoa não percebe que mudou de registro. Mudar o fundo, ela percebe: parece que saiu do site e entrou noutro sistema. Justamente no pulo da vitrine para o contrato, que é o momento em que a plataforma mais precisa parecer uma coisa só.

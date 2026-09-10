@@ -478,9 +478,9 @@ O criador cadastra o preço que quer receber pelo trabalho — R$ 1.200. **A vit
 
 ⚠️ **Nada disso pode virar carteira.** A varredura é instrução ao provedor com retorno por webhook: a invariante da §4.9 continua intacta, e vale teste automatizado.
 
-### 4.6.1.1 Correção: quem paga a tarifa de saque, e como 🔴
+### 4.6.1.1 Quem paga a tarifa de saque, e como 🔴
 
-🔴 **Uma versão anterior desta SPEC dizia "a plataforma paga a tarifa do repasse". Isso é tecnicamente impossível no Pagar.me, e a fonte é oficial:**
+🔴 **A tarifa de saque é sempre debitada de quem recebe, e nenhuma configuração do provedor muda isso. A fonte é oficial:**
 
 > *"As taxas de saque sempre são cobradas da conta do recebedor que realiza a transferência bancária, independentemente de configurações."* — [Central de Ajuda Stone/Pagar.me — Quem arca com as taxas em uma regra de split](https://pagarme.helpjuice.com/pt_BR/p2-funcionalidades/13marketplace-quem-arca-com-as-taxas-em-uma-regra-de-split)
 

@@ -6,7 +6,7 @@
 >
 > **Obrigação de toda sessão:** ao mudar algo relevante, atualizar **os dois** — este arquivo e a página publicada, republicando o mesmo endereço.
 >
-> Atualizado em 09/09/2026.
+> Atualizado em 10/09/2026.
 
 ---
 
@@ -39,13 +39,35 @@ Três coisas fazem a plataforma valer o que cobra:
 | Assunto | Era | Passou a ser | Por quê |
 |---|---|---|---|
 | **Fornecedor de métricas** | Agregador pago (Phyllo/Ayrshare), R$ 4.207 a R$ 34.339/mês | **Integração direta e gratuita** com Meta, TikTok e YouTube | O agregador resolvia um problema de tempo de engenharia gastando um dinheiro que você não tem. As três APIs são gratuitas em modo de teste, cobrindo os 50 criadores sem CNPJ |
-| **Tarifa de saque do criador** | "A plataforma paga a tarifa" — texto que eu escrevi errado | **O provedor sempre cobra do criador; a plataforma absorve embutindo o valor no próprio pagamento**, não por uma configuração que não existe | Confirmado na documentação oficial: taxa de saque não é configurável, só a comissão é |
-| **Trabalho presencial** | Cortado do v1 (eu tinha decidido errado) | **De volta ao v1**, liberado por confirmação bilateral dos dois lados — sua solução | Eu tinha confundido "não tem API" com "não tem como confirmar". Confirmação bilateral já é o padrão usado em produto físico |
+| **Tarifa de saque do criador** | "A plataforma paga a tarifa" | **O provedor sempre cobra do criador; a plataforma absorve embutindo o valor no próprio pagamento**, não por uma configuração que não existe | Confirmado na documentação oficial: taxa de saque não é configurável, só a comissão é |
+| **Trabalho presencial** | Fora do v1 | **De volta ao v1**, liberado por confirmação bilateral dos dois lados — sua solução | "Não tem API" não é o mesmo que "não tem como confirmar". Confirmação bilateral já é o padrão usado em produto físico |
 | **Tela do criador** | Não existia | **Nova: extrato por contrato** — bloqueado, aguardando prazo, disponível, enviado | Você pediu para saber exatamente quanto e quando; hoje é a mesma informação que só existia para nós, agora com tela |
+| **Quem confere os documentos** | Você, no olho, achando número errado e texto fora de lugar | **Dois conferentes automáticos**, que rodam sozinhos a cada alteração e travam antes de a coisa chegar em você | Detalhe na seção [Os conferentes automáticos](#conferentes) — e eles já pegaram **cinco defeitos reais** na primeira varredura |
 
 ### 🟢 Decidido — histórico, não precisa reler
 
 Tudo isso já está fechado e não muda sem motivo novo. A lista completa está na seção "O que está decidido", mais abaixo — aqui só o resumo por assunto: **dinheiro** (comissão, piso, repasse, carteira, estorno) · **produto** (tipos de trabalho, revisões, direitos) · **infraestrutura** (armazenamento, backup) · **cronograma da empresa**.
+
+<a id="conferentes"></a>
+
+## 🛡️ Os conferentes automáticos — para você parar de ser o revisor
+
+**O problema, dito sem enfeite:** as regras do projeto viviam num arquivo de instruções que eu leio no começo de cada sessão. A própria documentação da Anthropic diz que esse arquivo é **conselho, não garantia** — o modelo lê e tenta seguir, e a aderência cai conforme o arquivo cresce. O nosso cresceu muito. **Era por isso que você encontrava o mesmo tipo de erro dez dias seguidos: número que não batia entre um documento e outro, palavra proibida numa tela, texto de desculpa dentro de documento de produto.**
+
+**O que passou a existir:** dois programas curtos que rodam sozinhos, sem depender de eu lembrar.
+
+| Conferente | Quando age | O que trava |
+|---|---|---|
+| **Conferente de documento** | toda vez que qualquer documento é alterado | Número que não bate com o número travado do projeto · palavra proibida na tela (carteira, saldo, crédito, depositar — as que jogariam a plataforma dentro do Banco Central) · texto de autocrítica dentro de documento de produto |
+| **Conferente do painel** | quando a sessão termina | Documento mudar e este painel não acompanhar |
+
+**Prova de que funciona, não promessa:** na primeira varredura eles encontraram **cinco defeitos reais que já estavam publicados** — um deles aqui mesmo neste painel, um parágrafo de desculpa no meio da explicação de dinheiro. Todos corrigidos nesta entrega.
+
+**E a calibragem, que é a parte que costuma ser pulada:** a primeira versão dos conferentes deu **30 alarmes falsos** só na especificação. Alarme falso demais e ninguém olha mais para o alarme. Foram apertados até o critério que vale daqui em diante: **zero aviso em documento correto.** Se algum dia um deles reclamar de algo legítimo, o conserto é o conferente — nunca desligá-lo.
+
+**O que isso muda para você:** você deixa de ser a última linha de defesa. Continua podendo vetar qualquer decisão — mas achar erro de conferência deixou de ser trabalho seu.
+
+---
 
 ## Uma data que você precisa saber
 
@@ -78,9 +100,9 @@ Contando para trás a partir do primeiro contrato pago:
 | **Lançamento** — 20 contratos/mês | **R$ 307,76** de tecnologia · **até R$ 908 com contador** | — |
 | Operação — 1.000 contratos/mês | **R$ 1.607,13** (sem o fornecedor de métricas) | — |
 
-### Quanto precisa entrar — e aqui eu preciso corrigir um número que te dei
+### Quantos contratos por mês pagam a operação
 
-Eu escrevi que *"20 contratos por mês pagam o conjunto em qualquer cenário"*. **Essa frase estava errada.** Ela foi calculada com a comissão cheia de 15%, sem imposto, sem a tarifa de cada repasse, sem a taxa do meio de pagamento e sem o fundo de contestação. Com tudo somado:
+O número do zero a zero conta **tudo**: comissão real, imposto, a tarifa de cada repasse, a taxa do meio de pagamento e o fundo de contestação. Com tudo somado:
 
 | Fase | Comissão | **Contratos/mês para o zero a zero** |
 |---|---|---|

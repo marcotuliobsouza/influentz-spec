@@ -1,0 +1,110 @@
+{
+  "_leia_antes": "Números travados do projeto. Quando uma decisão muda de verdade, muda-se AQUI primeiro e depois nos documentos. O guarda .claude/hooks/guarda-documentos.py avisa quando um documento diverge desta lista. Cada padrão tem UM grupo de captura: é esse valor que é comparado com 'esperado'. Padrão que não casa em lugar nenhum não gera aviso — isto é detector de divergência, não de ausência.",
+  "numeros": [
+    {
+      "rotulo": "Total de funções do v1",
+      "padrao": "(\\d+)\\*{0,2}\\s+fun[çc][õo]es",
+      "esperado": ["91"],
+      "fonte": "docs/FEATURE-MATRIX.md v3.2"
+    },
+    {
+      "rotulo": "Valor mínimo de contrato",
+      "padrao": "[Vv]alor m[íi]nimo de contrato[^\\n]{0,20}?R\\$ ?([\\d.]+)",
+      "esperado": ["150"],
+      "fonte": "SPEC §4.5.1"
+    },
+    {
+      "rotulo": "Comissão de lançamento",
+      "padrao": "[Cc]omiss[ãa]o de lan[çc]amento[^\\n]{0,15}?(\\d+,\\d+)\\s*%",
+      "esperado": ["9,5"],
+      "fonte": "SPEC §4.4"
+    },
+    {
+      "rotulo": "Comissão do criador",
+      "padrao": "(\\d+)%\\s*(?:do|de)\\s+criador",
+      "esperado": ["10"],
+      "fonte": "SPEC §4.4.1"
+    },
+    {
+      "rotulo": "Comissão da marca",
+      "padrao": "(\\d+)%\\s*(?:da|de)\\s+marca",
+      "esperado": ["5"],
+      "fonte": "SPEC §4.4.1"
+    },
+    {
+      "rotulo": "Aporte do fundo de contestação",
+      "padrao": "fundo[^.\\n]{0,60}?nasce com[^\\n]{0,15}?R\\$ ?([\\d.]+)",
+      "esperado": ["5.000"],
+      "fonte": "SPEC §4.3.3"
+    },
+    {
+      "rotulo": "Aporte para abrir a operação",
+      "padrao": "[Aa]porte para abrir a opera[çc][ãa]o[^\\n]{0,20}?R\\$ ?([\\d.]+)",
+      "esperado": ["6.800"],
+      "fonte": "SPEC §14.2.3.2"
+    },
+    {
+      "rotulo": "Ponto de equilíbrio no lançamento",
+      "padrao": "[Pp]onto de equil[íi]brio[^\\n]{0,15}?(\\d+) contratos",
+      "esperado": ["17"],
+      "fonte": "SPEC §14.2.3.1"
+    },
+    {
+      "rotulo": "Piso do repasse automático",
+      "padrao": "piso de R\\$ ?([\\d.]+)",
+      "esperado": ["50"],
+      "fonte": "SPEC §4.6.1"
+    },
+    {
+      "rotulo": "Permanência mínima da publicação",
+      "padrao": "[Pp]erman[êe]ncia m[íi]nima[^.\\n]{0,25}?(\\d+) dias",
+      "esperado": ["90"],
+      "fonte": "SPEC §8.2"
+    },
+    {
+      "rotulo": "Métrica de rede sem empresa verificada",
+      "padrao": "(\\d+) criadores sem empresa verificada",
+      "esperado": ["50"],
+      "fonte": "SPEC §9.1"
+    },
+    {
+      "rotulo": "Idade mínima do criador",
+      "padrao": "[Cc]riador tem (\\d+) anos",
+      "esperado": ["18"],
+      "fonte": "SPEC §8.3.1"
+    }
+  ],
+  "palavras_proibidas_na_interface": {
+    "_motivo": "SPEC §4.9.1 — saldo pré-pago jogaria a plataforma dentro do Banco Central. Não existe carteira para ninguém. A regra vale para TEXTO DE TELA, por isso o guarda só olha linha que parece rótulo de interface: rótulo entre aspas, ou linha marcada como Tela/Botão/Campo/Menu/Aba/Rótulo/Título.",
+    "palavras": ["carteira", "saldo", "crédito", "creditar", "depositar", "depósito"],
+    "contextos_permitidos": [
+      "proibid",
+      "nunca",
+      "não existe",
+      "nao existe",
+      "não constrói",
+      "não tem",
+      "vedad",
+      "jamais",
+      "fora do v1",
+      "não pode virar",
+      "pode virar",
+      "banco central",
+      "bcb"
+    ],
+    "marcadores_de_interface": "(^\\s*[-*|>]*\\s*(Tela|Bot[ãa]o|Campo|Menu|Aba|R[óo]tulo|T[íi]tulo|Texto|Label|Placeholder|Aviso)\\b)|[\"“”']"
+  },
+  "autocritica_proibida_em_documento_de_produto": {
+    "_motivo": "CLAUDE.md §2.4 — o documento descreve o que o produto É. O rastro de decisão vive em docs/HISTORICO.md.",
+    "padroes": [
+      "eu errei",
+      "a vers[ãa]o anterior",
+      "(estava|estavam) errad",
+      "corrigido em \\d",
+      "corre[çc][ãa]o registrada",
+      "minha falha",
+      "eu tinha escrito",
+      "eu escrevi que"
+    ]
+  }
+}

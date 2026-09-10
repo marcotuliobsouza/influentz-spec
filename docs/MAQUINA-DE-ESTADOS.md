@@ -496,7 +496,7 @@ O espelho da lacuna anterior, e a SPEC também não cobre.
 
 *Referência de mercado:* no Fiverr o número é definido pelo vendedor no pacote e revisão extra é vendida à parte; no Upwork o mecanismo equivalente é o aditivo sobre o marco, e a própria plataforma reporta que **41% das disputas vêm de confusão de escopo**.
 
-🔴 **A regra que fecha o botão de nunca pagar.** A versão anterior dizia que pedir ajuste pausa o relógio e ele reinicia do zero a cada reenvio. Sem limite de rodadas, isso é um jeito educado de nunca aprovar.
+🔴 **A regra que fecha o botão de nunca pagar.** Pedido de ajuste sem limite de rodadas — cada reenvio reiniciando o relógio do zero — é um jeito educado de nunca aprovar. Por isso o relógio tem fim:
 
 > **Só as revisões incluídas pausam e reiniciam o relógio. Esgotadas, o relógio corre até o fim e aprova.** A marca continua com três saídas: aprovar, propor aditivo, ou abrir disputa.
 
@@ -571,7 +571,7 @@ O que muda:
 | `liberado_aguardando_prazo` | Aprovado, **mas o dinheiro ainda não existe** (cartão D+30) | Atenção |
 | `disponivel` | Está no saldo do criador no Pagar.me | Sucesso |
 | `sacado` | Foi para a conta bancária do criador | Sucesso |
-| `bloqueado_por_pendencia_fiscal` | ⚠️ **Modelado, não implementado no v1.** A exigência de MEI estava errada (SPEC §4.7) e a plataforma não bloqueia dinheiro já ganho | Fora do v1 |
+| `bloqueado_por_pendencia_fiscal` | ⚠️ **Modelado, não implementado no v1.** Não existe exigência de MEI (SPEC §4.7) e a plataforma não bloqueia dinheiro já ganho | Fora do v1 |
 | `bloqueado_por_disputa` | Congelado até a decisão | Crítico |
 | `bloqueado_por_verificacao` | 🔴 Provedor recusou o cadastro do recebedor. **O valor fica retido, nunca se perde** | Atenção |
 | `revertido` | Contestação perdida, descontado do saldo | Crítico |

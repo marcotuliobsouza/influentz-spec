@@ -122,6 +122,19 @@ Nunca sair codando sem plano ("vibe coding"). Fonte: Anthropic, *Best practices 
 
 ⚠️ **Correção registrada:** a SPEC nasceu apontando para *Stripe Connect*. Pesquisa posterior mostrou que a Stripe internacional libera Pix para empresa brasileira apenas por convite e não oferece parcelamento de cartão no Brasil. O Pagar.me (adquirido pela Stripe/Stone) cobre Pix, boleto, cartão parcelado e split nativo para o mercado brasileiro, com ambiente de testes sem CNPJ.
 
+## 5.1 Os guardas automáticos — o que é lei e não é conselho 🔴
+
+🔴 **Este arquivo é conselho; hook é lei.** A documentação da Anthropic é explícita: o conteúdo do `CLAUDE.md` chega como mensagem, e o modelo *"lê e tenta seguir, sem garantia de cumprimento estrito"* — a aderência cai conforme o arquivo cresce. **Por isso as regras que mais falharam viraram script**, e script roda sempre.
+
+| Guarda | Quando roda | O que impede |
+|---|---|---|
+| `.claude/hooks/guarda-documentos.py` | depois de toda escrita em `.md` | Número travado divergente entre documentos · palavra proibida na interface (carteira · saldo · crédito · depositar) dentro de rótulo de tela · autocrítica dentro de documento de produto (§2.4) |
+| `.claude/hooks/guarda-painel.py` | quando a sessão termina | Documento de produto mudar sem o `PAINEL.md` acompanhar (§7) |
+
+🔴 **`.claude/numeros-travados.json` é a fonte dos números travados.** Quando uma decisão de número muda de verdade, **muda-se ali primeiro** e o documento depois — na mesma entrega, dito ao Marco. Mudar o documento sozinho faz o guarda gritar, e é essa a intenção.
+
+⚠️ **Guarda barulhento é guarda ignorado.** Critério de aceite permanente: **zero avisos nos documentos corretos.** Se um guarda acusar algo legítimo, o conserto é o guarda — nunca desligá-lo.
+
 ## 6. Uso de modelo e esforço (economia de limite)
 
 - **Opus, esforço alto** — decisões de arquitetura, revisão de produto, caça a lacunas, fundação.
