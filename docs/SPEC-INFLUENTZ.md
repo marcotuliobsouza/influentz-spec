@@ -5,7 +5,6 @@
 > **Versão:** v0.5
 > **Status:** as 8 decisões de produto que estavam em aberto foram travadas. Provedor de pagamento corrigido de Stripe Connect para Pagar.me.
 >
-> **O que mudou da v0.4:** correção jurídica em §8.3.1 — criador menor de idade exige **alvará judicial** (ECA art. 149 + Lei nº 15.211/2025), não só assinatura do responsável. Consequência: **18 anos completos** para criar no v1. Ver também `MAQUINA-DE-ESTADOS.md`, que traduz esta SPEC em regras de funcionamento e corrigiu seis lacunas dela.
 >
 > **Legenda:** 🟢 direção definida · 🟡 decisão em aberto · 🔵 proposta de Claude além do que foi pedido · 🔴 lacuna crítica · ⚠️ precisa de profissional humano
 
@@ -696,9 +695,7 @@ O mercado não pergunta: **fixa**. Ninguém pede sete decisões a quem quer comp
 
 ### 8.3.1 Criador menor de idade
 
-**O que a v0.4 dizia:** criador menor de idade é permitido, bastando assinatura do responsável legal.
-
-**Isso está juridicamente incompleto.** Pesquisa posterior mostrou que a assinatura do responsável resolve apenas metade do problema:
+**Assinatura do responsável legal não basta.** Ela resolve apenas metade do problema:
 
 1. **Capacidade civil** — resolvida pela assinatura. Menor de 16 anos precisa ser *representado*; entre 16 e 18, *assistido*. É o que a v0.4 previa.
 2. **Autorização judicial** — **não resolvida, e é a parte pesada.** O ECA, artigo 149, exige **alvará judicial** para participação de criança ou adolescente em atividade artística. A Lei nº 15.211/2025 (o "ECA Digital") trouxe isso explicitamente para o ambiente digital: quando há conteúdo monetizado, impulsionado ou exploração habitual da imagem do menor, a autorização judicial pode ser exigida.

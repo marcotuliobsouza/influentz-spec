@@ -544,7 +544,7 @@ O que muda:
 | `expirada` | QR ou boleto venceu | Neutro |
 | `estornada` | Devolvida | Neutro |
 | `em_contestacao` | Chargeback aberto pelo banco do portador | Crítico |
-| `em_defesa` | 🔴 **Estado novo (08/09/2026).** Dossiê montado e enviado. ⚠️ **Prazo de 10 dias, fatal** — é onde mora a contagem regressiva no painel Trust & Safety. Sem este estado, disputa se perde por silêncio | Crítico |
+| `em_defesa` | **Defesa apresentada manualmente pelo operador** — não existe gerador automático de dossiê (SPEC §4.3, camada 3). ⚠️ **Prazo de 10 dias, fatal** — é onde mora a contagem regressiva no painel. Sem este estado, disputa se perde por silêncio | Crítico |
 | `contestacao_ganha` / `contestacao_perdida` | Decisão do banco (até 120 dias) | Sucesso / Crítico |
 
 ### 9.2 Repasse ao criador — o dinheiro saindo
@@ -557,20 +557,18 @@ O que muda:
 | `liberado_aguardando_prazo` | Aprovado, **mas o dinheiro ainda não existe** (cartão D+30) | Atenção |
 | `disponivel` | Está no saldo do criador no Pagar.me | Sucesso |
 | `sacado` | Foi para a conta bancária do criador | Sucesso |
-| `bloqueado_por_pendencia_fiscal` | Acumulado passou de R$ 500 sem MEI/CNPJ (SPEC §4.7) | Atenção |
+| `bloqueado_por_pendencia_fiscal` | ⚠️ **Modelado, não implementado no v1.** A exigência de MEI estava errada (SPEC §4.7) e a plataforma não bloqueia dinheiro já ganho | Fora do v1 |
 | `bloqueado_por_disputa` | Congelado até a decisão | Crítico |
 | `bloqueado_por_verificacao` | 🔴 Provedor recusou o cadastro do recebedor. **O valor fica retido, nunca se perde** | Atenção |
 | `revertido` | Contestação perdida, descontado do saldo | Crítico |
 | `chargeback_absorvido` | 🔵 **Estado novo (08/09/2026).** Contestação perdida e a perda foi para o fundo de contestação da plataforma. Fecha o ciclo — antes, `revertido` deixava a pergunta "revertido de quem?" no ar. **O criador não é tocado** | Neutro |
-| `debito_pendente_criador` | 🔴 **Substitui o antigo `saldo_negativo`, e é muito mais estreito.** Só entra por **decisão humana registrada** — conluio comprovado ou entrega inexistente — com motivo, autor e data. Bloqueia saque, **não** bloqueia contratar | Crítico |
+| `debito_pendente_criador` | ⚠️ **Modelado, não implementado no v1.** Chargeback perdido não vira dívida do criador (SPEC §4.3, camada 6), e a validade do clawback é pergunta ao advogado (SPEC §15). Só entraria por decisão humana registrada, em conluio comprovado | Fora do v1 |
 
 ⚠️ **Mudanças, revisadas pelo especialista `financeiro`:**
 
 - **`reservado_contestacao` foi removido.** Era a materialização da reserva de 90 dias, recusada pelo dono do produto — e a pesquisa mostrou que ela nem protegia: a janela de contestação por "serviço não recebido" conta 120 dias **a partir da data prevista de entrega**, então a reserva fecharia antes do risco acabar. Ver SPEC §4.3.
 - **`saldo_negativo` mudou de dono.** Com `liable: true` no recebedor da plataforma, o saldo negativo é da **INFLUENTZ**, não do criador. Ele continua existindo — o Pagar.me produz saldo negativo mecanicamente e ele pode travar saque de outros recebedores na mesma conta — mas vira **`saldo_negativo_plataforma`**, um alerta do painel administrativo alimentado pelo fundo de contestação. **O criador não vê.**
-- ✅ **`liberado_aguardando_prazo` volta a ter uma data só.** A regra do v1 (SPEC §4.2) exige antecipação para 2× e 3× e proíbe 4× ou mais — **isso elimina o problema das múltiplas datas pela raiz**, em vez de modelá-lo. É um argumento a favor da regra, não só consequência dela.
-- ❌ **`debito_pendente_criador` foi cortado do v1** pelo `cortador`: a camada 6 da SPEC §4.3 diz que chargeback perdido não vira dívida do criador, e a §15 pergunta ao advogado se o clawback é sequer válido. O estado fica modelado; **não se constrói máquina de cobrança cuja legalidade é pergunta em aberto.**
-- ⚠️ **`bloqueado_por_pendencia_fiscal` não é implementado no v1.** Ver SPEC §4.7 — a exigência de MEI estava errada e o bloqueio travava dinheiro já ganho por regra que a plataforma inventou.
+- ✅ **`liberado_aguardando_prazo` tem uma data só.** O v1 é **cartão à vista** (SPEC §4.2.4, Regra B): sem parcelamento não existem múltiplas datas de recebimento. O problema é eliminado pela raiz, não modelado.
 
 ### 9.2.1 A máquina de reembolso — faltava inteira 🔴
 
@@ -666,7 +664,7 @@ Todos **configuráveis no painel administrativo**, nunca fixos no código — me
 | Arrependimento com reembolso total | 24 h após **confirmação do pagamento** | SPEC §8.1, com a correção da §7.1 |
 | Aprovação automática da entrega | **7 dias**, avisos no 3º e 6º | Entre Fiverr (3) e Upwork (14) |
 | Tolerância após o prazo de entrega | 3 dias | Cálculo próprio |
-| Revisões incluídas | 2 (campo da proposta) | Cálculo próprio |
+| Revisões incluídas | **2, fixo para todo mundo** — não é campo da proposta (§8.4) | Decisão de produto |
 | Avaliação double-blind | 14 dias | Convenção de mercado (Airbnb) |
 | Resposta da mediação | Definido pelo Trust & Safety | SPEC §12.2 |
 

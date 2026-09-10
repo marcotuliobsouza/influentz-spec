@@ -6,7 +6,6 @@
 > **Versão:** v0.4
 > **O que mudou da v0.3:** as duas divergências que estavam aguardando decisão foram **decididas** — fundo de página em §3.0.1 e terminologia da interface em §10.2. A decisão de fundo **reverte a recomendação que este próprio documento fazia na v0.3**, com o motivo registrado.
 >
-> **O que a v0.3 tinha feito:** o guia original da agência foi lido inteiro pela primeira vez e trazido para o repositório, fechando as pendências de aplicação do logotipo (§9) e alinhamento de texto (§4.5) e revelando três divergências entre o guia e o que a v0.2 tinha assumido — §3.0 (cor de fundo), §4.0 (peso da Raleway no corpo do texto) e §10.1 (terminologia).
 >
 > **Legenda:** 🟢 definido · 🟡 em aberto · 🔵 proposta de Claude além do pedido · ⚠️ correção ou risco
 
@@ -59,7 +58,7 @@ Consequência prática: siglas, nomes próprios e valores em dinheiro **mantêm 
 
 ## 3. Cores
 
-### 3.0 ⚠️ Divergência 1: o guia define `#fcd8e3` como cor de fundo, e a v0.2 tinha assumido branco
+### 3.0 A cor de fundo, e o que o guia da marca define
 
 Na página 8 do guia original, uma chamada aponta explicitamente para o rosa mais claro da paleta com o rótulo **"cor do background"**:
 
@@ -67,7 +66,6 @@ Na página 8 do guia original, uma chamada aponta explicitamente para o rosa mai
 |---|---|---|---|---|---|---|
 | | vinho | roxo | rosa | rosa suave | rosa suave | ← **"cor do background"** |
 
-A v0.2 deste documento colocou `background: #ffffff` no mapa de tokens (§7) sem registrar que estava contrariando o guia. **Isso foi uma falha de transcrição, não uma decisão.** Corrigida agora.
 
 **Acessibilidade não é o problema:** texto `n-900` sobre `#fcd8e3` mede entre 14,3:1 e 16,1:1 (§3.2) — AAA folgado. O fundo rosa é viável.
 
@@ -203,7 +201,7 @@ Escolhidas com matizes bem distantes entre si porque várias têm luminosidade p
 
 ## 4. Tipografia
 
-### 4.0 ⚠️ Divergência 2: o guia pede Raleway **Bold** para o corpo do texto
+### 4.0 O peso da Raleway no corpo do texto: o guia pede Raleway **Bold** para o corpo do texto
 
 Página 6 do guia original, na íntegra:
 
@@ -432,7 +430,7 @@ Página 26 do guia é a única do documento que marca palavras como **certas e e
 
 E a página 12 mostra os dois caminhos de entrada da marca: **"seja um influentz"** e **"busque um influentz"**.
 
-### 10.1 ⚠️ Divergência 3: a SPEC e o guia usam palavras diferentes para as mesmas pessoas
+### 10.1 As palavras que a plataforma usa para as pessoas
 
 | Papel | Guia da marca (2020) | SPEC v0.5 (2026) |
 |---|---|---|

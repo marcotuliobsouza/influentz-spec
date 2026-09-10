@@ -225,7 +225,7 @@ Conversa acaba. Contexto de chat se perde. Pasta de Drive não tem histórico de
 | **Drive — `MARKETING/BRANDING`** | Ativos de marca. Já espelhado em `docs/marca/` |
 | **Canvas do Claude Design** | Telas. Não é fonte de verdade — é reflexo do que está nos documentos |
 
-🔴 **Todo o resto do Google Drive está fora do projeto, por decisão do Marco** — inclusive `00_CLEAN_ROOM_PRODUCT_ENGINEERING`. Assunto encerrado, não reabrir. Ver `CONFLITOS-A-RESOLVER.md`, que existe só como registro do encerramento.
+🔴 **Todo o resto do Google Drive está fora do projeto, por decisão do Marco** — inclusive `00_CLEAN_ROOM_PRODUCT_ENGINEERING`. Assunto encerrado, não reabrir. O registro do encerramento vive em `HISTORICO.md`.
 
 ---
 

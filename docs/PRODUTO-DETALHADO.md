@@ -75,7 +75,7 @@ O campo deixa de dizer *"10 dias"* e passa a dizer **"quinta, 24/09"** — prazo
 
 📌 **A proposta direta não é outro formulário.** É a mesma tela, com três campos destravados — o que você quer, o preço e o prazo nascem vazios — e o botão vira *"Enviar proposta"*.
 
-📌 **O criador vê de onde veio, numa etiqueta:** *Da sua vitrine* · *Proposta direta* · *Do seu envio ao pedido aberto*. Isso importa porque as regras diferem: na vitrine ele só aceita ou recusa; nos outros dois ele pode contrapor. Sem a etiqueta, ele procura um botão de negociar que não existe.
+📌 **O criador vê de onde veio, numa etiqueta:** *Da sua vitrine* · *Proposta direta* · *Do seu envio ao pedido aberto*. Isso importa porque as regras diferem: na vitrine ele aceita, recusa **ou pede ajuste** — pedir ajuste devolve à marca sem virar negociação de preço; nos outros dois ele pode contrapor. Sem a etiqueta, ele procura um botão de negociar que não existe.
 
 ### Anexo de imagem no briefing
 

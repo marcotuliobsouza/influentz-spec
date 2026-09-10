@@ -6,7 +6,7 @@
 
 **Prioridade:** **E** = sem isso não lança · **P** = entra no v1 se couber · **F** = depois do v1.
 
-**As quatro superfícies:** `CRIADOR` · `MARCA` · `AGÊNCIA` · `ADMIN`.
+**As três superfícies do v1:** `CRIADOR` · `MARCA` · `ADMIN`. A superfície de agência fica para depois do lançamento.
 Todo usuário tem web, iOS e Android com função completa. O que muda é para qual tela cada superfície foi desenhada primeiro, não o que ela pode fazer.
 
 ---
@@ -19,11 +19,12 @@ Todo usuário tem web, iOS e Android com função completa. O que muda é para q
 |---|---|---|
 | 1 | Cadastro por e-mail e senha | E |
 | 2 | Verificação de e-mail | E |
-| 3 | Escolha de papel: criador, marca ou agência | E |
+| 3 | Escolha de papel: criador ou marca | E |
 | 4 | Recuperação de senha | E |
 | 5 | Verificação de identidade com prova de vida, feita pelo provedor de pagamento | E |
 | 6 | Verificação de CNPJ | E |
 | 7 | Encerrar conta e baixar meus dados | E |
+| 8 | **Aceite dos Termos sempre pelo próprio titular** — ninguém aceita em nome de outro, e dado financeiro nunca entra por mão de operador | E |
 
 **Telefone é campo de contato, não é verificado por SMS no v1.** A prova de que a pessoa é ela mesma vem da função 5, que é incomparavelmente mais forte que um código por mensagem.
 

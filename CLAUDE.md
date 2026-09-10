@@ -189,11 +189,11 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 | Telas | 9 wireframes, 2 em alta fidelidade — de ~40 |
 | Modelo de dados, conexões, código | não iniciados |
 
-**As quatro superfícies:** CREATOR APP (celular) · BRAND WEB · AGENCY WEB · ADMIN WEB. Toda tela declara a qual pertence.
+**As três superfícies do v1:** CREATOR APP (celular) · BRAND WEB · ADMIN WEB. Toda tela declara a qual pertence. A superfície de agência fica para depois do lançamento.
 
 **Fonte de marca:** `/docs/marca/` — espelho completo da pasta BRANDING. Logotipo e símbolo em vetor oficial, 21 ícones da marca em SVG, avatares padrão, guia de 33 páginas.
 
-⚠️ **Regra do Google Drive (decisão do Marco):** só a pasta `INFLUENTZ / MARKETING / BRANDING` entra no projeto. Todo o resto do Drive fica fora, incluindo `00_CLEAN_ROOM_PRODUCT_ENGINEERING`. **Fonte de verdade do produto é este repositório.** Ver `/docs/CONFLITOS-A-RESOLVER.md`.
+⚠️ **Regra do Google Drive (decisão do Marco):** só a pasta `INFLUENTZ / MARKETING / BRANDING` entra no projeto. Todo o resto do Drive fica fora, incluindo `00_CLEAN_ROOM_PRODUCT_ENGINEERING`. **Fonte de verdade do produto é este repositório.** Assunto encerrado; o registro do encerramento está em `docs/HISTORICO.md`.
 
 ### Decisões travadas (não reabrir sem motivo novo)
 
@@ -216,7 +216,7 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 | **Quantidade é o que cabe numa data de entrega.** Três Reels na mesma data são um contrato, uma data, um pagamento. Combo de itens diferentes não existe — vira item único da vitrine | PRODUTO §1 |
 | **A data sobe livre e não desce.** Para frente é livre; para antes do prazo do criador, o caminho é a proposta direta. **Não existe módulo de calendário com vagas no v1** — existe limite de trabalhos simultâneos, padrão 3 | PRODUTO §1 |
 | 🔴 **Não se vende garantia de veiculação de anúncio.** O criador pode desligar a autorização a qualquer momento, e a plataforma não consegue nem observar. Vende-se **a autorização concedida no ato** e a **obrigação contratual** de mantê-la — responsabilizar, não garantir | PRODUTO §2 |
-| **Aceite de Termos é sempre do próprio titular.** Ninguém aceita em nome de outro, e dado financeiro nunca entra por mão de operador | FEATURE-MATRIX §5.5 |
+| **Aceite de Termos é sempre do próprio titular.** Ninguém aceita em nome de outro, e dado financeiro nunca entra por mão de operador | FEATURE-MATRIX §1.1 |
 | **CNPJ é pré-requisito do dinheiro, não da métrica.** O Pagar.me em produção exige CNPJ; o Instagram só antecipa a data em ~4 meses. Formato: SLU — MEI é vedado para intermediação de negócios | SPEC §9.1.1 e §9.1.5 |
 | **Métrica de rede: 50 criadores sem empresa verificada, 500 com.** Teto oficial da Meta, não estimativa. YouTube vai direto para produção — em modo Testing o token morre a cada 7 dias | SPEC §9.1 |
 | **O vídeo mora no Cloudflare R2 e em nenhum outro lugar, e nunca passa pelo servidor do site.** Download é grátis no R2 e custa US$ 0,09/GB no Supabase — **6.200× por visualização** | SPEC §14.2.2 |

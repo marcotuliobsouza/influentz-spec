@@ -2,7 +2,7 @@
 
 > Espelho completo da pasta `INFLUENTZ / MARKETING / BRANDING` do Google Drive, revisada por inteiro em 08/09/2026.
 >
-> ⚠️ **Esta pasta é a única fonte do Drive que entra no projeto** (decisão do Marco — ver `docs/CONFLITOS-A-RESOLVER.md`).
+> ⚠️ **Esta pasta é a única fonte do Drive que entra no projeto** (decisão do Marco — ver `docs/HISTORICO.md`).
 >
 > **Link da origem:** https://drive.google.com/drive/folders/1dx3ptqJmwkg3BfN3I8HLwNllT9ClPYSu
 
