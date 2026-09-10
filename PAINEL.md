@@ -30,7 +30,7 @@ Três coisas fazem a plataforma valer o que cobra:
 |---|---|
 | ✅ **Pronto** | O que o produto faz, como o dinheiro anda, a identidade visual, e as 93 funções do lançamento |
 | ✂️ **Cortado** | O produto pedia coisa demais de quem usa. Tela de contratar de ~25 campos para **6**; direitos de 7 campos para **1**; dez tipos de trabalho para **4** |
-| 🔨 **Agora** | **A tela de contratar**, publicada e revisada, esperando o julgamento do Marco antes de autorizar o resto |
+| 🔨 **Agora** | O dinheiro fechado de ponta a ponta, o fornecedor de métricas nomeado, e as 30 contradições entre documentos resolvidas |
 | ⏳ **Depois** | Banco de dados → conexões → código → testes |
 
 ---
@@ -267,7 +267,9 @@ Você pode derrubar qualquer uma destas a qualquer momento, sem justificar.
 | **Arquiteto de produto** | **Coordena o time.** Resolve briga entre especialistas e responde se o produto está de pé como um todo |
 | **Infraestrutura** | Quanto custa, quanto aguenta, o que acontece quando cai. Todo número dele tem unidade e período |
 
-Eles revisam meu trabalho **antes** de chegar em você. Quem escreve não corrige a própria prova — e o cortador existe porque os outros quatro só sabiam acrescentar.
+Eles revisam meu trabalho **antes** de chegar em você. Quem escreve não corrige a própria prova — e o cortador existe porque os outros só sabiam acrescentar.
+
+🔴 **Você perguntou se eu precisava de mais especialistas. A resposta honesta é não.** O especialista financeiro já existia — e nunca tinha sido perguntado sobre o modelo de operação. Criar mais um seria a resposta fácil para um problema que era de processo. **O que faltava era o portão de entrega**, e ele agora existe: nove perguntas que toda entrega precisa responder antes de chegar em você, começando por *"o assunto está inteiro, ou é uma fatia?"*. Se eu falhar nele, **você devolve sem ler** — e isso é o processo funcionando, não grosseria.
 
 ---
 
