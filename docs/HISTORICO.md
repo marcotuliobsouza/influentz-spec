@@ -202,3 +202,11 @@ O `infra` nomeou o fornecedor de métricas, que estava decidido pela metade, e *
 **Correção 3 — a tarifa de saque não pode ser "por conta da plataforma" por configuração.** Fonte oficial do Pagar.me: a taxa de saque é sempre debitada de quem transfere — o criador — sem opção de redirecionar via configuração. A forma real de a plataforma absorver o custo é embutir o valor no split no momento da transação, não por uma chave que não existe. Corrigida em SPEC §4.6.1.1, com a tela de extrato do criador (bloqueado/aguardando prazo/disponível/enviado) que faltava.
 
 **Mudança de processo, permanente:** `/model opusplan` ativado — troca automática entre Opus (planejamento) e Sonnet (execução), sem precisar perguntar a cada resposta. E menos subagentes por rodada: pesquisa direta quando não precisa de uma "persona" especialista, evitando o padrão que gerou a fatura.
+
+## 10/09/2026 (continuação) — O painel duplicava conteúdo, e a métrica precisava de linha do tempo
+
+**O gatilho.** Depois de reorganizar o painel em três zonas fixas, o dono apontou que ficou "a mesma coisa, porém mais bagunçada" — e estava certo: a caixa nova do topo (🔴🟡🟢) tinha sido inserida sem remover a seção antiga equivalente mais abaixo, que ainda citava "duas decisões" quando já era uma só. E as três caixas eram só cor, sem link nenhum — ele pediu clique, não resumo.
+
+**Corrigido:** removida a seção duplicada; a caixa vermelha do topo agora tem links reais (`<a href="#id">`) que pulam para a tela de contratar, para o pedido do fundo de contestação, e para a conta de dinheiro. A caixa amarela liga cada linha "antes → depois" à seção correspondente.
+
+**E a métrica direta tinha um problema real de comunicação, não de decisão.** O dono perguntou: integração direta não exige CNPJ, infraestrutura e aprovação que pode demorar ou ser recusada? Sim — mas eu não tinha separado quando cada coisa acontece. Pesquisa confirmou, com fonte: modo de desenvolvimento da Meta e sandbox do TikTok (até 50 contas) não passam por revisão nenhuma — a aprovação só é necessária para crescer além disso, com receita entrando. A decisão de usar API direta continua certa; o que faltava era a linha do tempo, agora em SPEC §9.1.4 e no painel.

@@ -818,7 +818,8 @@ O criador aceita um convite dentro do app da própria rede e autoriza. **A métr
 | | Agregador pago | Integração direta (decisão do v1) |
 |---|---|---|
 | Custo mensal | R$ 4.207 a R$ 34.339 | **R$ 0** |
-| Aprovações a obter | 0 | **3, em série** (Meta, TikTok, Google), cada uma com prazo fora do nosso controle e risco de reprovação — ver §9.1.4 |
+| Aprovações a obter para o lançamento (até 50 criadores) | 0 | **0.** Modo de teste de cada rede não exige revisão nenhuma |
+| Aprovações a obter para crescer além do teste | 0 | **3, em série** (Meta, TikTok, Google), cada uma com prazo fora do nosso controle e risco de reprovação — ver §9.1.4. Isso é depois, com receita entrando |
 | Trabalho de engenharia | 1× | **3×** — três integrações, três formatos de resposta |
 | Exige CNPJ | Não | **Não** (modo de teste cobre até 50 criadores) |
 
@@ -840,16 +841,19 @@ O criador aceita um convite dentro do app da própria rede e autoriza. **A métr
 
 Mantido como registro técnico, não como decisão ativa do v1: **Phyllo/InsightIQ** (não publica preço, orçamento sob medida) e **Ayrshare** (preço público, US$ 599/mês por 30 perfis + US$ 8,99 por perfil extra) seguem sendo os dois candidatos válidos quando a integração própria virar otimização de custo. O motivo de escolha continua o mesmo: confirmam por webhook ou por chamada em lote que um post específico existe e continua no ar — é isso que libera o dinheiro do criador (§8.2), e é o que elimina concorrentes como Modash e HypeAuditor, que só entregam estimativa de audiência.
 
-### 9.1.4 Riscos, sem maquiagem
+### 9.1.4 Riscos, sem maquiagem — e quando cada um aparece na linha do tempo 🔴
 
-| Risco | Consequência real | O que fazer |
-|---|---|---|
-| Meta reprova o App Review | Instagram fica preso ao teto do modo piloto — e é a rede principal do mercado brasileiro | Data-gatilho com o agregador. Reprovação quase sempre é vídeo ruim ou justificativa vaga, e cabe recurso — mas cada rodada reinicia o relógio |
-| **Sem CNPJ** | ⚠️ **O Pagar.me em produção trava antes do Instagram.** A plataforma não recebe dinheiro nenhum. O CNPJ nunca foi decisão sobre métrica | Ver a data-gatilho em §9.1.5 |
-| Token do Instagram expira (60 dias sem uso) | Métrica congela | Rotina de renovação + estado `token_expirado` com botão. **Nunca apagar a métrica anterior** — mostrar com data |
-| Criador só tem conta pessoal | Não conecta | §9.1.2 — conversão vira passo do onboarding |
-| Coorte-piloto lota (50 no TikTok) | Criador 51 fica sem TikTok | Lista de espera com data, e submeter o review antes de chegar em 40 |
-| API da rede cai | Métrica não atualiza | Mostrar a última leitura com data. **Nunca zero, nunca em branco** |
+🔴 **O ponto que precisa estar claro: nada nesta tabela bloqueia construir e testar agora.** Todos os riscos abaixo são sobre **crescer além do modo de teste** — que é depois, com receita. Hoje, com os criadores fundadores (bem abaixo dos limites de teste de cada rede), não existe CNPJ, não existe revisão pendente, não existe aprovação a esperar.
+
+| Risco | Quando ele aparece | Consequência real | O que fazer |
+|---|---|---|---|
+| Meta recusa o App Review (Advanced Access) | **Só ao tentar passar de tester para produção pública** — não afeta os primeiros criadores, que entram como testers, sem revisão nenhuma ([Meta for Developers](https://developers.facebook.com/docs/development/release/)) | Instagram fica preso ao teto do modo de teste até resolver | Recurso — reprovação quase sempre é justificativa vaga ou vídeo de demonstração ruim. Cada rodada reinicia o relógio, mas a plataforma **continua operando** dentro do limite de testers enquanto isso |
+| TikTok não libera o app do modo sandbox | **Só ao tentar passar de sandbox para produção** — sandbox aceita até 5 ambientes de teste, 10 contas cada (50 no total), sem auditoria ([TikTok for Developers](https://developers.tiktok.com/docs/en/getting-started-faq)) | Postagem feita pela API fica restrita a visualização privada até auditar. **Não afeta a leitura de posts que o criador já publicou pelo próprio app dele** | Auditoria costuma liberar em **1 a 2 semanas**, com política de privacidade e vídeo de demonstração do escopo usado ([TikTok Developer Guidelines](https://developers.tiktok.com/docs/en/our-guidelines-developer-guidelines)) |
+| **Sem CNPJ** | Só quando o Pagar.me for cobrar de verdade | ⚠️ **O Pagar.me em produção trava antes de qualquer rede social.** A plataforma não recebe dinheiro nenhum. O CNPJ nunca foi decisão sobre métrica | Ver a data-gatilho em §9.1.5 — é sobre dinheiro, não sobre conectar Instagram |
+| Token do Instagram expira (60 dias sem uso) | Em produção, depois do lançamento | Métrica congela | Rotina de renovação + estado `token_expirado` com botão. **Nunca apagar a métrica anterior** — mostrar com data |
+| Criador só tem conta pessoal | No cadastro | Não conecta | §9.1.2 — conversão vira passo do onboarding |
+| Coorte de teste lota (50 no TikTok, 50 na Meta) | Quando o número de criadores conectados chegar perto do limite | Criador seguinte fica na fila | Lista de espera com data, e submeter a auditoria/revisão de cada rede **antes de chegar em 40** — folga de segurança |
+| API da rede cai | Em produção | Métrica não atualiza | Mostrar a última leitura com data. **Nunca zero, nunca em branco** |
 
 ⚠️ **Vai para o `juridico-br` antes de virar tela:** conectar rede social é tratamento de dado pessoal — a base legal do consentimento precisa estar no Termo, e é preciso definir o que acontece com a métrica coletada quando o criador desconecta ou pede exclusão (LGPD).
 

@@ -161,9 +161,18 @@ Semana passada eu te disse: *"tem nome: Phyllo/InsightIQ, com Ayrshare de plano 
 | TikTok | Vídeo existe | **R$ 0** — sem plano pago publicado em lugar nenhum |
 | YouTube | Vídeo existe | **R$ 0**, dentro de 10 mil consultas grátis por dia — dá para mais de 300 criadores checados todo santo dia |
 
-**O preço que você paga por isso não é dinheiro — é tempo:** três aprovações em vez de uma, cada uma podendo demorar semanas e ter que ser refeita se for recusada. **Isso já estava mapeado como risco** (§9.1.4) e continua valendo — só que agora é o preço certo para o caixa que você tem.
+🔴 **Você perguntou: "não precisa de CNPJ, infra e código pra integrar, fora a aprovação que pode demorar ou ser recusada?" — você está certo que isso existe, e eu não deixei claro quando.**
 
-**O agregador não sumiu, só foi guardado.** Quando a plataforma tiver receita e a dor de manter três integrações separadas custar mais que a assinatura, ele volta — trocar é trocar um adaptador, não reescrever o produto.
+| Fase | Precisa de aprovação? | Precisa de CNPJ? |
+|---|---|---|
+| **Lançamento — até 50 criadores** (seus fundadores) | **Não.** Modo de teste de cada rede, sem revisão nenhuma | **Não** |
+| Crescer além de 50 criadores | Sim — Meta (Advanced Access) e TikTok (auditoria, 1 a 2 semanas) | Não — CNPJ é sobre dinheiro, não sobre métrica |
+
+**Fonte:** [Meta for Developers — App Review](https://developers.facebook.com/docs/development/release/) confirma que testar em modo de desenvolvimento não passa por revisão — só quando quiser abrir ao público. [TikTok for Developers](https://developers.tiktok.com/docs/en/getting-started-faq) confirma sandbox de até 50 contas sem auditoria, e auditoria (quando precisar) libera em 1 a 2 semanas.
+
+**Tradução:** hoje, com você e os criadores que topem testar, isso já funciona de graça, sem esperar ninguém aprovar nada. O "preço em tempo" só aparece quando crescer além de 50 criadores — aí sim entram as três aprovações, uma por rede, e cabe recurso se alguma for recusada.
+
+**O agregador não sumiu, só foi guardado.** Quando houver receita e a dor de manter três integrações separadas custar mais que a assinatura, ele volta — trocar é trocar um adaptador, não reescrever o produto.
 
 ## O armazenamento aguenta? Testei contra o pior caso
 
