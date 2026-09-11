@@ -196,17 +196,7 @@ Definidos em `.claude/agents/`. Não são conversa paralela — são revisores c
 
 **Obrigação de toda sessão:** ao mudar algo relevante, atualizar `PAINEL.md` **e republicar o mesmo endereço** com a ferramenta de artefato. E **entrega visual vai como página publicada**, nunca como caminho de arquivo.
 
-| Documento | Estado |
-|---|---|
-| `/docs/METODO-DE-TRABALHO.md` | v1.0 ✅ — as 8 fases e o contrato de entrega |
-| `/docs/SPEC-INFLUENTZ.md` | v0.5 ✅ |
-| `/docs/FEATURE-MATRIX.md` | v3.2 ✅ — **91 funções**, organizadas pela jornada |
-| `/docs/PRODUTO-DETALHADO.md` | v0.1 ✅ — campos, métricas, tipos de proposta |
-| `/docs/MAQUINA-DE-ESTADOS.md` | v0.3 ✅ |
-| `/docs/HISTORICO.md` | ✅ — o rastro das decisões. Existe para o registro, não para leitura |
-| `/docs/DESIGN-SYSTEM.md` | v0.4 ✅ |
-| Telas | 9 wireframes, 2 em alta fidelidade — de ~40 |
-| Modelo de dados, conexões, código | não iniciados |
+🔴 **O estado real do projeto (versão de cada documento, quantas telas existem, o que falta) vive em `project-state/CURRENT_STATE.md`, não aqui.** Este arquivo é lido toda sessão e cresce demais para carregar número que muda a cada entrega — foi assim que a tabela de estado ficou desatualizada sem ninguém notar (`project-state/DECISIONS.md`, 11/09/2026). Ler `project-state/` no início de toda sessão, antes de assumir "o que estávamos fazendo".
 
 **As três superfícies do v1:** CREATOR APP (celular) · BRAND WEB · ADMIN WEB. Toda tela declara a qual pertence. A superfície de agência fica para depois do lançamento.
 
@@ -264,6 +254,4 @@ Instituído em 09/09/2026, depois de ele dizer: *"Percebe que novamente eu que t
 
 ### Em aberto
 
-**Só uma, e é do Marco:** a lista de cold start — quantos criadores e marcas atendem o telefone dele hoje (SPEC §14.1). É o único item que dinheiro e engenharia não resolvem.
-
-**Pendências que exigem profissional humano:** contador (regime tributário, retenção) e advogado — lista completa e atualizada na **SPEC §15**. A pergunta mais estruturante da lista: *a relação criador↔plataforma é de consumo ou B2B?* Até haver resposta, tratamos como **de consumo** (cenário mais caro; preparar-se para ele não custa nada se a resposta vier ao contrário).
+A lista viva de bloqueios está em `project-state/BLOCKERS.md`. Regra permanente que não muda com o tempo: **até haver resposta jurídica sobre a relação criador↔plataforma (consumo ou B2B — a pergunta mais estruturante da SPEC §15), tratamos como *de consumo*** — é o cenário mais caro, e preparar-se para ele não custa nada se a resposta vier ao contrário.

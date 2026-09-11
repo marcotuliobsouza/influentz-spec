@@ -56,6 +56,13 @@ CONTRAFACTUAL = re.compile(
     re.IGNORECASE,
 )
 
+# Linha que fala de um SUBCONJUNTO (fatia, sprint, seção), não do total do v1 —
+# "68 funções da Fatia 1" não é o mesmo campo que "91 funções no v1".
+SUBCONJUNTO = re.compile(
+    r"\bda\s+[Ff]atia\b|\bde\s+[Ff]atia\b|\bfatia\s+\d|\bnesta\s+seção\b",
+    re.IGNORECASE,
+)
+
 # A regra de palavra proibida é de INTERFACE. Só vale dentro de rótulo entre
 # aspas ou em linha que começa marcada como tela/botão/campo.
 CITACAO = re.compile(r"\"[^\"]*\"|“[^”]*”|'[^']*'|«[^»]*»")
@@ -104,6 +111,8 @@ def confere_numeros(cfg, texto, achados):
         for n, linha in linhas_relevantes(texto):
             if CONTRAFACTUAL.search(linha):
                 continue  # "a 7,5% o equilíbrio SERIA 25" é explicação, não afirmação
+            if item["rotulo"] == "Total de funções do v1" and SUBCONJUNTO.search(linha):
+                continue  # "68 funções da Fatia 1" não é o total do v1
             for achado in padrao.finditer(linha):
                 if normaliza(achado.group(1)) in esperados:
                     continue
