@@ -10,7 +10,7 @@
 | Documento | Versão | Cobre |
 |---|---|---|
 | `docs/SPEC-INFLUENTZ.md` | v0.5 | Regras de negócio, dinheiro, legal |
-| `docs/MAQUINA-DE-ESTADOS.md` | v0.3 | Todo estado e transição do sistema |
+| `docs/MAQUINA-DE-ESTADOS.md` | v0.4 | Todo estado e transição do sistema. **§3.2 (KYC), §9.4 (aviso do provedor) e §10.0 (lista única de disputa) fechadas em 11/09** |
 | `docs/FEATURE-MATRIX.md` | v3.2 | 91 funções do v1, por jornada |
 | `docs/PRODUTO-DETALHADO.md` | v1.0 | Campos, métricas, formulários |
 | `docs/DESIGN-SYSTEM.md` | v0.4 | Cor, tipografia, tokens |
@@ -30,5 +30,5 @@ https://claude.ai/code/artifact/e4656b12-ab12-47f4-a1d9-1a909af39ccc
 ## Git
 `main` e o branch de trabalho estão em paridade (mesmo commit). Sem PRs abertos — todo trabalho vai direto a `main` por decisão do processo atual (repositório de um dono só, sem equipe revisando PR).
 
-## Critério de aceite
-Ainda não existe para nenhuma das 91 funções. É o próximo bloqueio antes de qualquer código (ver `TODO.md`).
+## Critério de aceite e cobertura de teste
+Fatia 1 completa: 68 critérios em `ACEITE-FATIA-1.md`, cobertura decidida em `QA-FATIA-1.md`. Fatias 2 e 3 ainda não — de propósito, só quando a construção chegar lá.

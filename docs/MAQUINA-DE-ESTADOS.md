@@ -2,7 +2,7 @@
 
 > **O que é este documento.** A tradução da SPEC em regras de funcionamento: cada coisa que existe no produto (um contrato, um pagamento, uma disputa) só pode estar em uma situação por vez, e só pode ir de uma situação para outra por caminhos permitidos. É o documento que a etapa 3 (telas) e a etapa 4 (modelo de dados) leem para não inventar.
 >
-> **Versão:** v0.3
+> **Versão:** v0.4
 > **Base:** `SPEC-INFLUENTZ.md` v0.5 e `DESIGN-SYSTEM.md` v0.4.
 >
 >
@@ -141,6 +141,51 @@ Esta submáquina é **uma linha por criador × rede**, não um estado de conta. 
 
 ⚠️ **Rede social desconectada no meio do contrato** (a pessoa revoga o acesso no Instagram): o contrato **não** para. O que acontece é o anúncio de vitrine sair do ar. Misturar as duas coisas puniria a ponta errada.
 
+
+### 3.2 Submáquina — verificação de identidade no provedor (KYC) 🟢
+
+É **uma linha por recebedor**, do mesmo jeito que §3.1 é uma linha por criador × rede. A conta tem `aguardando_verificacao` e `verificada`; **quem carrega os quatro estados do provedor é o recebedor.**
+
+Por que separar: o provedor mantém **dois eixos ao mesmo tempo**, e guardar os dois numa lista só produz estado impossível — do tipo "conta aguardando verificação e KYC aprovado".
+
+| Eixo do provedor | Valores | O que significa para nós |
+|---|---|---|
+| `recipient.status` | `registration` · `affiliation` | Transaciona, **não saca**. É o que alimenta `bloqueado_por_verificacao` (§9.2) |
+| | `active` | Transaciona e saca |
+| | `refused` | Não faz nem um nem outro |
+| `kyc_details.status` | `pending` · `partially_denied` · `denied` · `approved` | Os quatro estados de §3 |
+
+**Não existe um quinto estado para "reenviou e está aguardando".** O provedor já tem esse caso dentro de `pending`, no campo `status_reason`:
+
+| Nosso estado | `kyc_details.status` | `status_reason` | O que a tela mostra |
+|---|---|---|---|
+| `kyc_pendente` | `pending` | `in_analysis` | "Documentos em análise" |
+| `kyc_pendente` | `pending` | `answered_waiting_analysis` | **"Reenviado — em nova análise"** |
+| `kyc_pendente` | `pending` | `waiting_manual_risk_analysis` | "Análise manual, resposta em até 24 h" |
+| `kyc_parcialmente_recusado` | `partially_denied` | `additional_documents_required` | O botão de reenviar, com a pendência listada |
+| `kyc_aprovado` | `approved` | `ok` | Liberado |
+| `kyc_recusado` | `denied` | `fully_denied` | Recusa definitiva — ver a saída abaixo |
+
+Fonte: [Pagar.me — adição do fluxo de Prova de Vida, especificação do objeto `kyc_details`](https://docs.pagar.me/page/wip-api-v4-adi%C3%A7%C3%A3o-do-fluxo-de-prova-de-vida).
+
+**Reenviar documento é uma transição de volta, não um estado novo:**
+
+`kyc_parcialmente_recusado` → *(criador reenvia)* → `kyc_pendente` → `kyc_parcialmente_recusado` · `kyc_aprovado` · `kyc_recusado`
+
+⚠️ **A contagem de tentativas é atributo, nunca estado.** Contar dentro do estado obrigaria a criar `kyc_pendente_1`, `_2` e `_3` — três estados que o provedor não tem, que triplicam a tela e que quebram o espelhamento que esta seção existe para manter.
+
+| Atributo do recebedor | O que guarda |
+|---|---|
+| `tentativas_de_reenvio_kyc` | Quantas vezes o provedor devolveu pendência |
+| `kyc_pendencia_desde` | Data da **primeira** entrada em `kyc_parcialmente_recusado` — é daqui que correm os 30 dias de §3 |
+| `kyc_link_expira_em` | O link de prova de vida vale 20 minutos (SPEC §4.8) |
+
+⚠️ **Existem dois "3 tentativas" diferentes, e confundi-los troca um link por um contrato encerrado.** Um é o número de **reenvios de documentação** desta tabela. O outro é o limite de tentativas **por código de prova de vida**, dentro da janela de 20 minutos (SPEC §4.8). Estourar o segundo gera um link novo; estourar o primeiro encerra o contrato.
+
+🔴 **`kyc_recusado` não passa pelo contador.** O provedor descreve `denied` / `fully_denied` como **estado final do KYC**, sem ação adicional possível — esperar 30 dias por um botão que não existe prende o dinheiro da marca à toa. Recusa definitiva vai **direto para a caixa de entrada do operador** (função 88), e é de lá que sai o encerramento com estorno previsto em §3, com um humano registrando o motivo.
+
+⚠️ **Em qualquer um desses estados o valor continua `retido` ou `bloqueado_por_verificacao` (§9.2): nunca se perde, nunca vai para a plataforma.**
+
 ---
 
 ## 4. Máquina 1 — Anúncio de vitrine 🟢
@@ -263,6 +308,7 @@ stateDiagram-v2
     [*] --> aguardando_revisao_manual
     [*] --> aguardando_pagamento
     aguardando_revisao_manual --> aguardando_pagamento
+    aguardando_revisao_manual --> recusado_na_revisao
     aguardando_pagamento --> pagamento_em_processamento
     aguardando_pagamento --> expirado_sem_pagamento
     pagamento_em_processamento --> em_execucao
@@ -272,10 +318,13 @@ stateDiagram-v2
     em_execucao --> cancelado_na_janela
     em_revisao --> em_disputa
     em_execucao --> em_disputa
-    em_disputa --> encerrado_por_disputa
     em_disputa --> em_execucao
+    em_disputa --> concluido
+    em_disputa --> encerrado_por_disputa
     em_execucao --> concluido
 ```
+
+⚠️ **Duas transições deste diagrama não têm botão.** As entradas e saídas de `em_disputa` são **derivadas** (§10.0): o contrato entra quando um marco entra e sai quando o último marco sai. E `expirado_sem_pagamento` só é alcançado com resposta do provedor (§9.4), nunca por relógio.
 
 | Estado | Significado | Cor (DESIGN-SYSTEM §3.4) |
 |---|---|---|
@@ -289,6 +338,7 @@ stateDiagram-v2
 | `cancelado_na_janela` | Cancelamento com reembolso total (§8.1) | Neutro |
 | `encerrado_por_disputa` | Trust & Safety decidiu | Neutro |
 | `expirado_sem_pagamento` | Marca não pagou no prazo | Neutro |
+| `recusado_na_revisao` | O operador recusou a revisão manual, com motivo, e as duas pontas são avisadas | Neutro |
 
 ### 7.1 🔴 Lacuna: a janela de 24 horas da SPEC §8.1 conta a partir de quando?
 
@@ -322,6 +372,7 @@ stateDiagram-v2
     [*] --> planejado
     planejado --> aguardando_pagamento
     aguardando_pagamento --> financiado
+    aguardando_pagamento --> cancelado
     financiado --> aguardando_insumo
     aguardando_insumo --> em_execucao
     financiado --> agendado
@@ -336,8 +387,15 @@ stateDiagram-v2
     aprovado --> em_permanencia
     em_permanencia --> concluido
     em_permanencia --> removido_antes_do_prazo
+    em_permanencia --> em_disputa
+    removido_antes_do_prazo --> em_disputa
+    em_disputa --> concluido
+    em_disputa --> removido_antes_do_prazo
     em_comprovacao --> em_disputa
     ajuste_solicitado --> em_disputa
+    em_execucao --> em_disputa
+    reenviado --> em_disputa
+    agendado --> em_disputa
     em_disputa --> aprovado
     em_disputa --> cancelado
     em_execucao --> cancelado
@@ -556,6 +614,7 @@ O que muda:
 | `paga` | Pix na hora; boleto confirmado; cartão capturado | Sucesso |
 | `recusada` | Cartão negado | Crítico |
 | `expirada` | QR ou boleto venceu | Neutro |
+| `conciliacao_pendente` | 🔴 O que sabemos e o que o provedor sabe não batem, ou o provedor não respondeu. **Nenhum contrato expira enquanto uma cobrança dele estiver aqui.** Gera item na caixa de entrada (função 88) e alimenta a função 86 | Atenção |
 | `estornada` | Devolvida | Neutro |
 | `em_contestacao` | Chargeback aberto pelo banco do portador | Crítico |
 | `em_defesa` | **Defesa apresentada manualmente pelo operador** — não existe gerador automático de dossiê (SPEC §4.3, camada 3). ⚠️ **Prazo de 10 dias, fatal** — é onde mora a contagem regressiva no painel. Sem este estado, disputa se perde por silêncio | Crítico |
@@ -620,9 +679,86 @@ Hoje a plataforma **não tem** a chave Pix nem os dados bancários da marca. Ela
 
 A última linha é a prova de que a separação era necessária: o contrato **não muda de estado**. Ele foi cumprido. O que mudou foi o dinheiro.
 
+
+### 9.4 Quando o aviso do provedor não chega 🔴
+
+⚠️ **"A marca não pagou" e "a marca pagou e o aviso não chegou" são fatos opostos que hoje caem no mesmo lugar.** `expirado_sem_pagamento` afirma *"a marca não pagou no prazo"* (§7). Se o aviso se perde, o relógio vence e o contrato expira — **com o dinheiro dentro do provedor.** O sistema não fica parado: ele afirma com segurança uma coisa falsa.
+
+🟢 **Regra: nenhum contrato expira por relógio. Ele expira por resposta do provedor.**
+
+Antes de qualquer transição para `expirado_sem_pagamento`, o sistema pergunta ao provedor o estado do pedido ([`GET /orders/{order_id}`](https://docs.pagar.me/reference/obter-pedido)). Três respostas, três caminhos:
+
+| O provedor responde | O que acontece |
+|---|---|
+| **Pago** | Aplica o pagamento atrasado: cobrança → `paga`, marco → `financiado`, repasse → `retido`. O relógio de expiração é descartado |
+| **Não pago ou expirado** | A cobrança é **cancelada no provedor** e só então o contrato vai para `expirado_sem_pagamento` |
+| **Não respondeu, ou respondeu algo que não sabemos ler** | Cobrança → `conciliacao_pendente`. O contrato **fica onde está**, em `pagamento_em_processamento`, e o caso entra na caixa de entrada (função 88) |
+
+⚠️ **Cancelar a cobrança no provedor antes de expirar o contrato não é detalhe.** Sem isso, a marca paga o boleto no dia seguinte, o dinheiro entra e não existe mais contrato para recebê-lo — e o único caminho de volta é o estorno manual.
+
+**`conciliacao_pendente` é da cobrança, não do contrato.** Esta seção já estabelece que a verdade do dinheiro é do provedor e que o nosso papel é registrar; divergência entre o que sabemos e o que ele sabe é, portanto, fato da cobrança. O contrato não ganha estado novo: ele já tem um que quer dizer exatamente "esperando o provedor".
+
+**A função 86 deixa de ser o único caminho e continua existindo.** A reconsulta automática roda na varredura diária que a SPEC §4.6.1 já instituiu, e em todo vencimento de prazo. A 86 fica para o caso que a reconsulta não resolve — que é o caso em que um humano precisa olhar.
+
+#### 9.4.1 As quatro regras contra aviso duplicado, atrasado e fora de ordem 🟢
+
+1. **Todo aviso é gravado bruto antes de ser processado** — obrigação que a SPEC §4.11 já impõe à trilha de auditoria.
+2. **Aviso repetido não repete transição.** O identificador do evento (`id`, no formato `hook_…`) é único: evento já visto é registrado e descartado.
+3. **Aviso que pede transição inexistente no estado atual não força nada.** É registrado e vira item de conciliação se contradisser o que temos. A máquina do dinheiro só anda para frente, então atraso é absorvido sem estrago.
+4. **Quem desempata é a consulta ao provedor, nunca a ordem de chegada.**
+
+⚠️ **O provedor não publica quantas vezes reenvia um aviso, em que intervalo, nem se garante evento único ou ordem.** A documentação da API v5 diz apenas que o número de reenvios é configurável e que existe endpoint para listar os que falharam e forçar o envio; a API v1 falava em até 31 tentativas. **Por isso não há prazo de timeout escrito aqui: ele seria um número sem fonte.** As perguntas foram para a lista do credenciamento (SPEC §4.6.2, itens 20 a 24).
+
 ---
 
 ## 10. Máquina 7 — Disputa 🟢
+
+### 10.0 De onde uma disputa pode nascer — a lista única 🟢
+
+**Uma disputa sempre nasce dentro de um marco. O contrato não abre disputa: ele exibe a que existe no marco dele.**
+
+É a regra de §1 aplicada — o marco é a fonte da verdade e o contrato é o resumo calculado. Sem a hierarquia, as duas máquinas podem discordar (contrato em disputa com todos os marcos aprovados, ou o contrário), e quem recebe errado é sempre alguém de verdade.
+
+> **Invariante, que vale teste automatizado:** `contrato.em_disputa` ⟺ existe ao menos um marco do contrato em `em_disputa`. **Não existe botão que leve o contrato a `em_disputa`.**
+
+**Pré-condição única, válida para todos os estados abaixo:** o marco precisa ter sido financiado. Marco em `planejado` ou `aguardando_pagamento` não tem dinheiro retido — não há o que decidir nem o que executar, e a saída dele é o cancelamento.
+
+| Estado do marco | Quem abre | Sobre o quê | Onde a regra já estava |
+|---|---|---|---|
+| `em_execucao` | Marca | Prazo de entrega vencido mais a tolerância, e o criador alega ter entregue | §8.3, função 92 |
+| `agendado` | Marca e criador | Escala de cancelamento presencial, falta, ou despesa já feita | §13.2, §8.5 |
+| `em_comprovacao` | Marca e criador | A entrega não corresponde ao briefing; no presencial, um lado não confirma o comparecimento | §12.1, §8.5 |
+| `ajuste_solicitado` | Marca e criador | Ajuste contra mudança de escopo, com o campo congelado apontado | §8.4.1 |
+| `reenviado` | Marca e criador | Revisões esgotadas e o resultado segue fora do briefing | §8.4 |
+| `em_permanencia` · `removido_antes_do_prazo` | Marca | Publicação saiu do ar antes do prazo | §8.0.3 — ver §10.0.1 |
+
+**Os estados que não abrem disputa, e o motivo de cada um:**
+
+| Estado | Por que não |
+|---|---|
+| `planejado` · `aguardando_pagamento` | Não há dinheiro retido |
+| `financiado` | O trabalho não começou. A saída é o cancelamento na janela (§7.1) |
+| `aguardando_insumo` | §8.0.4 já dá caminho determinístico, com prazo e reembolso integral. Segunda porta para o mesmo problema é regra a mais sem problema a mais |
+| `aprovado` | O valor já foi liberado; o que vem depois é permanência, que tem a própria linha |
+| `concluido` · `cancelado` | A obrigação acabou. O que aparece depois é contestação de compra (§9.1) ou Trust & Safety, nunca escrow |
+| `em_disputa` | **Um marco tem no máximo uma disputa aberta por vez.** Sem essa trava, duas disputas decidem o mesmo dinheiro |
+
+⚠️ **A disputa guarda de onde saiu.** §10.1 manda voltar ao estado anterior quando os dois lados silenciam — sem `estado_anterior_a_disputa` gravado no marco, não há para onde voltar.
+
+#### 10.0.1 A disputa de permanência decide reputação, não dinheiro 🟡
+
+Quando a publicação sai do ar antes do prazo, **o dinheiro já está com o criador** — permanência nunca segura repasse (regra travada, SPEC §8.2). A disputa existe, mas o que ela executa é diferente das outras:
+
+| O que ela faz | O que ela não faz |
+|---|---|
+| Registra o descumprimento no histórico do criador | Não estorna — o valor já foi liberado |
+| Conta na nota e na reputação dele | Não cobra o criador (débito ao criador está fora do v1, SPEC §4.3 camada 6) |
+| Mantém a cláusula contratual válida para a marca | Não paga a marca com o fundo de contestação — o fundo é dimensionado para chargeback de cartão (SPEC §4.3.3) |
+
+⚠️ **A disputa de permanência sai por duas portas, e nenhuma move dinheiro:** confirmado o descumprimento, o marco volta a `removido_antes_do_prazo` com o registro no histórico; inocentado o criador (o post caiu por ação da rede, não dele), o marco vai a `concluido`. **O laço entre os dois estados é finito** porque §10.0 trava um marco a uma disputa aberta por vez.
+
+🟡 **Por que esta é a única saída possível hoje, e não uma escolha entre três.** Cobrar o criador está fora do v1 por decisão travada e depende de parecer de advogado (SPEC §15). Pagar a marca pelo fundo mudaria o dimensionamento do fundo, que foi calculado com o `financeiro` contra risco de cartão. Sobra a reputação — e ela **só é honesta se a tela disser isso antes da contratação**, com o texto de §8.0.2, nunca depois do fato.
+
 
 | Estado | Significado |
 |---|---|

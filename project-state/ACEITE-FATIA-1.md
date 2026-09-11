@@ -133,7 +133,10 @@ Dado qualquer valor no extrato do criador, quando ele clica, então vê de qual 
 Dado uma troca de conta bancária, quando ela é salva, então um aviso é enviado ao e-mail ANTERIOR (não ao novo) e o próximo repasse automático só ocorre 24 h depois da troca.
 
 **42 — Ver motivo da recusa e reenviar**
-Dado uma verificação (identidade, CNPJ ou conta bancária) recusada pelo provedor, quando o usuário abre a pendência, então vê o motivo literal do provedor e pode reenviar o documento sem reiniciar o cadastro inteiro.
+Dado uma verificação recusada **parcialmente** pelo provedor (`partially_denied` / `additional_documents_required`), quando o usuário abre a pendência, então vê o motivo literal do provedor e pode reenviar o documento sem reiniciar o cadastro inteiro.
+E: dado um documento reenviado, quando o provedor devolve `pending` / `answered_waiting_analysis`, então a tela mostra **"Reenviado — em nova análise"**, distinta de "em análise" — o criador nunca reenvia duas vezes por não saber se foi (MÁQUINA §3.2).
+E: dado uma recusa **definitiva** (`denied` / `fully_denied`), quando ela chega, então o caso vai direto à caixa de entrada do operador **sem esperar os 30 dias**, porque não existe botão que o criador possa apertar (MÁQUINA §3.2).
+E: dado qualquer estado de KYC, quando consultado, então o valor do contrato continua `retido` ou `bloqueado_por_verificacao` — nunca liberado, nunca perdido.
 
 ## Dinheiro — agenda de recebíveis (44–45)
 
@@ -181,6 +184,10 @@ Dado um contrato ainda não iniciado ou dentro da janela de cancelamento (remoto
 
 **63 — Pix, boleto e cartão**
 Dado um contrato em "aguardando pagamento", quando a marca escolhe o meio de pagamento, então o checkout processa exatamente as regras daquele meio (Pix sem teto, boleto sem teto, cartão com teto conforme verificação — SPEC §4.3.1) e o contrato só avança para "pago" com confirmação do provedor, nunca por marcação manual.
+E: dado um pagamento confirmado pelo provedor cujo aviso **nunca chegou**, quando o prazo de expiração vence, então o sistema consulta o provedor antes de expirar e **aplica o pagamento atrasado** — jamais marca `expirado_sem_pagamento` com dinheiro dentro do provedor (MÁQUINA §9.4).
+E: dado que o provedor confirma que não houve pagamento, quando o contrato vai expirar, então a cobrança é **cancelada no provedor antes** da expiração — senão um boleto pago depois entra sem contrato para recebê-lo.
+E: dado que o provedor não responde, quando o prazo vence, então a cobrança vai a `conciliacao_pendente`, o contrato **não se move**, e o caso entra na caixa de entrada.
+E: dado o mesmo aviso recebido duas vezes (mesmo `id`), quando processado, então a transição acontece **uma vez só**; dado um aviso pedindo transição impossível no estado atual, então ele é registrado e não força nada.
 
 ## Institucional e confiança (67, 70–75)
 
@@ -208,7 +215,11 @@ Dado duas avaliações pendentes do mesmo contrato, quando uma parte envia a sua
 ## Disputa (76, 80–84, 86)
 
 **76 — Abrir disputa**
-Dado um contrato em qualquer estado elegível (definido na MÁQUINA), quando criador ou marca abre disputa, então o dinheiro daquele contrato é congelado (nunca repassado) até resolução, e a outra parte é notificada para apresentar evidência.
+Dado um **marco financiado** em um dos seis estados elegíveis (`em_execucao`, `agendado`, `em_comprovacao`, `ajuste_solicitado`, `reenviado`, `em_permanencia`/`removido_antes_do_prazo` — lista única em MÁQUINA §10.0), quando a parte autorizada abre disputa, então o dinheiro daquele marco é congelado até a resolução e a outra parte é notificada para apresentar evidência.
+E: dado um marco em qualquer dos seis estados **não** elegíveis (`planejado`, `aguardando_pagamento`, `financiado`, `aguardando_insumo`, `aprovado`, `concluido`/`cancelado`), quando se tenta abrir disputa, então a ação é recusada com o motivo.
+E: dado um marco que entra em disputa, quando o contrato é consultado, então ele aparece em disputa **por derivação** — não existe botão que leve o contrato a `em_disputa` direto.
+E: dado um marco já em disputa, quando se tenta abrir uma segunda, então é recusada — no máximo uma disputa aberta por marco.
+E: dado uma disputa de permanência, quando decidida, então ela **não move dinheiro** — registra no histórico do criador ou o inocenta (MÁQUINA §10.0.1).
 
 **80 — Mediar disputa com evidências**
 Dado uma disputa aberta com evidência de ambas as partes, quando o operador abre o caso, então vê as evidências de criador e marca lado a lado, com timestamp de cada uma.
@@ -226,12 +237,15 @@ Dado uma decisão de suspensão/banimento, quando o operador aplica, então o mo
 Dado qualquer ação administrativa (suspender, liberar dinheiro, editar dado sensível), quando ela ocorre, então fica gravada com quem, quando e o quê — sem função de edição ou exclusão desse registro em lugar nenhum do produto.
 
 **86 — Reconciliação de pagamento**
-Dado um contrato travado por divergência com o provedor (ex.: webhook perdido), quando o operador aciona "reconsultar provedor", então o sistema busca o estado real no provedor e destrava o contrato automaticamente se a divergência se resolve.
+Dado um contrato travado por divergência com o provedor, quando o operador aciona "reconsultar provedor", então o sistema busca o estado real no provedor e destrava o contrato automaticamente se a divergência se resolve.
+E: dado que a reconsulta **automática** (varredura diária, SPEC §4.6.1, e todo vencimento de prazo) já roda antes disso, quando ela resolve a divergência, então nenhum item chega ao operador — a ação manual é a exceção, não a regra (MÁQUINA §9.4).
 
 ## Operação (88–89, 92)
 
 **88 — Caixa de entrada do operador**
 Dado qualquer item que precisa de ação humana (disputa, verificação recusada, reconciliação pendente), quando gerado, então aparece nessa caixa única, com prazo visível — nunca espalhado em múltiplas telas.
+E: dado uma recusa definitiva de KYC ou uma cobrança em `conciliacao_pendente`, quando ocorre, então um item é criado aqui — são os dois casos novos que MÁQUINA §3.2 e §9.4 despejam nesta caixa.
+⚠️ **O prazo visível desses dois itens novos ainda não tem número com fonte** — ver `BLOCKERS.md`.
 
 **89 — Painel do dono**
 Dado o Marco (ou quem ele designar) acessando o painel administrativo, quando aberto, então mostra os números vivos do negócio (contratos/mês, receita de comissão, fundo de contestação) — não uma cópia estática do painel de produto.

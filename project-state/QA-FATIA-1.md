@@ -92,6 +92,8 @@
 
 ---
 
-## 🔴 Lacunas encontradas — não resolvidas, aguardam decisão
+## ✅ As três lacunas foram fechadas (11/09)
 
-O `qa-estrategia` identificou três pontos onde a documentação atual não permite fechar a cobertura de teste. Registradas aqui, não decididas nesta rodada (ver `BLOCKERS.md`).
+O `qa-estrategia` identificou três pontos onde a documentação não permitia fechar a cobertura. O `arquiteto-tecnico` fechou os três em `MAQUINA-DE-ESTADOS.md` §3.2, §9.4 e §10.0 — e os critérios de aceite das funções 42, 63, 76, 86 e 88 foram atualizados em `ACEITE-FATIA-1.md`.
+
+**O que isso muda na cobertura acima:** nada de categoria. As três continuam onde estavam (42 e 63 em contrato de sandbox, 76 em automatizado obrigatório) — o que mudou é que agora **existe caso de teste fechado** para cada uma, em vez de uma decisão de cobertura sem alvo. O contrato de sandbox da 42 passa a ter que cobrir os seis pares `status`/`status_reason` do provedor.

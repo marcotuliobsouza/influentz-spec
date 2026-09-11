@@ -532,6 +532,11 @@ Nenhuma é decisão do Marco; todas viram documento em `/docs` quando respondere
 17. **Boleto emitido e não pago gera custo?** Se sim, quanto por boleto.
 18. 🔴 **Qual a taxa de chargeback por ocorrência, e ela é cobrada mesmo quando a disputa é ganha?** *(Referência de mercado: R$ 25 a R$ 80. Num contrato de R$ 1.200, essa taxa sozinha come 28% da comissão.)*
 19. 🔴 **Como se retém o valor do recebedor secundário até a liberação?** Split com data futura, split executado no ato da liberação, ou conta de garantia? **É a única peça do escrow sem mecânica escrita, e é o coração do produto.**
+20. 🔴 **Quantas vezes o webhook é reenviado em caso de falha, em que intervalos, e por quanto tempo o evento fica disponível para reenvio manual?** *(A documentação da v5 diz que o número é configurável; a API anterior falava em até 31 tentativas. Sem essa resposta não existe prazo de conciliação com fonte — ver MÁQUINA §9.4.)*
+21. 🔴 **Como autenticamos um webhook como legítimo?** Assinatura, cabeçalho, autenticação básica na URL — qual? *(A §4.11 manda guardar a assinatura; a documentação pública não descreve nenhuma.)*
+22. **O webhook garante entrega única e ordem?** Se não, confirmar que o identificador do evento (`hook_…`) é estável entre reenvios do mesmo evento.
+23. 🔴 **Recebedor com `kyc_details.status = denied` / `fully_denied` é recuperável?** Dá para criar um recebedor novo para o mesmo CPF com o dado corrigido, ou o CPF fica queimado na conta? *(Decide se a recusa definitiva encerra só o contrato ou a presença do criador na plataforma — ver MÁQUINA §3.2.)*
+24. **Cancelar uma cobrança ainda não paga impede o pagamento posterior de um boleto já emitido?** *(É a trava contra dinheiro órfão — MÁQUINA §9.4.)*
 
 ### 4.7 Cadastro fiscal do criador
 
