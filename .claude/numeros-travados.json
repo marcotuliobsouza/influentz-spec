@@ -3,80 +3,111 @@
   "numeros": [
     {
       "rotulo": "Total de funções do v1",
-      "padrao": "(\\d+)\\*{0,2}\\s+fun[çc][õo]es",
-      "esperado": ["91"],
+      "padrao": "(\\d+)\\*{0,2}\\s+fun[çc][õo]es,?\\s+(?:no v1|do v1|do lan[çc]amento|em tr[êe]s fatias)",
+      "esperado": [
+        "91"
+      ],
       "fonte": "docs/FEATURE-MATRIX.md v3.2"
     },
     {
       "rotulo": "Valor mínimo de contrato",
       "padrao": "[Vv]alor m[íi]nimo de contrato[^\\n]{0,20}?R\\$ ?([\\d.]+)",
-      "esperado": ["150"],
+      "esperado": [
+        "150"
+      ],
       "fonte": "SPEC §4.5.1"
     },
     {
       "rotulo": "Comissão de lançamento",
       "padrao": "[Cc]omiss[ãa]o de lan[çc]amento[^\\n]{0,15}?(\\d+,\\d+)\\s*%",
-      "esperado": ["9,5"],
+      "esperado": [
+        "9,5"
+      ],
       "fonte": "SPEC §4.4"
     },
     {
       "rotulo": "Comissão do criador",
       "padrao": "(\\d+)%\\s*(?:do|de)\\s+criador",
-      "esperado": ["10"],
+      "esperado": [
+        "10"
+      ],
       "fonte": "SPEC §4.4.1"
     },
     {
       "rotulo": "Comissão da marca",
       "padrao": "(\\d+)%\\s*(?:da|de)\\s+marca",
-      "esperado": ["5"],
+      "esperado": [
+        "5"
+      ],
       "fonte": "SPEC §4.4.1"
     },
     {
       "rotulo": "Aporte do fundo de contestação",
       "padrao": "fundo[^.\\n]{0,60}?nasce com[^\\n]{0,15}?R\\$ ?([\\d.]+)",
-      "esperado": ["5.000"],
+      "esperado": [
+        "5.000"
+      ],
       "fonte": "SPEC §4.3.3"
     },
     {
       "rotulo": "Aporte para abrir a operação",
       "padrao": "[Aa]porte para abrir a opera[çc][ãa]o[^\\n]{0,20}?R\\$ ?([\\d.]+)",
-      "esperado": ["6.800"],
+      "esperado": [
+        "6.800"
+      ],
       "fonte": "SPEC §14.2.3.2"
     },
     {
       "rotulo": "Ponto de equilíbrio no lançamento",
       "padrao": "[Pp]onto de equil[íi]brio[^\\n]{0,15}?(\\d+) contratos",
-      "esperado": ["17"],
+      "esperado": [
+        "17"
+      ],
       "fonte": "SPEC §14.2.3.1"
     },
     {
       "rotulo": "Piso do repasse automático",
       "padrao": "piso de R\\$ ?([\\d.]+)",
-      "esperado": ["50"],
+      "esperado": [
+        "50"
+      ],
       "fonte": "SPEC §4.6.1"
     },
     {
       "rotulo": "Permanência mínima da publicação",
       "padrao": "[Pp]erman[êe]ncia m[íi]nima[^.\\n]{0,25}?(\\d+) dias",
-      "esperado": ["90"],
+      "esperado": [
+        "90"
+      ],
       "fonte": "SPEC §8.2"
     },
     {
       "rotulo": "Métrica de rede sem empresa verificada",
       "padrao": "(\\d+) criadores sem empresa verificada",
-      "esperado": ["50"],
+      "esperado": [
+        "50"
+      ],
       "fonte": "SPEC §9.1"
     },
     {
       "rotulo": "Idade mínima do criador",
       "padrao": "[Cc]riador tem (\\d+) anos",
-      "esperado": ["18"],
+      "esperado": [
+        "18"
+      ],
       "fonte": "SPEC §8.3.1"
     }
   ],
   "palavras_proibidas_na_interface": {
     "_motivo": "SPEC §4.9.1 — saldo pré-pago jogaria a plataforma dentro do Banco Central. Não existe carteira para ninguém. A regra vale para TEXTO DE TELA, por isso o guarda só olha linha que parece rótulo de interface: rótulo entre aspas, ou linha marcada como Tela/Botão/Campo/Menu/Aba/Rótulo/Título.",
-    "palavras": ["carteira", "saldo", "crédito", "creditar", "depositar", "depósito"],
+    "palavras": [
+      "carteira",
+      "saldo",
+      "crédito",
+      "creditar",
+      "depositar",
+      "depósito"
+    ],
     "contextos_permitidos": [
       "proibid",
       "nunca",

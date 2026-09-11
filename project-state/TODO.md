@@ -4,8 +4,10 @@
 > atual ficam aqui registrados, não implementados por conta própria.
 
 ## Agora
-1. **Critério de aceite da fatia 1** — cada função da primeira fatia (`FEATURE-MATRIX.md` §8) ganha "PRONTO QUANDO…" verificável (Dado/Quando/Então ou equivalente). Trabalho do `qa-estrategia`, antes de qualquer tela nova.
-2. **Auditar `CLAUDE.md` contra este `project-state/`** — remover do CLAUDE.md o que já vive aqui, sem duplicar.
+1. ✅ **Critério de aceite da fatia 1** — feito, `ACEITE-FATIA-1.md` (68 critérios).
+2. ✅ **Auditar `CLAUDE.md` contra este `project-state/`** — feito na recuperação de 11/09.
+3. ✅ **Cobertura de teste da fatia 1** — feito, `QA-FATIA-1.md` (44 automatizado obrigatório · 6 contrato de sandbox · 18 manual no 1º ciclo).
+4. **Fechar as 3 lacunas de `MAQUINA-DE-ESTADOS.md`** listadas em `BLOCKERS.md` — trabalho do `arquiteto-tecnico`, antes de escrever os testes das funções 42, 63 e 76.
 
 ## Depois do critério de aceite
 3. Re-derivar as ~30 telas restantes da máquina de estados, uma jornada por vez.
