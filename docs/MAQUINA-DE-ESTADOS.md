@@ -757,7 +757,7 @@ Quando a publicação sai do ar antes do prazo, **o dinheiro já está com o cri
 
 ⚠️ **A disputa de permanência sai por duas portas, e nenhuma move dinheiro:** confirmado o descumprimento, o marco volta a `removido_antes_do_prazo` com o registro no histórico; inocentado o criador (o post caiu por ação da rede, não dele), o marco vai a `concluido`. **O laço entre os dois estados é finito** porque §10.0 trava um marco a uma disputa aberta por vez.
 
-🟡 **Por que esta é a única saída possível hoje, e não uma escolha entre três.** Cobrar o criador está fora do v1 por decisão travada e depende de parecer de advogado (SPEC §15). Pagar a marca pelo fundo mudaria o dimensionamento do fundo, que foi calculado com o `financeiro` contra risco de cartão. Sobra a reputação — e ela **só é honesta se a tela disser isso antes da contratação**, com o texto de §8.0.2, nunca depois do fato.
+🔴 **DECISÃO PENDENTE DO DONO — esta seção descreve uma proposta, não uma regra aprovada.** §8.0.3 proíbe **estorno automático**; não proíbe estorno decidido por mediação. E a máquina de disputa tem o estado `executada` ("dinheiro movimentado conforme a decisão") como desfecho normal — uma disputa que nunca o alcança usa uma máquina que não foi desenhada para ela. **Portanto "decide só reputação" não está comprovado pela documentação atual: é proposta.** Enquanto o dono não decidir, esta linha da tabela de §10.0 não deve virar código nem tela. Alternativas e efeitos: `project-state/BLOCKERS.md`.
 
 
 | Estado | Significado |
