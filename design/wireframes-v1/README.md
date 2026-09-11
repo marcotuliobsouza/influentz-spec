@@ -16,7 +16,7 @@ Cada `.dc.html` é uma tela (artboard) do canvas de design. `canvas.json` define
 | `Proposta.dc.html` | Proposta com campos estruturados (SPEC §3.1, §8.2) |
 | `Contrato.dc.html` | Acompanhamento do contrato e marcos (ponto de encontro marca/criador) |
 | `Pagamento.dc.html` | Checkout — Pix, boleto, cartão |
-| `Extrato.dc.html` | Carteira do criador — protegido / aguardando prazo / disponível (SPEC §4.2) |
+| `Extrato.dc.html` | Meus recebimentos — bloqueado / aguardando prazo / disponível / enviado (SPEC §4.6.1.2) |
 | `Chat.dc.html` | Chat vinculado ao contrato (SPEC §10) |
 | `Avaliacao.dc.html` | Avaliação mútua double-blind (SPEC §13.1) |
 
