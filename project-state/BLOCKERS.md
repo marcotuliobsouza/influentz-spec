@@ -17,6 +17,22 @@ Nenhum. As 3 lacunas da `MAQUINA-DE-ESTADOS.md` foram fechadas em 11/09 (§3.2, 
 
 **Furo mecânico na própria proposta de reputação:** a avaliação mútua (funções 74/75) acontece **ao fim do contrato**; a permanência dura 90 dias **depois** disso. Quando o post é removido no dia 40, **a nota já foi dada, publicada e fechada**. "Conta no histórico" existe; "conta na nota" não tem mecânica escrita.
 
+**Hipótese B investigada pelo `financeiro` (11/09) — resultado: NÃO COMPROVADA.** Três motivos, e o terceiro independe de qualquer dado futuro:
+
+1. **Falta o dado que decide.** A taxa de remoção precoce (`r`) não existe em documento nenhum — e é ela que separa "cabe em R$ 91/mês" de "drena o principal em 17 meses". Sem `r` só existe fórmula: `E_mensal = N × p_perm × r × ticket × f̄`. Ponto de equilíbrio no lançamento: `p_perm × r × f̄ ≤ 0,379%`.
+2. **Falta a estrutura de preço.** Nenhum documento separa quanto do preço é produção (já entregue, irreversível) e quanto é veiculação. Sem isso, devolução proporcional devolve trabalho feito.
+3. 🔴 **Defeito estrutural, verdadeiro para qualquer valor de `r`.** O piso do fundo é `2 × maior teto de cartão`. Pix e boleto não têm teto por decisão travada. **A fórmula do piso não contém variável capaz de enxergar a exposição de B.** Um contrato de R$ 30.000 por Pix — que é a rota que a SPEC §4.3.1 construiu de propósito para o cliente grande — expõe R$ 30.000 contra um fundo de R$ 5.000. Aumentar o aporte não corrige: qualquer aporte finito é superado pelo contrato seguinte.
+
+🔴 **E o achado que sozinho reprova B como está escrita — a aritmética do conluio, conferida nesta sessão:** contrato de R$ 1.200, a marca paga R$ 1.260 (preço + 5%), o criador recebe R$ 1.080 (preço − 10%). Publica, remove no dia 1, B devolve à marca. **O par desembolsou R$ 1.260 e recebeu R$ 2.340 — lucro de R$ 1.080 por ciclo, saído do fundo, em 24 horas.** Com Stories o ciclo dura uma hora. **Não é caso de borda: é o resultado dominante da regra.** O freio natural seria cobrar o criador, e isso está fora do v1 (SPEC §4.3 camada 6).
+
+**Red team: 7 de 12 casos não cobertos.** Dois são perda direta de caixa sem freio escrito: (a) marca recebe devolução do fundo **e depois** abre chargeback do mesmo contrato — a plataforma paga duas vezes, e nada impede; (b) conta do criador suspensa pela rede derruba N posts de uma vez — um evento, N devoluções simultâneas, sem má-fé de ninguém.
+
+**Dano colateral não escrito em lugar nenhum:** o fundo é obrigado a repor saldo negativo **no mesmo dia útil** para não travar saque de criador inocente (§4.3 camada 5). B cria um consumidor concorrente acionável pela vontade de um terceiro. **Fundo drenado por remoção de post = saque de criador inocente travado.**
+
+**As 6 condições objetivas que tirariam B de NÃO COMPROVADA:** medir `r` em produção antes de prometer em tela (o estado `removido_antes_do_prazo` já registra — o instrumento existe e é grátis) · congelar no contrato o percentual que é veiculação · teto de devolução que não dependa do teto de cartão, **visível ao pagar** · trava contra o par conluiado que não seja cobrança do criador (candidata: carência para par sem histórico) · regra de não-cumulação com chargeback do mesmo contrato · fonte de custeio própria, separada do fundo.
+
+⚠️ **Se B avançar, falta ainda o `antifraude`** — o vetor de conluio foi achado pelo `financeiro` de passagem; a revisão dedicada não foi feita.
+
 **Quatro alternativas reais** — efeitos completos na resposta ao Marco de 11/09. Nenhuma pode ser escolhida por engenharia.
 
 **Dependência jurídica registrada, sem parecer:** (1) se a relação criador↔plataforma for de consumo (pergunta em aberto, SPEC §15), prometer "direito de disputa" e entregar só registro pode ter leitura diferente de B2B; (2) cobrança do criador depende de parecer (SPEC §4.3 camada 6 e §15); (3) a redação da cláusula de permanência e do que acontece no descumprimento é trabalho de advogado, não nosso.

@@ -52,7 +52,8 @@ DOCS_DE_PRODUTO = {
 # Linha que compara com um cenário que NÃO é o escolhido — "a 7,5% seria 25
 # contratos" — está explicando a decisão, não afirmando outro número.
 CONTRAFACTUAL = re.compile(
-    r"\bseria\b|\bseriam\b|mudou de|em vez de|deixou de|no lugar de|\bantes era\b|\bnão é\b",
+    r"\bseria\b|\bseriam\b|mudou de|em vez de|deixou de|no lugar de|\bantes era\b|\bnão é\b"
+    r"|\bantig[oa]s?\b|\bficou para tr[áa]s\b",
     re.IGNORECASE,
 )
 
