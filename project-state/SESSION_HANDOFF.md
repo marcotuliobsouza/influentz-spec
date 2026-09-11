@@ -19,8 +19,10 @@ Critério de aceite da Fatia 1 escrito (68 funções), cobertura de teste decidi
 ## Regra de ouro desta sessão
 **Não redesenhe as telas ainda.** A próxima tarefa é derivar os casos de teste das funções 42, 63 e 76 (`TODO.md` #5), não uma tela nova. Redesenhar antes disso é repetir o erro que gerou 69% de retrabalho no inventário de funções (ver `docs/HISTORICO.md`).
 
-## Um item aguardando veto do Marco
-A disputa de permanência (post removido antes do prazo) decide **só reputação** — não move dinheiro. Não foi escolha: cobrar o criador está fora do v1 e pagar pelo fundo mudaria o dimensionamento dele. Registrado em `DECISIONS.md` e em MÁQUINA §10.0.1, marcado 🟡 até ele confirmar ou vetar.
+## Decisão fechada nesta rodada (11/09) — não reabrir sem dado novo
+Disputa de permanência: **Founder decidiu D** — registro de descumprimento, sem devolução financeira, no v1. B (devolução proporcional pelo fundo) foi investigada e está **NÃO COMPROVADA** (defeito estrutural: Pix/boleto sem teto expõe o fundo sem limite; aritmética de conluio é lucrativa). As 6 condições para reabrir B estão em `BLOCKERS.md`.
+
+**Pendência real, aguardando confirmação, não decisão nova:** a palavra "disputa" na MÁQUINA cobre dois mecanismos — um que pode mover dinheiro (pré-liberação) e outro que não pode (permanência, pós-liberação). Proposta de renomear está em `BLOCKERS.md`, **ainda não aplicada** a MÁQUINA nem SPEC.
 
 ## Postura esperada
 O Marco não é técnico e pediu explicitamente para não virar o gerente técnico do projeto: decisões de arquitetura, biblioteca e estrutura são minhas, sem perguntar (CLAUDE.md §2.1, categoria A). Só pergunto quando é dinheiro do bolso dele, gosto de marca, ou matar/manter uma função inteira.

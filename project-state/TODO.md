@@ -15,8 +15,11 @@
 3. Re-derivar as ~30 telas restantes da máquina de estados, uma jornada por vez.
 4. Re-sincronizar as 10 telas existentes com as decisões de dinheiro posteriores a 07/09 (comissão 9,5%, mínimo R$ 150, presencial, extrato do criador).
 
-## Correção pendente na SPEC (não aplicada — instrução de não alterar a SPEC nesta rodada)
-- 🔴 **SPEC §4.3 camada 5 (linha 204) diz que o fundo acumula R$ 90/mês (5% de R$ 1.800).** Esse número vem da comissão de lançamento antiga de 7,5%. A comissão travada é 9,5% = R$ 2.280/mês, e 5% disso é **R$ 114** — que é o que §4.3.3 já diz. A linha 204 ficou para trás e distorce a matemática em 21%. Achado pelo `financeiro` em 11/09.
+## ✅ Correção aplicada
+- SPEC §4.3 camada 5 corrigida: R$ 90/mês → R$ 114/mês (comissão travada 9,5%). Ver `DECISIONS.md`.
+
+## Aguardando confirmação do Founder
+- **Aplicar a distinção de terminologia "disputa" vs "registro de descumprimento de permanência"** aos documentos (MÁQUINA §8.0.3, §10.0, §10.0.1; SPEC onde citar). Proposta registrada em `BLOCKERS.md`, não aplicada ainda.
 
 ## Registrado, não implementado (fora do escopo desta recuperação)
 - **Nota stale em `Pagamento.dc.html`**: "requer CNPJ verificado" no cartão de crédito contradiz a decisão atual (cartão disponível a todos; CNPJ verificado só amplia o teto). Corrigir junto com o item 4, não isoladamente.
