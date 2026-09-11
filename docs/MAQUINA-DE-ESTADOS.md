@@ -387,10 +387,7 @@ stateDiagram-v2
     aprovado --> em_permanencia
     em_permanencia --> concluido
     em_permanencia --> removido_antes_do_prazo
-    em_permanencia --> em_disputa
-    removido_antes_do_prazo --> em_disputa
-    em_disputa --> concluido
-    em_disputa --> removido_antes_do_prazo
+    removido_antes_do_prazo --> concluido
     em_comprovacao --> em_disputa
     ajuste_solicitado --> em_disputa
     em_execucao --> em_disputa
@@ -415,7 +412,7 @@ stateDiagram-v2
 | `reenviado` | Criador reenviou | Atenção |
 | `aprovado` | Aprovado pela marca **ou por prazo vencido**. 🔴 **É aqui que o dinheiro é liberado, em todos os regimes** | Sucesso |
 | `em_permanencia` | Obrigação **depois** do pagamento: a publicação precisa continuar no ar pelo prazo combinado | Info |
-| `removido_antes_do_prazo` | Saiu do ar antes. Entra na caixa de entrada e conta no histórico do criador — **nunca gera estorno automático** | Atenção |
+| `removido_antes_do_prazo` | Saiu do ar antes. Entra na caixa de entrada (função 88) e conta no histórico do criador — **nunca gera estorno automático, nunca entra em `em_disputa`** (§10.0). Só sai por correção do operador, de volta a `concluido`, quando comprovado que a remoção não foi responsabilidade do criador | Atenção |
 | `concluido` | Permanência cumprida, ou regime que não tem permanência | Sucesso |
 | `em_disputa` | Congela tudo | Crítico |
 | `cancelado` | Não será entregue | Neutro |
@@ -730,7 +727,6 @@ Antes de qualquer transição para `expirado_sem_pagamento`, o sistema pergunta 
 | `em_comprovacao` | Marca e criador | A entrega não corresponde ao briefing; no presencial, um lado não confirma o comparecimento | §12.1, §8.5 |
 | `ajuste_solicitado` | Marca e criador | Ajuste contra mudança de escopo, com o campo congelado apontado | §8.4.1 |
 | `reenviado` | Marca e criador | Revisões esgotadas e o resultado segue fora do briefing | §8.4 |
-| `em_permanencia` · `removido_antes_do_prazo` | Marca | Publicação saiu do ar antes do prazo | §8.0.3 — ver §10.0.1 |
 
 **Os estados que não abrem disputa, e o motivo de cada um:**
 
@@ -740,24 +736,26 @@ Antes de qualquer transição para `expirado_sem_pagamento`, o sistema pergunta 
 | `financiado` | O trabalho não começou. A saída é o cancelamento na janela (§7.1) |
 | `aguardando_insumo` | §8.0.4 já dá caminho determinístico, com prazo e reembolso integral. Segunda porta para o mesmo problema é regra a mais sem problema a mais |
 | `aprovado` | O valor já foi liberado; o que vem depois é permanência, que tem a própria linha |
-| `concluido` · `cancelado` | A obrigação acabou. O que aparece depois é contestação de compra (§9.1) ou Trust & Safety, nunca escrow |
+| `em_permanencia` · `removido_antes_do_prazo` · `concluido` · `cancelado` | **A obrigação de pagamento já foi cumprida — não há escrow para uma disputa financeira decidir.** O que acontece depois de `aprovado` é contestação de compra (§9.1), Trust & Safety, ou o registro de descumprimento de permanência (§10.0.1) — nenhum dos três é a máquina de disputa financeira, e nenhum alcança `executada` |
 | `em_disputa` | **Um marco tem no máximo uma disputa aberta por vez.** Sem essa trava, duas disputas decidem o mesmo dinheiro |
 
 ⚠️ **A disputa guarda de onde saiu.** §10.1 manda voltar ao estado anterior quando os dois lados silenciam — sem `estado_anterior_a_disputa` gravado no marco, não há para onde voltar.
 
-#### 10.0.1 A disputa de permanência decide reputação, não dinheiro 🟡
+#### 10.0.1 Permanência descumprida não é disputa financeira — Founder Decision, 11/09 🟢
 
-Quando a publicação sai do ar antes do prazo, **o dinheiro já está com o criador** — permanência nunca segura repasse (regra travada, SPEC §8.2). A disputa existe, mas o que ela executa é diferente das outras:
+✅ **Decisão fechada.** Quando a publicação sai do ar antes do prazo, **o dinheiro já está com o criador** — permanência nunca segura repasse (regra travada, SPEC §8.2). Não há escrow para uma disputa financeira decidir, e este caso **nunca entra em `em_disputa`** nem na máquina de §10 — é um registro direto, não uma mediação:
 
-| O que ela faz | O que ela não faz |
+| O que acontece | O que não acontece |
 |---|---|
-| Registra o descumprimento no histórico do criador | Não estorna — o valor já foi liberado |
-| Conta na nota e na reputação dele | Não cobra o criador (débito ao criador está fora do v1, SPEC §4.3 camada 6) |
+| Registra o descumprimento no histórico do criador (`removido_antes_do_prazo`) | Não estorna — o valor já foi liberado |
+| Vira item na caixa de entrada do operador (função 88) | Não cobra o criador (débito ao criador está fora do v1, SPEC §4.3 camada 6) |
 | Mantém a cláusula contratual válida para a marca | Não paga a marca com o fundo de contestação — o fundo é dimensionado para chargeback de cartão (SPEC §4.3.3) |
 
-⚠️ **A disputa de permanência sai por duas portas, e nenhuma move dinheiro:** confirmado o descumprimento, o marco volta a `removido_antes_do_prazo` com o registro no histórico; inocentado o criador (o post caiu por ação da rede, não dele), o marco vai a `concluido`. **O laço entre os dois estados é finito** porque §10.0 trava um marco a uma disputa aberta por vez.
+⚠️ **A única porta de saída é a correção do operador**, de `removido_antes_do_prazo` de volta a `concluido` — só quando comprovado que a remoção não foi responsabilidade do criador. Não existe laço com `em_disputa`: a saída normal (descumprimento confirmado) já é o próprio estado `removido_antes_do_prazo`, sem transição nenhuma.
 
-🔴 **DECISÃO PENDENTE DO DONO — esta seção descreve uma proposta, não uma regra aprovada.** §8.0.3 proíbe **estorno automático**; não proíbe estorno decidido por mediação. E a máquina de disputa tem o estado `executada` ("dinheiro movimentado conforme a decisão") como desfecho normal — uma disputa que nunca o alcança usa uma máquina que não foi desenhada para ela. **Portanto "decide só reputação" não está comprovado pela documentação atual: é proposta.** Enquanto o dono não decidir, esta linha da tabela de §10.0 não deve virar código nem tela. Alternativas e efeitos: `project-state/BLOCKERS.md`.
+🔴 **NÃO COMPROVADO, registrado em vez de inventado:** não existe, em documento nenhum, um **critério objetivo** que diga como o operador distingue "o criador removeu" de "a rede removeu por ação dela". A API de verificação (§8.0.3) só detecta que o post saiu do ar — não o motivo. Enquanto esse critério não existir, a correção acontece por análise humana caso a caso, sem regra escrita — o que é aceitável para o volume desta fatia, mas precisa de critério antes de a caixa de entrada (função 88) crescer. Não é bloqueio para a decisão acima, que já está fechada; é bloqueio só para escrever a tela dessa correção específica.
+
+⚠️ **O que continua em aberto, e não é decidido aqui:** a palavra usada em §8.0.3 ("direito de disputa da marca") ainda não foi ajustada à nova estrutura — nomenclatura fica para rodada separada, por instrução explícita do Founder. Efeitos e histórico completo: `project-state/BLOCKERS.md`.
 
 
 | Estado | Significado |
