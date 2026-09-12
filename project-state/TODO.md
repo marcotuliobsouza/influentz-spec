@@ -18,6 +18,10 @@
 ## ✅ Correção aplicada
 - SPEC §4.3 camada 5 corrigida: R$ 90/mês → R$ 114/mês (comissão travada 9,5%). Ver `DECISIONS.md`.
 
+## 🔴 Aguardando AÇÃO do Founder — não é pergunta, é configuração
+
+- **Ligar a proteção do branch `main`** em `https://github.com/marcotuliobsouza/influentz-spec/settings/rules`. Os quatro itens estão escritos passo a passo em `.claude/guardas/LEIA-ME.md`. Enquanto não for feito, o repositório aceita integração sem verificação e sem aprovação — e nenhum documento deve afirmar o contrário. Só o dono do repositório consegue fazer isso; agente nenhum consegue.
+
 ## Aguardando confirmação do Founder
 - **Aplicar a distinção de terminologia "disputa" vs "registro de descumprimento de permanência"** aos documentos (MÁQUINA §8.0.3, §10.0, §10.0.1; SPEC onde citar). Proposta registrada em `BLOCKERS.md`, não aplicada ainda.
 

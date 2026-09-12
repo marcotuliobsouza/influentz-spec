@@ -1,0 +1,35 @@
+# Verificação independente dos guardas da INFLUENTZ.
+#
+# Por que existe: até aqui os guardas só rodavam na máquina do agente, no
+# turno do agente. Um agente pode dizer PASS; o repositório precisa poder
+# verificar PASS sozinho. Esta é a única camada que não depende de quem
+# escreveu o código.
+#
+# Roda o mesmo comando que roda localmente — nenhuma regra duplicada aqui.
+
+name: Guardas
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  guardas:
+    name: Documentos, telas e comandos
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Testes de regressão dos guardas
+        run: python3 .claude/guardas/testes.py
+
+      - name: Guardas sobre o repositório inteiro
+        run: python3 .claude/guardas/verificar.py

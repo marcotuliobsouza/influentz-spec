@@ -6,7 +6,7 @@
 >
 > **Obrigação de toda sessão:** ao mudar algo relevante, atualizar **os dois** — este arquivo e a página publicada, republicando o mesmo endereço.
 >
-> Atualizado em 10/09/2026.
+> Atualizado em 12/09/2026.
 
 ---
 
@@ -31,6 +31,8 @@ Três coisas fazem a plataforma valer o que cobra:
 > **1. Olhe a tela de contratar, no painel publicado.** Se você fosse a marca, fecharia nessa tela? O que te faria desistir?
 >
 > **2. A lista de cold start.** Quantos criadores e quantas marcas atenderiam seu telefone hoje? É o único item que nem dinheiro nem engenharia resolvem.
+>
+> **3. Cinco minutos no GitHub, e só você consegue fazer.** Ligar a proteção do código, em `github.com/marcotuliobsouza/influentz-spec` → Settings → Rules. O passo a passo está na seção [O que ainda não está protegido](#protecao). Hoje o repositório aceita qualquer alteração sem conferência — os conferentes travam **a mim**, não travam o repositório.
 
 **E um aviso, não pergunta:** separe **R$ 6.800** antes de abrir o CNPJ — R$ 5.000 do fundo de contestação + R$ 1.800 de capital de giro. Está detalhado mais abaixo, em "O dinheiro".
 
@@ -42,7 +44,9 @@ Três coisas fazem a plataforma valer o que cobra:
 | **Tarifa de saque do criador** | "A plataforma paga a tarifa" | **O provedor sempre cobra do criador; a plataforma absorve embutindo o valor no próprio pagamento**, não por uma configuração que não existe | Confirmado na documentação oficial: taxa de saque não é configurável, só a comissão é |
 | **Trabalho presencial** | Fora do v1 | **De volta ao v1**, liberado por confirmação bilateral dos dois lados — sua solução | "Não tem API" não é o mesmo que "não tem como confirmar". Confirmação bilateral já é o padrão usado em produto físico |
 | **Tela do criador** | Não existia | **Nova: extrato por contrato** — bloqueado, aguardando prazo, disponível, enviado | Você pediu para saber exatamente quanto e quando; hoje é a mesma informação que só existia para nós, agora com tela |
-| **Quem confere os documentos** | Você, no olho, achando número errado e texto fora de lugar | **Dois conferentes automáticos**, que rodam sozinhos a cada alteração e travam antes de a coisa chegar em você | Detalhe na seção [Os conferentes automáticos](#conferentes) — e eles já pegaram **cinco defeitos reais** na primeira varredura |
+| **Quem confere os documentos** | Você, no olho, achando número errado e texto fora de lugar | **Conferentes automáticos**, que rodam sozinhos a cada alteração e travam antes de a coisa chegar em você | Detalhe na seção [Os conferentes automáticos](#conferentes) — e eles já pegaram **cinco defeitos reais** na primeira varredura |
+| **O que eu podia fazer sozinho** | Tudo. Apagar, reescrever histórico, integrar código, publicar — só a minha palavra impedia | **Um terceiro conferente que não avisa: impede.** Comando que destrói trabalho é recusado sem exceção; comando que é decisão sua é recusado até você aprovar | "Regra escrita é conselho, código é lei" — e a regra mais importante do projeto ainda era só conselho |
+| **Quem garante que está tudo certo** | Eu dizia que conferi | **O GitHub confere sozinho**, a cada alteração, sem depender de mim | Eu não posso ser ao mesmo tempo quem faz e quem aprova |
 
 ### 🟢 Decidido — histórico, não precisa reler
 
@@ -54,10 +58,11 @@ Tudo isso já está fechado e não muda sem motivo novo. A lista completa está 
 
 **O problema, dito sem enfeite:** as regras do projeto viviam num arquivo de instruções que eu leio no começo de cada sessão. A própria documentação da Anthropic diz que esse arquivo é **conselho, não garantia** — o modelo lê e tenta seguir, e a aderência cai conforme o arquivo cresce. O nosso cresceu muito. **Era por isso que você encontrava o mesmo tipo de erro dez dias seguidos: número que não batia entre um documento e outro, palavra proibida numa tela, texto de desculpa dentro de documento de produto.**
 
-**O que passou a existir:** dois programas curtos que rodam sozinhos, sem depender de eu lembrar.
+**O que passou a existir:** três programas curtos que rodam sozinhos, sem depender de eu lembrar — e agora um deles **impede**, não só avisa.
 
 | Conferente | Quando age | O que trava |
 |---|---|---|
+| 🔴 **Conferente de comando** | **antes** de eu executar qualquer comando | **Bloqueia de verdade.** Apagar pastas, descartar trabalho não salvo, reescrever o histórico, mexer na pasta da marca — recusados sem exceção, nem eu consigo passar. Integrar código, publicar versão, colocar no ar — recusados até você aprovar explicitamente |
 | **Conferente de documento** | toda vez que qualquer documento é alterado | Número que não bate com o número travado do projeto · palavra proibida na tela (carteira, saldo, crédito, depositar — as que jogariam a plataforma dentro do Banco Central) · texto de autocrítica dentro de documento de produto |
 | **Conferente do painel** | quando a sessão termina | Documento mudar e este painel não acompanhar |
 
@@ -65,7 +70,27 @@ Tudo isso já está fechado e não muda sem motivo novo. A lista completa está 
 
 **E a calibragem, que é a parte que costuma ser pulada:** a primeira versão dos conferentes deu **30 alarmes falsos** só na especificação. Alarme falso demais e ninguém olha mais para o alarme. Foram apertados até o critério que vale daqui em diante: **zero aviso em documento correto.** Se algum dia um deles reclamar de algo legítimo, o conserto é o conferente — nunca desligá-lo.
 
+**Provado na frente do espelho, não no papel.** Nesta rodada eu tentei de propósito rodar dois comandos perigosos: os dois foram recusados. E aconteceu uma coisa melhor: **o conferente de comando bloqueou a minha própria escrita da página que o explica**, porque o texto *citava* um comando perigoso. Era alarme falso. Consertei o conferente e escrevi dois testes que provam que o conserto não abriu buraco — em vez de afrouxar a regra, que é o caminho fácil.
+
+**Achei também um defeito meu, no mesmo turno.** A palavra-chave de aprovação que eu tinha escolhido não funcionava no terminal, por causa de um hífen. Se eu não tivesse testado ao vivo, a sua aprovação nunca teria funcionado. Corrigido e testado.
+
 **O que isso muda para você:** você deixa de ser a última linha de defesa. Continua podendo vetar qualquer decisão — mas achar erro de conferência deixou de ser trabalho seu.
+
+<a id="protecao"></a>
+
+### 🔴 O que ainda NÃO está protegido — e por que eu não estou escondendo isso
+
+Os conferentes travam **a mim**. Eles não travam o repositório. Verifiquei hoje pela API do GitHub: o código da INFLUENTZ **não tem nenhuma proteção ligada**. Qualquer alteração pode entrar sem passar por conferência.
+
+Eu não consigo ligar isso — é configuração de dono, e o dono é você. São cinco minutos:
+
+1. Abrir `github.com/marcotuliobsouza/influentz-spec` → **Settings** → **Rules** → **New ruleset**.
+2. Aplicar ao branch **main**.
+3. Marcar **Require status checks to pass** e escolher a verificação chamada **Guardas**. É isso que impede entrar documento com número errado.
+4. Marcar **Require a pull request before merging**, **Block force pushes** e **Restrict deletions**.
+5. **Não** marcar "Require approvals" com número maior que zero enquanto você for o único dono — o GitHub não deixa você aprovar o seu próprio trabalho, e tudo travaria.
+
+Enquanto isso não for feito, nenhum documento deste projeto vai dizer que o código está protegido. **Prometer proteção que não existe é exatamente o que a gente combinou de nunca fazer.**
 
 ---
 

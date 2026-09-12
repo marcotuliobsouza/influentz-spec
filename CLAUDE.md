@@ -128,8 +128,11 @@ Nunca sair codando sem plano ("vibe coding"). Fonte: Anthropic, *Best practices 
 
 | Guarda | Quando roda | O que impede |
 |---|---|---|
+| 🔴 `.claude/hooks/guarda-comandos.py` | **antes** de todo comando de terminal | **Bloqueia, não avisa.** Faixa destrutiva sem escape (descarte forçado da árvore, reescrita de histórico remoto, remoção recursiva forçada, escrita em `docs/marca/`) · faixa de governança com escape explícito `APROVADO_PELO_FOUNDER=1` (integrar branch, publicar em `main`, tag, deploy) |
 | `.claude/hooks/guarda-documentos.py` | depois de toda escrita em `.md` | Número travado divergente entre documentos · palavra proibida na interface (carteira · saldo · crédito · depositar) dentro de rótulo de tela · autocrítica dentro de documento de produto (§2.4) |
 | `.claude/hooks/guarda-painel.py` | quando a sessão termina | Documento de produto mudar sem o `PAINEL.md` acompanhar (§7) |
+
+🔴 **Os guardas rodam em um comando e também no GitHub**, não só na máquina do agente: `python3 .claude/guardas/verificar.py` confere todos os documentos e telas, `python3 .claude/guardas/testes.py` roda a regressão. Saída 0 é PASS, 1 é FAIL, e a verificação `Guardas` repete os dois em todo push. **Um agente pode dizer PASS; o repositório verifica sozinho.** O que ainda depende de configuração manual do Founder — proteção de branch — está declarado em `.claude/guardas/LEIA-ME.md`, com o que falta e onde configurar.
 
 🔴 **`.claude/numeros-travados.json` é a fonte dos números travados.** Quando uma decisão de número muda de verdade, **muda-se ali primeiro** e o documento depois — na mesma entrega, dito ao Marco. Mudar o documento sozinho faz o guarda gritar, e é essa a intenção.
 
