@@ -243,9 +243,14 @@ E: dado que a reconsulta **automática** (varredura diária, SPEC §4.6.1, e tod
 ## Operação (88–89, 92)
 
 **88 — Caixa de entrada do operador**
-Dado qualquer item que precisa de ação humana (disputa, verificação recusada, reconciliação pendente), quando gerado, então aparece nessa caixa única, com prazo visível — nunca espalhado em múltiplas telas.
+Dado qualquer item que precisa de ação humana, quando gerado, então aparece nessa caixa única, com prazo visível — nunca espalhado em múltiplas telas. Os tipos de item são os já listados em `FEATURE-MATRIX.md` §6: verificação manual de contrato · reembolso que falhou · denúncia · prazo de defesa de contestação · cobrança acima do limite · contrato entre partes relacionadas · lista restritiva · produto extraviado · **publicação removida antes do prazo** · chamado de suporte.
 E: dado uma recusa definitiva de KYC ou uma cobrança em `conciliacao_pendente`, quando ocorre, então um item é criado aqui — são os dois casos novos que MÁQUINA §3.2 e §9.4 despejam nesta caixa.
-⚠️ **O prazo visível desses dois itens novos ainda não tem número com fonte** — ver `BLOCKERS.md`.
+E: dado um marco em `removido_antes_do_prazo`, quando o estado é gravado, então um item é criado aqui — e **nenhuma ação desta caixa move dinheiro nem leva o marco a `em_disputa`** (MÁQUINA §10.0 e §10.0.1, Founder Decision de 11/09).
+
+⚠️ **Três coisas deste item ainda não estão especificadas — registradas, não inferidas** (ver `BLOCKERS.md`):
+1. O **prazo visível** dos itens de KYC recusado, conciliação pendente e permanência — nenhum tem número com fonte.
+2. O **mapeamento** entre as duas ações genéricas da caixa (*resolver* / *recusar com motivo*, `FEATURE-MATRIX.md` §6) e os desfechos do item de permanência. Nos outros tipos de item as duas ações mudam estado; aqui só uma muda (`removido_antes_do_prazo → concluido`) e a outra não muda nada. Qual ação é qual **não está escrito**.
+3. O **critério objetivo** que distingue remoção pelo criador, remoção pela rede e outro motivo legítimo.
 
 **89 — Painel do dono**
 Dado o Marco (ou quem ele designar) acessando o painel administrativo, quando aberto, então mostra os números vivos do negócio (contratos/mês, receita de comissão, fundo de contestação) — não uma cópia estática do painel de produto.

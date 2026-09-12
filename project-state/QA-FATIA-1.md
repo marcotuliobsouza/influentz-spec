@@ -75,7 +75,7 @@
 | 83 — Suspender/banir | Dado sensível + dinheiro indireto | Automatizado obrigatório | Cliente-bom: marca banida não pode travar dinheiro do criador em contrato ativo |
 | 84 — Registro de auditoria imutável | Jurídico | Automatizado obrigatório | Ausência de editar/apagar só se prova testando que falha |
 | 86 — Reconciliação de pagamento | Dinheiro + terceiro | Contrato de sandbox | Depende do comportamento real de webhook perdido do Pagar.me |
-| 88 — Caixa de entrada do operador | UI operacional | Manual → automatiza ao repetir | Agrega itens de funções já cobertas |
+| 88 — Caixa de entrada do operador | UI operacional | Manual → automatiza ao repetir | Agrega itens de funções já cobertas — **com uma exceção**: a correção de `removido_antes_do_prazo → concluido` não tem função própria no `FEATURE-MATRIX.md` nem desfecho mapeado, então não está coberta por teste de outra função. Sem cobertura até a lacuna 2 de `ACEITE-FATIA-1.md` §88 ser fechada |
 | 89 — Painel do dono | UI/dado agregado | Manual → automatiza ao repetir | Leitura; fonte de dados já coberta em outras funções |
 | 92 — Prazo vencido: cancelar ou disputa | Dinheiro | Automatizado obrigatório | Cliente-bom: desvio para disputa é a proteção do criador que contesta |
 

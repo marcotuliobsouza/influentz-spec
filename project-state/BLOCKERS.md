@@ -86,8 +86,17 @@ Perguntas 20 a 24 da SPEC §4.6.2, criadas ao fechar as lacunas. Nenhuma impede 
 - **23** — se `denied`/`fully_denied` é recuperável com recebedor novo. Decide se a recusa definitiva encerra o contrato ou a presença do criador.
 - **24** — se cancelar cobrança impede pagamento posterior de boleto. É a trava contra dinheiro órfão.
 
-## Sem número com fonte (não invento)
-- **Prazo visível do item de conciliação e da recusa definitiva de KYC na caixa de entrada (função 88).** Todo item da 88 promete prazo; esses dois não têm SLA em documento nenhum. É decisão de operação (`infra`), não do Marco.
+## Função 88 — três lacunas de especificação, registradas em 12/09, nenhuma inventada
+
+A inspeção de 12/09 confirmou o que a função 88 **tem** (comprovado): recebe o evento "publicação removida antes do prazo" (`FEATURE-MATRIX.md` §6, SPEC §14); o operador é uma pessoa; as ações são duas, *resolver* ou *recusar com motivo*; o fluxo não move dinheiro; `removido_antes_do_prazo` não alcança `em_disputa` nem `executada`.
+
+O que **falta**, e por que não fechei por inferência:
+
+1. **Prazo visível dos itens.** Todo item da 88 promete prazo. Os de KYC recusado, conciliação pendente e permanência não têm SLA em documento nenhum. Decisão de operação (`infra`), não do Marco.
+2. 🔴 **Mapeamento das duas ações genéricas para o item de permanência — AINDA NÃO COMPROVADO.** Em todo outro tipo de item, *resolver* e *recusar com motivo* produzem mudança de estado (ex.: `aguardando_revisao_manual` → `aguardando_pagamento` ou `recusado_na_revisao`). No item de permanência só **uma** das duas muda estado (`removido_antes_do_prazo → concluido`); a outra confirma o registro e não muda nada. **Qual ação corresponde a qual desfecho não está escrito em lugar nenhum** — escolher seria decisão, não derivação.
+3. 🔴 **Critério objetivo criador × rede × outro motivo legítimo — AINDA NÃO COMPROVADO.** A API de verificação (§8.0.3) detecta ausência do post, nunca o motivo. Existe precedente estrutural no mesmo documento para alegações discordantes — produto físico usa *"o padrão da decisão é o rastreio, salvo prova em contrário"* (§8.0.4) — mas lá existe um documento de terceiro (rastreio da transportadora) e aqui não existe equivalente. **Não estendi o precedente**: seria inventar.
+
+**Consequência registrada, não resolvida:** a transição `removido_antes_do_prazo → concluido` existe na máquina e **não tem função própria** no `FEATURE-MATRIX.md`. Ela é executada por dentro da 88, mas sem desfecho mapeado (lacuna 2) fica sem cobertura de teste — anotado em `QA-FATIA-1.md`.
 
 ## Fora de escopo, para a próxima rodada de arquitetura
 - **`em_defesa` (§9.1) tem prazo fatal de 10 dias e nenhuma porta de saída por vencimento no diagrama.** A tabela descreve o prazo; a máquina não o executa. Achado na revisão adversarial, não relacionado às 3 lacunas.
